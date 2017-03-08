@@ -123,5 +123,33 @@ namespace Billing.API.Models
                 Items = invoice.Items.Select(x => Create(x)).ToList()
             };
         }
+
+        public ProcurementModel Create(Procurement procurement)
+        {
+            ProcurementModel model = new ProcurementModel()
+            {
+                Id = procurement.Id,
+                Quantity = procurement.Quantity,
+                Price = procurement.Price,
+                Date = procurement.Date,
+                Document = procurement.Document,
+                Product = procurement.Product.Name,
+                Supplier = procurement.Supplier.Name
+            };
+            return model;
+        }
+
+        public ProductModel Create(Product product)
+        {
+            return new ProductModel()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Category = product.Category.Name,
+                Unit = product.Unit,
+                Stock = (product.Stock == null) ? 0 : (int)(product.Stock.Input - product.Stock.Output)
+            };
+        }
     }
 }

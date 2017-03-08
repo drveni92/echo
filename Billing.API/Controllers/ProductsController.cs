@@ -13,19 +13,19 @@ namespace Billing.Api.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Ok(UnitOfWork.Procurement.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            return Ok(UnitOfWork.Products.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
-            return Ok(UnitOfWork.Procurement.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList());
+            return Ok(UnitOfWork.Products.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList());
         }
 
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            Product product = UnitOfWork.Procurement.Get(id);
+            Product product = UnitOfWork.Products.Get(id);
             if (product == null) return NotFound();
             return Ok(Factory.Create(product));
         }

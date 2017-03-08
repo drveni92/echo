@@ -30,7 +30,7 @@ namespace Billing.Repository
         public IBillingRepository<Invoice> Invoices { get { return _invoices ?? (_invoices = new BillingRepository<Invoice>(_context)); } }
         public IBillingRepository<Item> Items { get { return _items ?? (_items = new BillingRepository<Item>(_context)); } }
         public IBillingRepository<Procurement> Procurements { get { return _procurements ?? (_procurements = new BillingRepository<Procurement>(_context)); } }
-        public IBillingRepository<Product> Procurement { get { return _products ?? (_products = new BillingRepository<Product>(_context)); } }
+        public IBillingRepository<Product> Products { get { return _products ?? (_products = new BillingRepository<Product>(_context)); } }
         public IBillingRepository<Shipper> Shippers { get { return _shippers ?? (_shippers = new BillingRepository<Shipper>(_context)); } }
         public IBillingRepository<Supplier> Suppliers { get { return _suppliers ?? (_suppliers = new BillingRepository<Supplier>(_context)); } }
         public IBillingRepository<Town> Towns { get { return _towns ?? (_towns = new BillingRepository<Town>(_context)); } }

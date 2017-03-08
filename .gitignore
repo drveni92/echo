@@ -10,7 +10,7 @@
 bin/
 obj/
 packages/
-properties/
+#properties/
 migrations/
 DataSeed/
 

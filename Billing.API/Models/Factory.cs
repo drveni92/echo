@@ -53,5 +53,31 @@ namespace Billing.API.Models
                 InvoicesNo = shipper.Invoices.Select(x => x.InvoiceNo).ToList()
             };
         }
+
+        public TownModel Create(Town town)
+        {
+            return new TownModel()
+            {
+                Id = town.Id,
+                Name = town.Name,
+                Region = town.Region.ToString(),
+                Zip = town.Zip,
+                Customers = town.Customers.Select(x => x.Name).ToList(),
+                Suppliers = town.Suppliers.Select(x => x.Name).ToList(),
+                Shippers = town.Shippers.Select(x => x.Name).ToList(),
+                Agents = town.Agents.Select(x => x.Name).ToList()
+
+            };
+        }
+
+        public CategoryModel Create(Category category)
+        {
+            return new CategoryModel()
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Products = category.Products.Select(x => x.Name).ToList(),
+            };
+        }
     }
 }

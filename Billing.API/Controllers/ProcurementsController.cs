@@ -8,9 +8,9 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
-     [RoutePrefix("api/procurements")]
-      public class ProcurementsController : BaseController
-        {
+    [RoutePrefix("api/procurements")]
+    public class ProcurementsController : BaseController
+    {
         [Route("")]
         public IHttpActionResult Get()
         {
@@ -18,11 +18,11 @@ namespace Billing.API.Controllers
         }
 
         [Route("{id:int}")]
-            public IHttpActionResult GetById(int id)
-            {
-                Procurement procurement = UnitOfWork.Procurements.Get(id);
-                if (procurement == null) return NotFound();
-                return Ok(Factory.Create(procurement));
-            }
+        public IHttpActionResult GetById(int id)
+        {
+            Procurement procurement = UnitOfWork.Procurements.Get(id);
+            if (procurement == null) return NotFound();
+            return Ok(Factory.Create(procurement));
         }
+    }
 }

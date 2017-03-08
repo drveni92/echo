@@ -19,6 +19,7 @@ namespace Billing.API.Controllers
                                     Ok(UnitOfWork.Categories.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
+
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {

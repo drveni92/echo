@@ -70,8 +70,7 @@ namespace Billing.API.Models
             return new CategoryModel()
             {
                 Id = category.Id,
-                Name = category.Name,
-                Products = category.Products.Select(x => x.Name).ToList()
+                Name = category.Name
             };
         }
       

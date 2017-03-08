@@ -12,31 +12,27 @@ using System.Web.Http;
 namespace Billing.API.Controllers
 {
     [RoutePrefix("api/suppliers")]
-    public class SuppliersController : ApiController
+    public class SuppliersController : BaseController
     {
-        IBillingRepository<Supplier> suppliers = new BillingRepository<Supplier>(new BillingContext());
-        Factory factory = new Factory();
-
-
         [Route("{name?}")]
-        public IHttpActionResult Get(string name)
+        public IHttpActionResult Get(string name = null)
         {
-            return (name != null) ? Ok(suppliers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => factory.Create(a)).ToList()) :
-                                    Ok(suppliers.Get().ToList().Select(a => factory.Create(a)).ToList());
+            return (name != null) ? Ok(UnitOfWork.Suppliers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList()) :
+                                    Ok(UnitOfWork.Suppliers.Get().ToList().Select(a => Factory.Create(a)).ToList());
         }
         [Route("town/{town}")]
-        public IHttpActionResult GetSuppliersByTown(string town = null)
+        public IHttpActionResult GetSuppliersByTown(string town)
         {
-            return Ok(suppliers.Get().Where(x => x.Town.Name.Contains(town)).ToList().Select(x => factory.Create(x)).ToList());
+            return Ok(UnitOfWork.Suppliers.Get().Where(x => x.Town.Name.Contains(town)).ToList().Select(x => Factory.Create(x)).ToList());
 
         }
 
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            Supplier supplier = suppliers.Get(id);
+            Supplier supplier = UnitOfWork.Suppliers.Get(id);
             if (supplier == null) return NotFound();
-            return Ok(factory.Create(supplier));
+            return Ok(Factory.Create(supplier));
         }
     }
 }

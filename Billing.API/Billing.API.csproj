@@ -96,21 +96,28 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\ProcurementsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\ShippersController.cs" />
+    <Compile Include="Controllers\TownsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AgentModel.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\Factory.cs" />
     <Compile Include="Models\ProcurementModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\ShipperModel.cs" />
+    <Compile Include="Models\TownModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

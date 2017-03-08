@@ -37,5 +37,21 @@ namespace Billing.API.Models
             }
             return model;
         }
+
+        public ShipperModel Create(Shipper shipper)
+        {
+            ShipperModel model = new ShipperModel()
+            {
+                Id = shipper.Id,
+                Name = shipper.Name,
+                Address = shipper.Address,
+                Town = shipper.Town.Name
+            };
+            foreach (Invoice invoice in shipper.Invoices)
+            {
+                model.InvoicesNo.Add(invoice.InvoiceNo);
+            }
+            return model;
+        }
     }
 }

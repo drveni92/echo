@@ -38,6 +38,18 @@ namespace Billing.API.Models
             return model;
         }
 
+
+        public SupplierModel Create(Supplier supplier)
+        {
+            SupplierModel model = new SupplierModel()
+            {
+                Id = supplier.Id,
+                Name = supplier.Name,
+                Town = supplier.Town.Name,
+                Address = supplier.Address
+            };
+
+
         public ShipperModel Create(Shipper shipper)
         {
             ShipperModel model = new ShipperModel()

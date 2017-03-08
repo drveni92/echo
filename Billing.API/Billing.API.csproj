@@ -96,6 +96,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\ShippersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -103,6 +104,7 @@
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\Factory.cs" />
+    <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\ShipperModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

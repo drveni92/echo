@@ -56,6 +56,13 @@
     <Compile Include="BillingContext.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Item.cs" />
+
+    <Compile Include="Migrations\201703080845067_init.cs" />
+    <Compile Include="Migrations\201703080845067_init.Designer.cs">
+      <DependentUpon>201703080845067_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+
     <Compile Include="Procurement.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,6 +76,13 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703080845067_init.resx">
+      <DependentUpon>201703080845067_init.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

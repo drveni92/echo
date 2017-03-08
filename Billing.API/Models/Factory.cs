@@ -38,6 +38,7 @@ namespace Billing.API.Models
             return model;
         }
 
+
         public SupplierModel Create(Supplier supplier)
         {
             SupplierModel model = new SupplierModel()
@@ -48,6 +49,20 @@ namespace Billing.API.Models
                 Address = supplier.Address
             };
 
+
+        public ShipperModel Create(Shipper shipper)
+        {
+            ShipperModel model = new ShipperModel()
+            {
+                Id = shipper.Id,
+                Name = shipper.Name,
+                Address = shipper.Address,
+                Town = shipper.Town.Name
+            };
+            foreach (Invoice invoice in shipper.Invoices)
+            {
+                model.InvoicesNo.Add(invoice.InvoiceNo);
+            }
             return model;
         }
     }

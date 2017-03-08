@@ -61,12 +61,7 @@ namespace Billing.API.Models
                 Id = town.Id,
                 Name = town.Name,
                 Region = town.Region.ToString(),
-                Zip = town.Zip,
-                Customers = town.Customers.Select(x => x.Name).ToList(),
-                Suppliers = town.Suppliers.Select(x => x.Name).ToList(),
-                Shippers = town.Shippers.Select(x => x.Name).ToList(),
-                Agents = town.Agents.Select(x => x.Name).ToList()
-
+                Zip = town.Zip
             };
         }
 

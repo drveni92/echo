@@ -10,62 +10,48 @@ namespace Billing.API.Models
     {
         public AgentModel Create(Agent agent)
         {
-            AgentModel model = new AgentModel()
+            return new AgentModel()
             {
                 Id = agent.Id,
-                Name = agent.Name
+                Name = agent.Name,
+                Towns = agent.Towns.Where(x => x.Customers.Count != 0).Select(x => x.Name).ToList()
             };
-            foreach (Town town in agent.Towns.Where(x => x.Customers.Count > 0).ToList())
-            {
-                model.Towns.Add(town.Name);
-            }
-            return model;
         }
 
         public CustomerModel Create(Customer customer)
         {
-            CustomerModel model = new CustomerModel()
+            return new CustomerModel()
             {
                 Id = customer.Id,
                 Name = customer.Name,
-                Town = customer.Town.Name
+                Town = customer.Town.Name,
+                InvoicesNo = customer.Invoices.Select(x => x.InvoiceNo).ToList()
             };
-
-            foreach (Invoice invoice in customer.Invoices.ToList())
-            {
-                model.InvoicesNo.Add(invoice.InvoiceNo);
-            }
-            return model;
         }
 
 
         public SupplierModel Create(Supplier supplier)
         {
-            SupplierModel model = new SupplierModel()
+            return new SupplierModel()
             {
                 Id = supplier.Id,
                 Name = supplier.Name,
                 Town = supplier.Town.Name,
                 Address = supplier.Address
             };
-            return model;
         }
 
 
         public ShipperModel Create(Shipper shipper)
         {
-            ShipperModel model = new ShipperModel()
+            return new ShipperModel()
             {
                 Id = shipper.Id,
                 Name = shipper.Name,
                 Address = shipper.Address,
-                Town = shipper.Town.Name
+                Town = shipper.Town.Name,
+                InvoicesNo = shipper.Invoices.Select(x => x.InvoiceNo).ToList()
             };
-            foreach (Invoice invoice in shipper.Invoices)
-            {
-                model.InvoicesNo.Add(invoice.InvoiceNo);
-            }
-            return model;
         }
     }
 }

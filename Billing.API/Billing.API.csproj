@@ -97,6 +97,8 @@
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\ProcurementsController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\ShippersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -105,6 +107,8 @@
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\Factory.cs" />
+    <Compile Include="Models\ProcurementModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\ShipperModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

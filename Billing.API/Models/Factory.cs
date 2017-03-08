@@ -48,6 +48,8 @@ namespace Billing.API.Models
                 Town = supplier.Town.Name,
                 Address = supplier.Address
             };
+            return model;
+        }
 
 
         public ShipperModel Create(Shipper shipper)

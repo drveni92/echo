@@ -11,7 +11,7 @@ bin/
 obj/
 packages/
 #properties/
-migrations/
+#Migrations/
 DataSeed/
 
 # Build results

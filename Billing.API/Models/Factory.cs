@@ -53,5 +53,49 @@ namespace Billing.API.Models
                 InvoicesNo = shipper.Invoices.Select(x => x.InvoiceNo).ToList()
             };
         }
+
+        public ItemModel Create(Item item)
+        {
+            return new ItemModel()
+            {
+                Id = item.Id,
+                Price = item.Price,
+                Quantity = item.Quantity,
+                SubTotal = item.SubTotal
+            };
+        }
+
+        public InvoiceModel Create(Invoice invoice)
+        {
+            return new InvoiceModel()
+            {
+                Id = invoice.Id,
+                InvoiceNo = invoice.InvoiceNo,
+                Date = invoice.Date,
+                ShippedOn = invoice.Date,
+                SubTotal = invoice.SubTotal,
+                Vat = invoice.Vat,
+                VatAmount = invoice.VatAmount,
+                Shipping = invoice.Shipping,
+                Status = invoice.Status,
+                Total = invoice.Total,
+                Agent = new InvoiceModel.InvoiceAgent()
+                {
+                    Id = invoice.Agent.Id,
+                    Name = invoice.Agent.Name
+                },
+                Shipper = new InvoiceModel.InvoiceShipper()
+                {
+                    Id = invoice.Shipper.Id,
+                    Name = invoice.Shipper.Name
+                },
+                Customer = new InvoiceModel.InvoiceCustomer()
+                {
+                    Id = invoice.Customer.Id,
+                    Name = invoice.Customer.Name
+                },
+                Items = invoice.Items.Select(x => Create(x)).ToList()
+            };
+        }
     }
 }

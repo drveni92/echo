@@ -52,13 +52,29 @@ namespace Billing.API.Controllers
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri]int id, [FromBody]Shipper shipper)
+        public IHttpActionResult Put([FromUri]int id, [FromBody]ShipperModel model)
         {
             try
             {
+                Shipper shipper = Factory.Create(model);
                 UnitOfWork.Shippers.Update(shipper, id);
                 UnitOfWork.Commit();
-                return Ok(shipper);
+                return Ok(Factory.Create(shipper));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("{id:int}")]
+        public IHttpActionResult Delete([FromUri]int id)
+        {
+            try
+            {
+                UnitOfWork.Shippers.Delete(id);
+                UnitOfWork.Commit();
+                return Ok();
             }
             catch (Exception ex)
             {

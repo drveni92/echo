@@ -224,6 +224,7 @@ namespace Billing.API.Models
         {
             return new Shipper()
             {
+                Id = model.Id,
                 Name = model.Name,
                 Address = model.Address,
                 Town = _unitOfWork.Towns.Get(model.Town.Id)
@@ -247,6 +248,26 @@ namespace Billing.API.Models
                 Name = model.Name,
                 Towns = towns
 
+            };
+        }
+
+
+        public Category Create(CategoryModel model)
+        {
+            List<Product> products = new List<Product>();
+            foreach (var product in model.Product)
+            {
+                Product tmp = _unitOfWork.Products.Get().FirstOrDefault(x => x.Id == product.Id);
+                if (tmp != null)
+                {
+                    products.Add(tmp);
+                }
+            }
+            return new Category()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Products = products    
             };
         }
     }

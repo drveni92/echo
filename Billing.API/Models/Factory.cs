@@ -176,5 +176,23 @@ namespace Billing.API.Models
                 Town = _unitOfWork.Towns.Get(model.Town.Id)
             };
         }
+
+        public Agent Create(AgentModel model)
+        {
+            List<Town> towns = new List<Town>();
+            foreach (var town in model.Towns)
+            {
+                Town tmp = _unitOfWork.Towns.Get().FirstOrDefault(x => x.Id == town.Id);
+                if (tmp != null)
+                {
+                    towns.Add(tmp);
+                }
+            }
+            return new Agent()
+            {
+                Name = model.Name,
+                Towns = towns
+            };
+        }
     }
 }

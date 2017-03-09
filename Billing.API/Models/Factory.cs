@@ -81,7 +81,13 @@ namespace Billing.API.Models
                 Id = item.Id,
                 Price = item.Price,
                 Quantity = item.Quantity,
-                SubTotal = item.SubTotal
+                SubTotal = item.SubTotal,
+                Product = new ItemModel.ItemProduct()
+                {
+                    Id = item.Product.Id,
+                    Name = item.Product.Name,
+                    Unit = item.Product.Unit
+                }
             };
         }
 

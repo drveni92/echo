@@ -188,7 +188,8 @@ namespace Billing.API.Models
                 Name = model.Name,
                 Address = model.Address,
                 Town = _unitOfWork.Towns.Get(model.Town.Id)
-
+            };
+        }
 
         public Agent Create(AgentModel model)
         {

@@ -24,7 +24,7 @@ namespace Billing.API.Models
             {
                 Id = agent.Id,
                 Name = agent.Name,
-                Towns = agent.Towns.Where(x => x.Customers.Count != 0).Select(x => x.Name).ToList()
+                Towns = new List<AgentModel.AgentTown>(agent.Towns.Where(x => x.Customers.Count != 0).Select(x => new AgentModel.AgentTown() { Id = x.Id, Name = x.Name}).ToList())
             };
         }
 
@@ -180,6 +180,7 @@ namespace Billing.API.Models
                 Town = _unitOfWork.Towns.Get(model.Town.Id)
             };
         }
+
         public Shipper Create(ShipperModel model)
         {
             return new Shipper()
@@ -187,6 +188,24 @@ namespace Billing.API.Models
                 Name = model.Name,
                 Address = model.Address,
                 Town = _unitOfWork.Towns.Get(model.Town.Id)
+
+
+        public Agent Create(AgentModel model)
+        {
+            List<Town> towns = new List<Town>();
+            foreach (var town in model.Towns)
+            {
+                Town tmp = _unitOfWork.Towns.Get().FirstOrDefault(x => x.Id == town.Id);
+                if (tmp != null)
+                {
+                    towns.Add(tmp);
+                }
+            }
+            return new Agent()
+            {
+                Name = model.Name,
+                Towns = towns
+
             };
         }
     }

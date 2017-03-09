@@ -1,4 +1,5 @@
-﻿using Billing.Database;
+﻿using Billing.API.Models;
+using Billing.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,53 @@ namespace Billing.API.Controllers
             Procurement procurement = UnitOfWork.Procurements.Get(id);
             if (procurement == null) return NotFound();
             return Ok(Factory.Create(procurement));
+        }
+
+        [Route("")]
+        public IHttpActionResult Post([FromBody]ProcurementModel model)
+        {
+            try
+            {
+                Procurement procurement = Factory.Create(model);
+                UnitOfWork.Procurements.Insert(procurement);
+                UnitOfWork.Commit();
+                return Ok(Factory.Create(procurement));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("{id:int}")]
+        public IHttpActionResult Put([FromUri]int id, [FromBody]ProcurementModel model)
+        {
+            try
+            {
+                Procurement procurement = Factory.Create(model);
+                UnitOfWork.Procurements.Update(procurement, id);
+                UnitOfWork.Commit();
+                return Ok(Factory.Create(procurement));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("{id:int}")]
+        public IHttpActionResult Delete([FromUri]int id)
+        {
+            try
+            {
+                UnitOfWork.Procurements.Delete(id);
+                UnitOfWork.Commit();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

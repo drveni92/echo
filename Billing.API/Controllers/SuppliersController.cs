@@ -34,5 +34,52 @@ namespace Billing.API.Controllers
             if (supplier == null) return NotFound();
             return Ok(Factory.Create(supplier));
         }
+
+        [Route("")]
+        public IHttpActionResult Post([FromBody]SupplierModel model)
+        {
+            try
+            {
+                Supplier supplier = Factory.Create(model);
+                UnitOfWork.Suppliers.Insert(supplier);
+                UnitOfWork.Commit();
+                return Ok(Factory.Create(supplier));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("{id:int}")]
+        public IHttpActionResult Put([FromUri]int id, [FromBody]SupplierModel model)
+        {
+            try
+            {
+                Supplier supplier = Factory.Create(model);
+                UnitOfWork.Suppliers.Update(supplier, id);
+                UnitOfWork.Commit();
+                return Ok(Factory.Create(supplier));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("{id:int}")]
+        public IHttpActionResult Delete([FromUri]int id)
+        {
+            try
+            {
+                UnitOfWork.Suppliers.Delete(id);
+                UnitOfWork.Commit();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

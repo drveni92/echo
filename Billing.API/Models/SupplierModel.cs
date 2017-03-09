@@ -7,9 +7,14 @@ namespace Billing.API.Models
 {
     public class SupplierModel
     {
-        public string Town { get; set; }
+        public struct SupplierTown
+        {
+            public int Id;
+            public string Name;
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
+        public SupplierTown Town { get; set; }
     }
 }

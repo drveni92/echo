@@ -50,8 +50,12 @@ namespace Billing.API.Models
             {
                 Id = supplier.Id,
                 Name = supplier.Name,
-                Town = supplier.Town.Name,
-                Address = supplier.Address
+                Address = supplier.Address,
+                Town = new SupplierModel.SupplierTown()
+                {
+                    Id = supplier.Town.Id,
+                    Name = supplier.Town.Name
+                }
             };
         }
 
@@ -146,8 +150,16 @@ namespace Billing.API.Models
                 Price = procurement.Price,
                 Date = procurement.Date,
                 Document = procurement.Document,
-                Product = procurement.Product.Name,
-                Supplier = procurement.Supplier.Name
+                Product = new ProcurementModel.ProcurementProduct()
+                {
+                    Id = procurement.Product.Id,
+                    Name = procurement.Product.Name
+                },
+                Supplier = new ProcurementModel.ProcurementSupplier()
+                {
+                    Id = procurement.Supplier.Id,
+                    Name = procurement.Supplier.Name
+                }
             };
             return model;
         }
@@ -174,6 +186,32 @@ namespace Billing.API.Models
                 Name = model.Name,
                 Address = model.Address,
                 Town = _unitOfWork.Towns.Get(model.Town.Id)
+            };
+
+        }
+
+        public Supplier Create(SupplierModel model)
+        {
+            return new Supplier()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Address = model.Address,
+                Town = _unitOfWork.Towns.Get(model.Town.Id)
+            };
+        }
+
+        public Procurement Create(ProcurementModel model)
+        {
+            return new Procurement()
+            {
+                Id = model.Id,
+                Quantity = model.Quantity,
+                Price = model.Price,
+                Date = model.Date,
+                Document = model.Document,
+                Product = _unitOfWork.Products.Get(model.Product.Id),
+                Supplier = _unitOfWork.Suppliers.Get(model.Supplier.Id)
             };
         }
     }

@@ -190,6 +190,7 @@ namespace Billing.API.Models
             }
             return new Agent()
             {
+                Id = model.Id,
                 Name = model.Name,
                 Towns = towns
             };

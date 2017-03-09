@@ -7,6 +7,11 @@ namespace Billing.API.Models
 {
     public class ShipperModel
     {
+        public struct ShipperTown
+        {
+            public int Id;
+            public string Name;
+        }
         public ShipperModel()
         {
             InvoicesNo = new List<string>();
@@ -14,7 +19,7 @@ namespace Billing.API.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public string Town { get; set; }
+        public ShipperTown Town { get; set; }
         public List<string> InvoicesNo { get; internal set; }
     }
 }

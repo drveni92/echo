@@ -39,5 +39,10 @@ namespace Billing.Repository
         {
             _context.Dispose();
         }
+
+        public bool Commit()
+        {
+            return (_context.SaveChanges() > 0);
+        }
     }
 }

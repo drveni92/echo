@@ -1,4 +1,5 @@
 ﻿using Billing.Database;
+using Billing.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,15 @@ namespace Billing.API.Models
 {
     public class Factory
     {
+        private UnitOfWork _unitOfWork;
+
+        public Factory(UnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        //Entity To Model
+
         public AgentModel Create(Agent agent)
         {
             return new AgentModel()
@@ -24,11 +34,15 @@ namespace Billing.API.Models
             {
                 Id = customer.Id,
                 Name = customer.Name,
-                Town = customer.Town.Name,
+                Address = customer.Address,
+                Town = new CustomerModel.CustomerTown()
+                {
+                    Id = customer.Town.Id,
+                    Name = customer.Town.Name
+                },
                 InvoicesNo = customer.Invoices.Select(x => x.InvoiceNo).ToList()
             };
         }
-
 
         public SupplierModel Create(Supplier supplier)
         {
@@ -40,7 +54,6 @@ namespace Billing.API.Models
                 Address = supplier.Address
             };
         }
-
 
         public ShipperModel Create(Shipper shipper)
         {
@@ -149,6 +162,18 @@ namespace Billing.API.Models
                 Category = product.Category.Name,
                 Unit = product.Unit,
                 Stock = (product.Stock == null) ? 0 : (int)(product.Stock.Input - product.Stock.Output)
+            };
+        }
+
+        //Model To Entity
+
+        public Customer Create(CustomerModel model)
+        {
+            return new Customer()
+            {
+                Name = model.Name,
+                Address = model.Address,
+                Town = _unitOfWork.Towns.Get(model.Town.Id)
             };
         }
     }

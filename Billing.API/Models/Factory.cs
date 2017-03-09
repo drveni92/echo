@@ -187,6 +187,7 @@ namespace Billing.API.Models
         {
             return new Customer()
             {
+                Id = model.Id,
                 Name = model.Name,
                 Address = model.Address,
                 Town = _unitOfWork.Towns.Get(model.Town.Id)

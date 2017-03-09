@@ -1,4 +1,5 @@
-﻿using Billing.Database;
+﻿using Billing.API.Models;
+using Billing.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,54 @@ namespace Billing.API.Controllers
             Category category = UnitOfWork.Categories.Get(id);
             if (category == null) return NotFound();
             return Ok(Factory.Create(category));
+        }
+
+        [Route("")]
+        public IHttpActionResult Post([FromBody]CategoryModel model)
+        {
+            try
+            {
+                Category category = Factory.Create(model);
+                UnitOfWork.Categories.Insert(category);
+                UnitOfWork.Commit();
+                return Ok(Factory.Create(category));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [Route("{id:int}")]
+        public IHttpActionResult Put([FromUri]int id, [FromBody]CategoryModel model)
+        {
+            try
+            {
+                Category category = Factory.Create(model);
+                UnitOfWork.Categories.Update(category,id);
+                UnitOfWork.Commit();
+                return Ok(Factory.Create(category));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("{id:int}")]
+        public IHttpActionResult Delete([FromUri]int id)
+        {
+            try
+            {
+                UnitOfWork.Categories.Delete(id);
+                UnitOfWork.Commit();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

@@ -24,7 +24,7 @@ namespace Billing.API.Models
             {
                 Id = agent.Id,
                 Name = agent.Name,
-                Towns = agent.Towns.Where(x => x.Customers.Count != 0).Select(x => x.Name).ToList()
+                Towns = new List<AgentModel.AgentTown>(agent.Towns.Where(x => x.Customers.Count != 0).Select(x => new AgentModel.AgentTown() { Id = x.Id, Name = x.Name}).ToList())
             };
         }
 

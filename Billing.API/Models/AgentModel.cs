@@ -7,12 +7,17 @@ namespace Billing.API.Models
 {
     public class AgentModel
     {
+        public struct AgentTown
+        {
+            public int Id;
+            public string Name;
+        }
         public AgentModel()
         {
-            Towns = new List<string>();
+            Towns = new List<AgentTown>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<string> Towns { get; set; }
+        public List<AgentTown> Towns { get; set; }
     }
 }

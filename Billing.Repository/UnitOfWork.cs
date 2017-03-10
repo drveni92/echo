@@ -19,6 +19,7 @@ namespace Billing.Repository
         private IBillingRepository<Procurement> _procurements;
         private IBillingRepository<Product> _products;
         private IBillingRepository<Shipper> _shippers;
+        private IBillingRepository<Stock> _stocks;
         private IBillingRepository<Supplier> _suppliers;
         private IBillingRepository<Town> _towns;
 
@@ -32,6 +33,7 @@ namespace Billing.Repository
         public IBillingRepository<Procurement> Procurements { get { return _procurements ?? (_procurements = new BillingRepository<Procurement>(_context)); } }
         public IBillingRepository<Product> Products { get { return _products ?? (_products = new BillingRepository<Product>(_context)); } }
         public IBillingRepository<Shipper> Shippers { get { return _shippers ?? (_shippers = new BillingRepository<Shipper>(_context)); } }
+        public IBillingRepository<Stock> Stocks { get { return _stocks ?? (_stocks = new BillingRepository<Stock>(_context)); } }
         public IBillingRepository<Supplier> Suppliers { get { return _suppliers ?? (_suppliers = new BillingRepository<Supplier>(_context)); } }
         public IBillingRepository<Town> Towns { get { return _towns ?? (_towns = new BillingRepository<Town>(_context)); } }
 

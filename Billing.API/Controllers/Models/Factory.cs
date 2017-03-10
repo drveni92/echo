@@ -1,5 +1,4 @@
-﻿using Billing.Api.Models;
-using Billing.Database;
+﻿using Billing.Database;
 using Billing.Repository;
 using System;
 using System.Collections.Generic;
@@ -176,18 +175,9 @@ namespace Billing.API.Models
                 Id = product.Id,
                 Name = product.Name,
                 Price = product.Price,
-                Category = new ProductModel.ProductCategory()
-                {
-                    Id = product.Category.Id,
-                    Name = product.Category.Name
-                },
+                Category = product.Category.Name,
                 Unit = product.Unit,
-                Stock = new ProductModel.ProductStock()
-                {
-                    Input = product.Stock.Input,
-                    Output = product.Stock.Output,
-                    Inventory = product.Stock.Invertory
-                }
+                Stock = (product.Stock == null) ? 0 : (int)(product.Stock.Input - product.Stock.Output)
             };
         }
 
@@ -197,7 +187,6 @@ namespace Billing.API.Models
         {
             return new Customer()
             {
-                Id = model.Id,
                 Name = model.Name,
                 Address = model.Address,
                 Town = _unitOfWork.Towns.Get(model.Town.Id)
@@ -234,7 +223,6 @@ namespace Billing.API.Models
         {
             return new Shipper()
             {
-                Id = model.Id,
                 Name = model.Name,
                 Address = model.Address,
                 Town = _unitOfWork.Towns.Get(model.Town.Id)
@@ -258,40 +246,6 @@ namespace Billing.API.Models
                 Name = model.Name,
                 Towns = towns
 
-            };
-        }
-
-
-        public Category Create(CategoryModel model)
-        {
-            List<Product> products = new List<Product>();
-            foreach (var product in model.Product)
-            {
-                Product tmp = _unitOfWork.Products.Get().FirstOrDefault(x => x.Id == product.Id);
-                if (tmp != null)
-                {
-                    products.Add(tmp);
-                }
-            }
-            return new Category()
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Products = products    
-            };
-        }
-
-        public Product Create(ProductModel model)
-        {
-            Stock stock = _unitOfWork.Stocks.Get(model.Id);
-            return new Product()
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Price = model.Price,
-                Unit = model.Unit,
-                Category = _unitOfWork.Categories.Get(model.Category.Id),
-                //Stock = (stock != null) ? stock : new Stock() { Input = model.Stock.Input, Output = model.Stock.Output }
             };
         }
     }

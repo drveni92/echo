@@ -308,7 +308,7 @@ namespace Billing.API.Models
                 Unit = model.Unit,
                 Category = _unitOfWork.Categories.Get(model.Category.Id),
                 Stock = (stock != null) ? stock : new Stock() { Input = model.Stock.Input, Output = model.Stock.Output }
-            }
+            };
         }
         public Invoice Create(InvoiceModel model)
         {

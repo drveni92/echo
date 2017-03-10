@@ -28,7 +28,56 @@ namespace Billing.API.Controllers
                 if (town == null) return NotFound();
                 return Ok(Factory.Create(town));
             }
+
+        [Route("")]
+        public IHttpActionResult Post([FromBody]TownModel model)
+        {
+            try
+            {
+                Town town = Factory.Create(model);
+                UnitOfWork.Towns.Insert(town);
+                UnitOfWork.Commit();
+                return Ok(Factory.Create(town));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
+        [Route("{id}")]
+        public IHttpActionResult Put([FromUri]int id, [FromBody]TownModel model)
+        {
+            try
+            {
+                Town town = Factory.Create(model);
+                UnitOfWork.Towns.Update(town, id);
+                UnitOfWork.Commit();
+                return Ok(Factory.Create(town));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("{id:int}")]
+        public IHttpActionResult Delete([FromUri]int id)
+        {
+            try
+            {
+                UnitOfWork.Towns.Delete(id);
+                UnitOfWork.Commit();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+    }
 
     
 }

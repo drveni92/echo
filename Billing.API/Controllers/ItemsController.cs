@@ -9,19 +9,13 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
-    [RoutePrefix("api/invoices")]
-    public class InvoicesController : BaseController
+    [RoutePrefix("api/items")]
+    public class ItemsController : BaseController
     {
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Ok(UnitOfWork.Invoices.Get().ToList().Select(x => Factory.Create(x)).ToList());
-        }
-
-        [Route("invoiceno/{invoiceno}")]
-        public IHttpActionResult GetByInvoiceNo(string invoiceno)
-        {
-            return Ok(UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Equals(invoiceno)).ToList().Select(x => Factory.Create(x)).ToList());
+            return Ok(UnitOfWork.Items.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
         [Route("{id:int}")]
@@ -29,9 +23,9 @@ namespace Billing.API.Controllers
         {
             try
             {
-                Invoice invoice = UnitOfWork.Invoices.Get(id);
-                if (invoice == null) return NotFound();
-                return Ok(Factory.Create(invoice));
+                Item item = UnitOfWork.Items.Get(id);
+                if (item == null) return NotFound();
+                return Ok(Factory.Create(item));
             }
             catch (Exception ex)
             {
@@ -40,14 +34,14 @@ namespace Billing.API.Controllers
         }
 
         [Route("")]
-        public IHttpActionResult Post([FromBody]InvoiceModel model)
+        public IHttpActionResult Post([FromBody]ItemModel model)
         {
             try
             {
-                Invoice invoice = Factory.Create(model);
-                UnitOfWork.Invoices.Insert(invoice);
+                Item item = Factory.Create(model);
+                UnitOfWork.Items.Insert(item);
                 UnitOfWork.Commit();
-                return Ok(Factory.Create(invoice));
+                return Ok(Factory.Create(item));
             }
             catch (Exception ex)
             {
@@ -56,14 +50,14 @@ namespace Billing.API.Controllers
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri]int id, [FromBody]InvoiceModel model)
+        public IHttpActionResult Put([FromUri]int id, [FromBody]ItemModel model)
         {
             try
             {
-                Invoice invoice = Factory.Create(model);
-                UnitOfWork.Invoices.Update(invoice, id);
+                Item item = Factory.Create(model);
+                UnitOfWork.Items.Update(item, id);
                 UnitOfWork.Commit();
-                return Ok(Factory.Create(invoice));
+                return Ok(Factory.Create(item));
             }
             catch (Exception ex)
             {
@@ -76,7 +70,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                UnitOfWork.Invoices.Delete(id);
+                UnitOfWork.Items.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();
             }

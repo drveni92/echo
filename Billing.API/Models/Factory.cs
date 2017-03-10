@@ -109,6 +109,11 @@ namespace Billing.API.Models
                     Id = item.Product.Id,
                     Name = item.Product.Name,
                     Unit = item.Product.Unit
+                },
+                Invoice = new ItemModel.ItemInvoice()
+                {
+                    Id = item.Invoice.Id,
+                    InvoiceNo = item.Invoice.InvoiceNo
                 }
             };
         }
@@ -261,6 +266,17 @@ namespace Billing.API.Models
             };
         }
 
+        public Item Create(ItemModel model)
+        {
+            return new Item()
+            {
+                Id = model.Id,
+                Price = model.Price,
+                Quantity = model.Quantity,
+                Product = _unitOfWork.Products.Get(model.Product.Id),
+                Invoice = _unitOfWork.Invoices.Get(model.Invoice.Id)
+            };
+        }
 
         public Category Create(CategoryModel model)
         {
@@ -292,6 +308,50 @@ namespace Billing.API.Models
                 Unit = model.Unit,
                 Category = _unitOfWork.Categories.Get(model.Category.Id),
                 Stock = (stock != null) ? stock : new Stock() { Input = model.Stock.Input, Output = model.Stock.Output }
+            }
+        }
+        public Invoice Create(InvoiceModel model)
+        {
+            List<Item> items = new List<Item>();
+            foreach (ItemModel item in model.Items)
+            {
+                Item tmp = _unitOfWork.Items.Get(item.Id);
+                if (tmp != null) items.Add(tmp);
+            }
+            return new Invoice()
+            {
+                Id = model.Id,
+                Date = model.Date,
+                InvoiceNo = model.InvoiceNo,
+                ShippedOn = model.ShippedOn,
+                Shipping = model.Shipping,
+                Vat = model.Vat,
+                Status = model.Status,
+                Agent = _unitOfWork.Agents.Get(model.Agent.Id),
+                Customer = _unitOfWork.Customers.Get(model.Customer.Id),
+                Shipper = _unitOfWork.Shippers.Get(model.Shipper.Id),
+                Items = items
+            };
+        }
+
+        public Town Create(TownModel model)
+        {
+            List<Customer> customers = new List<Customer>();
+            foreach (var customer in model.Customers)
+            {
+                Customer tmp = _unitOfWork.Customers.Get().FirstOrDefault(x => x.Id == customer.Id);
+                if (tmp != null)
+                {
+                    customers.Add(tmp);
+                }
+            }
+            return new Town()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Region =(Region)Enum.Parse(typeof(Region), model.Region),
+                Zip = model.Zip,
+                Customers = customers
             };
         }
     }

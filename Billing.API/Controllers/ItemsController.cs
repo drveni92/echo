@@ -15,7 +15,7 @@ namespace Billing.API.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Ok(UnitOfWork.Agents.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            return Ok(UnitOfWork.Items.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
         [Route("{id:int}")]

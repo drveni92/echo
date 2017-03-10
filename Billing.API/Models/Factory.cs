@@ -291,7 +291,7 @@ namespace Billing.API.Models
                 Price = model.Price,
                 Unit = model.Unit,
                 Category = _unitOfWork.Categories.Get(model.Category.Id),
-                //Stock = (stock != null) ? stock : new Stock() { Input = model.Stock.Input, Output = model.Stock.Output }
+                Stock = (stock != null) ? stock : new Stock() { Input = model.Stock.Input, Output = model.Stock.Output }
             };
         }
     }

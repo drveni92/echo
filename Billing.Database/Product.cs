@@ -13,10 +13,6 @@ namespace Billing.Database
         {
             Items = new List<Item>();
             Procurements = new List<Procurement>();
-            Stock = new Stock()
-            {
-                Product = this
-            };
         }
 
         public int Id { get; set; }
@@ -26,8 +22,6 @@ namespace Billing.Database
         public string Unit { get; set; }
         [Required]
         public double Price { get; set; }
-
-        [Required(ErrorMessage = "Please set Stock for Product")]
         public virtual Stock Stock { get; set; }
 
         [Required]

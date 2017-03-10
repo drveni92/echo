@@ -270,5 +270,30 @@ namespace Billing.API.Models
                 Products = products    
             };
         }
+
+
+        public Town Create(TownModel model)
+        {
+            List<Customer> customers = new List<Customer>();
+            foreach (var customer in model.Customers)
+            {
+                Customer tmp = _unitOfWork.Customers.Get().FirstOrDefault(x => x.Id == customer.Id);
+                if (tmp != null)
+                {
+                    customers.Add(tmp);
+                }
+            }
+            return new Town()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Region =(Region)Enum.Parse(typeof(Region), model.Region),
+                Zip = model.Zip,
+                Customers = customers
+
+            };
+        }
+
+
     }
 }

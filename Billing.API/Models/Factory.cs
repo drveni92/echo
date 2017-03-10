@@ -196,6 +196,17 @@ namespace Billing.API.Models
             };
         }
 
+        public StockModel Create(Stock stock)
+        {
+            return new StockModel()
+            {
+                Id = stock.Id,
+                Input = stock.Input,
+                Output = stock.Output,
+                Product = new StockModel.StockProduct() { Id = stock.Product.Id, Name = stock.Product.Name }
+            };
+        }
+        
         //Model To Entity
 
         public Customer Create(CustomerModel model)
@@ -310,6 +321,7 @@ namespace Billing.API.Models
                 Stock = (stock != null) ? stock : new Stock() { Input = model.Stock.Input, Output = model.Stock.Output }
             };
         }
+
         public Invoice Create(InvoiceModel model)
         {
             List<Item> items = new List<Item>();

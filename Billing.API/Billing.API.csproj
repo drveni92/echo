@@ -102,6 +102,7 @@
     <Compile Include="Controllers\ProcurementsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
+    <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\ShippersController.cs" />
     <Compile Include="Controllers\TownsController.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\StockModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\ShipperModel.cs" />
     <Compile Include="Models\TownModel.cs" />

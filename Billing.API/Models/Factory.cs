@@ -287,6 +287,29 @@ namespace Billing.API.Models
             };
         }
 
+        public Invoice Create(InvoiceModel model)
+        {
+            List<Item> items = new List<Item>();
+            foreach (ItemModel item in model.Items)
+            {
+                Item tmp = _unitOfWork.Items.Get(item.Id);
+                if (tmp != null) items.Add(tmp);
+            }
+            return new Invoice()
+            {
+                Id = model.Id,
+                Date = model.Date,
+                InvoiceNo = model.InvoiceNo,
+                ShippedOn = model.ShippedOn,
+                Shipping = model.Shipping,
+                Vat = model.Vat,
+                Status = model.Status,
+                Agent = _unitOfWork.Agents.Get(model.Agent.Id),
+                Customer = _unitOfWork.Customers.Get(model.Customer.Id),
+                Shipper = _unitOfWork.Shippers.Get(model.Shipper.Id),
+                Items = items
+            };
+        }
 
         public Town Create(TownModel model)
         {
@@ -309,7 +332,5 @@ namespace Billing.API.Models
 
             };
         }
-
-
     }
 }

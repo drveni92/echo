@@ -92,7 +92,9 @@ namespace Billing.API.Models
             return new CategoryModel()
             {
                 Id = category.Id,
-                Name = category.Name
+                Name = category.Name,
+                Products = new List<CategoryModel.CategoryProduct>(category.Products.Select(x => new CategoryModel.CategoryProduct() { Id = x.Id, Name = x.Name, Unit = x.Unit,  Price = x.Price }).ToList())
+
             };
         }
       
@@ -292,7 +294,7 @@ namespace Billing.API.Models
         public Category Create(CategoryModel model)
         {
             List<Product> products = new List<Product>();
-            foreach (var product in model.Product)
+            foreach (var product in model.Products)
             {
                 Product tmp = _unitOfWork.Products.Get().FirstOrDefault(x => x.Id == product.Id);
                 if (tmp != null)

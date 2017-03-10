@@ -108,6 +108,11 @@ namespace Billing.API.Models
                     Id = item.Product.Id,
                     Name = item.Product.Name,
                     Unit = item.Product.Unit
+                },
+                Invoice = new ItemModel.ItemInvoice()
+                {
+                    Id = item.Invoice.Id,
+                    InvoiceNo = item.Invoice.InvoiceNo
                 }
             };
         }
@@ -251,6 +256,17 @@ namespace Billing.API.Models
             };
         }
 
+        public Item Create(ItemModel model)
+        {
+            return new Item()
+            {
+                Id = model.Id,
+                Price = model.Price,
+                Quantity = model.Quantity,
+                Product = _unitOfWork.Products.Get(model.Product.Id),
+                Invoice = _unitOfWork.Invoices.Get(model.Invoice.Id)
+            };
+        }
 
         public Category Create(CategoryModel model)
         {

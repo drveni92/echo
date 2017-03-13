@@ -267,6 +267,7 @@ namespace Billing.API.Models
                 {
                     towns.Add(tmp);
                 }
+                else throw new Exception("Town not found");
             }
             return new Agent()
             {

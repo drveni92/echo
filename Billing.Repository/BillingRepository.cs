@@ -24,6 +24,7 @@ namespace Billing.Repository
         public void Delete(int id)
         {
             Entity entity = Get(id);
+            if (entity == null) throw new ArgumentException("Entity not found");
             dbSet.Remove(entity);
         }
 

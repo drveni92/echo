@@ -49,9 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomersRepository.cs" />
     <Compile Include="IBillingRepository.cs" />
+    <Compile Include="InvoicesRepository.cs" />
+    <Compile Include="ItemsRepository.cs" />
+    <Compile Include="ProcurementsRepository.cs" />
+    <Compile Include="ProductsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BillingRepository.cs" />
+    <Compile Include="ShippersRepository.cs" />
+    <Compile Include="SuppliersRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

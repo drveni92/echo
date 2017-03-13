@@ -98,6 +98,15 @@ namespace Billing.Tests
         }
 
         [TestMethod]
+        public void GetProductsByName()
+        {
+            GetReady();
+            var actRes = controller.Get("Projector LCD 7788");
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+            Assert.IsNotNull(response.Content);
+        }
+
+        [TestMethod]
         public void GetProductById()
         {
             GetReady();

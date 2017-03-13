@@ -21,6 +21,12 @@ namespace Billing.API.Controllers
                                     Ok(UnitOfWork.Customers.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
+        [Route("town/{id}")]
+        public IHttpActionResult GetByTown(int id)
+        {
+            return Ok(UnitOfWork.Customers.Get().ToList().Where(x => x.Town.Id == id).Select(x => Factory.Create(x)).ToList());
+        }
+
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {

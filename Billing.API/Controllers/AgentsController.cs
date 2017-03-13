@@ -21,6 +21,19 @@ namespace Billing.API.Controllers
                                     Ok(UnitOfWork.Agents.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
+        [Route("town/{id}")]
+        public IHttpActionResult GetByTown(int id)
+        {
+            return Ok(UnitOfWork.Agents.Get().ToList().Where(x =>
+            {
+                foreach (Town town in x.Towns)
+                {
+                    if (town.Id == id) return true;
+                }
+                return false;
+            }).Select(x => Factory.Create(x)).ToList());
+        }
+
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {

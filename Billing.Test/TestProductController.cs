@@ -17,74 +17,8 @@ namespace Billing.Tests
     {
         ProductsController controller = new ProductsController();
         HttpConfiguration config = new HttpConfiguration();
-
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/products");
 
-        [TestInitialize]
-        public void InitTest()
-        {
-            using (BillingContext context = new BillingContext())
-            {
-                context.Database.Delete();
-                context.Database.Create();
-
-                Category category1 = new Category()
-                {
-                    Name = "Monitor"
-                };
-
-                Category category2 = new Category()
-                {
-                    Name = "Projector"
-                };
-
-                context.Categories.Add(category1);
-                context.Categories.Add(category2);
-                context.SaveChanges();
-
-                Product product1 = new Product()
-                {
-                    Name = "Monitor LCD 6557",
-                    Unit = "pcs",
-                    Price = 609,
-                    Category = category1,
-                    Stock = new Stock()
-                };
-
-                Product product2 = new Product()
-                {
-                    Name = "Monitor LCD 4489",
-                    Unit = "pcs",
-                    Price = 529,
-                    Category = category1,
-                    Stock = new Stock()
-                };
-
-                Product product3 = new Product()
-                {
-                    Name = "Projector LCD 7788",
-                    Unit = "pcs",
-                    Price = 529,
-                    Category = category2,
-                    Stock = new Stock()
-                };
-
-                Product product4 = new Product()
-                {
-                    Name = "Projector LCD 7788",
-                    Unit = "pcs",
-                    Price = 529,
-                    Category = category2
-                };
-
-                context.Products.Add(product1);
-                context.Products.Add(product2);
-                context.Products.Add(product3);
-                context.Products.Add(product4);
-                context.SaveChanges();
-
-            }
-        }
 
         void GetReady()
         {
@@ -120,7 +54,7 @@ namespace Billing.Tests
         public void GetProductById()
         {
             GetReady();
-            var actRes = controller.Get(1);
+            var actRes = controller.Get(2);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);
@@ -180,7 +114,7 @@ namespace Billing.Tests
         public void DeleteById()
         {
             GetReady();
-            var actRes = controller.Delete(4);
+            var actRes = controller.Delete(3);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);

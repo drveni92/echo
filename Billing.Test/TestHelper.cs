@@ -50,6 +50,8 @@ namespace Billing.Test
 
             unit.Products.Insert(new Product() { Name = "Racunar Dell 2866", Unit = "pcs", Price = 700, Category = unit.Categories.Get(1) });
             unit.Products.Insert(new Product() { Name = "Laptop Dell 2866", Unit = "pcs", Price = 699, Category = unit.Categories.Get(2) });
+            unit.Products.Insert(new Product() { Name = "Laptop  2866", Unit = "pcs", Price = 699, Category = unit.Categories.Get(2) });
+
             unit.Commit();
 
             unit.Invoices.Insert(new Invoice()

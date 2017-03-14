@@ -79,5 +79,21 @@ namespace Billing.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Route("invoice/{id}")]
+        public IHttpActionResult GetItemsByInvoice(int id)
+        {
+            var items = UnitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList().Select(x => Factory.Create(x)).ToList();
+            if (items.Count != 0) return Ok(items);
+            return NotFound();
+        }
+
+        [Route("product/{id}")]
+        public IHttpActionResult GetItemByProduct(int id)
+        {
+            var items = UnitOfWork.Items.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList();
+            if (items.Count != 0) return Ok(items);
+            return NotFound();
+        }
     }
 }

@@ -24,7 +24,9 @@ namespace Billing.API.Controllers
         [Route("town/{id}")]
         public IHttpActionResult GetByTown(int id)
         {
-            return Ok(UnitOfWork.Customers.Get().ToList().Where(x => x.Town.Id == id).Select(x => Factory.Create(x)).ToList());
+            var customers = UnitOfWork.Customers.Get().ToList().Where(x => x.Town.Id == id).Select(x => Factory.Create(x)).ToList();
+            if (customers.Count != 0) return Ok(customers);
+            return NotFound();
         }
 
         [Route("{id:int}")]

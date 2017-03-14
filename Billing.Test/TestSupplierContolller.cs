@@ -24,61 +24,6 @@ namespace Billing.Test
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/suppliers");
 
-        [TestInitialize]
-        public void Init()
-        {
-            using (BillingContext context = new BillingContext())
-            {
-                context.Database.Delete();
-                context.Database.Create();
-
-                Town town1 = new Town()
-                {
-                    Name = "Sarajevo",
-                    Region = Region.Sarajevo,
-                    Zip = "71300"
-                };
-
-                Town town2 = new Town()
-                {
-                    Name = "Zenica",
-                    Region = Region.Zenica,
-                    Zip = "71000"
-                };
-
-                context.Towns.Add(town1);
-                context.Towns.Add(town2);
-                context.SaveChanges();
-
-                Supplier supplier1 = new Supplier()
-                {
-                    Name = "OTOKA COMPANY",
-                    Address ="Hiseta 13",
-                    Town = town1
-                };
-
-                Supplier supplier2 = new Supplier()
-                {
-                    Name = "HECO",
-                    Address = "Lukavička cesta 11",
-                    Town = town1
-                };
-
-                Supplier supplier3 = new Supplier()
-                {
-                    Name = "CENTAR",
-                    Address = "Safeta Heđića 65a",
-                    Town = town2
-                };
-
-
-                context.Suppliers.Add(supplier1);
-                context.Suppliers.Add(supplier2);
-                context.Suppliers.Add(supplier3);
-                context.SaveChanges();
-            }
-        }
-
         void GetReady()
         {
             var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
@@ -92,7 +37,7 @@ namespace Billing.Test
         [TestMethod]
         public void GetAllSuppliers()
         {
-            Init();
+            TestHelper.InitDatabase();
             GetReady();
             var actRes = controller.Get();
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;

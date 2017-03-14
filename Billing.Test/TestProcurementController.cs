@@ -24,100 +24,6 @@ namespace Billing.Test
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/procurements");
 
-        [TestInitialize]
-        public void InitTest()
-        {
-            using (BillingContext context = new BillingContext())
-            {
-                context.Database.Delete();
-                context.Database.Create();
-
-                Category category1 = new Category()
-                {
-                    Name = "Monitor"
-                };
-
-                context.Categories.Add(category1);
-                context.SaveChanges();
-
-                Product product1 = new Product()
-                {
-                    Name = "Monitor LCD 5566",
-                    Unit = "pcs",
-                    Price = 332,
-                    Category = category1,
-                    Stock = new Stock()
-                };
-
-                Product product2 = new Product()
-                {
-                    Name = "Monitor LG 6699",
-                    Unit = "pcs",
-                    Price = 444,
-                    Category = category1,
-                    Stock = new Stock()
-
-                };
-
-                context.Products.Add(product1);
-                context.Products.Add(product2);
-                context.SaveChanges();
-
-                Town town1 = new Town()
-                {
-                    Name = "Sarajevo",
-                    Region = Region.Sarajevo,
-                    Zip = "71300"
-                };
-
-                context.Towns.Add(town1);
-                context.SaveChanges();
-
-                Supplier supplier1 = new Supplier()
-                {
-                    Name = "OTOKA&CO",
-                    Address = "Safeta Sušića 11",
-                    Town = town1
-                };
-
-                Supplier supplier2 = new Supplier()
-                {
-                    Name = "BUTMIR&CO",
-                    Address = "Hiseta Adzije 12",
-                    Town = town1
-                };
-
-                context.Suppliers.Add(supplier1);
-                context.Suppliers.Add(supplier2);
-                context.SaveChanges();
-
-                Procurement procurement1 = new Procurement()
-                {
-                    Quantity = 3,
-                    Price = 77,
-                    Date = DateTime.UtcNow,
-                    Document = "08000001", 
-                    Product = product1,
-                    Supplier = supplier1
-                };
-
-                Procurement procurement2 = new Procurement()
-                {
-                    Quantity = 5,
-                    Price = 123,
-                    Date = DateTime.UtcNow,
-                    Document = "09000001",
-                    Product = product2,
-                    Supplier = supplier2
-                };
-
-                context.Procurements.Add(procurement1);
-                context.Procurements.Add(procurement2);
-                context.SaveChanges();
-
-            }
-        }
-
         void GetReady()
         {
             var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
@@ -131,7 +37,7 @@ namespace Billing.Test
         [TestMethod]
         public void GetAllProcurements()
         {
-            InitTest();
+            TestHelper.InitDatabase();
             GetReady();
             var actRes = controller.Get();
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
@@ -152,9 +58,9 @@ namespace Billing.Test
         [TestMethod]
         public void GetProcurementsByDocumentGood()
         {
-            InitTest();
+        
             GetReady();
-            var actRes = controller.GetByDocument("08000001");
+            var actRes = controller.GetByDocument("2055-2");
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);
@@ -163,9 +69,9 @@ namespace Billing.Test
         [TestMethod]
         public void GetProcurementsByDocumentBad()
         {
-            InitTest();
+        
             GetReady();
-            var actRes = controller.GetByDocument("A456");
+            var actRes = controller.GetByDocument("AAAAA");
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -175,7 +81,7 @@ namespace Billing.Test
         public void GetProcurementsByProductGood()
         {
             GetReady();
-            var actRes = controller.GetByProductId(1);
+            var actRes = controller.GetByProductId(2);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);

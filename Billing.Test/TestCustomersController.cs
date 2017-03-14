@@ -22,52 +22,7 @@ namespace Billing.Test
         CustomersController controller = new CustomersController();
         HttpConfiguration config = new HttpConfiguration();
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/customers");
-
-        [TestInitialize]
-        void Init()
-        {
-            using (BillingContext context = new BillingContext())
-            {
-                context.Database.Delete();
-                context.Database.Create();
-
-                Town town = new Town()
-                {
-                    Name = "Sarajevo",
-                    Region = Region.Sarajevo,
-                    Zip = "7100"
-                };
-
-                Town town2 = new Town()
-                {
-                    Name = "Zenica",
-                    Region = Region.Zenica,
-                    Zip = "71241"
-                };
-
-                context.Towns.Add(town);
-                context.Towns.Add(town2);
-                context.SaveChanges();
-
-                Customer customer = new Customer()
-                {
-                    Name = "Džeko",
-                    Address = "Adresa bb",
-                    Town = town
-                };
-
-                Customer customer2 = new Customer()
-                {
-                    Name = "Pjanić",
-                    Address = "Adresa bb",
-                    Town = town
-                };
-
-                context.Customers.Add(customer);
-                context.Customers.Add(customer2);
-                context.SaveChanges();
-            }
-        }
+       
 
         void GetReady()
         {
@@ -82,7 +37,7 @@ namespace Billing.Test
         [TestMethod]
         public void GetAllCustomers()
         {
-            Init();
+            TestHelper.InitDatabase();
             GetReady();
             var actRes = controller.Get();
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
@@ -184,7 +139,7 @@ namespace Billing.Test
         public void DeleteById()
         {
             GetReady();
-            var actRes = controller.Delete(1);
+            var actRes = controller.Delete(2);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);

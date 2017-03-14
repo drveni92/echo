@@ -20,38 +20,7 @@ namespace Billing.Test
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/categories");
 
-        [TestInitialize]
-        public void Init()
-        {
-            using (BillingContext context = new BillingContext())
-            {
-                context.Database.Delete();
-                context.Database.Create();
-
-                Category category1 = new Category()
-                {
-                    Name = "Desktop",
-                };
-
-                Category category2 = new Category()
-                {
-                    Name = "Laptop",
-                };
-
-                Category category3 = new Category()
-                {
-                    Name = "Printer",
-                };
-
-                context.Categories.Add(category1);
-                context.Categories.Add(category2);
-                context.Categories.Add(category3);
-                context.SaveChanges();
-          
-            }
-        }
-
-
+  
         void GetReady()
         {
             var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
@@ -65,7 +34,7 @@ namespace Billing.Test
         [TestMethod]
         public void GetAllSCategories()
         {
-            Init();
+            TestHelper.InitDatabase();
             GetReady();
             var actRes = controller.Get();
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;

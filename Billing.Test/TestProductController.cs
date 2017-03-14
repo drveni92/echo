@@ -8,6 +8,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Hosting;
 using Billing.Database;
 using Billing.Api.Models;
+using Billing.Test;
 
 namespace Billing.Tests
 {
@@ -98,7 +99,7 @@ namespace Billing.Tests
         [TestMethod]
         public void GetAllProducts()
         {
-            InitTest();
+            TestHelper.InitDatabase();
             GetReady();
             var actRes = controller.Get();
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;

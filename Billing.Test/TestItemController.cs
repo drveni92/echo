@@ -22,128 +22,7 @@ namespace Billing.Test
         HttpConfiguration config = new HttpConfiguration();
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/items");
-
-        [TestInitialize]
-        public void Init()
-        {
-            using (BillingContext context = new BillingContext())
-            {
-                context.Database.Delete();
-                context.Database.Create();
-
-                Product product = new Product()
-                {
-                    Name = "Laptop",
-                    Price = 25.5,
-                    Stock = new Stock(),
-                    Unit = "pcs",
-                    Category = new Category() { Name = "Laptops" }
-                };
-
-                Product product2 = new Product()
-                {
-                    Name = "Notebook",
-                    Price = 25,
-                    Stock = new Stock(),
-                    Unit = "pcs",
-                    Category = new Category() { Name = "Laptops" }
-                };
-
-                context.Products.Add(product);
-                context.Products.Add(product2);
-                context.SaveChanges();
-
-                Town town = new Town()
-                {
-                    Name = "Sarajevo",
-                    Region = Region.Sarajevo,
-                    Zip = "7100"
-                };
-
-                context.Towns.Add(town);
-                context.SaveChanges();
-
-                Shipper shipper = new Shipper()
-                {
-                    Name = "ShipperName",
-                    Address = "Unknown",
-                    Town = town
-                };
-
-                context.Shippers.Add(shipper);
-                context.SaveChanges();
-
-                Customer customer = new Customer()
-                {
-                    Name = "Amer",
-                    Address = "Sarajevo bb",
-                    Town = town
-                };
-
-                Customer customer2 = new Customer()
-                {
-                    Name = "Dejan",
-                    Address = "Sarajevo bb",
-                    Town = town
-                };
-
-                context.Customers.Add(customer);
-                context.Customers.Add(customer2);
-                context.SaveChanges();
-
-                Agent agent = new Agent()
-                {
-                    Name = "Dejan",
-                    Towns = new List<Town>() { town }
-                };
-
-                Agent agent2 = new Agent()
-                {
-                    Name = "Amer",
-                    Towns = new List<Town>() { town }
-                };
-
-                context.Agents.Add(agent);
-                context.Agents.Add(agent2);
-                context.SaveChanges();
-
-                Invoice invoice = new Invoice()
-                {
-                    InvoiceNo = "AG4E21",
-                    Vat = 17,
-                    Status = 0,
-                    Shipping = 250,
-                    Date = DateTime.UtcNow,
-                    Shipper = shipper,
-                    Customer = customer,
-                    Agent = agent
-                };              
-
-                context.Invoices.Add(invoice);        
-                context.SaveChanges();
-
-
-                Item item1 = new Item()
-                {
-                    Quantity = 10,
-                    Price = 1444,
-                    Product = product,
-                    Invoice = invoice
-                };
-
-                Item item2 = new Item()
-                {
-                    Quantity = 20,
-                    Price = 44,
-                    Product = product,
-                    Invoice = invoice
-                };
-      
-                context.Items.Add(item1);
-                context.Items.Add(item2);
-                context.SaveChanges();
-            }
-        }
+        
 
         void GetReady()
         {
@@ -158,7 +37,7 @@ namespace Billing.Test
         [TestMethod]
         public void GetAllItems()
         {
-            Init();
+            TestHelper.InitDatabase();
             GetReady();
             var actRes = controller.Get();
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
@@ -190,7 +69,7 @@ namespace Billing.Test
         public void GetItemByInvoiceGood()
         {
             GetReady();
-            var actRes = controller.GetItemsByInvoice(1);
+            var actRes = controller.GetItemsByInvoice(2);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);

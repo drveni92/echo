@@ -21,65 +21,7 @@ namespace Billing.Test
         HttpConfiguration config = new HttpConfiguration();
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/agents");
-
-        [TestInitialize]
-        public void Init()
-        {
-            using (BillingContext context = new BillingContext())
-            {
-                context.Database.Delete();
-                context.Database.Create();
-
-                Town town1 = new Town()
-                {
-                    Name = "Sarajevo",
-                    Region = Region.Sarajevo,
-                    Zip = "71300"
-                };
-
-                Town town2 = new Town()
-                {
-                    Name = "Zenica",
-                    Region = Region.Zenica,
-                    Zip = "71000"
-                };
-
-                context.Towns.Add(town1);
-                context.Towns.Add(town2);
-                context.SaveChanges();
-
-                Shipper shipper1 = new Shipper()
-                {
-                    Name = "EuroExpress",
-                    Address = "Jovana Dučića 23",
-                    Town = town1,
-                    Invoices = new List<Invoice>() { }
-                };
-
-                Shipper shipper2 = new Shipper()
-                {
-                    Name = "UPS Courier",
-                    Address = "Ismeta Šerbe 3",
-                    Town = town1,
-                    Invoices = new List<Invoice>() { }
-
-                };
-
-                Shipper shipper3 = new Shipper()
-                {
-                    Name = "Bh Pošta",
-                    Address = "Zahira Panjete 55",
-                    Town = town1,
-                    Invoices = new List<Invoice>() { }
-
-                };
-
-                context.Shippers.Add(shipper1);
-                context.Shippers.Add(shipper2);
-                context.Shippers.Add(shipper3);
-                context.SaveChanges();
-            }
-        }
+   
 
         void GetReady()
         {
@@ -94,7 +36,7 @@ namespace Billing.Test
         [TestMethod]
         public void GetAllShippers()
         {
-            Init();
+            TestHelper.InitDatabase();
             GetReady();
             var actRes = controller.Get();
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;

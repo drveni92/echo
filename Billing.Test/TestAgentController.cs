@@ -24,56 +24,7 @@ namespace Billing.Test
         HttpConfiguration config = new HttpConfiguration();
 
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/agents");
-
-        [TestInitialize]
-        public void Init()
-        {
-            using(BillingContext context = new BillingContext())
-            {
-                context.Database.Delete();
-                context.Database.Create();
-
-                Town town = new Town()
-                {
-                    Name = "Sarajevo",
-                    Region = Region.Sarajevo,
-                    Zip = "71300"
-                };
-
-                Town town2 = new Town()
-                {
-                    Name = "Zenica",
-                    Region = Region.Zenica,
-                    Zip = "71000"
-                };
-
-                context.Towns.Add(town2);
-                context.Towns.Add(town);
-                context.SaveChanges();
-
-                Agent agent = new Agent()
-                {
-                    Name = "Dejan",
-                    Towns = new List<Town>() { town }
-                };
-
-                Agent agent2 = new Agent()
-                {
-                    Name = "Amer",
-                    Towns = new List<Town>() { town2 }
-                };
-
-                Agent agent3 = new Agent()
-                {
-                    Name = "Amar",
-                    Towns = new List<Town>() { town }
-                };
-
-                context.Agents.Add(agent);
-                context.SaveChanges();
-            }
-        }
-
+ 
         void GetReady()
         {
             var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
@@ -87,7 +38,7 @@ namespace Billing.Test
         [TestMethod]
         public void GetAllAgents()
         {
-            Init();
+            TestHelper.InitDatabase();
             GetReady();
             var actRes = controller.Get();
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
@@ -177,7 +128,7 @@ namespace Billing.Test
         public void DeleteById()
         {
             GetReady();
-            var actRes = controller.Delete(1);
+            var actRes = controller.Delete(2);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);

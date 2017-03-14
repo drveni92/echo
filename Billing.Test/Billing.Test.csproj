@@ -81,6 +81,7 @@
     <Compile Include="TestProductController.cs" />
     <Compile Include="TestSupplierContolller.cs" />
     <Compile Include="TestShipperController.cs" />
+    <Compile Include="TestProcurementController.cs" />
     <Compile Include="TestCategoryController.cs" />
   </ItemGroup>
   <ItemGroup>

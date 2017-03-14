@@ -187,12 +187,12 @@ namespace Billing.API.Models
                     Name = product.Category.Name
                 },
                 Unit = product.Unit,
-                Stock = new ProductModel.ProductStock()
+                Stock = (product.Stock != null) ? new ProductModel.ProductStock()
                 {
                     Input = product.Stock.Input,
                     Output = product.Stock.Output,
                     Inventory = product.Stock.Invertory
-                }
+                } : new ProductModel.ProductStock()
             };
         }
 

@@ -77,10 +77,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestAgentController.cs" />
     <Compile Include="TestCustomersController.cs" />
+    <Compile Include="TestInvoicesController.cs" />
     <Compile Include="TestProductController.cs" />
     <Compile Include="TestSupplierContolller.cs" />
     <Compile Include="TestShipperController.cs" />
     <Compile Include="TestProcurementController.cs" />
+    <Compile Include="TestCategoryController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

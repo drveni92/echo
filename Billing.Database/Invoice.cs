@@ -16,6 +16,8 @@ namespace Billing.Database
         public int Id { get; set; }
 
         [Required]
+        [Index(IsUnique = true)]
+        [MaxLength(15, ErrorMessage = "Max length of invoice number is 50")]
         public string InvoiceNo { get; set; }
 
         public DateTime Date { get; set; }

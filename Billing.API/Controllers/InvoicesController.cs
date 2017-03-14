@@ -21,7 +21,25 @@ namespace Billing.API.Controllers
         [Route("invoiceno/{invoiceno}")]
         public IHttpActionResult GetByInvoiceNo(string invoiceno)
         {
-            return Ok(UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Equals(invoiceno)).ToList().Select(x => Factory.Create(x)).ToList());
+            var invoices = UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Equals(invoiceno)).ToList().Select(x => Factory.Create(x)).ToList();
+            if (invoices.Count != 0) return Ok(invoices);
+            return NotFound();
+        }
+
+        [Route("customer/{id}")]
+        public IHttpActionResult GetByInvoicesByCustomerId(int id)
+        {
+            var customers = UnitOfWork.Invoices.Get().Where(x => x.Customer.Id == id).ToList().Select(x => Factory.Create(x)).ToList();
+            if(customers.Count != 0) return Ok(customers);
+            return NotFound();
+        }
+
+        [Route("agent/{id}")]
+        public IHttpActionResult GetByInvoicesByAgentId(int id)
+        {
+            var agents = UnitOfWork.Invoices.Get().Where(x => x.Agent.Id == id).ToList().Select(x => Factory.Create(x)).ToList();
+            if (agents.Count != 0) return Ok(agents);
+            return NotFound();
         }
 
         [Route("{id:int}")]
@@ -76,6 +94,8 @@ namespace Billing.API.Controllers
         {
             try
             {
+                var invoice = UnitOfWork.Invoices.Get(id);
+                if (invoice.Items.Count != 0) return BadRequest($"Invoice {invoice.InvoiceNo} has items.");
                 UnitOfWork.Invoices.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

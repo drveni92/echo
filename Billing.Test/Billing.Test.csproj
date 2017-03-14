@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestAgentController.cs" />
+    <Compile Include="TestCustomersController.cs" />
     <Compile Include="TestProductController.cs" />
     <Compile Include="TestShipperController.cs" />
   </ItemGroup>

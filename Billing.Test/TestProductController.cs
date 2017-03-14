@@ -68,9 +68,18 @@ namespace Billing.Tests
                     Stock = new Stock()
                 };
 
+                Product product4 = new Product()
+                {
+                    Name = "Projector LCD 7788",
+                    Unit = "pcs",
+                    Price = 529,
+                    Category = category2
+                };
+
                 context.Products.Add(product1);
                 context.Products.Add(product2);
                 context.Products.Add(product3);
+                context.Products.Add(product4);
                 context.SaveChanges();
 
             }
@@ -170,10 +179,20 @@ namespace Billing.Tests
         public void DeleteById()
         {
             GetReady();
-            var actRes = controller.Delete(1);
+            var actRes = controller.Delete(4);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public void DeleteByPrdocutWithStock()
+        {
+            GetReady();
+            var actRes = controller.Delete(1);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
         [TestMethod]

@@ -21,9 +21,9 @@ namespace Billing.API.Controllers
         }
 
         [Route("town/{town}")]
-        public IHttpActionResult GetShippersByTown(string town)
+        public IHttpActionResult GetShippersByTown(int id)
         {
-            return Ok(UnitOfWork.Shippers.Get().Where(x => x.Town.Name.Contains(town)).ToList().Select(x => Factory.Create(x)).ToList());
+            return Ok(UnitOfWork.Shippers.Get().Where(x => x.Town.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
 
         }
 

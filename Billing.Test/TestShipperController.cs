@@ -111,14 +111,14 @@ namespace Billing.Test
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
             Assert.IsNotNull(response.Content);
         }
-        //[TestMethod]
-        //public void GetShippersByTown()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Get("shippers/1");
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
-        //    Assert.IsNotNull(response.Content);
-        //}
+        [TestMethod]
+        public void GetShippersByTown()
+        {
+            GetReady();
+            var actRes = controller.GetShippersByTown(1);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+            Assert.IsNotNull(response.Content);
+        }
 
         [TestMethod]
         public void GetShipperById()

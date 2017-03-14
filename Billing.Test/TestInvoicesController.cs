@@ -162,7 +162,7 @@ namespace Billing.Test
         {
             Init();
             GetReady();
-            var actRes = controller.GetByInvoiceNo("invoiceno/AG4E21");
+            var actRes = controller.GetByInvoiceNo("AG4E21");
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);
@@ -173,10 +173,10 @@ namespace Billing.Test
         {
             Init();
             GetReady();
-            var actRes = controller.GetByInvoiceNo("invoiceno/12345");
+            var actRes = controller.GetByInvoiceNo("12345");
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-            Assert.IsNotNull(response.Content);
+            Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
         [TestMethod]

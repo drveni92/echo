@@ -75,6 +75,8 @@ namespace Billing.Test
                 };
 
                 context.Shippers.Add(shipper1);
+                context.Shippers.Add(shipper2);
+                context.Shippers.Add(shipper3);
                 context.SaveChanges();
             }
         }
@@ -148,16 +150,6 @@ namespace Billing.Test
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
-        //[TestMethod]
-        //public void PostShipperBad()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Post(new ShipperModel() { Id = 1, Name = "Posta", Address = "Milana Preloga /3", Town = new ShipperTown() { Id = 999 } });
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
-
-        //    Assert.IsFalse(response.IsSuccessStatusCode);
-        //}
-
         [TestMethod]
         public void ChangeName()
         {
@@ -173,6 +165,16 @@ namespace Billing.Test
         {
             GetReady();
             var actRes = controller.Put(1, new ShipperModel() { Id = 1, Name = "Posta", Address = "Zmaja od Bosne bb", Town = new ShipperTown() { Id = 1 } });
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public void ChangeTown()
+        {
+            GetReady();
+            var actRes = controller.Put(1, new ShipperModel() { Id = 1, Name = "Posta", Address = "Zmaja od Bosne bb", Town = new ShipperTown() { Id = 2 } });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);

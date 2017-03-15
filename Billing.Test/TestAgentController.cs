@@ -59,7 +59,7 @@ namespace Billing.Test
         public void GetAgetsByTown()
         {
             GetReady();
-            var actRes = controller.Get("town/1");
+            var actRes = controller.GetByTown(1);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
             Assert.IsNotNull(response.Content);
         }

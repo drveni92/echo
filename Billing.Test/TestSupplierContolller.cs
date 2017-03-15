@@ -49,7 +49,7 @@ namespace Billing.Test
         public void GetSuppliersByName()
         {
             GetReady();
-            var actRes = controller.Get("OTOKA COMPANY");
+            var actRes = controller.Get("Dell");
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
             Assert.IsNotNull(response.Content);
         }
@@ -58,7 +58,7 @@ namespace Billing.Test
         public void GetSuppliersByTown()
         {
             GetReady();
-            var actRes = controller.Get("town/1");
+            var actRes = controller.GetSuppliersByTown(1);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
             Assert.IsNotNull(response.Content);
         }

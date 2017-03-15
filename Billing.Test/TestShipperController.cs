@@ -48,7 +48,7 @@ namespace Billing.Test
         public void GetShippersByName()
         {
             GetReady();
-            var actRes = controller.Get("UPS Courier");
+            var actRes = controller.Get("Posta");
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
             Assert.IsNotNull(response.Content);
         }

@@ -49,7 +49,7 @@ namespace Billing.Test
         public void GetCustomersByName()
         {
             GetReady();
-            var actRes = controller.Get("džeko");
+            var actRes = controller.Get("Imtec");
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);

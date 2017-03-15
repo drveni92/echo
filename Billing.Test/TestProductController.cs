@@ -45,7 +45,7 @@ namespace Billing.Tests
         public void GetProductsByName()
         {
             GetReady();
-            var actRes = controller.Get("Projector LCD 7788");
+            var actRes = controller.Get("Racunar Dell 2866");
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
             Assert.IsNotNull(response.Content);
         }

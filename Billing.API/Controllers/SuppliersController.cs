@@ -17,15 +17,20 @@ namespace Billing.API.Controllers
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null)
         {
-            return (name != null) ? Ok(UnitOfWork.Suppliers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList()) :
-                                    Ok(UnitOfWork.Suppliers.Get().ToList().Select(a => Factory.Create(a)).ToList());
+            if (name != null)
+            {
+                var suppliers = UnitOfWork.Suppliers.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                if (suppliers.Count != 0) return Ok(suppliers);
+                return NotFound();
+            }
+            return Ok(UnitOfWork.Suppliers.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
-        [Route("town/{town}")]
-        public IHttpActionResult GetSuppliersByTown(string town)
+        [Route("town/{id}")]
+        public IHttpActionResult GetSuppliersByTown(int id)
         {
             if (UnitOfWork.Towns.Get(id) == null) return NotFound();
-            return Ok(UnitOfWork.Suppliers.Get().Where(x => x.Town.Name.Contains(town)).ToList().Select(x => Factory.Create(x)).ToList());
+            return Ok(UnitOfWork.Suppliers.Get().Where(x => x.Town.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
 
         }
 

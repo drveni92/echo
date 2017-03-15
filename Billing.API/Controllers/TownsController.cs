@@ -17,8 +17,13 @@ namespace Billing.API.Controllers
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null)
         {
-            return (name != null) ? Ok(UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList()) :
-                                    Ok(UnitOfWork.Towns.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            if (name != null)
+            {
+                var towns = UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                if (towns.Count != 0) return Ok(towns);
+                return NotFound();
+            }
+            return Ok(UnitOfWork.Towns.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
         [Route("{id:int}")]

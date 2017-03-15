@@ -41,6 +41,7 @@ namespace Billing.Test
 
             Assert.IsNotNull(response.Content);
         }
+
         [TestMethod]
         public void GetCategoriesByName()
         {
@@ -70,7 +71,6 @@ namespace Billing.Test
             Assert.IsNull(response.Content);
         }
 
-
         [TestMethod]
         public void PostCategoryGood()
         {
@@ -91,16 +91,17 @@ namespace Billing.Test
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
-
+        [TestMethod]
         public void DeleteById()
         {
             GetReady();
-            var actRes = controller.Delete(1);
+            var actRes = controller.Delete(3);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
+        [TestMethod]
         public void DeleteByWrongId()
         {
             GetReady();

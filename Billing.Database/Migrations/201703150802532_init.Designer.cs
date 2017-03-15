@@ -7,13 +7,13 @@ namespace Billing.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class uniqueinvoiceno : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(uniqueinvoiceno));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703140959376_unique invoiceno"; }
+            get { return "201703150802532_init"; }
         }
         
         string IMigrationMetadata.Source

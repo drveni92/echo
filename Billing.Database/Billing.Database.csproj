@@ -56,9 +56,9 @@
     <Compile Include="BillingContext.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="Migrations\201703140959376_unique invoiceno.cs" />
-    <Compile Include="Migrations\201703140959376_unique invoiceno.Designer.cs">
-      <DependentUpon>201703140959376_unique invoiceno.cs</DependentUpon>
+    <Compile Include="Migrations\201703150802532_init.cs" />
+    <Compile Include="Migrations\201703150802532_init.Designer.cs">
+      <DependentUpon>201703150802532_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Procurement.cs" />
@@ -75,8 +75,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703140959376_unique invoiceno.resx">
-      <DependentUpon>201703140959376_unique invoiceno.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703150802532_init.resx">
+      <DependentUpon>201703150802532_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

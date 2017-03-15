@@ -88,6 +88,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="OrderedTests\OrderedTestAgents.orderedtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\OrderedTestCategory.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\OrderedTestCustomers.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\OrderedTestInvoices.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\OrderedTestItems.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\OrderedTestProcurements.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\OrderedTestProducts.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\OrderedTestShipper.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\OrderedTestSuppliers.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

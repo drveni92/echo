@@ -44,7 +44,6 @@ namespace Billing.Test
             Assert.IsNotNull(response.Content);
         }
 
-
         [TestMethod]
         public void GetShippersByName()
         {
@@ -53,6 +52,7 @@ namespace Billing.Test
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
             Assert.IsNotNull(response.Content);
         }
+
         [TestMethod]
         public void GetShippersByTown()
         {
@@ -122,15 +122,17 @@ namespace Billing.Test
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
+        [TestMethod]
         public void DeleteById()
         {
             GetReady();
-            var actRes = controller.Delete(1);
+            var actRes = controller.Delete(3);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
+        [TestMethod]
         public void DeleteByWrongId()
         {
             GetReady();

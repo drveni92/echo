@@ -128,10 +128,10 @@ namespace Billing.Test
         public void DeleteById()
         {
             GetReady();
-            var actRes = controller.Delete(2);
+            var actRes = controller.Delete(3);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
         [TestMethod]

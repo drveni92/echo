@@ -37,9 +37,8 @@ namespace Billing.API.Controllers
         [Route("product/{id}")]
         public IHttpActionResult GetByProductId(int id)
         {
-            var procurements = UnitOfWork.Procurements.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList();
-            if (procurements.Count != 0) return Ok(procurements);
-            return NotFound();
+            if (UnitOfWork.Products.Get(id) == null) return NotFound();
+            return Ok(UnitOfWork.Procurements.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
         }
 
         [Route("")]

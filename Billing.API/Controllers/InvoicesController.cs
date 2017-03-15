@@ -29,9 +29,8 @@ namespace Billing.API.Controllers
         [Route("customer/{id}")]
         public IHttpActionResult GetByInvoicesByCustomerId(int id)
         {
-            var customers = UnitOfWork.Invoices.Get().Where(x => x.Customer.Id == id).ToList().Select(x => Factory.Create(x)).ToList();
-            if(customers.Count != 0) return Ok(customers);
-            return NotFound();
+            if (UnitOfWork.Customers.Get(id) == null) return NotFound();
+            return Ok(UnitOfWork.Invoices.Get().Where(x => x.Customer.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
         }
 
         [Route("agent/{id}")]

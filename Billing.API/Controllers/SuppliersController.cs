@@ -20,9 +20,11 @@ namespace Billing.API.Controllers
             return (name != null) ? Ok(UnitOfWork.Suppliers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList()) :
                                     Ok(UnitOfWork.Suppliers.Get().ToList().Select(a => Factory.Create(a)).ToList());
         }
+
         [Route("town/{town}")]
         public IHttpActionResult GetSuppliersByTown(string town)
         {
+            if (UnitOfWork.Towns.Get(id) == null) return NotFound();
             return Ok(UnitOfWork.Suppliers.Get().Where(x => x.Town.Name.Contains(town)).ToList().Select(x => Factory.Create(x)).ToList());
 
         }

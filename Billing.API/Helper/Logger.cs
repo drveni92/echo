@@ -13,9 +13,7 @@ namespace Billing.API.Helper
         {
            //if (Token != null) Message += "..." + User.Name;
       
-            string url = HttpContext.Current.Request.Url.AbsoluteUri;
-
-            if (HttpContext.Current != null) Message += ":" + url;
+            if (HttpContext.Current != null) Message += ":" + HttpContext.Current.Request.Url.AbsoluteUri;
 
             if (Level == "INFO") log.Info(Message); else log.Error(Message);
 

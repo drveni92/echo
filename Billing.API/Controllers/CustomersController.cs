@@ -17,28 +17,52 @@ namespace Billing.API.Controllers
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null)
         {
-            if (name != null)
+            try
             {
-                var customers = UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                if (customers.Count != 0) return Ok(customers);
-                return NotFound();
+                if (name != null)
+                {
+                    var customers = UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                    if (customers.Count != 0) return Ok(customers);
+                    return NotFound();
+                }
+                return Ok(UnitOfWork.Customers.Get().ToList().Select(x => Factory.Create(x)).ToList());
             }
-            return Ok(UnitOfWork.Customers.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("town/{id}")]
         public IHttpActionResult GetByTown(int id)
         {
-            if (UnitOfWork.Towns.Get(id) == null) return NotFound();
-            return Ok(UnitOfWork.Customers.Get().ToList().Where(x => x.Town.Id == id).Select(x => Factory.Create(x)).ToList());
+            try
+            {
+                if (UnitOfWork.Towns.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Customers.Get().ToList().Where(x => x.Town.Id == id).Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
-            Customer customer = UnitOfWork.Customers.Get(id);
-            if (customer == null) return NotFound();
-            return Ok(Factory.Create(customer));
+            try
+            {
+                Customer customer = UnitOfWork.Customers.Get(id);
+                if (customer == null) return NotFound();
+                return Ok(Factory.Create(customer));
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("")]
@@ -53,6 +77,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -69,6 +94,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -84,6 +110,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }

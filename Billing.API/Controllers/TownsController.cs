@@ -17,21 +17,37 @@ namespace Billing.API.Controllers
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null)
         {
-            if (name != null)
+            try
             {
-                var towns = UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                if (towns.Count != 0) return Ok(towns);
-                return NotFound();
+                if (name != null)
+                {
+                    var towns = UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                    if (towns.Count != 0) return Ok(towns);
+                    return NotFound();
+                }
+                return Ok(UnitOfWork.Towns.Get().ToList().Select(x => Factory.Create(x)).ToList());
             }
-            return Ok(UnitOfWork.Towns.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
-            Town town = UnitOfWork.Towns.Get(id);
-            if (town == null) return NotFound();
-            return Ok(Factory.Create(town));
+            try
+            {
+                Town town = UnitOfWork.Towns.Get(id);
+                if (town == null) return NotFound();
+                return Ok(Factory.Create(town));
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("")]
@@ -46,6 +62,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -62,6 +79,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -77,6 +95,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }

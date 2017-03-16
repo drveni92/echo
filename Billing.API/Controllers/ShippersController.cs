@@ -16,29 +16,53 @@ namespace Billing.API.Controllers
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null)
         {
-            if (name != null)
+            try
             {
-                var shippers = UnitOfWork.Shippers.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                if (shippers.Count != 0) return Ok(shippers);
-                return NotFound();
+                if (name != null)
+                {
+                    var shippers = UnitOfWork.Shippers.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                    if (shippers.Count != 0) return Ok(shippers);
+                    return NotFound();
+                }
+                return Ok(UnitOfWork.Shippers.Get().ToList().Select(x => Factory.Create(x)).ToList());
             }
-            return Ok(UnitOfWork.Shippers.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("town/{town}")]
         public IHttpActionResult GetShippersByTown(int id)
         {
-            if (UnitOfWork.Towns.Get(id) == null) return NotFound();
-            return Ok(UnitOfWork.Shippers.Get().Where(x => x.Town.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            try
+            {
+                if (UnitOfWork.Towns.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Shippers.Get().Where(x => x.Town.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
 
         }
 
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
-            Shipper shipper = UnitOfWork.Shippers.Get(id);
-            if (shipper == null) return NotFound();
-            return Ok(Factory.Create(shipper));
+            try
+            {
+                Shipper shipper = UnitOfWork.Shippers.Get(id);
+                if (shipper == null) return NotFound();
+                return Ok(Factory.Create(shipper));
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("")]
@@ -53,6 +77,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -69,6 +94,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -84,6 +110,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }

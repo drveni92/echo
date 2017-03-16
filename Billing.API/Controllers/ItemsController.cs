@@ -15,7 +15,15 @@ namespace Billing.API.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Ok(UnitOfWork.Items.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            try
+            {
+                return Ok(UnitOfWork.Items.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("{id:int}")]
@@ -29,6 +37,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -45,6 +54,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -61,6 +71,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -76,6 +87,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -83,15 +95,31 @@ namespace Billing.API.Controllers
         [Route("invoice/{id}")]
         public IHttpActionResult GetItemsByInvoice(int id)
         {
-            if (UnitOfWork.Invoices.Get(id) == null) return NotFound();
-            return Ok(UnitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            try
+            {
+                if (UnitOfWork.Invoices.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("product/{id}")]
         public IHttpActionResult GetItemByProduct(int id)
         {
-            if (UnitOfWork.Products.Get(id) == null) return NotFound();
-            return Ok(UnitOfWork.Items.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            try
+            {
+                if (UnitOfWork.Products.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Items.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

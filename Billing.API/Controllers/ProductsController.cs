@@ -15,24 +15,47 @@ namespace Billing.Api.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Ok(UnitOfWork.Products.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            try
+            {
+                return Ok(UnitOfWork.Products.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
-
-            var products = UnitOfWork.Products.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-            if (products.Count != 0) return Ok(products);
-            return NotFound();
+            try
+            {
+                var products = UnitOfWork.Products.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                if (products.Count != 0) return Ok(products);
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            Product product = UnitOfWork.Products.Get(id);
-            if (product == null) return NotFound();
-            return Ok(Factory.Create(product));
+            try
+            {
+                Product product = UnitOfWork.Products.Get(id);
+                if (product == null) return NotFound();
+                return Ok(Factory.Create(product));
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("")]
@@ -47,6 +70,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -63,6 +87,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -79,6 +104,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }

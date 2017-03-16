@@ -15,30 +15,62 @@ namespace Billing.API.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Ok(UnitOfWork.Procurements.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            try
+            {
+                return Ok(UnitOfWork.Procurements.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
-            Procurement procurement = UnitOfWork.Procurements.Get(id);
-            if (procurement == null) return NotFound();
-            return Ok(Factory.Create(procurement));
+            try
+            {
+                Procurement procurement = UnitOfWork.Procurements.Get(id);
+                if (procurement == null) return NotFound();
+                return Ok(Factory.Create(procurement));
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("document/{document}")]
         public IHttpActionResult GetByDocument(string document)
         {
-            var procurements = UnitOfWork.Procurements.Get().Where(x => x.Document.Equals(document)).ToList().Select(x => Factory.Create(x)).ToList();
-            if (procurements.Count != 0) return Ok(procurements);
-            return NotFound();
+            try
+            {
+                var procurements = UnitOfWork.Procurements.Get().Where(x => x.Document.Equals(document)).ToList().Select(x => Factory.Create(x)).ToList();
+                if (procurements.Count != 0) return Ok(procurements);
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("product/{id}")]
         public IHttpActionResult GetByProductId(int id)
         {
-            if (UnitOfWork.Products.Get(id) == null) return NotFound();
-            return Ok(UnitOfWork.Procurements.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            try
+            {
+                if (UnitOfWork.Products.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Procurements.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("")]
@@ -53,6 +85,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -69,6 +102,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -84,6 +118,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }

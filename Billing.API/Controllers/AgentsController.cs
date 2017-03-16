@@ -13,44 +13,63 @@ namespace Billing.API.Controllers
     [RoutePrefix("api/agents")]
     public class AgentsController : BaseController
     {
-     
+
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null)
         {
-            if(name != null)
+            try
             {
-                var agents = UnitOfWork.Agents.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                if (agents.Count != 0) return Ok(agents);
-                return NotFound();
+                if (name != null)
+                {
+                    var agents = UnitOfWork.Agents.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                    if (agents.Count != 0) return Ok(agents);
+                    return NotFound();
+                }
+                return Ok(UnitOfWork.Agents.Get().ToList().Select(x => Factory.Create(x)).ToList());
             }
-            return Ok(UnitOfWork.Agents.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
+
 
         [Route("town/{id}")]
         public IHttpActionResult GetByTown(int id)
         {
-            if (UnitOfWork.Towns.Get(id) == null) return NotFound();
-            return Ok(UnitOfWork.Agents.Get().ToList().Where(x =>
+            try
             {
-                foreach (Town town in x.Towns)
+                if (UnitOfWork.Towns.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Agents.Get().ToList().Where(x =>
                 {
-                    if (town.Id == id) return true;
-                }
-                return false;
-            }).Select(x => Factory.Create(x)).ToList());
+                    foreach (Town town in x.Towns)
+                    {
+                        if (town.Id == id) return true;
+                    }
+                    return false;
+                }).Select(x => Factory.Create(x)).ToList());
+            } 
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, “ERROR”);
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
+            
             try
             {
                 Agent agent = UnitOfWork.Agents.Get(id);
                 if (agent == null) return NotFound();
                 return Ok(Factory.Create(agent));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -67,6 +86,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -83,6 +103,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }
@@ -98,6 +119,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log(ex.Message, “ERROR”);
                 return BadRequest(ex.Message);
             }
         }

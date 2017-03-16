@@ -1,4 +1,5 @@
 ﻿
+using Billing.API.Helper;
 using Billing.API.Models;
 using Billing.Database;
 using Billing.Repository;
@@ -29,7 +30,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.Message, “ERROR”);
+                Logger.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -44,7 +45,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.Message, “ERROR”);
+                Logger.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -60,7 +61,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.Message, “ERROR”);
+                Logger.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -77,7 +78,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.Message, “ERROR”);
+                Logger.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -94,7 +95,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.Message, “ERROR”);
+                Logger.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -110,7 +111,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.Message, “ERROR”);
+                Logger.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }

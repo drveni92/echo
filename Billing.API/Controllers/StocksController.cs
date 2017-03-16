@@ -1,4 +1,5 @@
-﻿using Billing.Database;
+﻿using Billing.API.Helper;
+using Billing.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.Message, “ERROR”);
+                Logger.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -36,7 +37,7 @@ namespace Billing.API.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Log(ex.Message, “ERROR”);
+                Logger.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }

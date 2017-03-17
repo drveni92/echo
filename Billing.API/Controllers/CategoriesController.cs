@@ -21,11 +21,11 @@ namespace Billing.API.Controllers
             {
                 if (name != null)
                 {
-                    var customers = UnitOfWork.Categories.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                    if (customers.Count != 0) return Ok(customers);
+                    var categories = UnitOfWork.Categories.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                    if (categories.Count != 0) return Ok(categories);
                     return NotFound();
                 }
-                return Ok(UnitOfWork.Customers.Get().ToList().Select(x => Factory.Create(x)).ToList());
+                return Ok(UnitOfWork.Categories.Get().ToList().Select(x => Factory.Create(x)).ToList());
             }
             catch (Exception ex)
             {

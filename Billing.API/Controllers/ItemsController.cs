@@ -43,6 +43,36 @@ namespace Billing.API.Controllers
             }
         }
 
+        [Route("invoice/{id}")]
+        public IHttpActionResult GetItemsByInvoice(int id)
+        {
+            try
+            {
+                if (UnitOfWork.Invoices.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("product/{id}")]
+        public IHttpActionResult GetItemByProduct(int id)
+        {
+            try
+            {
+                if (UnitOfWork.Products.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Items.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
+        }
+
         [Route("")]
         public IHttpActionResult Post([FromBody]ItemModel model)
         {
@@ -93,34 +123,5 @@ namespace Billing.API.Controllers
             }
         }
 
-        [Route("invoice/{id}")]
-        public IHttpActionResult GetItemsByInvoice(int id)
-        {
-            try
-            {
-                if (UnitOfWork.Invoices.Get(id) == null) return NotFound();
-                return Ok(UnitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex.Message, "ERROR");
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [Route("product/{id}")]
-        public IHttpActionResult GetItemByProduct(int id)
-        {
-            try
-            {
-                if (UnitOfWork.Products.Get(id) == null) return NotFound();
-                return Ok(UnitOfWork.Items.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex.Message, "ERROR");
-                return BadRequest(ex.Message);
-            }
-        }
     }
 }

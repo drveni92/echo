@@ -35,7 +35,6 @@ namespace Billing.API.Controllers
             }
         }
 
-
         [Route("town/{id}")]
         public IHttpActionResult GetByTown(int id)
         {

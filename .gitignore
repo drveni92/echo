@@ -13,6 +13,7 @@ packages/
 #properties/
 #Migrations/
 DataSeed/
+log/
 
 # Build results
 [Dd]ebug/

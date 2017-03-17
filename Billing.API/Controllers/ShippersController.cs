@@ -34,13 +34,14 @@ namespace Billing.API.Controllers
             }
         }
 
-        [Route("town/{town}")]
+        [Route("town/{id}")]
         public IHttpActionResult GetShippersByTown(int id)
         {
             try
             {
                 if (UnitOfWork.Towns.Get(id) == null) return NotFound();
                 return Ok(UnitOfWork.Shippers.Get().Where(x => x.Town.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+              
             }
             catch (Exception ex)
             {

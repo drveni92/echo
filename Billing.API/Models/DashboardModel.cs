@@ -5,15 +5,20 @@ using System.Web;
 
 namespace Billing.API.Models
 {
-    public class SalesMonthly
+    public class ProductSales
+    {
+        public string Product { get; set; }
+        public int Quantity { get; set; }
+        public double Revenue { get; set; }
+    }
+    public class MonthlySales
     {
         public string Label { get; set; }
         public double Sales { get; set; }
     }
-    
-    public class SalesCurrentYear
+    public class AnnualSales
     {
-        public SalesCurrentYear()
+        public AnnualSales()
         {
             Sales = new double[12];
         }
@@ -21,17 +26,17 @@ namespace Billing.API.Models
         public double[] Sales { get; set; }
     }
 
-    public class EmployeesSales
+    public class AgentsSales
     {
-        public EmployeesSales(int Length)
+        public AgentsSales(int Length)
         {
             Sales = new double[Length];
         }
-        public string Employee { get; set; }
+        public string Agent { get; set; }
         public double[] Sales { get; set; }
     }
 
-    public class BurningItemModel
+    public class BurningModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -40,35 +45,39 @@ namespace Billing.API.Models
         public int Sold { get; set; }
     }
 
-    public class CustomerStatusModel
+    public class CustomerStatus
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public double Credit { get; set; }
-        public double Debt { get; set; }
+        public double Debit { get; set; }
     }
 
     public class DashboardModel
     {
-        public DashboardModel(int StatusCount)
+        public DashboardModel(int StatusesCount, int RegionsCount)
         {
-            RegionCurrentMonth = new List<SalesMonthly>();
-            RegionsCurrentYear = new List<SalesCurrentYear>();
-            EmplyeesSales = new List<EmployeesSales>();
-            CategoriesCurrentYear = new List<SalesCurrentYear>();
-            Top5Products = new List<SalesMonthly>();
-            Invoices = new int[StatusCount];
-            BurningItems = new List<BurningItemModel>();
-            Customers = new List<CustomerStatusModel>();
+            RegionsMonth = new List<MonthlySales>();
+            RegionsYear = new List<AnnualSales>();
+            CategoriesMonth = new List<MonthlySales>();
+            CategoriesYear = new List<AnnualSales>();
+            AgentsSales = new List<AgentsSales>(RegionsCount);
+            Top5Products = new List<ProductSales>();
+            Invoices = new int[StatusesCount];
+            BurningItems = new List<BurningModel>();
+            Customers = new List<CustomerStatus>();
         }
 
-        public List<SalesMonthly> RegionCurrentMonth { get; set; }
-        public List<SalesCurrentYear> RegionsCurrentYear { get; set; }
-        public List<EmployeesSales> EmplyeesSales { get; set; }
-        public List<SalesCurrentYear> CategoriesCurrentYear { get; set; }
-        public List<SalesMonthly> Top5Products { get; set; }
+        public string Title { get; set; }
+        public List<MonthlySales> RegionsMonth { get; set; }
+        public List<AnnualSales> RegionsYear { get; set; }
+        public List<MonthlySales> CategoriesMonth { get; set; }
+        public List<AnnualSales> CategoriesYear { get; set; }
+        public List<AgentsSales> AgentsSales { get; set; }
+
+        public List<ProductSales> Top5Products { get; set; }
         public int[] Invoices { get; set; }
-        public List<BurningItemModel> BurningItems { get; set; }
-        public List<CustomerStatusModel> Customers { get; set; }
+        public List<BurningModel> BurningItems { get; set; }
+        public List<CustomerStatus> Customers { get; set; }
     }
 }

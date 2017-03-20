@@ -1,5 +1,6 @@
 ﻿using Billing.API.Helper;
 using Billing.API.Models;
+using Billing.API.Reports;
 using Billing.Database;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                DashboardModel result = new DashboardModel(5);
-                return Ok(result);
+                return Ok(DashboardReport.Report(UnitOfWork));
             }
             catch (Exception ex)
             {

@@ -98,7 +98,8 @@ namespace Billing.Api.Controllers
         {
             try
             {
-                if (UnitOfWork.Products.Get(id).Stock != null) return BadRequest("You can not delete product that contains stock");
+                Stock stock = UnitOfWork.Products.Get(id).Stock;
+                if (stock != null && stock.Invertory != 0) return BadRequest("You can not delete product that contains stock");
                 UnitOfWork.Products.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

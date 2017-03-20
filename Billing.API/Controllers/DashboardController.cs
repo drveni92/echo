@@ -17,7 +17,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                return Ok(DashboardReport.Report(UnitOfWork));
+                return Ok(FactoryReport.Report());
             }
             catch (Exception ex)
             {

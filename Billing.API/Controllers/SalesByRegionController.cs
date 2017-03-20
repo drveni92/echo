@@ -20,7 +20,7 @@ namespace Billing.API.Controllers
 
         public IHttpActionResult Post([FromBody]Params p)
         {
-            return Ok(SalesByRegionReport.Report(UnitOfWork, p.StartDate, p.EndDate, p.AgentId));
+            return Ok(FactoryReport.Report(p.StartDate, p.EndDate, p.AgentId));
         }
     }
 }

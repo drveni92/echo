@@ -1,4 +1,5 @@
 ﻿using Billing.API.Models;
+using Billing.API.Reports;
 using Billing.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,13 @@ namespace Billing.API.Controllers
     {
         private UnitOfWork _unitOfWork;
         private Factory _factory;
+        private FactoryReports _factoryReport;
 
         protected UnitOfWork UnitOfWork { get { return _unitOfWork ?? (_unitOfWork = new UnitOfWork()); } }
 
         protected Factory Factory { get { return _factory ?? (_factory = new Factory(UnitOfWork)); } }
+
+        protected FactoryReports FactoryReport { get { return _factoryReport ?? (_factoryReport = new FactoryReports(UnitOfWork)); } }
+
     }
 }

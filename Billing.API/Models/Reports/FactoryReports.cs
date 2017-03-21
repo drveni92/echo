@@ -189,7 +189,7 @@ namespace Billing.API.Reports
                 {
                     RegionName = item.Name,
                     RegionTotal = item.Total,
-                    RegionPercent =  Math.Round(100 * item.Total / total, 2),
+                    RegionPercent = Math.Round(100 * item.Total / total, 2),
                     TotalPercent = Math.Round(100 * item.Total / grandTotal, 2)
                 };
                 result.Sales.Add(region);

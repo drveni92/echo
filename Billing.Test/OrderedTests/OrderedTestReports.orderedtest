@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="OrderedTestReports" storage="c:\users\abasic\documents\visual studio 2015\projects\echo\billing.test\orderedtests\orderedtestreports.orderedtest" id="cfa2550d-08b1-46e3-a004-3520fc25667d" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="db2e5bb2-cb21-5198-09d6-668584001c8b" name="CountNumberOfReturnedAgents" storage="..\bin\debug\billing.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="a7148dcb-5107-a76a-2df8-d819d5301a51" name="CountNumberOfReturnedRegions" storage="..\bin\debug\billing.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

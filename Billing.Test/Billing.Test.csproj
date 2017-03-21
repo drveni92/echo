@@ -81,6 +81,8 @@
     <Compile Include="TestItemController.cs" />
     <Compile Include="TestInvoicesController.cs" />
     <Compile Include="TestProductController.cs" />
+    <Compile Include="TestSalesByCustomer.cs" />
+    <Compile Include="TestSalesByRegion.cs" />
     <Compile Include="TestSupplierContolller.cs" />
     <Compile Include="TestShipperController.cs" />
     <Compile Include="TestProcurementController.cs" />
@@ -116,6 +118,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="OrderedTests\OrderedTestReports.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Billing.API\Billing.API.csproj">
@@ -129,6 +134,10 @@
     <ProjectReference Include="..\Billing.Repository\Billing.Repository.csproj">
       <Project>{C99885DD-F46D-4EEC-AB48-C1E1288A862B}</Project>
       <Name>Billing.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Billing.Seed\Billing.Seed.csproj">
+      <Project>{05c01d2f-97c0-4f1a-bcfb-09aab8daad7e}</Project>
+      <Name>Billing.Seed</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

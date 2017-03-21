@@ -158,6 +158,7 @@
     <Compile Include="Helper\Identity\BillingAuthorizationAttribute.cs" />
     <Compile Include="Helper\Identity\BillingIdentity.cs" />
     <Compile Include="Helper\Identity\Signature.cs" />
+    <Compile Include="Helper\Identity\TokenAuthorizationAttribute.cs" />
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />

@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent.cs" />
+    <Compile Include="ApiUser.cs" />
+    <Compile Include="AuthToken.cs" />
     <Compile Include="Basic.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Customer.cs" />
@@ -63,6 +65,10 @@
     <Compile Include="Migrations\201703150817031_changes.cs" />
     <Compile Include="Migrations\201703150817031_changes.Designer.cs">
       <DependentUpon>201703150817031_changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703211432319_token.cs" />
+    <Compile Include="Migrations\201703211432319_token.Designer.cs">
+      <DependentUpon>201703211432319_token.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Procurement.cs" />
@@ -85,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703150817031_changes.resx">
       <DependentUpon>201703150817031_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703211432319_token.resx">
+      <DependentUpon>201703211432319_token.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

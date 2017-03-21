@@ -29,6 +29,8 @@ namespace Billing.Database
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Town> Towns { get; set; }
+        public DbSet<ApiUser> ApiUsers { get; set; }
+        public DbSet<AuthToken> AuthTokens { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

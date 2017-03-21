@@ -45,6 +45,11 @@ namespace Billing.API.Models
             };
         }
 
+        internal object Create(AuthToken authToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public SupplierModel Create(Supplier supplier)
         {
             return new SupplierModel()

@@ -12,6 +12,8 @@ namespace Billing.Repository
     {
         private readonly BillingContext _context = new BillingContext();
 
+        private IBillingRepository<ApiUser> _apiUsers;
+        private IBillingRepository<AuthToken> _tokens;
         private IBillingRepository<Agent> _agents;
         private IBillingRepository<Category> _categories;
         private IBillingRepository<Customer> _customers;
@@ -26,6 +28,8 @@ namespace Billing.Repository
 
         public BillingContext Context { get { return _context; } }
 
+        public IBillingRepository<ApiUser> ApiUsers { get { return _apiUsers ?? (_apiUsers = new BillingRepository<ApiUser>(_context)); } }
+        public IBillingRepository<AuthToken> Tokens { get { return _tokens ?? (_tokens = new BillingRepository<AuthToken>(_context)); } }
         public IBillingRepository<Agent> Agents { get { return _agents ?? (_agents = new BillingRepository<Agent>(_context)); } }
         public IBillingRepository<Category> Categories { get { return _categories ?? (_categories = new BillingRepository<Category>(_context)); } }
         public IBillingRepository<Customer> Customers { get { return _customers ?? (_customers = new CustomersRepository(_context)); } }

@@ -140,20 +140,24 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProcurementsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\SalesByCustomerController.cs" />
     <Compile Include="Controllers\SalesByRegionController.cs" />
+    <Compile Include="Controllers\SignatureController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\ShippersController.cs" />
+    <Compile Include="Controllers\TokenRequestController.cs" />
     <Compile Include="Controllers\TownsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Identity\BillingAuthorizationAttribute.cs" />
     <Compile Include="Helper\Identity\BillingIdentity.cs" />
+    <Compile Include="Helper\Identity\Signature.cs" />
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
@@ -171,6 +175,8 @@
     <Compile Include="Models\StockModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\ShipperModel.cs" />
+    <Compile Include="Models\TokenModel.cs" />
+    <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Models\TownModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

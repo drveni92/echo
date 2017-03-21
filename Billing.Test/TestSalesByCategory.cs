@@ -12,18 +12,12 @@ namespace Billing.Test
 
         private int categories = 7;
 
-        [ClassInitialize]
-        public static void Init(TestContext testContext)
-        {
-            TestHelper.InitDatabaseReports();
-        }
-
         [TestMethod]
-        public void CountNumberOfReturnedRegions()
+        public void CountNumberOfReturnedCategories()
         {
             DateTime start = new DateTime(2016, 1, 1);
             DateTime end = new DateTime(2016, 12, 31);
-            var result = factory.ReportRegion(start, end);
+            var result = factory.ReportCategory(start, end);
             Assert.AreEqual(result.Sales.Count, categories);
         }
     }

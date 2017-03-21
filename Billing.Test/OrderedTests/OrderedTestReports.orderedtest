@@ -5,5 +5,6 @@
     <TestLink id="a7148dcb-5107-a76a-2df8-d819d5301a51" name="CountNumberOfReturnedRegions" storage="..\bin\debug\billing.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="835277bb-0048-0ec1-b30d-28a0ccc250c9" name="TestReturnedCustomers" storage="..\bin\debug\billing.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <TestLink id="9633ff29-8b3c-2d28-5957-8b299288dcd8" name="TestReturnedTotal" storage="..\bin\debug\billing.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="634424c6-44ae-4c3d-6e24-201beef23bbb" name="CountNumberOfReturnedCategories" storage="..\bin\debug\billing.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   </TestLinks>
 </OrderedTest>

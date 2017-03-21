@@ -1,20 +1,14 @@
-﻿using System;
+﻿using Billing.API.Models.Reports;
+using System;
 using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
     public class SalesByRegionController : BaseController
     {
-        public struct Params
+        public IHttpActionResult Post([FromBody]RequestModel request)
         {
-            public DateTime StartDate { get; set; }
-            public DateTime EndDate { get; set; }
-            public int AgentId { get; set; }
-        }
-
-        public IHttpActionResult Post([FromBody]Params p)
-        {
-            return Ok(FactoryReport.Report(p.StartDate, p.EndDate, p.AgentId));
+            return Ok(FactoryReport.ReportRegion(request.StartDate, request.EndDate));
         }
     }
 }

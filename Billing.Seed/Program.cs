@@ -2,12 +2,20 @@
 
 namespace Billing.Seed
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Data migration in progress");
             Console.WriteLine("--------------------------");
+            Run();
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+        }
+
+        public static void Run()
+        {
             Categories.Get();
             Products.Get();
             Towns.Get();
@@ -18,9 +26,6 @@ namespace Billing.Seed
             Procurements.Get();
             Invoices.Get();
             Items.Get();
-            Console.WriteLine("-------------------------");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
         }
     }
 }

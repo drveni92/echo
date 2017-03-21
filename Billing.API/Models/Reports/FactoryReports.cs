@@ -1,4 +1,5 @@
 ﻿using Billing.API.Models;
+using Billing.API.Models.Reports;
 using Billing.Database;
 using Billing.Repository;
 using System;
@@ -30,7 +31,8 @@ namespace Billing.API.Reports
 
             var listAnnual = _unitOfWork.Invoices.Get().ToList()
                     .GroupBy(x => new { x.Customer.Town.Region, x.Date.Month })
-                    .Select(x => new {
+                    .Select(x => new
+                    {
                         label = x.Key.Region.ToString(),
                         month = x.Key.Month,
                         sales = x.Sum(y => (y.Total))
@@ -53,7 +55,8 @@ namespace Billing.API.Reports
             var listCategories = _unitOfWork.Items.Get()
                                 .OrderBy(x => x.Product.Category.Id).ToList()
                                 .GroupBy(x => new { x.Product.Category.Name, x.Invoice.Date.Month })
-                                .Select(x => new {
+                                .Select(x => new
+                                {
                                     category = x.Key.Name,
                                     month = x.Key.Month,
                                     sales = x.Sum(y => y.SubTotal)
@@ -93,17 +96,13 @@ namespace Billing.API.Reports
             return result;
         }
 
-        public SalesByRegionModel Report(DateTime start, DateTime end, int agentId)
+        public SalesByRegionModel ReportRegion(DateTime start, DateTime end)
         {
-            SalesByRegionModel result = new SalesByRegionModel();
-            result.StartDate = start;
-            result.EndDate = end;
+            SalesByRegionModel result = new SalesByRegionModel(start, end);
 
             var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
 
             result.GrandTotal = Invoices.Sum(x => x.Total);
-
-            result.Sales = new List<RegionSalesModel>();
 
             var query = Invoices.GroupBy(x => x.Customer.Town.Region.ToString())
                                 .Select(x => new
@@ -121,7 +120,6 @@ namespace Billing.API.Reports
                     Percent = item.Total / result.GrandTotal * 100,
                 };
 
-                region.Agents = new List<AgentSalesModel>();
                 var agents = Invoices.Where(x => x.Customer.Town.Region.ToString() == item.Name)
                                     .GroupBy(x => new
                                     {
@@ -152,6 +150,37 @@ namespace Billing.API.Reports
 
             return result;
 
+        }
+
+        public SalesByCustomerModel ReportCustomer(DateTime start, DateTime end)
+        {
+            SalesByCustomerModel result = new SalesByCustomerModel(start, end);
+
+            var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
+
+            result.GrandTotal = Invoices.Sum(x => x.Total);
+
+            var listOfCustomers = Invoices.GroupBy(x => new { Id = x.Customer.Id, Name = x.Customer.Name })
+                                          .Select(x => new
+                                          {
+                                              Id = x.Key.Id,
+                                              Name = x.Key.Name,
+                                              Turnover = x.Sum(y => y.Items.Sum(z => z.Price * z.Quantity))
+                                          }).ToList();
+
+            foreach (var customer in listOfCustomers)
+            {
+                result.Customers.Add(new CustomerSalesModel()
+                {
+                    Id = customer.Id,
+                    Name = customer.Name,
+                    Turnover = customer.Turnover,
+                    Percent = customer.Turnover / result.GrandTotal * 100
+                });
+            }
+
+
+            return result;
         }
     }
 }

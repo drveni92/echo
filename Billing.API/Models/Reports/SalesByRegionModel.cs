@@ -16,6 +16,11 @@ namespace Billing.API.Models
 
     public class RegionSalesModel
     {
+        public RegionSalesModel()
+        {
+            Agents = new List<AgentSalesModel>();
+        }
+
         public string Name { get; set; }
         public double Total { get; set; }
         public double Percent { get; set; }
@@ -24,6 +29,13 @@ namespace Billing.API.Models
 
     public class SalesByRegionModel
     {
+        public SalesByRegionModel(DateTime start, DateTime end)
+        {
+            StartDate = start;
+            EndDate = end;
+            Sales = new List<RegionSalesModel>();
+        }
+
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public double GrandTotal { get; set; }

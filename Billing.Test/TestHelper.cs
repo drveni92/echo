@@ -10,6 +10,15 @@ namespace Billing.Test
 {
     static public class TestHelper
     {
+        static public void InitDatabaseReports()
+        {
+            using (BillingContext context = new BillingContext())
+            {
+                context.Database.Delete();
+                context.Database.Create();
+            }
+            Billing.Seed.Program.Run();
+        }
 
         static public void InitDatabase()
         {

@@ -143,6 +143,7 @@
     <Compile Include="Controllers\ProcurementsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
+    <Compile Include="Controllers\SalesByCategoryController.cs" />
     <Compile Include="Controllers\SalesByCustomerController.cs" />
     <Compile Include="Controllers\SalesByRegionController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\Reports\FactoryReports.cs" />
     <Compile Include="Models\Reports\RequestModel.cs" />
+    <Compile Include="Models\Reports\SalesByCategoryModel.cs" />
     <Compile Include="Models\Reports\SalesByCustomerModel.cs" />
     <Compile Include="Models\Reports\SalesByRegionModel.cs" />
     <Compile Include="Models\StockModel.cs" />

@@ -182,5 +182,33 @@ namespace Billing.API.Reports
 
             return result;
         }
+
+        public SalesByCategoryModel ReportCategory(DateTime start, DateTime end)
+        {
+            SalesByCategoryModel result = new SalesByCategoryModel(start, end);
+
+            var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
+            var Items = Invoices.SelectMany(x => x.Items).ToList();
+            result.GrandTotal = Invoices.Sum(x => x.SubTotal);
+
+            var query = Items.GroupBy(x => x.Product.Category)
+                              .Select(x => new { CategoryId = x.Key, CategoryTotal = x.Sum(y => y.SubTotal) })
+                              .ToList();
+
+            foreach (var item in query)
+            { 
+                CategorySalesModel category = new CategorySalesModel()
+                {
+                    Name = item.CategoryId.Name,
+                    Total = item.CategoryTotal,
+                    Percent = item.CategoryTotal / result.GrandTotal * 100,
+                };
+
+                result.Sales.Add(category);
+            }
+
+            return result;
+
+        }
     }
 }

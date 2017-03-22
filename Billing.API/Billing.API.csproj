@@ -144,6 +144,7 @@
     <Compile Include="Controllers\ProcurementsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
+    <Compile Include="Controllers\SalesByAgentController.cs" />
     <Compile Include="Controllers\SalesByCategoryController.cs" />
     <Compile Include="Controllers\SalesByCustomerController.cs" />
     <Compile Include="Controllers\SalesByRegionController.cs" />

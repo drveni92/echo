@@ -270,7 +270,7 @@ namespace Billing.API.Reports
           
         }
               
-        public SalesByAgentModel Report(DateTime start, DateTime end, int agentId)
+        public SalesByAgentModel ReportAgentSales(DateTime start, DateTime end, int agentId)
         {
             SalesByAgentModel result = new SalesByAgentModel();
             var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
@@ -295,7 +295,7 @@ namespace Billing.API.Reports
                 total += item.Total;
             }
 
-            result.AgentTotal = total;
+            result.AgentTotal = Math.Round(total,2);
             result.PercentTotal = Math.Round(100 * total / grandTotal, 2);
 
             foreach (var item in query)
@@ -303,7 +303,7 @@ namespace Billing.API.Reports
                 RegionSalesByAgentModel region = new RegionSalesByAgentModel()
                 {
                     RegionName = item.Name,
-                    RegionTotal = item.Total,
+                    RegionTotal = Math.Round(item.Total,2),
                     RegionPercent =  Math.Round(100 * item.Total / total, 2),
                     TotalPercent = Math.Round(100 * item.Total / grandTotal, 2)
                 };

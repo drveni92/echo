@@ -15,7 +15,6 @@ namespace Billing.API.Models.Reports
 
     public class SalesByAgentModel
     {
-        public int Id { get; set; }
         public string AgentName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

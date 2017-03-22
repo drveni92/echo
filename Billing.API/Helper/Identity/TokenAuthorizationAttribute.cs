@@ -16,17 +16,19 @@ namespace Billing.API.Helper.Identity
     {
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            string ApiKey = actionContext.Request.Headers.GetValues("ApiKey").ToString();
-            string Token = actionContext.Request.Headers.GetValues("Token").ToString();
-
-            UnitOfWork unitOfWork = new UnitOfWork();
-            var token = unitOfWork.Tokens.Get().FirstOrDefault(x => x.Token == Token);
-
-            if(token != null)
+            if (actionContext.Request.Headers != null)
             {
-                if (token.ApiUser.AppId == ApiKey && token.Expiration > DateTime.UtcNow) return;
-            }
+                string ApiKey = actionContext.Request.Headers.GetValues("ApiKey").ToString();
+                string Token = actionContext.Request.Headers.GetValues("Token").ToString();
 
+                UnitOfWork unitOfWork = new UnitOfWork();
+                var token = unitOfWork.Tokens.Get().FirstOrDefault(x => x.Token == Token);
+
+                if (token != null)
+                {
+                    if (token.ApiUser.AppId == ApiKey && token.Expiration > DateTime.UtcNow) return;
+                }
+            }
             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
         }
     }

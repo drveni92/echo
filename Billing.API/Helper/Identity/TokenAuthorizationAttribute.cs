@@ -16,7 +16,7 @@ namespace Billing.API.Helper.Identity
     {
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            if (actionContext.Request.Headers != null)
+            try
             {
                 string ApiKey = actionContext.Request.Headers.GetValues("ApiKey").ToString();
                 string Token = actionContext.Request.Headers.GetValues("Token").ToString();
@@ -28,6 +28,10 @@ namespace Billing.API.Helper.Identity
                 {
                     if (token.ApiUser.AppId == ApiKey && token.Expiration > DateTime.UtcNow) return;
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message);
             }
             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
         }

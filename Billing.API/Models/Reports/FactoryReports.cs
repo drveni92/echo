@@ -140,8 +140,8 @@ namespace Billing.API.Reports
                         Id = agent.Id,
                         Name = agent.Name,
                         Total = agent.Total,
-                        RegionPercent = agent.Total / region.Total * 100,
-                        TotalPercent = agent.Total / result.GrandTotal * 100
+                        RegionPercent = Math.Round(agent.Total / region.Total * 100,2),
+                        TotalPercent = Math.Round(agent.Total / result.GrandTotal * 100,2)
                     });
                 }
 
@@ -175,7 +175,7 @@ namespace Billing.API.Reports
                     Id = customer.Id,
                     Name = customer.Name,
                     Turnover = customer.Turnover,
-                    Percent = customer.Turnover / result.GrandTotal * 100
+                    Percent = Math.Round(customer.Turnover / result.GrandTotal * 100,2)
                 });
             }
 
@@ -196,12 +196,12 @@ namespace Billing.API.Reports
                               .ToList();
 
             foreach (var item in query)
-            { 
+            {
                 CategorySalesModel category = new CategorySalesModel()
                 {
                     Name = item.CategoryId.Name,
                     Total = item.CategoryTotal,
-                    Percent = item.CategoryTotal / result.GrandTotal * 100,
+                    Percent = Math.Round(item.CategoryTotal / result.GrandTotal * 100,2),
                 };
 
                 result.Sales.Add(category);
@@ -211,6 +211,65 @@ namespace Billing.API.Reports
 
         }
 
+
+        public InvoiceReviewCustomerModel ReportInvoicePost(int id, DateTime StartDate, DateTime EndDate)
+        {
+            InvoiceReviewCustomerModel result = new InvoiceReviewCustomerModel();
+            result.StartDate = StartDate;
+            result.EndDate = EndDate;
+            result.CustomerId = id;
+            var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= StartDate && x.Date <= EndDate)).ToList();
+            var Items = Invoices.SelectMany(x => x.Items).ToList();
+            var query = Items.GroupBy(x => x.Product.Category)
+                .Select(x => new {
+                    InvoiceId = x.Key,                
+                    Total = x.Sum(y => y.SubTotal)
+                }).ToList();
+
+
+            var query2 = Invoices.Where(x => x.Customer.Id == id)
+                .GroupBy(
+                x => new {
+                    Id = x.Id,
+                    InvoiceNo = x.InvoiceNo,
+                    Date = x.Date,
+                    ShippedOn = x.ShippedOn,
+                    Status = x.Status,
+                    Vat = x.Vat,
+                    Name = x.Customer.Name
+                })
+                              .Select(x => new
+                              {
+                                  Id = x.Key.Id,
+                                  InvoiceNo = x.Key.InvoiceNo,
+                                  Date = x.Key.Date,
+                                  ShippedOn = x.Key.ShippedOn,
+                                  Status = x.Key.Status,
+                                  Vat = x.Key.Vat,                             
+                                  Total = x.Sum(y => y.Total)
+                              }).ToList();
+            Customer customer = _unitOfWork.Customers.Get().FirstOrDefault(x => x.Id == id);
+            result.CustomerName = customer.Name;
+            double total = 0;
+            foreach (var item in query2)
+            {
+                total += Math.Round((item.Total) / (1 + item.Vat / 100), 2);
+                result.Invoices.Add(new InvoiceReviewModel()
+                {
+                    InvoiceId = item.Id,
+                    InvoiceNo = item.InvoiceNo,
+                    InvoiceTotal = Math.Round((item.Total)/(1+item.Vat/100),2),
+                    InvoiceStatus = item.Status.ToString(),
+                    InvoiceDate = item.Date,
+                    ShippedOn = item.ShippedOn
+                });
+            }
+            result.GrandTotal = Math.Round(total,2); 
+          
+            return result;
+          
+        }
+              
         public SalesByAgentModel Report(DateTime start, DateTime end, int agentId)
         {
             SalesByAgentModel result = new SalesByAgentModel();
@@ -251,6 +310,7 @@ namespace Billing.API.Reports
                 result.Sales.Add(region);
 
             }
+
             return result;
         }
 

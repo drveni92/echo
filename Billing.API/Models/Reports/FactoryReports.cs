@@ -254,5 +254,41 @@ namespace Billing.API.Reports
             return result;
         }
 
+        public SalesByProductModel ReportProduct(DateTime start, DateTime end, int CategoryId)
+        {
+            SalesByProductModel result = new SalesByProductModel();
+            var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
+            var Items = Invoices.SelectMany(x => x.Items).ToList();
+            Category a = _unitOfWork.Categories.Get(CategoryId);
+
+            result.StartDate = start;
+            result.EndDate = end;
+            result.Sales = new List<CategorySalesByProductModel>();
+            result.CategoryName = a.Name;
+            double CategoryTotal = Items.Where(x => x.Product.Category.Id == CategoryId).Sum(x => x.SubTotal);
+            double grandTotal = Invoices.Sum(x => x.Total);
+
+            var query = Items.Where(x => x.Product.Category.Id == CategoryId).GroupBy(x => x.Product.Name)
+                               .Select(x => new
+                               {
+                                   Name = x.Key,
+                                   Total = x.Sum(y => y.SubTotal)
+                               }).ToList();
+
+            foreach (var item in query)
+            {
+                CategorySalesByProductModel product = new CategorySalesByProductModel()
+                {
+                    Name = item.Name,
+                    Total = item.Total,
+                    Percent = Math.Round(100 * item.Total / CategoryTotal, 2),
+                    TotalPercent = Math.Round(100 * item.Total / grandTotal, 2)
+                };
+                result.Sales.Add(product);
+
+            }
+            return result;
+        }
+
     }
 }

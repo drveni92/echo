@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Billing.API.Helper
+namespace Billing.API.Helpers
 {
     public class Logger
     {

@@ -9,7 +9,7 @@ using System.Web.Http.Filters;
 using System.Web.Security;
 using WebMatrix.WebData;
 
-namespace Billing.API.Helper.Identity
+namespace Billing.API.Helpers.Identity
 {
     public class BillingAuthorizationAttribute : AuthorizationFilterAttribute
     {

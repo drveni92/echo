@@ -1,5 +1,5 @@
-﻿using Billing.API.Helper;
-using Billing.API.Helper.Identity;
+﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using System;
 using System.Web.Http;
 
@@ -12,7 +12,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                return Ok(FactoryReport.Report());
+                return Ok(Reports.Dashboard.Report());
             }
             catch (Exception ex)
             {

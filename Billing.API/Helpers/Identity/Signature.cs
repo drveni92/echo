@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace Billing.API.Helper.Identity
+namespace Billing.API.Helpers.Identity
 {
     public static class Signature
     {

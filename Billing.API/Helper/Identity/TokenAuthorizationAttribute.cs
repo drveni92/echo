@@ -1,5 +1,6 @@
 ﻿using Billing.Repository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -18,15 +19,16 @@ namespace Billing.API.Helper.Identity
         {
             try
             {
-                string ApiKey = actionContext.Request.Headers.GetValues("ApiKey").ToString();
-                string Token = actionContext.Request.Headers.GetValues("Token").ToString();
+                IEnumerable<string> ApiKey = new List<string>();
+                IEnumerable<string> Token = new List<string>();
+                actionContext.Request.Headers.TryGetValues("ApiKey", out ApiKey);
+                actionContext.Request.Headers.TryGetValues("Token", out Token);
 
-                UnitOfWork unitOfWork = new UnitOfWork();
-                var token = unitOfWork.Tokens.Get().FirstOrDefault(x => x.Token == Token);
-
-                if (token != null)
+                if (!(ApiKey == null || Token == null))
                 {
-                    if (token.ApiUser.AppId == ApiKey && token.Expiration > DateTime.UtcNow) return;
+                    var authToken = new UnitOfWork().Tokens.Get().FirstOrDefault(x => x.Token == Token.FirstOrDefault());
+                    if (authToken != null)
+                        if (authToken.ApiUser.AppId == ApiKey.First() && authToken.Expiration > DateTime.UtcNow) return;
                 }
             }
             catch (Exception ex)

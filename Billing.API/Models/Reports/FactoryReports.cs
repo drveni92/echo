@@ -317,7 +317,7 @@ namespace Billing.API.Reports
         public InvoiceReviewGetModel ReportInvoiceGet(int id)
         {
             InvoiceReviewGetModel result = new InvoiceReviewGetModel();
-            
+
             var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Id == id)).ToList();
             var Items = Invoices.SelectMany(x => x.Items).ToList();
             foreach (var invoice in Invoices)
@@ -332,26 +332,27 @@ namespace Billing.API.Reports
                 result.ShippedOn = invoice.ShippedOn;
 
             }
-                var query2 = Items//.Where(x => x. == id)
-                .GroupBy(
-                x => new {
-                    ProductId = x.Product.Id,
-                    ProductName = x.Product.Name,
-                    Quantity = x.Quantity,
-                    Price = x.Price,
-                    Subtotal = x.SubTotal
-                })
-                              .Select(x => new
-                              {               
-                                  ProductId = x.Key.ProductId,
-                                  ProductName = x.Key.ProductName,
-                                  Quantity = x.Key.Quantity,
-                                  Price = x.Key.Price,
-                                  Subtotal = x.Key.Subtotal,
-                                  Total = x.Sum(y => y.SubTotal)
-                              }).ToList();
+            var query2 = Items//.Where(x => x. == id)
+            .GroupBy(
+            x => new
+            {
+                ProductId = x.Product.Id,
+                ProductName = x.Product.Name,
+                Quantity = x.Quantity,
+                Price = x.Price,
+                Subtotal = x.SubTotal
+            })
+                          .Select(x => new
+                          {
+                              ProductId = x.Key.ProductId,
+                              ProductName = x.Key.ProductName,
+                              Quantity = x.Key.Quantity,
+                              Price = x.Key.Price,
+                              Subtotal = x.Key.Subtotal,
+                              Total = x.Sum(y => y.SubTotal)
+                          }).ToList();
             var customer = Invoices.FirstOrDefault();
-            result.CustomerName=customer.Customer.Name;
+            result.CustomerName = customer.Customer.Name;
 
             foreach (var item in query2)
             {
@@ -362,9 +363,12 @@ namespace Billing.API.Reports
                     Quantity = item.Quantity,
                     Price = item.Price,
                     Subtotal = item.Subtotal
-                   // Tota = item.Total
+                    // Tota = item.Total
                 });
             }
+
+            return result;
+        }
 
 
         public SalesAgentsRegionsModel ReportAgentsRegions(DateTime start, DateTime end)

@@ -3,6 +3,7 @@ using Billing.API.Models;
 using Billing.Database;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,13 +14,14 @@ using WebMatrix.WebData;
 
 namespace Billing.API.Controllers
 {
+    [BillingAuthorization]
     public class LoginController : BaseController
     {
         private BillingIdentity identity = new BillingIdentity();
 
         [Route("api/login")]
         [HttpPost]
-        public IHttpActionResult Login(string credentials, [FromBody]TokenRequestModel request)
+        public IHttpActionResult Login([FromBody]TokenRequestModel request)
         {
             ApiUser apiUser = UnitOfWork.ApiUsers.Get().FirstOrDefault(x => x.AppId == request.ApiKey);
             if (apiUser == null) return NotFound();
@@ -27,36 +29,27 @@ namespace Billing.API.Controllers
             if (Signature.Generate(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
 
 
-            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing", "UserProfile", "UserId", "UserName", autoCreateTables: true);
-            string[] user = credentials.Split(':');
-            if (WebSecurity.Login(user[0], user[1]))
+            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+
+
+            var rawTokenInfo = apiUser.AppId + DateTime.UtcNow.ToString("s");
+            var authToken = new AuthToken()
             {
-                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(user[0]), null);
+                Token = rawTokenInfo,
+                Expiration = DateTime.Now.AddMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["TokenTime"])),
+                ApiUser = apiUser
+            };
+            UnitOfWork.Tokens.Insert(authToken);
+            UnitOfWork.Commit();
 
-                var rawTokenInfo = apiUser.AppId + DateTime.UtcNow.ToString("s");
-                var authToken = new AuthToken()
-                {
-                    Token = rawTokenInfo,
-                    Expiration = DateTime.Now.AddMinutes(20),
-                    ApiUser = apiUser
-                };
-                UnitOfWork.Tokens.Insert(authToken);
-                UnitOfWork.Commit();
-
-                return Ok(Factory.Create(authToken));
-            }
-            else
-            {
-                return Ok($"{user[0]} not logged in");
-            }
-
+            return Ok(Factory.Create(authToken));
         }
 
         [Route("api/logout")]
         [HttpGet]
         public IHttpActionResult Logout()
         {
-            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "UserProfile", "UserId", "UserName", autoCreateTables: true);
             if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
             {
                 WebSecurity.Logout();

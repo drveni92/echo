@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agents.cs" />
+    <Compile Include="ApiUserGenerator.cs" />
     <Compile Include="Categories.cs" />
     <Compile Include="Customers.cs" />
     <Compile Include="Help.cs" />

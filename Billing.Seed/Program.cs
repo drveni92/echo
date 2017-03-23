@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Seed;
+using System;
 
 namespace Billing.Seed
 {
@@ -9,6 +10,7 @@ namespace Billing.Seed
             Console.WriteLine("Data migration in progress");
             Console.WriteLine("--------------------------");
             Run();
+            ApiUserGenerator.Get();
             Console.WriteLine("-------------------------");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();

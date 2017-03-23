@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using System.Web.Security;
 using WebMatrix.WebData;
 
 namespace Billing.API.Helper.Identity
@@ -35,7 +36,8 @@ namespace Billing.API.Helper.Identity
 
                         if (WebSecurity.Login(username, password))
                         {
-                            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username), null);
+                            string[] roles = Roles.GetRolesForUser(username);
+                            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username), roles);
                             return;
                         }
                     }

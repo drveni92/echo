@@ -45,11 +45,6 @@ namespace Billing.API.Models
             };
         }
 
-        internal object Create(AuthToken authToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public SupplierModel Create(Supplier supplier)
         {
             return new SupplierModel()
@@ -211,7 +206,16 @@ namespace Billing.API.Models
                 Product = new StockModel.StockProduct() { Id = stock.Product.Id, Name = stock.Product.Name }
             };
         }
-        
+
+        public TokenModel Create(AuthToken authToken)
+        {
+            return new Models.TokenModel()
+            {
+                Token = authToken.Token,
+                Expiration = authToken.Expiration
+            };
+        }
+
         //Model To Entity
 
         public Customer Create(CustomerModel model)
@@ -362,5 +366,6 @@ namespace Billing.API.Models
                 Customers = customers
             };
         }
+        
     }
 }

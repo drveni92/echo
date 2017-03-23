@@ -1,4 +1,4 @@
-﻿using Billing.API.Helper;
+﻿using Billing.API.Helpers;
 using Billing.API.Models.Reports;
 using System;
 using System.Collections.Generic;
@@ -11,11 +11,11 @@ namespace Billing.API.Controllers
 {
     public class InvoiceReviewPostController : BaseController
     {
-        public IHttpActionResult Post([FromBody]RequestModel request)
+        public IHttpActionResult Post([FromBody]ReportRequestModel request)
         {
             try
             {
-                return Ok(FactoryReport.ReportInvoicePost(request.Id, request.StartDate, request.EndDate));
+                return Ok(Reports.InvoicesReview.Report(request.Id, request.StartDate, request.EndDate));
             }
 
             catch (Exception ex)

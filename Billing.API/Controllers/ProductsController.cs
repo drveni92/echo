@@ -1,7 +1,7 @@
 ﻿
 using Billing.Api.Models;
 using Billing.API.Controllers;
-using Billing.API.Helper;
+using Billing.API.Helpers;
 using Billing.Database;
 using Billing.Repository;
 using System;

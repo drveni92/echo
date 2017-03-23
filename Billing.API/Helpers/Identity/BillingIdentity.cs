@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 
-namespace Billing.API.Helper.Identity
+namespace Billing.API.Helpers.Identity
 {
     public class BillingIdentity
     {

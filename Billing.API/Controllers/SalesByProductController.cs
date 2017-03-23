@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Billing.API.Helpers;
+using Billing.API.Models.Reports;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,16 +11,17 @@ namespace Billing.API.Controllers
 {
     public class SalesByProductController : BaseController
     {
-        public struct Params
+        public IHttpActionResult Post([FromBody]ReportRequestModel request)
         {
-            public DateTime StartDate { get; set; }
-            public DateTime EndDate { get; set; }
-            public int CategoryId { get; set; }
-        }
-
-        public IHttpActionResult Post([FromBody]Params p)
-        {
-            return Ok(FactoryReport.ReportProduct(p.StartDate, p.EndDate, p.CategoryId));
+            try
+            {
+                return Ok(Reports.SalesByCategory.Report(request.StartDate, request.EndDate, request.Id));
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

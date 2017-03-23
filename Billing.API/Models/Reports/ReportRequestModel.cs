@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Billing.API.Models.Reports
 {
-    public class RequestModel
+    public class ReportRequestModel
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

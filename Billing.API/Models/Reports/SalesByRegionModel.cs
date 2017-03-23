@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Billing.API.Models
+namespace Billing.API.Models.Reports
 {
     public class AgentSalesModel
     {

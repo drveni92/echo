@@ -1,4 +1,4 @@
-﻿using Billing.API.Helper;
+﻿using Billing.API.Helpers;
 using Billing.API.Models.Reports;
 using System;
 using System.Collections.Generic;
@@ -12,11 +12,11 @@ namespace Billing.API.Controllers
     public class SalesByAgentController : BaseController
     {
        
-        public IHttpActionResult Post([FromBody]RequestModel request)
+        public IHttpActionResult Post([FromBody]ReportRequestModel request)
         {
             try
             {
-                return Ok(FactoryReport.ReportAgentSales(request.StartDate, request.EndDate, request.Id));
+                return Ok(Reports.SalesByRegion.Report(request.StartDate, request.EndDate, request.Id));
             }
 
             catch (Exception ex)

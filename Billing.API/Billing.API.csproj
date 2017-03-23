@@ -160,11 +160,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\Identity\BillingAuthorizationAttribute.cs" />
-    <Compile Include="Helper\Identity\BillingIdentity.cs" />
-    <Compile Include="Helper\Identity\Signature.cs" />
-    <Compile Include="Helper\Identity\TokenAuthorizationAttribute.cs" />
-    <Compile Include="Helper\Logger.cs" />
+    <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Helpers\Identity\BillingAuthorizationAttribute.cs" />
+    <Compile Include="Helpers\Identity\BillingIdentity.cs" />
+    <Compile Include="Helpers\Identity\Signature.cs" />
+    <Compile Include="Helpers\Identity\TokenAuthorizationAttribute.cs" />
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
@@ -174,10 +175,12 @@
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
-    <Compile Include="Models\Reports\FactoryReports.cs" />
+    <Compile Include="Reports\BaseReport.cs" />
+    <Compile Include="Reports\DashboardReport.cs" />
+    <Compile Include="Reports\FactoryReports.cs" />
     <Compile Include="Models\Reports\InvoiceReviewGetModel.cs" />
     <Compile Include="Models\Reports\InvoiceReviewPostModel.cs" />
-    <Compile Include="Models\Reports\RequestModel.cs" />
+    <Compile Include="Models\Reports\ReportRequestModel.cs" />
     <Compile Include="Models\Reports\SalesAgentsRegionsModel.cs" />
     <Compile Include="Models\Reports\SalesByAgentModel.cs" />
     <Compile Include="Models\Reports\SalesByCategoryModel.cs" />
@@ -191,6 +194,12 @@
     <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Models\TownModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\InvoicesReview.cs" />
+    <Compile Include="Reports\SalesByAgentsRegions.cs" />
+    <Compile Include="Reports\SalesByCategory.cs" />
+    <Compile Include="Reports\SalesByCustomer.cs" />
+    <Compile Include="Reports\SalesByRegion.cs" />
+    <Compile Include="Reports\SetOfReports.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

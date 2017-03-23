@@ -11,7 +11,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using WebMatrix.WebData;
 
-namespace Billing.API.Helper.Identity
+namespace Billing.API.Helpers.Identity
 {
     public class TokenAuthorizationAttribute : AuthorizationFilterAttribute
     {

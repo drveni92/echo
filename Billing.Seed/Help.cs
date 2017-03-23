@@ -13,7 +13,7 @@ namespace Billing.Seed
     public static class Help
     {
         public static BillingContext Context = new BillingContext();
-        public static string SourceRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"SeedData\Billing.xls");
+        public static string SourceRoot = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"SeedData\Billing.xls");
 
         public static Dictionary<int, int> dicAgen = new Dictionary<int, int>();
         public static Dictionary<int, int> dicProd = new Dictionary<int, int>();

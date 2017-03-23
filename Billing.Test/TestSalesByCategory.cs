@@ -2,13 +2,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Billing.API.Reports;
 using Billing.Repository;
+using Billing.API.Helper.Identity;
 
 namespace Billing.Test
 {
     [TestClass]
     public class TestSalesByCategory
     {
-        private FactoryReports factory = new FactoryReports(new UnitOfWork());
+        private FactoryReports factory = new FactoryReports(new UnitOfWork(), new BillingIdentity());
 
         private int categories = 7;
 

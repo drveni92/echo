@@ -2,13 +2,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Billing.Repository;
 using Billing.API.Reports;
+using Billing.API.Helper.Identity;
 
 namespace Billing.Test
 {
     [TestClass]
     public class TestSalesByCustomer
     {
-        FactoryReports factory = new FactoryReports(new UnitOfWork());
+        FactoryReports factory = new FactoryReports(new UnitOfWork(), new BillingIdentity());
 
         private int customers = 10;
         private double grandTotal = 76884.21;

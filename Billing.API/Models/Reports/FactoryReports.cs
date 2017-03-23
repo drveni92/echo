@@ -1,4 +1,5 @@
-﻿using Billing.API.Models;
+using Billing.API.Helper.Identity;
+using Billing.API.Models;
 using Billing.API.Models.Reports;
 using Billing.Database;
 using Billing.Repository;
@@ -12,16 +13,20 @@ namespace Billing.API.Reports
     public class FactoryReports
     {
         private UnitOfWork _unitOfWork;
+        private BillingIdentity _identity;
 
-        public FactoryReports(UnitOfWork unitOfWork)
+        public FactoryReports(UnitOfWork unitOfWork, BillingIdentity identity)
         {
             _unitOfWork = unitOfWork;
+            _identity = identity;
         }
 
         public DashboardModel Report()
         {
             int currentMonth = 4;
             DashboardModel result = new DashboardModel((int)Status.Delivered, (int)Region.Zenica);
+
+            result.Title = "Dashboard for " + _identity.CurrentUser;
 
             result.RegionsMonth = _unitOfWork.Invoices.Get()
                     .Where(x => x.Date.Month == currentMonth).ToList()
@@ -362,6 +367,127 @@ namespace Billing.API.Reports
             }
 
 
+        public SalesAgentsRegionsModel ReportAgentsRegions(DateTime start, DateTime end)
+        {
+            SalesAgentsRegionsModel result = new SalesAgentsRegionsModel(start, end);
+
+            var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
+
+            var Agents = _unitOfWork.Agents.Get().ToList();
+
+            var Regions = Enum.GetValues(typeof(Region))
+                              .Cast<Region>()
+                              .ToList();
+
+            foreach (var region in Regions)
+            {
+                result.Regions.Add(new SalesRegionModel()
+                {
+                    Region = region.ToString(),
+                    Total = 0
+                });
+            }
+
+            result.GrandTotal = Invoices.Sum(x => x.Total);
+
+            foreach (var agent in Agents)
+            {
+                SalesAgentModel NewAgent = new SalesAgentModel();
+                NewAgent.Name = agent.Name;
+                NewAgent.Turnover = Invoices.Where(x => x.Agent.Id == agent.Id).Sum(x => x.Total);
+                foreach (var region in Regions)
+                {
+                    NewAgent.Sales[region] = 0;
+                }
+                foreach (var town in Invoices.Where(x => x.Agent.Name == agent.Name).GroupBy(x => x.Customer.Town.Region).Select(x => new { Region = x.Key, Total = x.Sum(y => y.Total) }).ToList())
+                {
+                    NewAgent.Sales[town.Region] += Math.Round(town.Total, 2);
+                    //add region list
+                    var region = result.Regions.FirstOrDefault(x => x.Region == town.Region.ToString()).Total += Math.Round(town.Total, 2);
+
+                }
+                result.Agents.Add(NewAgent);
+            }
+
+            /*
+            //Fill up Agents
+            var Agents = Invoices.GroupBy(x => x.Agent.Name).ToList()
+                                 .Select(x => new
+                                 {
+                                     Name = x.Key,
+                                     Turnover = x.Sum(y => y.Total)
+                                 }).ToList();
+
+            foreach (var item in Agents)
+            {
+                SalesAgentModel agent = new SalesAgentModel();
+                agent.Name = item.Name;
+                agent.Turnover = Math.Round(item.Turnover, 2);
+                foreach (var region in Regions)
+                {
+                    agent.Sales[region] = 0;
+                }
+                foreach (var town in Invoices.Where(x => x.Agent.Name == item.Name).GroupBy(x => x.Customer.Town.Region).ToList().Select(x => new { Region = x.Key, Total = x.Sum(y => y.Total)}))
+                {
+                    agent.Sales[town.Region] += Math.Round(town.Total, 2);
+                    //add region list
+                    var region = result.Regions.FirstOrDefault(x => x.Region == town.Region.ToString());
+                    if (region != null)
+                    {
+                        if (!region.Agents.ContainsKey(agent.Name)) region.Agents.Add(agent.Name, 0);
+
+                        region.Agents[agent.Name] += Math.Round(town.Total, 2);
+                        region.Total += Math.Round(town.Total, 2);
+                    }
+                    else
+                    {
+                        SalesRegionModel reg = new SalesRegionModel();
+                        reg.Region = town.Region.ToString();
+                        reg.Total = Math.Round(town.Total, 2);
+                        reg.Agents[agent.Name] = Math.Round(town.Total, 2);
+                        result.Regions.Add(reg);
+                    }
+                }
+                result.Agents.Add(agent);
+            }
+            */
+
+            return result;
+        }
+
+        public SalesByProductModel ReportProduct(DateTime start, DateTime end, int CategoryId)
+        {
+            SalesByProductModel result = new SalesByProductModel();
+            var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
+            var Items = Invoices.SelectMany(x => x.Items).ToList();
+            Category a = _unitOfWork.Categories.Get(CategoryId);
+
+            result.StartDate = start;
+            result.EndDate = end;
+            result.Sales = new List<CategorySalesByProductModel>();
+            result.CategoryName = a.Name;
+            double CategoryTotal = Items.Where(x => x.Product.Category.Id == CategoryId).Sum(x => x.SubTotal);
+            double grandTotal = Invoices.Sum(x => x.Total);
+
+            var query = Items.Where(x => x.Product.Category.Id == CategoryId).GroupBy(x => x.Product.Name)
+                               .Select(x => new
+                               {
+                                   Name = x.Key,
+                                   Total = x.Sum(y => y.SubTotal)
+                               }).ToList();
+
+            foreach (var item in query)
+            {
+                CategorySalesByProductModel product = new CategorySalesByProductModel()
+                {
+                    Name = item.Name,
+                    Total = item.Total,
+                    Percent = Math.Round(100 * item.Total / CategoryTotal, 2),
+                    TotalPercent = Math.Round(100 * item.Total / grandTotal, 2)
+                };
+                result.Sales.Add(product);
+
+            }
             return result;
         }
 

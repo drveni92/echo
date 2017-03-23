@@ -1,4 +1,4 @@
-﻿using Billing.API.Helper.Identity;
+using Billing.API.Helper.Identity;
 using Billing.API.Models;
 using Billing.API.Models.Reports;
 using Billing.Database;
@@ -224,13 +224,7 @@ namespace Billing.API.Reports
             result.EndDate = EndDate;
             result.CustomerId = id;
             var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= StartDate && x.Date <= EndDate)).ToList();
-            var Items = Invoices.SelectMany(x => x.Items).ToList();
-            var query = Items.GroupBy(x => x.Product.Category)
-                .Select(x => new {
-                    InvoiceId = x.Key,                
-                    Total = x.Sum(y => y.SubTotal)
-                }).ToList();
-
+            var Items = Invoices.SelectMany(x => x.Items).ToList();   
 
             var query2 = Invoices.Where(x => x.Customer.Id == id)
                 .GroupBy(
@@ -318,6 +312,60 @@ namespace Billing.API.Reports
 
             return result;
         }
+
+
+        public InvoiceReviewGetModel ReportInvoiceGet(int id)
+        {
+            InvoiceReviewGetModel result = new InvoiceReviewGetModel();
+            
+            var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Id == id)).ToList();
+            var Items = Invoices.SelectMany(x => x.Items).ToList();
+            foreach (var invoice in Invoices)
+            {
+                result.InvoiceNo = invoice.InvoiceNo;
+                result.InvoiceDate = invoice.Date;
+                result.InvoiceStatus = invoice.Status.ToString();
+                result.Subtotal = invoice.SubTotal;
+                result.VatAmount = invoice.VatAmount;
+                result.Shipping = invoice.Shipping;
+                result.Shipper = invoice.Shipper.Name;
+                result.ShippedOn = invoice.ShippedOn;
+
+            }
+                var query2 = Items//.Where(x => x. == id)
+                .GroupBy(
+                x => new {
+                    ProductId = x.Product.Id,
+                    ProductName = x.Product.Name,
+                    Quantity = x.Quantity,
+                    Price = x.Price,
+                    Subtotal = x.SubTotal
+                })
+                              .Select(x => new
+                              {               
+                                  ProductId = x.Key.ProductId,
+                                  ProductName = x.Key.ProductName,
+                                  Quantity = x.Key.Quantity,
+                                  Price = x.Key.Price,
+                                  Subtotal = x.Key.Subtotal,
+                                  Total = x.Sum(y => y.SubTotal)
+                              }).ToList();
+            var customer = Invoices.FirstOrDefault();
+            result.CustomerName=customer.Customer.Name;
+
+            foreach (var item in query2)
+            {
+                result.Items.Add(new InvoiceReviewItem()
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    Price = item.Price,
+                    Subtotal = item.Subtotal
+                   // Tota = item.Total
+                });
+            }
+
 
         public SalesAgentsRegionsModel ReportAgentsRegions(DateTime start, DateTime end)
         {

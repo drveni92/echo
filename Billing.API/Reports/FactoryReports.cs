@@ -61,5 +61,34 @@ namespace Billing.API.Reports
                            .ToList();
             return region;
         }
+
+        public List<CustomerStatus> Customers(List<InputItem> list)
+        {
+            List<CustomerStatus> result = new List<CustomerStatus>();
+            CustomerStatus current = new CustomerStatus();
+            foreach (var item in list)
+            {
+                if (item.Label != current.Name)
+                {
+                    if (current.Name != null) result.Add(current);
+                    current = new CustomerStatus();
+                    current.Name = item.Label;
+                }
+                current.Debit += item.Value;
+                if (item.Index > 3) current.Credit += item.Value;
+            }
+            if (current.Name != null) result.Add(current);
+            return result.OrderByDescending(x => x.Debit).ToList();
+        }
+
+        public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
+        {
+            return new CustomerStatus()
+            {
+                Id = Id,
+                Name = Name,
+
+            };
+        }
     }
 }

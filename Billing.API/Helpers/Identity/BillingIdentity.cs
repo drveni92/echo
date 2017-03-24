@@ -17,5 +17,11 @@ namespace Billing.API.Helpers.Identity
                 return Thread.CurrentPrincipal.Identity.Name;
             }
         }
+
+        public bool HasRole(string role)
+        {
+            return Thread.CurrentPrincipal.IsInRole(role);
+        }
+
     }
 }

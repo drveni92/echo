@@ -23,7 +23,7 @@ namespace Billing.API.Reports
                 GrandTotal = Invoices.Sum(x => x.SubTotal)
             };
 
-            result.Sales = Invoices.OrderBy(x => x.Customer.Id)
+            result.Sales = Invoices.OrderBy(x => x.Customer.Id).ToList()
                                    .GroupBy(x => x.Customer.Town.Region.ToString())
                                    .Select(x => _factory.Create(Invoices, x.Key, x.Sum(y => y.SubTotal)))
                                    .ToList();

@@ -78,13 +78,13 @@ namespace Billing.API.Reports
                 result.InvoiceDate = invoice.Date;
                 result.InvoiceStatus = invoice.Status.ToString();
                 result.Subtotal = invoice.SubTotal;
-                result.VatAmount = invoice.VatAmount;
+                result.VatAmount = Math.Round(invoice.VatAmount,2);
                 result.Shipping = invoice.Shipping;
                 result.Shipper = invoice.Shipper.Name;
                 result.ShippedOn = invoice.ShippedOn;
 
             }
-            var query2 = Items//.Where(x => x. == id)
+            var query2 = Items
             .GroupBy(
             x => new
             {
@@ -115,7 +115,6 @@ namespace Billing.API.Reports
                     Quantity = item.Quantity,
                     Price = item.Price,
                     Subtotal = item.Subtotal
-                    // Tota = item.Total
                 });
             }
 

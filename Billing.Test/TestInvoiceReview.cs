@@ -11,7 +11,10 @@ namespace Billing.Test
     {
         private InvoicesReview report = new InvoicesReview(new UnitOfWork());
         private int customerId = 1;
+        private int customerIdGet = 6;
         private InvoiceReviewCustomerModel result;
+        private InvoiceReviewGetModel resultGet;
+
 
         [ClassInitialize]
         public static void Init(TestContext testContext)
@@ -25,6 +28,7 @@ namespace Billing.Test
             DateTime start = new DateTime(2016, 1, 1);
             DateTime end = new DateTime(2017, 12, 31);
             result = report.Report(customerId, start, end);
+            resultGet = report.Report(customerIdGet);
         }
 
         [TestMethod]
@@ -37,6 +41,18 @@ namespace Billing.Test
             }
 
             Assert.AreEqual(result.GrandTotal, Math.Round(sum, 2));
+
+        }
+        [TestMethod]
+        public void CountItemsFromCustomerInvoice()
+        {
+            double sum = 0;
+            foreach (var item in resultGet.Items)
+            {
+                sum += item.Quantity*item.Price;
+            }
+
+            Assert.AreEqual(resultGet.Subtotal, Math.Round(sum, 2));
 
         }
     }

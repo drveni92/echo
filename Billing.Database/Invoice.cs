@@ -25,16 +25,19 @@ namespace Billing.Database
         public DateTime? ShippedOn { get; set; }
 
         [NotMapped]
-        public double SubTotal { get
+        public double SubTotal
+        {
+            get
             {
                 double temp = 0;
-                foreach(Item item in Items)
+                foreach (Item item in Items)
                 {
                     temp += item.SubTotal;
                 }
                 return temp;
             }
         }
+
         public double Vat { get; set; }
 
         [NotMapped]

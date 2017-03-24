@@ -18,41 +18,22 @@ namespace Billing.API.Reports
         {
             SalesAgentsRegionsModel result = new SalesAgentsRegionsModel(start, end);
 
-            var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
+            List<Agent> Agents = _unitOfWork.Agents.Get().ToList();
 
-            var Agents = _unitOfWork.Agents.Get().ToList();
+            List<InputCross> AgentsByRegions = _unitOfWork.Invoices.Get()
+                                               .Where(x => (x.Date >= start && x.Date <= end)).ToList()
+                                               .GroupBy(x => new
+                                               {
+                                                   AgentName = x.Agent.Name,
+                                                   RegionName = x.Customer.Town.Region.ToString()
+                                               })
+                                               .Select(x => new InputCross { Row = x.Key.AgentName, Column = x.Key.RegionName, Value = x.Sum(y => y.Total) })
+                                               .OrderByDescending(x => x.Value)
+                                               .ToList();
 
-            var Regions = Helpers.Helper.Regions;
-
-            foreach (var region in Regions)
-            {
-                result.Regions.Add(new SalesRegionModel()
-                {
-                    Region = region.ToString(),
-                    Total = 0
-                });
-            }
-
-            result.GrandTotal = Invoices.Sum(x => x.Total);
-
-            foreach (var agent in Agents)
-            {
-                SalesAgentModel NewAgent = new SalesAgentModel();
-                NewAgent.Name = agent.Name;
-                NewAgent.Turnover = Invoices.Where(x => x.Agent.Id == agent.Id).Sum(x => x.Total);
-                foreach (var region in Regions)
-                {
-                    NewAgent.Sales[region] = 0;
-                }
-                foreach (var town in Invoices.Where(x => x.Agent.Name == agent.Name).GroupBy(x => x.Customer.Town.Region).Select(x => new { Region = x.Key, Total = x.Sum(y => y.Total) }).ToList())
-                {
-                    NewAgent.Sales[town.Region] += Math.Round(town.Total, 2);
-                    //add region list
-                    var region = result.Regions.FirstOrDefault(x => x.Region == town.Region.ToString()).Total += Math.Round(town.Total, 2);
-
-                }
-                result.Agents.Add(NewAgent);
-            }
+            result.Agents = _factory.Create(AgentsByRegions, Agents, Helpers.Helper.Regions);
+            result.Regions = _factory.CreateReverse(AgentsByRegions, Helpers.Helper.Regions);
+            result.GrandTotal = result.Agents.Sum(x => x.Turnover);
 
             return result;
         }

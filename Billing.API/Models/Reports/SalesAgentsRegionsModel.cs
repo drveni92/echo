@@ -14,13 +14,17 @@ namespace Billing.API.Models.Reports
 
     public class SalesAgentModel
     {
-        public SalesAgentModel()
+        public SalesAgentModel(List<Region> regions)
         {
-            Sales = new Dictionary<Region, double>();
+            Sales = new Dictionary<string, double>();
+            foreach (var region in regions)
+            {
+                Sales[region.ToString()] = 0;
+            }
         }
         public string Name { get; set; }
         public double Turnover { get; set; }
-        public Dictionary<Region, double> Sales { get; set; }
+        public Dictionary<string, double> Sales { get; set; }
     }
 
     public class SalesAgentsRegionsModel

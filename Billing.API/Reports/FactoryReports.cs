@@ -39,6 +39,57 @@ namespace Billing.API.Reports
             return result;
         }
 
+        public List<SalesAgentModel> Create(List<InputCross> list, List<Agent> agents, List<Region> regions)
+        {
+            List<SalesAgentModel> result = new List<SalesAgentModel>();
+            foreach (var item in list)
+            {
+                SalesAgentModel agent = result.FirstOrDefault(x => x.Name == item.Row);
+                if(agent == null)
+                {
+                    agent = new SalesAgentModel(regions);
+                    agent.Name = item.Row;
+                    result.Add(agent);
+                }
+                agent.Sales[item.Column] = item.Value;
+                agent.Turnover += item.Value; 
+            }
+            foreach (var agent in agents)
+            {
+                if (!result.Exists(x => x.Name == agent.Name)) result.Add(new SalesAgentModel(regions)
+                {
+                    Name = agent.Name,
+                    Turnover = 0
+                });
+            }
+            return result;
+        }
+
+        public List<SalesRegionModel> CreateReverse(List<InputCross> list, List<Region> regions)
+        {
+            List<SalesRegionModel> result = new List<SalesRegionModel>();
+            foreach (var region in regions)
+            {
+                result.Add(new SalesRegionModel()
+                {
+                    Region = region.ToString(),
+                    Total = 0
+                });
+            }
+            foreach (var item in list)
+            {
+                SalesRegionModel region = result.FirstOrDefault(x => x.Region == item.Column);
+                if(region == null)
+                {
+                    region = new SalesRegionModel();
+                    region.Region = item.Column;
+                    result.Add(region);
+                }
+                region.Total += item.Value;
+            }
+            return result;
+        }
+
         public CustomerSalesModel Create(int id, string name, double turnover, double grandTotal)
         {
             return new CustomerSalesModel()

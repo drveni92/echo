@@ -82,6 +82,7 @@
     <Compile Include="TestInvoicesController.cs" />
     <Compile Include="TestProductController.cs" />
     <Compile Include="TestReportAgentsRegionsCross.cs" />
+    <Compile Include="TestSalesByAgent.cs" />
     <Compile Include="TestSalesByCategory.cs" />
     <Compile Include="TestSalesByCustomer.cs" />
     <Compile Include="TestSalesByRegion.cs" />

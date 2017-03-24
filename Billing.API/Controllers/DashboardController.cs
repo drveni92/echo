@@ -5,7 +5,7 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
-    [TokenAuthorization]
+    [TokenAuthorization("user")]
     public class DashboardController : BaseController
     {
         public IHttpActionResult Get()

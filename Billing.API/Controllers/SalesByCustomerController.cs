@@ -15,7 +15,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                return Ok(Reports.SalesByCategory.Report(request.StartDate, request.EndDate));
+                return Ok(Reports.SalesByCustomer.Report(request.StartDate, request.EndDate));
             }
             catch(Exception ex)
             {

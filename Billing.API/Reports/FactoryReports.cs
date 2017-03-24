@@ -39,6 +39,17 @@ namespace Billing.API.Reports
             return result;
         }
 
+        public CustomerSalesModel Create(int id, string name, double turnover, double grandTotal)
+        {
+            return new CustomerSalesModel()
+            {
+                Id = id,
+                Name = name,
+                Turnover = turnover,
+                Percent = Math.Round(turnover / grandTotal * 100, 2)
+            };
+        }
+
         public RegionSalesModel Create(List<Invoice> Invoices, string Region, double Sales)
         {
             double GrandTotal = Invoices.Sum(x => x.SubTotal);

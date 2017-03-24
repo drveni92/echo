@@ -15,32 +15,17 @@ namespace Billing.API.Reports
 
         public SalesByCustomerModel Report(DateTime start, DateTime end)
         {
-            SalesByCustomerModel result = new SalesByCustomerModel(start, end);
-
             var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
 
-            result.GrandTotal = Invoices.Sum(x => x.Total);
-
-            var listOfCustomers = Invoices.GroupBy(x => new { Id = x.Customer.Id, Name = x.Customer.Name })
-                                          .Select(x => new
-                                          {
-                                              Id = x.Key.Id,
-                                              Name = x.Key.Name,
-                                              Turnover = x.Sum(y => y.Items.Sum(z => z.Price * z.Quantity))
-                                          }).ToList();
-
-            foreach (var customer in listOfCustomers)
+            SalesByCustomerModel result = new SalesByCustomerModel(start, end)
             {
-                result.Customers.Add(new CustomerSalesModel()
-                {
-                    Id = customer.Id,
-                    Name = customer.Name,
-                    Turnover = customer.Turnover,
-                    Percent = Math.Round(customer.Turnover / result.GrandTotal * 100, 2)
-                });
-            }
+                GrandTotal = Invoices.Sum(x => x.Total)
+            };
 
-
+            result.Customers = Invoices.GroupBy(x => new { Id = x.Customer.Id, Name = x.Customer.Name })
+                                       .Select(x => _factory.Create(x.Key.Id, x.Key.Name, x.Sum(y => y.Items.Sum(z => z.Price * z.Quantity)), result.GrandTotal))
+                                       .OrderByDescending(x => x.Turnover)
+                                       .ToList();
             return result;
         }
     }

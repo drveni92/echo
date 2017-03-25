@@ -16,11 +16,6 @@ namespace Billing.Test
         private int agents = 7;
         private SalesByRegionModel result;
 
-        [ClassInitialize]
-        public static void Init(TestContext testContext)
-        {
-            TestHelper.InitDatabaseReports();
-        }
 
         [TestInitialize]
         public void InitReport()

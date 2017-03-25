@@ -87,6 +87,7 @@
     <Compile Include="TestSalesByCategory.cs" />
     <Compile Include="TestSalesByCustomer.cs" />
     <Compile Include="TestSalesByRegion.cs" />
+    <Compile Include="TestStockLevel.cs" />
     <Compile Include="TestSupplierContolller.cs" />
     <Compile Include="TestShipperController.cs" />
     <Compile Include="TestProcurementController.cs" />

@@ -152,5 +152,16 @@ namespace Billing.API.Reports
 
             };
         }
+
+        public ProductStockModel Create(int id, string name, Stock stock)
+        {
+            return new ProductStockModel()
+            {
+                Id = id,
+                Name = name,
+                Input = (stock != null) ? stock.Input : 0,
+                Output = (stock != null) ? stock.Output : 0
+            };
+        }
     }
 }

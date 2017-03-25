@@ -15,13 +15,6 @@ namespace Billing.Test
         private InvoiceReviewCustomerModel result;
         private InvoiceReviewGetModel resultGet;
 
-
-        [ClassInitialize]
-        public static void Init(TestContext testContext)
-        {
-            TestHelper.InitDatabaseReports();
-        }
-
         [TestInitialize]
         public void InitReport()
         {

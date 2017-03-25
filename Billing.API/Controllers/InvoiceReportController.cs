@@ -9,14 +9,15 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
+    [RoutePrefix("api/invoicereport")]
     public class InvoiceReportController : BaseController
     {
-
-        public IHttpActionResult Get([FromBody]ReportRequestModel request)
+        [Route("{id:int}")]
+        public IHttpActionResult Get(int id)
         {
             try
             {
-                return Ok(Reports.InvoiceReport.Report(request.Id));
+                return Ok(Reports.InvoiceReport.Report(id));
             }
 
             catch (Exception ex)

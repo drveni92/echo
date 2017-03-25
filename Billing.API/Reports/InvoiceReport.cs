@@ -23,6 +23,7 @@ namespace Billing.API.Reports
                 result.InvoiceNo = item.InvoiceNo;
                 result.InvoiceDate = item.Date;
                 result.CustomerId = item.Customer.Id;
+                result.CustomerName = item.Customer.Name;
                 result.CustomerAddress = item.Customer.Address;
                 //result.ZipCode = item.Customer
                 result.Town = item.Customer.Town.Name;
@@ -33,7 +34,7 @@ namespace Billing.API.Reports
                 result.InvoiceSubtotal = item.SubTotal;
                 result.VatAmount = item.VatAmount;
                 result.Shipping = item.Shipping;
-                result.InvoiceTotal = item.VatAmount + item.SubTotal + item.Shipping;
+                result.InvoiceTotal = item.VatAmount + item.SubTotal;
             }
             result.Items = _unitOfWork.Items.Get().Where(x => x.Invoice.Id == InvoiceId)
                 .GroupBy(x => new InvoiceItems
@@ -43,7 +44,7 @@ namespace Billing.API.Reports
                     ProductUnit = x.Product.Unit,
                     Quantity = x.Quantity,
                     Price = x.Price,
-                    Subtotal = x.SubTotal
+                    Subtotal =x.Price * x.Quantity
                 })
                 .Select(x => new InvoiceItems
                 {

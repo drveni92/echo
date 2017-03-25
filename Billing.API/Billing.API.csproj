@@ -139,6 +139,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\InvoiceReportController.cs" />
     <Compile Include="Controllers\InvoiceReviewPostController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\Reports\InputCross.cs" />
+    <Compile Include="Models\Reports\InvoiceReportModel.cs" />
     <Compile Include="Reports\BaseReport.cs" />
     <Compile Include="Reports\DashboardReport.cs" />
     <Compile Include="Reports\FactoryReports.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Models\TownModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\InvoiceReport.cs" />
     <Compile Include="Reports\InvoicesReview.cs" />
     <Compile Include="Reports\SalesByAgentsRegions.cs" />
     <Compile Include="Reports\SalesByCategory.cs" />

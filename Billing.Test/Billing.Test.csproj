@@ -78,10 +78,12 @@
     <Compile Include="TestAgentController.cs" />
     <Compile Include="TestCustomersController.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="TestInvoiceReview.cs" />
     <Compile Include="TestItemController.cs" />
     <Compile Include="TestInvoicesController.cs" />
     <Compile Include="TestProductController.cs" />
     <Compile Include="TestReportAgentsRegionsCross.cs" />
+    <Compile Include="TestSalesByAgent.cs" />
     <Compile Include="TestSalesByCategory.cs" />
     <Compile Include="TestSalesByCustomer.cs" />
     <Compile Include="TestSalesByRegion.cs" />

@@ -153,6 +153,7 @@
     <Compile Include="Controllers\SalesByProductController.cs" />
     <Compile Include="Controllers\SalesByRegionController.cs" />
     <Compile Include="Controllers\SignatureController.cs" />
+    <Compile Include="Controllers\StockLevelController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\ShippersController.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\Reports\InputCross.cs" />
     <Compile Include="Models\Reports\InvoiceReportModel.cs" />
+    <Compile Include="Models\Reports\StockLevelModel.cs" />
     <Compile Include="Reports\BaseReport.cs" />
     <Compile Include="Reports\DashboardReport.cs" />
     <Compile Include="Reports\FactoryReports.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="Reports\SalesByCustomer.cs" />
     <Compile Include="Reports\SalesByRegion.cs" />
     <Compile Include="Reports\SetOfReports.cs" />
+    <Compile Include="Reports\StockLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

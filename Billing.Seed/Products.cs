@@ -12,6 +12,7 @@ namespace Billing.Seed
             IBillingRepository<Product> products = new BillingRepository<Product>(Help.Context);
             IBillingRepository<Category> categories = new BillingRepository<Category>(Help.Context);
             IBillingRepository<Stock> stocks = new BillingRepository<Stock>(Help.Context);
+            Random r = new Random();
             DataTable rawData = Help.OpenExcel("Products");
             int N = 0;
 
@@ -32,7 +33,12 @@ namespace Billing.Seed
                     N++;
                     products.Insert(product);
                     products.Commit();
-                    stocks.Insert(new Stock() { Id = product.Id });
+                    stocks.Insert(new Stock()
+                    {
+                        Id = product.Id,
+                        Input = r.Next(100, 300),
+                        Output = r.Next(0, 100)
+                    });
                     products.Commit();
                     Help.dicProd.Add(oldId, product.Id);
                 }

@@ -21,7 +21,7 @@ namespace Billing.API.Reports
         private SalesByCustomer _salesByCustomer;
         private SalesByAgentsRegions _salesByAgentsRegions;
         private InvoicesReview _invoicesReview;
-
+        private InvoiceReport _invoicesReport;
 
         public DashboardReport Dashboard { get { return _dashboard ?? (_dashboard = new DashboardReport(_unitOfWork)); } }
         public SalesByRegion SalesByRegion { get { return _salesByRegion ?? (_salesByRegion = new SalesByRegion(_unitOfWork)); } }
@@ -29,5 +29,7 @@ namespace Billing.API.Reports
         public SalesByCustomer SalesByCustomer { get { return _salesByCustomer ?? (_salesByCustomer = new SalesByCustomer(_unitOfWork)); } }
         public SalesByAgentsRegions SalesByAgentsRegions { get { return _salesByAgentsRegions ?? (_salesByAgentsRegions = new SalesByAgentsRegions(_unitOfWork)); } }
         public InvoicesReview InvoicesReview { get { return _invoicesReview ?? (_invoicesReview = new InvoicesReview(_unitOfWork)); } }
+        public InvoiceReport InvoiceReport { get { return _invoicesReport ?? (_invoicesReport = new InvoiceReport(_unitOfWork)); } }
+
     }
 }

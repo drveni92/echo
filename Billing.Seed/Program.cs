@@ -1,4 +1,5 @@
-﻿using Seed;
+﻿using Billing.Database;
+using Seed;
 using System;
 
 namespace Billing.Seed
@@ -28,6 +29,7 @@ namespace Billing.Seed
             Procurements.Get();
             Invoices.Get();
             Items.Get();
+            Histories.Get();
         }
     }
 }

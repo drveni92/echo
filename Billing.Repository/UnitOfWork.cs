@@ -25,6 +25,7 @@ namespace Billing.Repository
         private IBillingRepository<Stock> _stocks;
         private IBillingRepository<Supplier> _suppliers;
         private IBillingRepository<Town> _towns;
+        private IBillingRepository<History> _histories;
 
         public BillingContext Context { get { return _context; } }
 
@@ -41,7 +42,7 @@ namespace Billing.Repository
         public IBillingRepository<Stock> Stocks { get { return _stocks ?? (_stocks = new BillingRepository<Stock>(_context)); } }
         public IBillingRepository<Supplier> Suppliers { get { return _suppliers ?? (_suppliers = new SuppliersRepository(_context)); } }
         public IBillingRepository<Town> Towns { get { return _towns ?? (_towns = new BillingRepository<Town>(_context)); } }
-
+        public IBillingRepository<History> Histories { get { return _histories ?? (_histories = new BillingRepository<History>(_context)); } }
         public void Dispose()
         {
             _context.Dispose();

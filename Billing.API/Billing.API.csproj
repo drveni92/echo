@@ -139,6 +139,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\InvoiceReportController.cs" />
     <Compile Include="Controllers\InvoiceReviewPostController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\HistoryModel.cs" />
     <Compile Include="Models\Reports\DashboardModel.cs" />
     <Compile Include="Models\Factory.cs" />
     <Compile Include="Models\ProcurementModel.cs" />

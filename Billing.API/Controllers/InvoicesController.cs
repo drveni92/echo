@@ -141,5 +141,21 @@ namespace Billing.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Route("history/{id}")]
+        public IHttpActionResult GetHistoryInvoicesById(int id)
+        {
+            try
+            {
+                if (UnitOfWork.Histories.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Histories.Get().Where(x => x.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -31,6 +31,7 @@ namespace Billing.Database
         public DbSet<Town> Towns { get; set; }
         public DbSet<ApiUser> ApiUsers { get; set; }
         public DbSet<AuthToken> AuthTokens { get; set; }
+        public DbSet<History> Histories { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -72,6 +73,9 @@ namespace Billing.Database
             modelBuilder.Entity<Town>()
                         .Map<Town>(x => x.Requires("Deleted").HasValue(false))
                         .Ignore(x => x.Deleted);
+            modelBuilder.Entity<History>()
+                       .Map<History>(x => x.Requires("Deleted").HasValue(false))
+                       .Ignore(x => x.Deleted);
         }
 
         public override int SaveChanges()

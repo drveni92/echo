@@ -10,6 +10,7 @@ namespace Billing.API.Models
         public InvoiceModel()
         {
             Items = new List<ItemModel>();
+            Histories = new List<HistoryModel>();
         }
         public struct InvoiceAgent
         {
@@ -41,5 +42,7 @@ namespace Billing.API.Models
         public InvoiceShipper Shipper { get; set; }
         public InvoiceCustomer Customer { get; set; }
         public List<ItemModel> Items { get; set; }
+        public List<HistoryModel> Histories { get; set; }
+
     }
 }

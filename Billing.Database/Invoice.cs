@@ -10,6 +10,8 @@ namespace Billing.Database
         public Invoice()
         {
             Items = new List<Item>();
+            Histories = new List<History>();
+
             Date = DateTime.Now;
             ShippedOn = null;
         }
@@ -59,5 +61,6 @@ namespace Billing.Database
         public virtual Customer Customer { get; set; }
 
         public virtual List<Item> Items { get; set; }
+        public virtual List<History> Histories { get; set; }
     }
 }

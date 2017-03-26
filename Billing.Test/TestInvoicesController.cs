@@ -535,6 +535,17 @@ namespace Billing.Test
             Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
+        [TestMethod]
+        public void GetHistoryInvoicesById()
+        {
+
+            GetReady();
+            var actRes = controller.GetHistoryInvoicesById(1);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsNotNull(response.Content);
+        }
+
 
     }
 }

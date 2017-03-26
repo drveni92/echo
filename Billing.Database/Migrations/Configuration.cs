@@ -10,6 +10,7 @@ namespace Billing.Database.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            ContextKey = "Billing.Database.BillingContext";
         }
 
         protected override void Seed(Billing.Database.BillingContext context)

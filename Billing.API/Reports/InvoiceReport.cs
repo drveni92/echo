@@ -25,10 +25,10 @@ namespace Billing.API.Reports
                 result.CustomerId = item.Customer.Id;
                 result.CustomerName = item.Customer.Name;
                 result.CustomerAddress = item.Customer.Address;
-                //result.ZipCode = item.Customer
+                result.ZipCode = item.Customer.Town.Zip;
                 result.Town = item.Customer.Town.Name;
                 result.Salesperson = item.Agent.Name;
-                //result.OrderDate = item.
+                result.OrderDate = item.Histories[0].Date;
                 result.ShippedDate = item.ShippedOn;
                 result.ShippedVia = item.Shipper.Name;
                 result.InvoiceSubtotal = item.SubTotal;

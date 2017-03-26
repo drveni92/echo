@@ -37,13 +37,13 @@ namespace Billing.API.Models.Reports
 
         public string CustomerAddress { get; set; }
 
-        //public string ZipCode { get; set; }
+        public string ZipCode { get; set; }
 
         public string Town { get; set; }
 
         public string Salesperson { get; set; }
 
-        //public DateTime OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
 
         public DateTime? ShippedDate { get; set; }
 

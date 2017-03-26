@@ -147,7 +147,10 @@ namespace Billing.API.Models
                     Id = invoice.Customer.Id,
                     Name = invoice.Customer.Name
                 },
-                Items = invoice.Items.Select(x => Create(x)).ToList()
+                Items = invoice.Items.Select(x => Create(x)).ToList(),
+                Histories = invoice.Histories.Select(x => Create(x)).ToList()
+
+
             };
         }
 
@@ -215,6 +218,24 @@ namespace Billing.API.Models
                 Expiration = authToken.Expiration
             };
         }
+
+        public HistoryModel Create(History history)
+        {
+            return new HistoryModel()
+            {
+                Id = history.Id,
+                Date = history.Date,
+                Status = history.Status,
+                Invoice = new HistoryModel.HistoryInvoice()
+                {
+                    Id = history.Invoice.Id,
+                    InvoiceNo = history.Invoice.InvoiceNo
+                }
+            };
+
+        }
+
+
 
         //Model To Entity
 
@@ -325,10 +346,16 @@ namespace Billing.API.Models
         public Invoice Create(InvoiceModel model)
         {
             List<Item> items = new List<Item>();
+            List<History> histories = new List<History>();
             foreach (ItemModel item in model.Items)
             {
                 Item tmp = _unitOfWork.Items.Get(item.Id);
                 if (tmp != null) items.Add(tmp);
+            }
+            foreach (HistoryModel item in model.Histories)
+            {
+                History tmp = _unitOfWork.Histories.Get(item.Id);
+                if (tmp != null) histories.Add(tmp);
             }
             return new Invoice()
             {
@@ -342,7 +369,8 @@ namespace Billing.API.Models
                 Agent = _unitOfWork.Agents.Get(model.Agent.Id),
                 Customer = _unitOfWork.Customers.Get(model.Customer.Id),
                 Shipper = _unitOfWork.Shippers.Get(model.Shipper.Id),
-                Items = items
+                Items = items,
+                Histories = histories
             };
         }
 
@@ -364,6 +392,17 @@ namespace Billing.API.Models
                 Region =(Region)Enum.Parse(typeof(Region), model.Region),
                 Zip = model.Zip,
                 Customers = customers
+            };
+        }
+
+        public History Create(HistoryModel model)
+        {
+            return new History()
+            {
+                Id = model.Id,
+                Date = model.Date,
+                Status = model.Status,
+                Invoice = _unitOfWork.Invoices.Get(model.Invoice.Id)
             };
         }
         

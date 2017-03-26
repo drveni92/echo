@@ -21,6 +21,8 @@ namespace Billing.Seed
         public static Dictionary<int, int> dicShip = new Dictionary<int, int>();
         public static Dictionary<int, int> dicSupp = new Dictionary<int, int>();
         public static Dictionary<int, int> dicCust = new Dictionary<int, int>();
+        public static Dictionary<int, int> dicHist = new Dictionary<int, int>();
+
 
         public static DataTable OpenExcel(string sheet)
         {

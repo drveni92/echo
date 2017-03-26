@@ -79,6 +79,7 @@
     <Compile Include="TestCustomersController.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="TestHistoryController.cs" />
+    <Compile Include="TestInvoiceReport.cs" />
     <Compile Include="TestInvoiceReview.cs" />
     <Compile Include="TestItemController.cs" />
     <Compile Include="TestInvoicesController.cs" />

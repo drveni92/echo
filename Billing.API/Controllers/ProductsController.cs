@@ -2,6 +2,7 @@
 using Billing.Api.Models;
 using Billing.API.Controllers;
 using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.Database;
 using Billing.Repository;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
+    [TokenAuthorization("user")]
     [RoutePrefix("api/products")]
     public class ProductsController : BaseController
     {
@@ -59,6 +61,7 @@ namespace Billing.Api.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post(ProductModel model)
         {
@@ -76,6 +79,7 @@ namespace Billing.Api.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Put(int id, ProductModel model)
         {
@@ -93,6 +97,7 @@ namespace Billing.Api.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Delete(int id)
         {

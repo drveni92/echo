@@ -157,5 +157,20 @@ namespace Billing.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Route("{id}/next/{cancel}")]
+        public IHttpActionResult GetNext(int id, bool cancel = false)
+        {
+            try
+            {
+                InvoiceHelper helper = new InvoiceHelper();
+                Invoice entity = helper.NextStep(UnitOfWork, id, cancel);
+                return Ok(Factory.Create(entity));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

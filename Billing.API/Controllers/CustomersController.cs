@@ -1,4 +1,5 @@
 ﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.Database;
 using Billing.Repository;
@@ -11,6 +12,7 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
+    [TokenAuthorization("user")]
     [RoutePrefix("api/customers")]
     public class CustomersController : BaseController
     {
@@ -66,6 +68,7 @@ namespace Billing.API.Controllers
             }
         }
 
+   
         [Route("")]
         public IHttpActionResult Post([FromBody]CustomerModel model)
         {
@@ -100,6 +103,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Delete([FromUri]int id)
         {

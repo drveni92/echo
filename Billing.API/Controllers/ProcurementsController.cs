@@ -1,4 +1,5 @@
 ﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.Database;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
+    [TokenAuthorization("user")]
     [RoutePrefix("api/procurements")]
     public class ProcurementsController : BaseController
     {
@@ -74,6 +76,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody]ProcurementModel model)
         {
@@ -91,6 +94,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Put([FromUri]int id, [FromBody]ProcurementModel model)
         {
@@ -108,6 +112,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Delete([FromUri]int id)
         {

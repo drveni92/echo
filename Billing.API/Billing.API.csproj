@@ -151,6 +151,7 @@
     <Compile Include="Controllers\SalesByAgentsRegionsController.cs" />
     <Compile Include="Controllers\SalesByCategoryController.cs" />
     <Compile Include="Controllers\SalesByCustomerController.cs" />
+    <Compile Include="Controllers\SalesByCustomersCategoriesController.cs" />
     <Compile Include="Controllers\SalesByProductController.cs" />
     <Compile Include="Controllers\SalesByRegionController.cs" />
     <Compile Include="Controllers\SignatureController.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\Reports\InputCross.cs" />
     <Compile Include="Models\Reports\InvoiceReportModel.cs" />
+    <Compile Include="Models\Reports\SalesCustomersCategoriesModel.cs" />
     <Compile Include="Models\Reports\StockLevelModel.cs" />
     <Compile Include="Reports\BaseReport.cs" />
     <Compile Include="Reports\DashboardReport.cs" />
@@ -207,6 +209,7 @@
     <Compile Include="Reports\SalesByAgentsRegions.cs" />
     <Compile Include="Reports\SalesByCategory.cs" />
     <Compile Include="Reports\SalesByCustomer.cs" />
+    <Compile Include="Reports\SalesByCustomerCategories.cs" />
     <Compile Include="Reports\SalesByRegion.cs" />
     <Compile Include="Reports\SetOfReports.cs" />
     <Compile Include="Reports\StockLevel.cs" />

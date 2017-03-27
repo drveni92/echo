@@ -20,6 +20,7 @@ namespace Billing.API.Reports
         private SalesByCategory _salesByCategory;
         private SalesByCustomer _salesByCustomer;
         private SalesByAgentsRegions _salesByAgentsRegions;
+        private SalesByCustomersCategories _salesByCustomersCategories;
         private InvoicesReview _invoicesReview;
         private InvoiceReport _invoicesReport;
         private StockLevel _stockLevel;
@@ -29,6 +30,7 @@ namespace Billing.API.Reports
         public SalesByCategory SalesByCategory { get { return _salesByCategory ?? (_salesByCategory = new SalesByCategory(_unitOfWork)); } }
         public SalesByCustomer SalesByCustomer { get { return _salesByCustomer ?? (_salesByCustomer = new SalesByCustomer(_unitOfWork)); } }
         public SalesByAgentsRegions SalesByAgentsRegions { get { return _salesByAgentsRegions ?? (_salesByAgentsRegions = new SalesByAgentsRegions(_unitOfWork)); } }
+        public SalesByCustomersCategories SalesByCustomersCategories { get { return _salesByCustomersCategories ?? (_salesByCustomersCategories = new SalesByCustomersCategories(_unitOfWork)); } }
         public InvoicesReview InvoicesReview { get { return _invoicesReview ?? (_invoicesReview = new InvoicesReview(_unitOfWork)); } }
         public InvoiceReport InvoiceReport { get { return _invoicesReport ?? (_invoicesReport = new InvoiceReport(_unitOfWork)); } }
         public StockLevel StockLevel { get { return _stockLevel ?? (_stockLevel = new StockLevel(_unitOfWork)); } }

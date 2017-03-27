@@ -163,5 +163,57 @@ namespace Billing.API.Reports
                 Output = (stock != null) ? stock.Output : 0
             };
         }
+
+        public List<SalesCategoryModel> CreateReverseCat(List<InputCross> list, List<Category> categories)
+        {
+            List<SalesCategoryModel> result = new List<SalesCategoryModel>();
+            foreach (var category in categories)
+            {
+                result.Add(new SalesCategoryModel()
+                {
+                    Category = category.Name,
+                    Total = 0
+                });
+            }
+            foreach (var item in list)
+            {
+                SalesCategoryModel category = result.FirstOrDefault(x => x.Category == item.Column);
+                if (category == null)
+                {
+                    category = new SalesCategoryModel();
+                    category.Category = item.Column;
+                    result.Add(category);
+                }
+                category.Total += item.Value;
+            }
+            return result;
+        }
+
+        public List<SalesCustomerModel> CreateCat(List<InputCross> list, List<Customer> customers, List<Category> categories)
+        {
+            List<SalesCustomerModel> result = new List<SalesCustomerModel>();
+            foreach (var item in list)
+            {
+                SalesCustomerModel customer = result.FirstOrDefault(x => x.Name == item.Row);
+                if (customer == null)
+                {
+                    customer = new SalesCustomerModel(categories);
+                    customer.Name = item.Row;
+                    result.Add(customer);
+                }
+                customer.Sales[item.Column] = item.Value;
+                customer.Turnover += item.Value;
+            }
+            foreach (var customer in customers)
+            {
+                if (!result.Exists(x => x.Name == customer.Name)) result.Add(new SalesCustomerModel(categories)
+                {
+                    Name = customer.Name,
+                    Turnover = 0
+                });
+            }
+            return result;
+        }
+
     }
 }

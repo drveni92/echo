@@ -11,11 +11,10 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
-    [TokenAuthorization("user")]
     [RoutePrefix("api/categories")]
     public class CategoriesController : BaseController
     {
-
+        [TokenAuthorization("user")]
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null)
         {
@@ -36,6 +35,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {

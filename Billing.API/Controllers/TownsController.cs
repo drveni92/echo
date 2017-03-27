@@ -1,4 +1,5 @@
 ﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.Database;
 using Billing.Repository;
@@ -14,7 +15,7 @@ namespace Billing.API.Controllers
     [RoutePrefix("api/towns")]
     public class TownsController : BaseController
     {
-
+        [TokenAuthorization("user")]
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null)
         {
@@ -35,6 +36,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
@@ -51,6 +53,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody]TownModel model)
         {
@@ -68,6 +71,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri]int id, [FromBody]TownModel model)
         {
@@ -85,6 +89,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Delete([FromUri]int id)
         {

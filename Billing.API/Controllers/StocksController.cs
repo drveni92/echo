@@ -1,4 +1,5 @@
 ﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.Database;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
+    [TokenAuthorization("user,admin")]
     [RoutePrefix("api/stocks")]
     public class StocksController : BaseController
     {

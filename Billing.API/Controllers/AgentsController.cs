@@ -1,4 +1,5 @@
 ﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.Database;
 using Billing.Repository;
@@ -15,7 +16,7 @@ namespace Billing.API.Controllers
     [RoutePrefix("api/agents")]
     public class AgentsController : BaseController
     {
-
+        [TokenAuthorization("admin")]
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null)
         {
@@ -36,6 +37,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("town/{id}")]
         public IHttpActionResult GetByTown(int id)
         {
@@ -58,12 +60,14 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
             
             try
             {
+                if (Identity.CurrentUser.Id != id && !Identity.HasRole("admin")) return Unauthorized();
                 Agent agent = UnitOfWork.Agents.Get(id);
                 if (agent == null) return NotFound();
                 return Ok(Factory.Create(agent));
@@ -75,6 +79,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody]AgentModel model)
         {
@@ -92,11 +97,13 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri]int id, [FromBody]AgentModel model)
         {
             try
             {
+                if (Identity.CurrentUser.Id != id && !Identity.HasRole("admin")) return Unauthorized();
                 Agent agent = Factory.Create(model);
                 UnitOfWork.Agents.Update(agent, id);
                 UnitOfWork.Commit();
@@ -109,6 +116,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {

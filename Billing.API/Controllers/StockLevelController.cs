@@ -1,4 +1,5 @@
 ﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
+    [TokenAuthorization("user")]
     [RoutePrefix("api/inventory")]
     public class StockLevelController : BaseController
     {

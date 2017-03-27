@@ -1,4 +1,5 @@
 ﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.Database;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
+    [TokenAuthorization("user")]
     [RoutePrefix("api/categories")]
     public class CategoriesController : BaseController
     {
@@ -50,6 +52,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody]CategoryModel model)
         {
@@ -67,7 +70,7 @@ namespace Billing.API.Controllers
             }
         }
 
-
+        [TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Put([FromUri]int id, [FromBody]CategoryModel model)
         {
@@ -85,6 +88,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Delete([FromUri]int id)
         {

@@ -22,7 +22,7 @@ namespace Billing.API.Controllers
 
         protected Factory Factory { get { return _factory ?? (_factory = new Factory(UnitOfWork)); } }
 
-        protected BillingIdentity Identity { get { return _identity ?? (_identity = new BillingIdentity()); } }
+        protected BillingIdentity Identity { get { return _identity ?? (_identity = new BillingIdentity(UnitOfWork)); } }
 
         protected SetOfReports Reports { get { return _reports ?? (_reports = new SetOfReports(UnitOfWork)); } }
     }

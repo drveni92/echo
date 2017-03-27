@@ -17,8 +17,6 @@ namespace Billing.API.Controllers
     [BillingAuthorization]
     public class LoginController : BaseController
     {
-        private BillingIdentity identity = new BillingIdentity();
-
         [Route("api/login")]
         [HttpPost]
         public IHttpActionResult Login([FromBody]TokenRequestModel request)
@@ -29,7 +27,7 @@ namespace Billing.API.Controllers
             if (Signature.Generate(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
 
 
-            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
 
 
             var rawTokenInfo = apiUser.AppId + DateTime.UtcNow.ToString("s");
@@ -49,11 +47,11 @@ namespace Billing.API.Controllers
         [HttpGet]
         public IHttpActionResult Logout()
         {
-            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
             if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
             {
                 WebSecurity.Logout();
-                return Ok($"User {identity.CurrentUser} logged out");
+                return Ok($"User {Identity.CurrentUser.Username} logged out");
             }
             else
             {

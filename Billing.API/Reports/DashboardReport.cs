@@ -18,7 +18,7 @@ namespace Billing.API.Reports
             int currentMonth = 4;
             DashboardModel result = new DashboardModel(Helper.Statuses.Count, Helper.Regions.Count);
 
-            result.Title = "Dashboard for " + _identity.CurrentUser;
+            result.Title = "Dashboard for " + _identity.CurrentUser.Name;
 
             result.RegionsMonth = _unitOfWork.Invoices.Get()
                     .Where(x => x.Date.Month == currentMonth).ToList()

@@ -129,13 +129,19 @@ namespace Billing.API.Controllers
         [HttpGet]
         public IHttpActionResult CreateProfiles()
         {
-            WebSecurity.InitializeDatabaseConnection("Billing.Database", "UserProfile", "UserId", "UserName", autoCreateTables: true);
-            foreach (var agent in UnitOfWork.Agents.Get())
+            WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
+            foreach (var agent in UnitOfWork.Agents.Get().ToList())
             {
-                string[] names = agent.Name.Split(' ');
-                WebSecurity.CreateUserAndAccount(names[0], "billing", false);
+                if (string.IsNullOrWhiteSpace(agent.Username))
+                {
+                    string name = agent.Name.Split(' ')[0].ToLower();
+                    agent.Username = name;
+                    UnitOfWork.Agents.Update(agent, agent.Id);
+                    UnitOfWork.Commit();
+                }
+                WebSecurity.CreateAccount(agent.Username, "billing", false);
             }
-            return Ok("user profiles created");
+            return Ok("User profiles created");
         }
 
     }

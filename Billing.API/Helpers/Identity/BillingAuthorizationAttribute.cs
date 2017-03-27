@@ -32,7 +32,7 @@ namespace Billing.API.Helpers.Identity
 
                     if (!(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password)))
                     {
-                        if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                        if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
 
                         if (WebSecurity.Login(username, password))
                         {

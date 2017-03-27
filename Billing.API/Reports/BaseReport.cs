@@ -12,7 +12,7 @@ namespace Billing.API.Reports
         public BaseReport(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _identity = new BillingIdentity();
+            _identity = new BillingIdentity(unitOfWork);
             _factory = new FactoryReports();
         }
         protected BillingIdentity _identity;

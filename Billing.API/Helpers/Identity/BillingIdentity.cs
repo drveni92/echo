@@ -1,4 +1,5 @@
-﻿using Billing.Repository;
+﻿using Billing.Database;
+using Billing.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,25 @@ namespace Billing.API.Helpers.Identity
 {
     public class BillingIdentity
     {
-        public string CurrentUser
+        private UnitOfWork _unitOfWork;
+
+        public BillingIdentity(UnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public BillingIdentity()
+        {
+
+        }
+
+        public Agent CurrentUser
         {
             get
             {
                 if (!Thread.CurrentPrincipal.Identity.IsAuthenticated) return null;
-                return Thread.CurrentPrincipal.Identity.Name;
+                string name = Thread.CurrentPrincipal.Identity.Name;
+                return _unitOfWork.Agents.Get().FirstOrDefault(x => x.Username == name);
             }
         }
 

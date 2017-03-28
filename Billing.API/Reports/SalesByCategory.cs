@@ -53,8 +53,10 @@ namespace Billing.API.Reports
             result.EndDate = end;
             result.Sales = new List<CategorySalesByProductModel>();
             result.CategoryName = a.Name;
+            result.CategoryTotal = Items.Where(x => x.Product.Category.Id == CategoryId).Sum(x => x.SubTotal);           
             double CategoryTotal = Items.Where(x => x.Product.Category.Id == CategoryId).Sum(x => x.SubTotal);
-            double grandTotal = Invoices.Sum(x => x.Total);
+            double grandTotal = Items.Sum(x => x.SubTotal);
+            result.CategoryPercent = Math.Round(100 * CategoryTotal / grandTotal, 2);
 
             var query = Items.Where(x => x.Product.Category.Id == CategoryId).GroupBy(x => x.Product.Name)
                                .Select(x => new

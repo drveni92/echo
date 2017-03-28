@@ -12,9 +12,9 @@ namespace Billing.Test
         private StockLevel report = new StockLevel(new UnitOfWork());
 
 
-        private int categoryId = 2;
-        private string categoryName = "DESKTOP";
-        private int productsNo = 30;
+        private readonly int categoryId = 2;
+        private readonly string categoryName = "DESKTOP";
+        private readonly int productsNo = 30;
         private StockLevelModel result;
 
         [TestInitialize]
@@ -38,7 +38,7 @@ namespace Billing.Test
         [TestMethod]
         public void CheckCategoryName()
         {
-            Assert.AreEqual(categoryName.ToLower(), result.CategoryName.ToLowerInvariant());
+            Assert.AreEqual(categoryName.ToLowerInvariant(), result.CategoryName.ToLowerInvariant());
         }
 
         [TestMethod]

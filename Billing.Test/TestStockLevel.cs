@@ -38,7 +38,7 @@ namespace Billing.Test
         [TestMethod]
         public void CheckCategoryName()
         {
-            Assert.AreEqual(categoryName.ToLower(), result.CategoryName.ToLower());
+            Assert.AreEqual(categoryName.ToLower(), result.CategoryName.ToLowerInvariant());
         }
 
         [TestMethod]

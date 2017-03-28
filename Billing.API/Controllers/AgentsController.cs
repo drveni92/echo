@@ -67,7 +67,7 @@ namespace Billing.API.Controllers
             
             try
             {
-                if (Identity.HasAccess(id)) return Unauthorized();
+                if (Identity.HasNotAccess(id)) return Unauthorized();
                 Agent agent = UnitOfWork.Agents.Get(id);
                 if (agent == null) return NotFound();
                 return Ok(Factory.Create(agent));
@@ -103,7 +103,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                if (Identity.HasAccess(id)) return Unauthorized();
+                if (Identity.HasNotAccess(id)) return Unauthorized();
                 Agent agent = Factory.Create(model);
                 UnitOfWork.Agents.Update(agent, id);
                 UnitOfWork.Commit();

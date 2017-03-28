@@ -85,7 +85,7 @@ namespace Billing.API.Controllers
             try
             {
                 int agentId = UnitOfWork.Invoices.Get(model.Invoice.Id).Agent.Id;
-                if (Identity.HasAccess(agentId)) return Unauthorized();
+                if (Identity.HasNotAccess(agentId)) return Unauthorized();
                 Item item = Factory.Create(model);
                 UnitOfWork.Items.Insert(item);
                 UnitOfWork.Commit();
@@ -105,7 +105,7 @@ namespace Billing.API.Controllers
             try
             {
                 int agentId = UnitOfWork.Invoices.Get(model.Invoice.Id).Agent.Id;
-                if (Identity.HasAccess(agentId)) return Unauthorized();
+                if (Identity.HasNotAccess(agentId)) return Unauthorized();
                 Item item = Factory.Create(model);
                 UnitOfWork.Items.Update(item, id);
                 UnitOfWork.Commit();
@@ -125,7 +125,7 @@ namespace Billing.API.Controllers
             try
             {
                 int agentId = UnitOfWork.Items.Get().ToList().FirstOrDefault().Invoice.Agent.Id;
-                if (Identity.HasAccess(agentId)) return Unauthorized();
+                if (Identity.HasNotAccess(agentId)) return Unauthorized();
                 UnitOfWork.Items.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

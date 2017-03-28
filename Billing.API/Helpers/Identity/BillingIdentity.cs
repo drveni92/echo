@@ -37,9 +37,9 @@ namespace Billing.API.Helpers.Identity
             return Thread.CurrentPrincipal.IsInRole(role);
         }
 
-        public bool HasAccess(int id)
+        public bool HasNotAccess(int id)
         {
-            return (CurrentUser.Id != id || !HasRole("admin"));
+            return !(CurrentUser.Id == id || HasRole("admin"));
         }
 
     }

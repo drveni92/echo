@@ -121,7 +121,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                if (Identity.HasAccess(model.Agent.Id)) return Unauthorized();
+                if (Identity.HasNotAccess(model.Agent.Id)) return Unauthorized();
                 Invoice invoice = Factory.Create(model);
                 UnitOfWork.Invoices.Update(invoice, id);
                 UnitOfWork.Commit();
@@ -141,7 +141,7 @@ namespace Billing.API.Controllers
             try
             {
                 var invoice = UnitOfWork.Invoices.Get(id);
-                if (Identity.HasAccess(invoice.Agent.Id)) return Unauthorized();
+                if (Identity.HasNotAccess(invoice.Agent.Id)) return Unauthorized();
                 if (invoice.Items.Count != 0) return BadRequest($"Invoice {invoice.InvoiceNo} has items.");
                 UnitOfWork.Invoices.Delete(id);
                 UnitOfWork.Commit();
@@ -178,7 +178,7 @@ namespace Billing.API.Controllers
             try
             {
                 int agentId = UnitOfWork.Invoices.Get(id).Agent.Id;
-                if (Identity.HasAccess(agentId)) return Unauthorized();
+                if (Identity.HasNotAccess(agentId)) return Unauthorized();
                 InvoiceHelper helper = new InvoiceHelper();
                 Invoice entity = helper.NextStep(UnitOfWork, id, cancel);
                 return Ok(Factory.Create(entity));

@@ -47,17 +47,23 @@ namespace Billing.API.Controllers
         [HttpGet]
         public IHttpActionResult Logout()
         {
-            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
-            if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
+            try
             {
-                WebSecurity.Logout();
-                return Ok($"User {Identity.CurrentUser.Username} logged out");
+                if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
+                if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
+                {
+                    WebSecurity.Logout();
+                    return Ok($"User {Identity.CurrentUser.Username} logged out");
+                }
+                else
+                {
+                    return Ok("No user is logged in!!!");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return Ok("No user is logged in!!!");
+                return BadRequest(ex.Message);
             }
-
         }
     }
 }

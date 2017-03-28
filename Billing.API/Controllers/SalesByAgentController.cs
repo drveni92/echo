@@ -18,7 +18,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                if (Identity.HasAccess(request.Id)) return Unauthorized();
+                if (Identity.HasNotAccess(request.Id)) return Unauthorized();
                 return Ok(Reports.SalesByRegion.Report(request.StartDate, request.EndDate, request.Id));
             }
 

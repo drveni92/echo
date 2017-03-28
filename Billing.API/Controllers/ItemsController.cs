@@ -1,4 +1,5 @@
 ﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.Database;
 using System;
@@ -13,6 +14,7 @@ namespace Billing.API.Controllers
     [RoutePrefix("api/items")]
     public class ItemsController : BaseController
     {
+        [TokenAuthorization("user")]
         [Route("")]
         public IHttpActionResult Get()
         {
@@ -27,6 +29,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
@@ -43,6 +46,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("invoice/{id}")]
         public IHttpActionResult GetItemsByInvoice(int id)
         {
@@ -58,6 +62,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("product/{id}")]
         public IHttpActionResult GetItemByProduct(int id)
         {
@@ -73,11 +78,14 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user,admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody]ItemModel model)
         {
             try
             {
+                int agentId = UnitOfWork.Invoices.Get(model.Invoice.Id).Agent.Id;
+                if (Identity.HasAccess(agentId)) return Unauthorized();
                 Item item = Factory.Create(model);
                 UnitOfWork.Items.Insert(item);
                 UnitOfWork.Commit();
@@ -90,11 +98,14 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user,admin")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri]int id, [FromBody]ItemModel model)
         {
             try
             {
+                int agentId = UnitOfWork.Invoices.Get(model.Invoice.Id).Agent.Id;
+                if (Identity.HasAccess(agentId)) return Unauthorized();
                 Item item = Factory.Create(model);
                 UnitOfWork.Items.Update(item, id);
                 UnitOfWork.Commit();
@@ -107,11 +118,14 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user,admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {
             try
             {
+                int agentId = UnitOfWork.Items.Get().ToList().FirstOrDefault().Invoice.Agent.Id;
+                if (Identity.HasAccess(agentId)) return Unauthorized();
                 UnitOfWork.Items.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

@@ -1,4 +1,5 @@
 ﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.Database;
 using System;
@@ -10,9 +11,11 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
+
     [RoutePrefix("api/invoices")]   
     public class InvoicesController : BaseController
     {
+        [TokenAuthorization("user")]
         [Route("")]
         public IHttpActionResult Get()
         {
@@ -27,6 +30,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("invoiceno/{invoiceno}")]
         public IHttpActionResult GetByInvoiceNo(string invoiceno)
         {
@@ -43,6 +47,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("customer/{id}")]
         public IHttpActionResult GetByInvoicesByCustomerId(int id)
         {
@@ -58,6 +63,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("agent/{id}")]
         public IHttpActionResult GetByInvoicesByAgentId(int id)
         {
@@ -74,6 +80,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
@@ -90,6 +97,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("")]
         public IHttpActionResult Post([FromBody]InvoiceModel model)
         {
@@ -107,11 +115,13 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user,admin")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri]int id, [FromBody]InvoiceModel model)
         {
             try
             {
+                if (Identity.HasAccess(model.Agent.Id)) return Unauthorized();
                 Invoice invoice = Factory.Create(model);
                 UnitOfWork.Invoices.Update(invoice, id);
                 UnitOfWork.Commit();
@@ -124,12 +134,14 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user,admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {
             try
             {
                 var invoice = UnitOfWork.Invoices.Get(id);
+                if (Identity.HasAccess(invoice.Agent.Id)) return Unauthorized();
                 if (invoice.Items.Count != 0) return BadRequest($"Invoice {invoice.InvoiceNo} has items.");
                 UnitOfWork.Invoices.Delete(id);
                 UnitOfWork.Commit();
@@ -142,6 +154,7 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
         [Route("history/{id}")]
         public IHttpActionResult GetHistoryInvoicesById(int id)
         {
@@ -158,11 +171,14 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user,admin")]
         [Route("{id}/next/{cancel}")]
         public IHttpActionResult GetNext(int id, bool cancel = false)
         {
             try
             {
+                int agentId = UnitOfWork.Invoices.Get(id).Agent.Id;
+                if (Identity.HasAccess(agentId)) return Unauthorized();
                 InvoiceHelper helper = new InvoiceHelper();
                 Invoice entity = helper.NextStep(UnitOfWork, id, cancel);
                 return Ok(Factory.Create(entity));

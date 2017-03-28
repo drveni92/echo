@@ -37,9 +37,10 @@ namespace Billing.Test
                 unit.Towns.Insert(new Town() { Zip = "75000", Name = "Tuzla", Region = Region.Tuzla });
                 unit.Commit();
 
-                unit.Agents.Insert(new Agent() { Name = "Antonio", Towns = new List<Town>() { unit.Towns.Get(1) } });
-                unit.Agents.Insert(new Agent() { Name = "Julia", Towns = new List<Town>() { unit.Towns.Get(2) } });
-                unit.Agents.Insert(new Agent() { Name = "Amer", Towns = new List<Town>() { unit.Towns.Get(3) } });
+                unit.Agents.Insert(new Agent() { Name = "Antonio", Username = "antonio", Towns = new List<Town>() { unit.Towns.Get(1) } });
+                unit.Agents.Insert(new Agent() { Name = "Julia", Username = "julia", Towns = new List<Town>() { unit.Towns.Get(2) } });
+                unit.Agents.Insert(new Agent() { Name = "Amer", Username = "amer", Towns = new List<Town>() { unit.Towns.Get(3) } });
+                unit.Agents.Insert(new Agent() { Name = "Marlon", Username = "marlon", Towns = new List<Town>() { unit.Towns.Get(1) } });
 
                 unit.Commit();
 

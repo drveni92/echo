@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
-    [TokenAuthorization("user")]
+    [TokenAuthorization("user, admin")]
     public class SalesByAgentController : BaseController
     {
        
@@ -18,6 +18,7 @@ namespace Billing.API.Controllers
         {
             try
             {
+                if (Identity.HasAccess(request.Id)) return Unauthorized();
                 return Ok(Reports.SalesByRegion.Report(request.StartDate, request.EndDate, request.Id));
             }
 

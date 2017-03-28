@@ -6,9 +6,9 @@ using System.Web.Http;
 
 namespace Billing.API.Controllers
 {
-    [TokenAuthorization("user")]
     public class SalesByRegionController : BaseController
     {
+        [TokenAuthorization("admin")]
         public IHttpActionResult Post([FromBody]ReportRequestModel request)
         {
             try

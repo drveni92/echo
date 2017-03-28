@@ -10,6 +10,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Hosting;
 using System.Threading;
 using Billing.API.Models;
+using System.Security.Principal;
 
 namespace Billing.Test
 {
@@ -22,7 +23,7 @@ namespace Billing.Test
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/invoices");
 
 
-        void GetReady()
+        void GetReady(string user = "marlon")
         {
             var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "invoices" } });
@@ -30,6 +31,13 @@ namespace Billing.Test
             controller.ControllerContext = new HttpControllerContext(config, routeData, request);
             controller.Request = request;
             controller.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+
+            controller.Request.Headers.TryAddWithoutValidation("Content-Type", "application/json");
+            controller.Request.Headers.TryAddWithoutValidation("ApiKey", "R2lnaVNjaG9vbA==");
+            string token = "R2lnaVNjaG9vbA==" + DateTime.UtcNow.ToString("s");
+            controller.Request.Headers.TryAddWithoutValidation("Token", token);
+            controller.RequestContext.Principal = new GenericPrincipal(new GenericIdentity(user, "billing"), new[] { "admin", "user" });
+            Thread.CurrentPrincipal = controller.RequestContext.Principal;
         }
 
         [TestMethod]
@@ -313,7 +321,7 @@ namespace Billing.Test
         [TestMethod]
         public void PutInvoiceForAgentGood()
         {
-            GetReady();
+            GetReady("julia");
 
             TownModel townModel = new TownModel()
             {
@@ -391,7 +399,7 @@ namespace Billing.Test
         [TestMethod]
         public void PutInvoiceForCustomerGood()
         {
-            GetReady();
+            GetReady("antonio");
 
             TownModel townModel = new TownModel()
             {
@@ -469,7 +477,7 @@ namespace Billing.Test
         [TestMethod]
         public void PutInvoiceDataShipping()
         {
-            GetReady();
+            GetReady("antonio");
 
             TownModel townModel = new TownModel()
             {
@@ -508,7 +516,7 @@ namespace Billing.Test
         [TestMethod]
         public void DeleteInvoiceGood()
         {
-            GetReady();
+            GetReady("antonio");
             var actRes = controller.Delete(3);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 

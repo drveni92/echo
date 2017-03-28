@@ -11,6 +11,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Hosting;
 using System.Threading;
 using Billing.API.Models;
+using System.Security.Principal;
 
 namespace Billing.Test
 {
@@ -24,7 +25,7 @@ namespace Billing.Test
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/items");
         
 
-        void GetReady()
+        void GetReady(string user = "marlon")
         {
             var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "items" } });
@@ -32,6 +33,13 @@ namespace Billing.Test
             controller.ControllerContext = new HttpControllerContext(config, routeData, request);
             controller.Request = request;
             controller.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+
+            controller.Request.Headers.TryAddWithoutValidation("Content-Type", "application/json");
+            controller.Request.Headers.TryAddWithoutValidation("ApiKey", "R2lnaVNjaG9vbA==");
+            string token = "R2lnaVNjaG9vbA==" + DateTime.UtcNow.ToString("s");
+            controller.Request.Headers.TryAddWithoutValidation("Token", token);
+            controller.RequestContext.Principal = new GenericPrincipal(new GenericIdentity(user, "billing"), new[] { "admin", "user" });
+            Thread.CurrentPrincipal = controller.RequestContext.Principal;
         }
 
         [TestMethod]
@@ -108,7 +116,7 @@ namespace Billing.Test
         [TestMethod]
         public void PostItemForProductGood()
         {
-            GetReady();
+            GetReady("antonio");
             var actRes = controller.Post(new ItemModel() { Quantity = 10, Price = 256, SubTotal = 2560, Product = new ItemModel.ItemProduct() { Id = 1 }, Invoice = new ItemModel.ItemInvoice { Id=1 } });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
@@ -128,18 +136,17 @@ namespace Billing.Test
         [TestMethod]
         public void ChangeItemsData()
         {
-            GetReady();
+            GetReady("antonio");
             var actRes = controller.Put(1, new ItemModel() { Id=1 , Quantity = 100, Price = 256, SubTotal = 2560, Product = new ItemModel.ItemProduct() { Id = 1 }, Invoice = new ItemModel.ItemInvoice { Id = 1 } });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
-
         [TestMethod]
         public void ChangeItemsProductGood()
         {
-            GetReady();
+            GetReady("antonio");
             var actRes = controller.Put(1, new ItemModel() { Id = 1, Quantity = 100, Price = 256, SubTotal = 2560, Product = new ItemModel.ItemProduct() { Id = 2 }, Invoice = new ItemModel.ItemInvoice { Id = 1 } });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
@@ -159,7 +166,7 @@ namespace Billing.Test
         [TestMethod]
         public void DeleteById()
         {
-            GetReady();
+            GetReady("antonio");
             var actRes = controller.Delete(1);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 

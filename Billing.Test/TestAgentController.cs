@@ -14,6 +14,7 @@ using System.Web.Http.Hosting;
 using System.Threading;
 using Billing.API.Models;
 using static Billing.API.Models.AgentModel;
+using System.Security.Principal;
 
 namespace Billing.Test
 {
@@ -33,6 +34,13 @@ namespace Billing.Test
             controller.ControllerContext = new HttpControllerContext(config, routeData, request);
             controller.Request = request;
             controller.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+
+            controller.Request.Headers.TryAddWithoutValidation("Content-Type", "application/json");
+            controller.Request.Headers.TryAddWithoutValidation("ApiKey", "R2lnaVNjaG9vbA==");
+            string token = "R2lnaVNjaG9vbA==" + DateTime.UtcNow.ToString("s");
+            controller.Request.Headers.TryAddWithoutValidation("Token", token);
+            controller.RequestContext.Principal = new GenericPrincipal(new GenericIdentity("marlon", "billing"), new[] { "admin", "user" });
+            Thread.CurrentPrincipal = controller.RequestContext.Principal;
         }
 
         [TestMethod]
@@ -68,7 +76,7 @@ namespace Billing.Test
         public void GetAgentById()
         {
             GetReady();
-            var actRes = controller.GetById(1);
+            var actRes = controller.GetById(4);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);
@@ -81,7 +89,7 @@ namespace Billing.Test
             var actRes = controller.GetById(999);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-            Assert.IsNull(response.Content);
+            Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
         [TestMethod]
@@ -108,7 +116,7 @@ namespace Billing.Test
         public void ChangeName()
         {
             GetReady();
-            var actRes = controller.Put(1, new AgentModel() { Id = 1, Name = "Amer", Towns = new List<AgentTown>() { new AgentTown() { Id = 1 } } });
+            var actRes = controller.Put(4, new AgentModel() { Id = 4, Name = "Marlon New", Towns = new List<AgentTown>() { new AgentTown() { Id = 1 } } });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
@@ -117,8 +125,9 @@ namespace Billing.Test
         [TestMethod]
         public void ChangeTown()
         {
+            TestHelper.InitDatabase();
             GetReady();
-            var actRes = controller.Put(1, new AgentModel() { Id = 1, Name = "Dejan", Towns = new List<AgentTown>() { new AgentTown() { Id = 2 } } });
+            var actRes = controller.Put(4, new AgentModel() { Id = 4, Name = "Marlon", Towns = new List<AgentTown>() { new AgentTown() { Id = 2 } } });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);

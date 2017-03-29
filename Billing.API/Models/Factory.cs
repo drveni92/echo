@@ -37,11 +37,11 @@ namespace Billing.API.Models
                 Id = customer.Id,
                 Name = customer.Name,
                 Address = customer.Address,
-                Town = new CustomerModel.CustomerTown()
+                Town = (customer.Town != null) ? new CustomerModel.CustomerTown()
                 {
                     Id = customer.Town.Id,
                     Name = customer.Town.Name
-                },
+                } : null,
                 InvoicesNo = customer.Invoices.Select(x => x.InvoiceNo).ToList()
             };
         }

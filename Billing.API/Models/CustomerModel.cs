@@ -7,10 +7,10 @@ namespace Billing.API.Models
 {
     public class CustomerModel
     {
-        public struct CustomerTown
+        public class CustomerTown
         {
-            public int Id;
-            public string Name;
+            public int Id { get; set; }
+            public string Name { get; set; }
         }
         public CustomerModel()
         {

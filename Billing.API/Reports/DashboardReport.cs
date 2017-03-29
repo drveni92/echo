@@ -23,12 +23,19 @@ namespace Billing.API.Reports
 
             result.Title = "Dashboard for " + _identity.CurrentUser.Name;
             string tmp = "";
-            if (!_identity.HasRole("admin"))
+            if (_identity.HasRole("admin"))
             {
-                tmp = "&& x.Agent.Id == _identity.CurrentUser.Id";              
+                result.RegionsMonth = _unitOfWork.Invoices.Get()
+                      .Where(x => x.Date.Month == currentMonth).ToList()
+                      .GroupBy(x => x.Customer.Town.Region)
+                      .OrderBy(x => x.Key)
+                      .Select(x => _factory.Create(x.Key, x.Sum(y => y.SubTotal))).ToList();
+
             }
 
-            result.RegionsMonth = _unitOfWork.Invoices.Get()
+            else
+            {
+                result.RegionsMonth = _unitOfWork.Invoices.Get()
                       .Where(x => x.Date.Month == currentMonth &&
                       x.Agent.Id == _identity.CurrentUser.Id
                       ).ToList()
@@ -36,6 +43,8 @@ namespace Billing.API.Reports
                       .OrderBy(x => x.Key)
                       .Select(x => _factory.Create(x.Key, x.Sum(y => y.SubTotal))).ToList();
 
+            }
+               
             List<InputItem> query;
             if (_identity.HasRole("admin"))
             {

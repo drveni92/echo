@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="Billing">
 
   <head>
       <title>Billling</title>
       <link rel="shortcut icon" href="favicon.ico">
-      <link rel="stylesheet" href="assets/libs/bootstrap.min.css">      
+      <link rel="stylesheet" href="assets/libs/bootstrap.min.css">
+      <script src="library/angular.min.js"></script>
+      <script src="library/angular-route.min.js"></script>
+      <script src="app/app.js"></script>
+      <script src="app/components/agents/agentsController.js"></script>
+      <script src="app/services/DataService.js"></script>      
   </head>
 
   <body>
-  <header>
-      <div class="jumbotron">
+    <header>
+      <div class="container">
           <div><h2>Billing Application</h2></div>
+          <div><a href="#/agents">Agents</a> | <a href="#/customers">Customers</a></div>
+          <div>{{ message }}</div>
+          <hr>
       </div>
-  </header>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">Hello 1</div>
-      <div class="col-md-4">Hello 2</div>
-    </div>
-  </div>
+    </header>
+    <div class="container"><div ng-view></div></div>
   </body>
 </html>

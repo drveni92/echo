@@ -8,8 +8,10 @@
       <script src="library/angular.min.js"></script>
       <script src="library/angular-route.min.js"></script>
       <script src="app/app.js"></script>
-      <script src="app/components/agents/agentsController.js"></script>
-      <script src="app/services/DataService.js"></script>      
+      <script src="app/components/agents/agents.controller.js"></script>
+      <script src="app/services/data.service.js"></script>
+      <script src="app/components/sessions/session.controller.js"></script>
+      <script src="app/components/sessions/services/sessions.services.js"></script>         
   </head>
 
   <body>
@@ -21,6 +23,7 @@
           <hr>
       </div>
     </header>
+
     <div class="container"><div ng-view></div></div>
   </body>
 </html>

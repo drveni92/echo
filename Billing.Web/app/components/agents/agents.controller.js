@@ -13,7 +13,7 @@
         };
 
         $scope.save = function(){
-            if($scope.agent.id == 0)
+            if($scope.agent.id === 0)
                 DataService.insert("agents", $scope.agent, function(data){ ListAgents();} );
             else
                 DataService.update("agents", $scope.agent.id, $scope.agent, function(data){ListAgents();});

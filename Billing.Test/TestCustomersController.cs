@@ -19,9 +19,9 @@ namespace Billing.Test
     [TestClass]
     public class TestCustomersController
     {
-        CustomersController controller = new CustomersController();
-        HttpConfiguration config = new HttpConfiguration();
-        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/customers");
+        readonly CustomersController controller = new CustomersController();
+        readonly HttpConfiguration config = new HttpConfiguration();
+        readonly HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/customers");
        
 
         void GetReady()
@@ -106,7 +106,7 @@ namespace Billing.Test
         }
 
         [TestMethod]
-        public void PostAgentBad()
+        public void PostCustomerBad()
         {
             GetReady();
             var actRes = controller.Post(new CustomerModel() { Name = "Amer", Town = new CustomerModel.CustomerTown() { Id = 999 } });

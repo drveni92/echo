@@ -74,6 +74,7 @@ namespace Billing.API.Controllers
         {
             try
             {
+                if (UnitOfWork.Towns.Get(model.Town.Id) == null) return BadRequest("Town not found");
                 Customer customer = Factory.Create(model);
                 UnitOfWork.Customers.Insert(customer);
                 UnitOfWork.Commit();

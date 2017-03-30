@@ -17,11 +17,14 @@ namespace Billing.Test
     [TestClass]
     public class TestInvoicesController
     {
-        InvoicesController controller = new InvoicesController();
-        HttpConfiguration config = new HttpConfiguration();
+        readonly InvoicesController controller = new InvoicesController();
+        readonly HttpConfiguration config = new HttpConfiguration();
 
-        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/invoices");
-
+        readonly HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/invoices");
+        private InvoiceModel.InvoiceShipper shipperModel;
+        private InvoiceModel.InvoiceAgent agentModel;
+        private InvoiceModel.InvoiceCustomer customerModel;
+        private TownModel townModel;
 
         void GetReady(string user = "marlon")
         {
@@ -38,6 +41,26 @@ namespace Billing.Test
             controller.Request.Headers.TryAddWithoutValidation("Token", token);
             controller.RequestContext.Principal = new GenericPrincipal(new GenericIdentity(user, "billing"), new[] { "admin", "user" });
             Thread.CurrentPrincipal = controller.RequestContext.Principal;
+        }
+
+        void setUpData(int townId, int customerId, int agentId, int shipperId)
+        {
+            townModel = new TownModel()
+            {
+                Id = townId
+            };
+            customerModel = new InvoiceModel.InvoiceCustomer()
+            {
+                Id = customerId
+            };
+            agentModel = new InvoiceModel.InvoiceAgent()
+            {
+                Id = agentId
+            };
+            shipperModel = new InvoiceModel.InvoiceShipper()
+            {
+                Id = shipperId
+            };
         }
 
         [TestMethod]
@@ -137,23 +160,7 @@ namespace Billing.Test
         public void PostInvoiceAllGood()
         {
             GetReady();
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 1
-            };
-
+            setUpData(1, 1, 1, 1);
             var actRes = controller.Post(new InvoiceModel()
             {
                 InvoiceNo = "EF3E67",
@@ -174,22 +181,7 @@ namespace Billing.Test
         public void PostInvoiceInvoiceNoBad()
         {
             GetReady();
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 1
-            };
+            setUpData(1, 1, 1, 1);
 
             var actRes = controller.Post(new InvoiceModel()
             {
@@ -211,23 +203,8 @@ namespace Billing.Test
         public void PostInvoiceForAgentBad()
         {
             GetReady();
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 999
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 1
-            };
-
+            setUpData(1, 1, 999, 1);
+            
             var actRes = controller.Post(new InvoiceModel()
             {
                 InvoiceNo = "EF3E67",
@@ -248,23 +225,7 @@ namespace Billing.Test
         public void PostInvoiceForCustomerBad()
         {
             GetReady();
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 999
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 1
-            };
-
+            setUpData(1, 999, 1, 1);
             var actRes = controller.Post(new InvoiceModel()
             {
                 InvoiceNo = "EF3E67",
@@ -285,23 +246,7 @@ namespace Billing.Test
         public void PostInvoiceForShipperBad()
         {
             GetReady();
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 999
-            };
-
+            setUpData(1, 1, 1, 999);
             var actRes = controller.Post(new InvoiceModel()
             {
                 InvoiceNo = "EF3E67",
@@ -322,23 +267,7 @@ namespace Billing.Test
         public void PutInvoiceForAgentGood()
         {
             GetReady("julia");
-
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 2
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 1
-            };
+            setUpData(1, 1, 2, 1);
 
             var actRes = controller.Put(1, new InvoiceModel()
             {
@@ -361,23 +290,7 @@ namespace Billing.Test
         public void PutInvoiceForAgentBad()
         {
             GetReady();
-
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 999
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 1
-            };
+            setUpData(1, 1, 999, 1);
 
             var actRes = controller.Put(1, new InvoiceModel()
             {
@@ -400,24 +313,8 @@ namespace Billing.Test
         public void PutInvoiceForCustomerGood()
         {
             GetReady("antonio");
-
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 2
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 1
-            };
-
+            setUpData(1, 2, 1, 1);
+          
             var actRes = controller.Put(1, new InvoiceModel()
             {
                 Id = 1,
@@ -439,24 +336,8 @@ namespace Billing.Test
         public void PutInvoiceForCustomerBad()
         {
             GetReady();
-
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 999
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 1
-            };
-
+            setUpData(1, 999, 1, 1);
+            
             var actRes = controller.Put(1, new InvoiceModel()
             {
                 Id = 1,
@@ -478,24 +359,7 @@ namespace Billing.Test
         public void PutInvoiceDataShipping()
         {
             GetReady("antonio");
-
-            TownModel townModel = new TownModel()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceCustomer customerModel = new InvoiceModel.InvoiceCustomer()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceAgent agentModel = new InvoiceModel.InvoiceAgent()
-            {
-                Id = 1
-            };
-            InvoiceModel.InvoiceShipper shipperModel = new InvoiceModel.InvoiceShipper()
-            {
-                Id = 1
-            };
-
+            setUpData(1, 1, 1, 1);
             var actRes = controller.Put(1, new InvoiceModel()
             {
                 Id = 1,

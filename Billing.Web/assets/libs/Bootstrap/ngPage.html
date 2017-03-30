@@ -1,0 +1,71 @@
+<html ng-app="bootDemo">
+<head>
+    <script src="library/angular.min.js"></script>
+    <script src="library/ui-bootstrap-tpls.js"></script>
+    <script src="scripts/page.js"></script>
+    <link href="styles/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container">
+
+<h3>Pagination</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <div ng-controller="PageCtrl">
+            <h3>Default</h3>
+            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+            <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+            <pagination direction-links="false" boundary-links="true" total-items="totalItems" ng-model="currentPage"></pagination>
+            <pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="smallnumPages"></pagination>
+            <pre>The selected page no: {{currentPage}}</pre>
+            <button class="btn btn-info" ng-click="setPage(3)">Set current page to: 3</button>
+
+            <hr />
+            <h3>Pager</h3>
+            <pager total-items="totalItems" ng-model="currentPage"></pager>
+
+            <hr />
+            <h3>Limit the maximum visible buttons</h3>
+            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></pagination>
+            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+            <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h3>Pagination Settings</h3>
+        <div>Settings can be provided as attributes in the &lt;pagination&gt; or globally configured through the paginationConfig.
+            <ul>
+                <li>ng-model  : Current page number. First page is 1.</li>
+                <li>total-items  : Total number of items in all pages.</li>
+                <li>items-per-page  (Defaults: 10) : Maximum number of items per page. A value less than one indicates all items on one page.</li>
+                <li>max-size  (Defaults: null) : Limit number for pagination size.</li>
+                <li>num-pages readonly (Defaults: angular.noop) : An optional expression assigned the total number of pages to display.</li>
+                <li>rotate (Defaults: true) : Whether to keep current page in the middle of the visible ones.</li>
+                <li>direction-links (Default: true) : Whether to display Previous / Next buttons.</li>
+                <li>previous-text (Default: 'Previous') : Text for Previous button.</li>
+                <li>next-text (Default: 'Next') : Text for Next button.</li>
+                <li>boundary-links (Default: false) : Whether to display First / Last buttons.</li>
+                <li>first-text (Defalt: 'First') : Text for First button.</li>
+                <li>last-text (Default: 'Last') : Text for Last button.</li>
+            </ul>
+            <p>&nbsp;</p>
+        </div>
+        <hr>
+        <h3>Pager Settings</h3>
+        <div>Settings can be provided as attributes in the &lt;pager&gt; or globally configured through the pagerConfig.<br>
+            For ng-model, total-items, items-per-page and num-pages see pagination settings. Other settings are:
+            <ul>
+                <li>align (Default: true) : Whether to align each link to the sides.</li>
+                <li>previous-text (Default: '« Previous') : Text for Previous button.</li>
+                <li>next-text (Default: 'Next »') : Text for Next button.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<hr><hr>
+<p><a href="index.html">Back to index</a></p>
+
+</body>
+</html>

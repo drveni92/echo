@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Billing.Database
 {
-    public class Basic
+    public abstract class Basic
     {
         public Basic()
         {

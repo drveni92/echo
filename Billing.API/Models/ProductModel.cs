@@ -9,9 +9,9 @@ namespace Billing.Api.Models
     {
         public struct ProductStock
         {
-            public int Input;
-            public int Output;
-            public int Inventory;
+            public double Input;
+            public double Output;
+            public double Inventory;
         }
 
         public struct ProductCategory

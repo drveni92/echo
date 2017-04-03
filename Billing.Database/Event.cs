@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace Billing.Database
 {
-    public class History : Basic
+    public class Event : Basic
     {
-        public History()
-        {
-            Date = DateTime.Now;
-        }
         public int Id { get; set; }
+        public Status Status { get; set; }
         public DateTime Date { get; set; }
-        public int Status { get; set; }
+
         public virtual Invoice Invoice { get; set; }
     }
 }

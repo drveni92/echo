@@ -10,22 +10,12 @@ namespace Billing.Database
 {
     public class Stock : Basic
     {
-        public Stock()
-        {
-            Input = 0;
-            Output = 0;
-        }
-        [Key]
-        [ForeignKey("Product")]
         public int Id { get; set; }
-        [Required]
-        public int Input { get; set; }
-        [Required]
-        public int Output { get; set; }
+        public double Input { get; set; }
+        public double Output { get; set; }
         [NotMapped]
-        public int Invertory { get { return Input - Output; } }
+        public double Inventory { get { return (Input - Output); } }
         [Required]
         public virtual Product Product { get; set; }
-
     }
 }

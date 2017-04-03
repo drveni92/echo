@@ -86,6 +86,13 @@
     display: none;
 }
 
+/* Top Menu */
+
+#menu {
+    width: 100%;
+    transition: 1s;
+    padding-left: 50px;
+}
 
 /* Main content */
 
@@ -97,10 +104,8 @@
     transition: 1s;
 }
 
-#menu {
-    width: 100%;
-    transition: 1s;
-    padding-left: 50px;
+#main-content {
+    padding: 0px 50px 0px 50px;
 }
 
 

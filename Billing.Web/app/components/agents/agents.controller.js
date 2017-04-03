@@ -2,7 +2,7 @@
 
     var app = angular.module("Billing");
 
-    var AgentsController = function($scope, $http, DataService) {
+    var AgentsController = function($scope, $http, DataFactory) {
 
         $scope.showAgent = false;
         ListAgents();
@@ -14,13 +14,13 @@
 
         $scope.save = function(){
             if($scope.agent.id === 0)
-                DataService.insert("agents", $scope.agent, function(data){ ListAgents();} );
+                DataFactory.insert("agents", $scope.agent, function(data){ ListAgents();} );
             else
-                DataService.update("agents", $scope.agent.id, $scope.agent, function(data){ListAgents();});
+                DataFactory.update("agents", $scope.agent.id, $scope.agent, function(data){ListAgents();});
         };
         $scope.delete = function(){
 
-            DataService.delete("agents", $scope.agent.id, function(data){ListAgents();});
+            DataFactory.delete("agents", $scope.agent.id, function(data){ListAgents();});
             $scope.showAgent = false;
 
         };
@@ -35,7 +35,7 @@
         };
 
         function ListAgents(){
-            DataService.list("agents", function(data){ $scope.agents = data});
+            DataFactory.list("agents", function(data){ $scope.agents = data});
         }
     };
 

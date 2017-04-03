@@ -5,7 +5,7 @@
 
     var app = angular.module("Billing");
 
-    var CustomersController = function($scope, $http, DataService) {
+    var CustomersController = function($scope, $http, DataFactory) {
 
         $scope.showCustomer = false;
         ListCustomers();
@@ -17,13 +17,13 @@
 
         $scope.saveC = function(){
             if($scope.customer.id === 0)
-                DataService.insert("customers", $scope.customer, function(data){ ListCustomers();} );
+                DataFactory.insert("customers", $scope.customer, function(data){ ListCustomers();} );
             else
-                DataService.update("customers", $scope.customer.id, $scope.customer, function(data){ListCustomers();});
+                DataFactory.update("customers", $scope.customer.id, $scope.customer, function(data){ListCustomers();});
         };
         $scope.deleteC = function(){
 
-            DataService.delete("customers", $scope.customer.id, function(data){ListCustomers();});
+            DataFactory.delete("customers", $scope.customer.id, function(data){ListCustomers();});
             $scope.showAgent = false;
             $scope.showCustomer = false;
 
@@ -40,7 +40,7 @@
         };
 
         function ListCustomers(){
-            DataService.list("customers", function(data){ $scope.customers = data});
+            DataFactory.list("customers", function(data){ $scope.customers = data});
         }
     };
 

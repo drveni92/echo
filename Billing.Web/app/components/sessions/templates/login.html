@@ -15,9 +15,8 @@
                 <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
             </div>
             <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary btn-block btn-custom">Login</button>
-            <div ng-if="Lerror" id="logError" class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{loginError}}
+            <div ng-if="loginError != null" id="logError" class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{loginError}}
             </div>
         </form>
         <!-- /.controls -->

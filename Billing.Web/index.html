@@ -23,7 +23,7 @@
 <body>
     <div id="wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper" ng-show="billing">
+        <div id="sidebar-wrapper" ng-show="authenticated">
             <div class="menu-toggle-wrapper">
                 <a id="menu-toggle" href="#">
                     <i id="menu-right" class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i>
@@ -46,15 +46,21 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" data-toggle="tooltip" data-placement="right" title="Customers">
+                    <a href="#/customers" data-toggle="tooltip" data-placement="right" title="Customers">
                         <i class="fa fa-users" aria-hidden="true"></i>
                         <span class="list-item">Customers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/agents" data-toggle="tooltip" data-placement="right" title="Agents">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span class="list-item">Agents</span>
                     </a>
                 </li>
             </ul>
         </div>
         <!-- Menu -->
-        <div id="menu" ng-show="billing">
+        <div id="menu" ng-show="authenticated">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -71,6 +77,11 @@
                                 <a href="#">
                                     <span style="margin-right:10px;">Antonio Banderas</span>
                                     <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="logout()">
+                                    <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
                                 </a>
                             </li>
                         </ul>

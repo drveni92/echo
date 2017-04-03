@@ -17,43 +17,33 @@
                 }});
             promise.then(
                 function(response) {
-                    $rootScope.billing = true;
-                    authenticated = true;
-                    $rootScope.logoutbutton = true;
-                    $scope.Lerror = false;
-                    $scope.loginError = "";
-                    document.body.style.backgroundColor = "#fff";
-                    currentUser = response.data.name;
-                    $rootScope.token = response.data.token;
+                    $rootScope.authenticated = true;
+                    $scope.loginError = null;
+                    $rootScope.currentUser = response.data;
                     $location.path("/agents");
 
                 },
                 function(reason){
-                    authntication = false;
-                    $scope.Lerror = true;
+                    $rootScope.authenticated = true;
                     $scope.loginError = "Username or password is incorrect";
-                    currentUser = "";
+                    currentUser = null;
                     $location.path("/login");
                 });
         };
 
-        $scope.logout = function() {
+        $rootScope.logout = function() {
             var request = $http({
                 method: "get",
                 url: "http://localhost:9000/api/logout"
             });
             request.then(
                 function (response) {
-                    $rootScope.logout2 = true;
-                    $rootScope.billing = false;
-                    $rootScope.message="";
-                    authenticated = false;
-                    $rootScope.logoutbutton = false;
-                    $rootScope.message1 = response.data;
-                    return true;
+                    $rootScope.authenticated = false;
+                    $rootScope.currentUser = null;
+                    $location.path("/login");
                 },
                 function (reason) {
-                    return false;
+                    console.log(reason);
                 });
         };
     };

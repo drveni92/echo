@@ -4,7 +4,7 @@
 
     var DataFactory = function($http, $rootScope) {
         var source = "http://localhost:9000/api/";
-        $http.defaults.headers.common.Token = $rootScope.token;
+        $http.defaults.headers.common.Token = $rootScope.currentUser.token;
         $http.defaults.headers.common.ApiKey = "RWNoby1CaWxsaW5n";
 
         return {

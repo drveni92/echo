@@ -1,10 +1,5 @@
 (function(){
 
-	authenticated = false;
-    logoutbutton = false;
-    deletebutton = false;
-    billing = false;
-    message1 = "";
     var app = angular.module("Billing", ["ngRoute"]);
 
     app.config(function($routeProvider){
@@ -24,7 +19,8 @@
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location){
         $rootScope.$on("$routeChangeStart", function(event, next, current){
-            if(!authenticated){
+            console.log($rootScope.authenticated);
+            if(!$rootScope.authenticated){
                 if(next.templateUrl != "app/components/sessions/templates/login.html"){
                     $location.path("/login");
                 }

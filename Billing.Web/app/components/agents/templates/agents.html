@@ -21,20 +21,32 @@
     <br>
     <br>
     <table class="table table-hover">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Action</th>
-        </tr>
-        <tr ng-repeat="item in agents">
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.username }}</td>
-            <td>
-                <button ng-click="getAgent(item)" class="btn btn-primary"> GET </button>
-            </td>
-        </tr>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in agents">
+                <td class="col-md-2">{{ item.id }}</td>
+                <td class="col-md-4">{{ item.name }}</td>
+                <td class="col-md-4">{{ item.username }}</td>
+                <td class="col-md-2">
+                    <button ng-click="getAgent(item)" class="btn btn-primary"> 
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                    <button ng-click="getAgent(item)" class="btn btn-success"> 
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                    <button ng-click="getAgent(item)" class="btn btn-danger"> 
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
     </table>
     <br>
     <br>

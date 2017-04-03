@@ -9,9 +9,9 @@ namespace Billing.API.Models.Reports
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Input { get; set; }
-        public int Output { get; set; }
-        public int Stock { get { return Input - Output; } }
+        public double Input { get; set; }
+        public double Output { get; set; }
+        public double Stock { get { return Input - Output; } }
     }
     public class StockLevelModel
     {

@@ -37,8 +37,9 @@ namespace Billing.API.Helpers.Identity
                     var authToken = new UnitOfWork().Tokens.Get().FirstOrDefault(x => x.Token == Token.FirstOrDefault());
                     if (authToken != null)
                         if (authToken.ApiUser.AppId == ApiKey.First() && authToken.Expiration > DateTime.UtcNow)
-                            foreach (string role in _role)
-                                if(Identity.HasRole(role)) return;
+                            return;
+                            /*foreach (string role in _role)
+                                if(Identity.HasRole(role)) return;*/
                 }
             }
             catch (Exception ex)

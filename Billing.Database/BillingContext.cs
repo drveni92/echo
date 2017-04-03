@@ -12,10 +12,7 @@ namespace Billing.Database
 {
     public class BillingContext : DbContext
     {
-        public BillingContext() : base("name=Billing.Database")
-        {
-            //Billing.Database.SetInitializer<dbContext>(new DropCreateBilling.DatabaseAlways<dbContext>());
-        }
+        public BillingContext() : base("name=Billing.Remote") { }
 
         
         public DbSet<Agent> Agents { get; set; }
@@ -31,7 +28,7 @@ namespace Billing.Database
         public DbSet<Town> Towns { get; set; }
         public DbSet<ApiUser> ApiUsers { get; set; }
         public DbSet<AuthToken> AuthTokens { get; set; }
-        public DbSet<History> Histories { get; set; }
+        public DbSet<Event> History { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -73,8 +70,8 @@ namespace Billing.Database
             modelBuilder.Entity<Town>()
                         .Map<Town>(x => x.Requires("Deleted").HasValue(false))
                         .Ignore(x => x.Deleted);
-            modelBuilder.Entity<History>()
-                       .Map<History>(x => x.Requires("Deleted").HasValue(false))
+            modelBuilder.Entity<Event>()
+                       .Map<Event>(x => x.Requires("Deleted").HasValue(false))
                        .Ignore(x => x.Deleted);
         }
 

@@ -32,7 +32,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                History history = UnitOfWork.Histories.Get(id);
+                Event history = UnitOfWork.Histories.Get(id);
                 if (history == null) return NotFound();
                 return Ok(Factory.Create(history));
             }
@@ -48,7 +48,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                History history = Factory.Create(model);
+                Event history = Factory.Create(model);
                 UnitOfWork.Histories.Insert(history);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(history));
@@ -65,7 +65,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                History history = Factory.Create(model);
+                Event history = Factory.Create(model);
                 UnitOfWork.Histories.Update(history,id);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(history));

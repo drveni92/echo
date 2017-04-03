@@ -18,16 +18,16 @@ namespace Billing.API.Helpers
             {
                 switch (Invoice.Status)
                 {
-                    case (int)Status.OrderCreated: OrderCreated(Cancel); break;
-                    case (int)Status.InvoiceCreated: InvoiceCreated(Cancel); break;
-                    case (int)Status.InvoiceSent: InvoiceSent(Cancel); break;
-                    case (int)Status.InvoicePaid: InvoicePaid(); break;
-                    case (int)Status.InvoiceOnHold: InvoiceOnHold(); break;
-                    case (int)Status.InvoiceReady: InvoiceReady(); break;
+                    case Status.OrderCreated: OrderCreated(Cancel); break;
+                    case Status.InvoiceCreated: InvoiceCreated(Cancel); break;
+                    case Status.InvoiceSent: InvoiceSent(Cancel); break;
+                    case Status.InvoicePaid: InvoicePaid(); break;
+                    case Status.InvoiceOnHold: InvoiceOnHold(); break;
+                    case Status.InvoiceReady: InvoiceReady(); break;
                         //default:
                 }
                 unitOfWork.Invoices.Update(Invoice, id);
-                unitOfWork.Histories.Insert(new History() { Invoice = Invoice, Date = DateTime.Today, Status = Invoice.Status });
+                unitOfWork.Histories.Insert(new Event() { Invoice = Invoice, Date = DateTime.Today, Status = Invoice.Status });
                 unitOfWork.Commit();
             }
             return Invoice;
@@ -37,11 +37,11 @@ namespace Billing.API.Helpers
         {
             if (Cancel)
             {
-                Invoice.Status = (int)Status.Canceled;
+                Invoice.Status = Status.Canceled;
             }
             else
             {
-                Invoice.Status = (int)Status.InvoiceCreated;
+                Invoice.Status = Status.InvoiceCreated;
             }
         }
 
@@ -49,11 +49,11 @@ namespace Billing.API.Helpers
         {
             if (Cancel)
             {
-                Invoice.Status = (int)Status.Canceled;
+                Invoice.Status = Status.Canceled;
             }
             else
             {
-                Invoice.Status = (int)Status.InvoiceSent;
+                Invoice.Status = Status.InvoiceSent;
             }
         }
 
@@ -61,22 +61,22 @@ namespace Billing.API.Helpers
         {
             if (Cancel)
             {
-                Invoice.Status = (int)Status.Canceled;
+                Invoice.Status = Status.Canceled;
             }
             else
             {
-                Invoice.Status = (int)Status.InvoicePaid;
+                Invoice.Status = Status.InvoicePaid;
             }
         }
 
         private void InvoicePaid()
         {
-            Invoice.Status = (int)Status.InvoiceReady;
+            Invoice.Status = Status.InvoiceReady;
             foreach (var Item in Invoice.Items)
             {
-                if (Item.Product.Stock.Invertory < Item.Quantity)
+                if (Item.Product.Stock.Inventory < Item.Quantity)
                 {
-                    Invoice.Status = (int)Status.InvoiceOnHold;
+                    Invoice.Status = Status.InvoiceOnHold;
                     break;
                 }
             }
@@ -84,12 +84,12 @@ namespace Billing.API.Helpers
 
         private void InvoiceOnHold()
         {
-            Invoice.Status = (int)Status.InvoiceReady;
+            Invoice.Status = Status.InvoiceReady;
             foreach (var Item in Invoice.Items)
             {
-                if (Item.Product.Stock.Invertory < Item.Quantity)
+                if (Item.Product.Stock.Inventory < Item.Quantity)
                 {
-                    Invoice.Status = (int)Status.InvoiceOnHold;
+                    Invoice.Status = Status.InvoiceOnHold;
                     break;
                 }
             }
@@ -97,7 +97,7 @@ namespace Billing.API.Helpers
 
         private void InvoiceReady()
         {
-            Invoice.Status = (int)Status.InvoiceShipped;
+            Invoice.Status = Status.InvoiceShipped;
             Invoice.ShippedOn = DateTime.Today;
         }
     }

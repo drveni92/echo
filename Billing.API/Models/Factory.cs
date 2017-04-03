@@ -131,7 +131,7 @@ namespace Billing.API.Models
                 Vat = invoice.Vat,
                 VatAmount = invoice.VatAmount,
                 Shipping = invoice.Shipping,
-                Status = invoice.Status,
+                Status = (int)invoice.Status,
                 Total = invoice.Total,
                 Agent = new InvoiceModel.InvoiceAgent()
                 {
@@ -149,7 +149,7 @@ namespace Billing.API.Models
                     Name = invoice.Customer.Name
                 },
                 Items = invoice.Items.Select(x => Create(x)).ToList(),
-                Histories = invoice.Histories.Select(x => Create(x)).ToList()
+                Histories = invoice.History.Select(x => Create(x)).ToList()
 
 
             };
@@ -195,7 +195,7 @@ namespace Billing.API.Models
                 {
                     Input = product.Stock.Input,
                     Output = product.Stock.Output,
-                    Inventory = product.Stock.Invertory
+                    Inventory = product.Stock.Inventory
                 } : new ProductModel.ProductStock()
             };
         }
@@ -220,13 +220,13 @@ namespace Billing.API.Models
             };
         }
 
-        public HistoryModel Create(History history)
+        public HistoryModel Create(Event history)
         {
             return new HistoryModel()
             {
                 Id = history.Id,
                 Date = history.Date,
-                Status = history.Status,
+                Status = (int)history.Status,
                 Invoice = new HistoryModel.HistoryInvoice()
                 {
                     Id = history.Invoice.Id,
@@ -348,7 +348,7 @@ namespace Billing.API.Models
         public Invoice Create(InvoiceModel model)
         {
             List<Item> items = new List<Item>();
-            List<History> histories = new List<History>();
+            List<Event> histories = new List<Event>();
             foreach (ItemModel item in model.Items)
             {
                 Item tmp = _unitOfWork.Items.Get(item.Id);
@@ -356,7 +356,7 @@ namespace Billing.API.Models
             }
             foreach (HistoryModel item in model.Histories)
             {
-                History tmp = _unitOfWork.Histories.Get(item.Id);
+                Event tmp = _unitOfWork.Histories.Get(item.Id);
                 if (tmp != null) histories.Add(tmp);
             }
             return new Invoice()
@@ -367,12 +367,12 @@ namespace Billing.API.Models
                 ShippedOn = model.ShippedOn,
                 Shipping = model.Shipping,
                 Vat = model.Vat,
-                Status = model.Status,
+                Status = (Status)model.Status,
                 Agent = _unitOfWork.Agents.Get(model.Agent.Id),
                 Customer = _unitOfWork.Customers.Get(model.Customer.Id),
                 Shipper = _unitOfWork.Shippers.Get(model.Shipper.Id),
                 Items = items,
-                Histories = histories
+                History = histories
             };
         }
 
@@ -397,13 +397,13 @@ namespace Billing.API.Models
             };
         }
 
-        public History Create(HistoryModel model)
+        public Event Create(HistoryModel model)
         {
-            return new History()
+            return new Event()
             {
                 Id = model.Id,
                 Date = model.Date,
-                Status = model.Status,
+                Status = (Status)model.Status,
                 Invoice = _unitOfWork.Invoices.Get(model.Invoice.Id)
             };
         }

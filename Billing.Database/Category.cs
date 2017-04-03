@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Billing.Database
 {
-    [Table("Categories")]
     public class Category : Basic
     {
         public Category()
@@ -17,7 +16,6 @@ namespace Billing.Database
         }
 
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
 
         public virtual List<Product> Products { get; set; }

@@ -111,9 +111,9 @@ namespace Billing.Test
                 unit.Items.Insert(new Item() { Invoice = unit.Invoices.Get(2), Product = unit.Products.Get(1), Price = 700, Quantity = 1 });
                 unit.Commit();
 
-                unit.Histories.Insert(new History() { Invoice = unit.Invoices.Get(1), Date = DateTime.Now, Status = 2 });
-                unit.Histories.Insert(new History() { Invoice = unit.Invoices.Get(2), Date = DateTime.Now, Status = 2 });
-                unit.Histories.Insert(new History() { Invoice = unit.Invoices.Get(1), Date = DateTime.Now, Status = 3 });
+                unit.Histories.Insert(new Event() { Invoice = unit.Invoices.Get(1), Date = DateTime.Now, Status = Status.InvoiceOnHold });
+                unit.Histories.Insert(new Event() { Invoice = unit.Invoices.Get(2), Date = DateTime.Now, Status = Status.InvoicePaid });
+                unit.Histories.Insert(new Event() { Invoice = unit.Invoices.Get(1), Date = DateTime.Now, Status = Status.InvoicePaid });
 
                 unit.Procurements.Insert(new Procurement()
                 {

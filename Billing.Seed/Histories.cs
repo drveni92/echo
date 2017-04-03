@@ -14,7 +14,7 @@ namespace Seed
     {
         public static void Get()
         {
-            IBillingRepository<History> histories = new BillingRepository<History>(Help.Context);
+            IBillingRepository<Event> histories = new BillingRepository<Event>(Help.Context);
             IBillingRepository<Invoice> invoices = new BillingRepository<Invoice>(Help.Context);
 
             int N = 0;
@@ -25,11 +25,11 @@ namespace Seed
                 try
                 {
                     string invoiceNo = Help.getString(row, 0);
-                    History item = new History()
+                    Event item = new Event()
                     {
                         Invoice = invoices.Get().FirstOrDefault(x => x.InvoiceNo == invoiceNo),
                         Date = Help.getDate(row, 1),
-                        Status = Help.getInteger(row, 2)
+                        Status = (Status)Help.getInteger(row, 2)
                     };
 
                     histories.Insert(item);

@@ -4,7 +4,7 @@
 
     var DataService = function($http, $rootScope) {
         var source = "http://localhost:9000/api/";
-        $http.defaults.headers.common.Token = "12345678901234567890";
+        $http.defaults.headers.common.Token = $rootScope.token;
         $http.defaults.headers.common.ApiKey = "R2lnaVNjaG9vbA==";
 
         return {
@@ -14,6 +14,7 @@
 
             list: function(dataSet, callback) {
                 $rootScope.message = "Please wait...";
+                console.log($http.defaults.headers);
                 $http.get(source + dataSet)
                     .success(function (data, status, headers) {
                         $rootScope.message = "";

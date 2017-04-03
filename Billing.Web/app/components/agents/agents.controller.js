@@ -18,11 +18,18 @@
             else
                 DataService.update("agents", $scope.agent.id, $scope.agent, function(data){ListAgents();});
         };
+        $scope.delete = function(){
+
+            DataService.delete("agents", $scope.agent.id, function(data){ListAgents();});
+            $scope.showAgent = false;
+
+        };
 
         $scope.new = function(){
             $scope.agent = {
                 id: 0,
-                name: ""
+                name: "",
+                username:""
             };
             $scope.showAgent = true;
         };

@@ -5,25 +5,64 @@
       <title>Billling</title>
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="assets/libs/bootstrap.min.css">
+      <link rel="stylesheet" href="assets/css/style.css">
+
       <script src="library/angular.min.js"></script>
       <script src="library/angular-route.min.js"></script>
       <script src="app/app.js"></script>
       <script src="app/components/agents/agents.controller.js"></script>
+      <script src="app/components/customers/customers.controller.js"></script>
       <script src="app/services/data.service.js"></script>
       <script src="app/components/sessions/session.controller.js"></script>
-      <script src="app/components/sessions/services/sessions.services.js"></script>         
+      <script src="app/components/sessions/services/sessions.services.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src = "assets/libs/particles.js"></script>
+
   </head>
 
   <body>
-    <header>
+
+
+  <!-- Header -->
+  <div id="top-nav" id="header" class="navbar navbar-inverse navbar-static-top" ng-show="billing">
       <div class="container">
-          <div><h2>Billing Application</h2></div>
-          <div><a href="#/agents">Agents</a> | <a href="#/customers">Customers</a></div>
-          <div>{{ message }}</div>
-          <hr>
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="icon-toggle"></span>
+              </button>
+              <a class="navbar-brand" href="#">Dashboard</a>
+          </div>
+          <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+
+                  <li class="dropdown">
+                      <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
+                      <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                          <li><a href="#">My Profile</a></li>
+                      </ul>
+                  </li>
+                  <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+              </ul>
+          </div>
+      </div><!-- /container -->
+  </div>
+  <!-- /Header -->
+
+
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper" ng-show="billing">
+          <ul id="sidebar_menu" class="sidebar-nav">
+              <li class="sidebar-brand">Nanthagopal</a></li>
+          </ul>
+          <ul class="sidebar-nav" id="sidebar">
+              <li><a href="#"><span class="sub_icon glyphicon glyphicon-link">Dashboard</span></a></li>
+              <li><a href="#"><span class="sub_icon glyphicon glyphicon-link">Provider</span></a></li>
+          </ul>
       </div>
-    </header>
+
 
     <div class="container"><div ng-view></div></div>
+
   </body>
 </html>

@@ -1,10 +1,49 @@
-<div style="border:solid 1px blue" ng-show="showAgent">
-    <div>Id: <strong>{{ agent.id }}</strong></div>
-    <div>Name: <input type="text" ng-model="agent.name"></div>
-    <div><button ng-click="save()">SAVE</button></div>
+
+<div style="border-style: outset" class="col-sm-6 " id ="border" ng-show="showAgent">
+    <form class="navbar-form navbar-left" class ="col-sm-6 ">
+
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon4">ID: </span>
+            <input class="form-control" ng-model="agent.id" id="basic-url" aria-describedby="basic-addon3" readonly>
+
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">Name: </span>
+            <input type="text" class="form-control" ng-model="agent.name" id="basic-url" aria-describedby="basic-addon3">
+
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">Username: </span>
+            <input type="text" class="form-control" ng-model="agent.username" id="basic-url" aria-describedby="basic-addon3">
+
+        </div>
+    </form>
+    <br>
+    <button ng-click="save()" class="btn btn-primary" >SAVE</button>
+    <button ng-click="delete()" class="btn btn-danger"> Delete </button>
 </div>
 
-<div ng-repeat="item in agents">
-    {{ item.id }}:: {{ item.name }} <button ng-click="getAgent(item)">GET</button>
-</div>
-<button ng-click="new()">NEW AGENT</button>
+<br><br>
+
+<table class="table table-hover" >
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Action</th>
+    </tr>
+    <tr ng-repeat="item in agents">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.username }}</td>
+        <td><button ng-click="getAgent(item)" class="btn btn-primary"> GET </button></td>
+    </tr>
+</table>
+
+<br><br>
+        <tr>
+
+        </tr>
+
+<button class="btn btn-success" ng-click="new()">NEW AGENT</button>
+<br><br><br>

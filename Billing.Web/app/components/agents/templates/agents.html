@@ -18,8 +18,11 @@
         <button ng-click="save()" class="btn btn-primary">SAVE</button>
         <button ng-click="delete()" class="btn btn-danger"> Delete </button>
     </div>
-    <br>
-    <br>
+    <div class="col-md-6">
+        <button class="btn btn-success" ng-click="new()">NEW AGENT</button>
+    </div>
+</div>
+<div class="row">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -35,25 +38,17 @@
                 <td class="col-md-4">{{ item.name }}</td>
                 <td class="col-md-4">{{ item.username }}</td>
                 <td class="col-md-2">
-                    <button ng-click="getAgent(item)" class="btn btn-primary"> 
+                    <button ng-click="getAgent(item)" class="btn btn-primary">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
-                    <button ng-click="getAgent(item)" class="btn btn-success"> 
+                    <button ng-click="getAgent(item)" class="btn btn-success">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </button>
-                    <button ng-click="getAgent(item)" class="btn btn-danger"> 
+                    <button ng-click="getAgent(item)" class="btn btn-danger">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <br>
-    <br>
-    <tr>
-    </tr>
-    <button class="btn btn-success" ng-click="new()">NEW AGENT</button>
-    <br>
-    <br>
-    <br>
 </div>

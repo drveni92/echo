@@ -26,10 +26,6 @@ namespace Billing.API.Controllers
 
             if (Signature.Generate(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
 
-
-            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
-
-
             var rawTokenInfo = apiUser.AppId + DateTime.UtcNow.ToString("s");
             var authToken = new AuthToken()
             {
@@ -40,7 +36,7 @@ namespace Billing.API.Controllers
             UnitOfWork.Tokens.Insert(authToken);
             UnitOfWork.Commit();
 
-            return Ok(Factory.Create(authToken));
+            return Ok(Factory.Create(authToken, Identity));
         }
 
         [Route("api/logout")]
@@ -53,7 +49,7 @@ namespace Billing.API.Controllers
                 if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
                 {
                     WebSecurity.Logout();
-                    return Ok($"User {Identity.CurrentUser.Username} logged out");
+                    return Ok($"User {Identity.CurrentUser.Name} logged out");
                 }
                 else
                 {

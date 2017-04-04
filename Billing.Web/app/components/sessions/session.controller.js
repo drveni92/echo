@@ -4,29 +4,31 @@
 
     var SessionsController = function($scope, $rootScope, $http, $location, SessionService) {
 
+        $http.get("config.json")
+            .then(function(response) {
+                BillingConfig = response.data;
+            });
+
         $scope.login = function() {
             $http.defaults.headers.common.Authorization = "Basic " + SessionService.encode($scope.user.name + ":" + $scope.user.pass);
-            $http.defaults.headers.common.Signature = "rxNzHu3jm6ubUy5sSHiHoyYo3I3Jt9rsRXQFsmTCNIM=";
-            $http.defaults.headers.common.ApiKey = "RWNoby1CaWxsaW5n";
             var promise = $http({
                 method: "post",
-                url: "http://localhost:9000/api/login",
+                url: BillingConfig.source + "login",
                 data: {
-                    "apiKey": "RWNoby1CaWxsaW5n",
-                    "signature": "rxNzHu3jm6ubUy5sSHiHoyYo3I3Jt9rsRXQFsmTCNIM="
-                }});
+                    "apiKey": BillingConfig.apiKey,
+                    "signature": BillingConfig.signature
+                }
+            });
             promise.then(
                 function(response) {
-                    $rootScope.authenticated = true;
-                    $scope.loginError = null;
-                    $rootScope.currentUser = response.data;
+                    credentials = response.data;
+                    $rootScope.currentUser = credentials.currentUser.name;
                     $location.path("/agents");
 
                 },
-                function(reason){
-                    $rootScope.authenticated = true;
+                function(reason) {
                     $scope.loginError = "Username or password is incorrect";
-                    currentUser = null;
+                    credentials = null;
                     $location.path("/login");
                 });
         };
@@ -37,16 +39,15 @@
                 url: "http://localhost:9000/api/logout"
             });
             request.then(
-                function (response) {
-                    $rootScope.authenticated = false;
-                    $rootScope.currentUser = null;
+                function(response) {
+                    $rootScope.credentials = null;
                     $location.path("/login");
                 },
-                function (reason) {
+                function(reason) {
                     console.log(reason);
                 });
         };
     };
     app.controller("SessionsController", SessionsController);
-    
+
 }());

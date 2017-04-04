@@ -23,7 +23,7 @@
 <body>
     <div id="wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper" ng-show="authenticated">
+        <div id="sidebar-wrapper" ng-show="authenticated()">
             <div class="menu-toggle-wrapper">
                 <a id="menu-toggle" href="#">
                     <i id="menu-right" class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i>
@@ -60,7 +60,7 @@
             </ul>
         </div>
         <!-- Menu -->
-        <div id="menu" ng-show="authenticated">
+        <div id="menu" ng-show="authenticated()">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -75,7 +75,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <a href="#">
-                                    <span style="margin-right:10px;">Antonio Banderas</span>
+                                    <span style="margin-right:10px;">{{ currentUser }}</span>
                                     <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
                                 </a>
                             </li>
@@ -101,7 +101,9 @@
         $("#wrapper").toggleClass("menu-displayed");
     });
 
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+        trigger : 'hover'
+    });
     </script>
 </body>
 

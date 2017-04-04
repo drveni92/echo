@@ -14,7 +14,7 @@
         return (credentials.currentUser.id != 0);
     };
 
-    var app = angular.module("Billing", ["ngRoute"]);
+    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap"]);
 
     app.config(function($routeProvider) {
         $routeProvider

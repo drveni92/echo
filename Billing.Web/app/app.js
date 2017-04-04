@@ -1,5 +1,7 @@
 (function() {
 
+    REGIONS = [ "Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica" ];
+
     credentials = {
         token: "",
         expiration: "",
@@ -30,6 +32,11 @@
                 templateUrl: "app/components/customers/templates/customer.html",
                 controller: "CustomersController"
             })
+
+            .when("/towns", {
+                templateUrl: "app/components/towns/templates/town.html",
+                controller: "TownsController"
+              })
             .when("/categories", {
                 templateUrl: "app/components/categories/templates/category.html",
                 controller: "CategoriesController"
@@ -37,6 +44,7 @@
             .when("/stocks", {
                 templateUrl: "app/components/stocks/templates/stock.html",
                 controller: "StocksController"
+
             })
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location) {

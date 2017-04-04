@@ -1,0 +1,48 @@
+<div class="row">
+    <div style="border-style: outset" class="col-md-6" id="border" ng-show="showCategory">
+        <form class="navbar-form navbar-left" class="col-sm-6 ">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon4">ID: </span>
+                <input class="form-control" ng-model="category.id" id="basic-url" aria-describedby="basic-addon3" readonly>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon3">Name: </span>
+                <input type="text" class="form-control" ng-model="category.name" id="basic-url" aria-describedby="basic-addon3">
+            </div>
+        </form>
+        <br>
+        <button ng-click="save()" class="btn btn-primary">SAVE</button>
+        <button ng-click="delete()" class="btn btn-danger"> Delete </button>
+    </div>
+    <div class="col-md-6">
+        <button class="btn btn-success" ng-click="new()">NEW CATEGORY</button>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in categories">
+            <td class="col-md-2">{{ item.id }}</td>
+            <td class="col-md-8">{{ item.name }}</td>
+            <td class="col-md-2">
+                <button ng-click="getCategory(item)" class="btn btn-primary">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </button>
+                <button ng-click="getCategory(item)" class="btn btn-success">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button>
+                <button ng-click="getCategory(item)" class="btn btn-danger">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,23 @@
+
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Input</th>
+            <th>Output</th>
+            <th>Inventory</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in stocks">
+            <td class="col-md-2">{{ item.id }}</td>
+            <td class="col-md-4">{{ item.product.name }}</td>
+            <td class="col-md-2">{{ item.input }}</td>
+            <td class="col-md-2">{{ item.output }}</td>
+            <td class="col-md-2">{{ item.inventory }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

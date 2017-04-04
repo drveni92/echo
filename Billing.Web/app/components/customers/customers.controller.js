@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('CustomersController', ['$scope', '$http', 'DataFactory',  function($scope, $http, DataFactory) {
+    .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
         $scope.get = function(currentCustomer) {
             $scope.customer = currentCustomer;
             $scope.showCustomer = true;
@@ -13,32 +13,7 @@ angular
                 DataFactory.update("customers", $scope.customer.id, $scope.customer, function(data) { ListCustomers(); });
         };
         $scope.delete = function() {
-
             DataFactory.delete("customers", $scope.customer.id, function(data) { ListCustomers(); });
-            $scope.showAgent = false;
-            $scope.showCustomer = false;
-
-        };
-
-        $scope.new = function() {
-            $scope.customer = {
-                id: 0,
-                name: "",
-                address: "",
-                town: { id: 1 }
-            };
-        };
-
-        $scope.open = function() {
-            $scope.showModal = true;
-        };
-
-        $scope.ok = function() {
-            $scope.showModal = false;
-        };
-
-        $scope.cancel = function() {
-            $scope.showModal = false;
         };
 
         function ListCustomers() {
@@ -46,4 +21,31 @@ angular
         }
 
         ListCustomers();
+
+        $scope.new = function() {
+            DataFactory.list("towns", function(data) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'app/components/customers/templates/new.html',
+                    controller: 'ModalInstanceController',
+                    controllerAs: '$modal',
+                    resolve: {
+                        data: function() {
+                            return { id: 0, name: '', address: '', town: { id: null } }
+                        },
+                        options: function() {
+                            return { towns: data }
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function(customer) {
+                    DataFactory.insert("customers", customer, function(data) { ListCustomers(); });
+                }, function() {
+                    console.log('Modal dismissed at: ' + new Date());
+                });
+            });
+        };
     }]);

@@ -30,6 +30,14 @@
                 templateUrl: "app/components/customers/templates/customer.html",
                 controller: "CustomersController"
             })
+            .when("/categories", {
+                templateUrl: "app/components/categories/templates/category.html",
+                controller: "CategoriesController"
+            })
+            .when("/stocks", {
+                templateUrl: "app/components/stocks/templates/stock.html",
+                controller: "StocksController"
+            })
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {

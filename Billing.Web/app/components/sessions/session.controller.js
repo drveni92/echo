@@ -34,13 +34,12 @@
         };
 
         $rootScope.logout = function() {
-            var request = $http({
+            $http({
                 method: "get",
-                url: "http://localhost:9000/api/logout"
-            });
-            request.then(
+                url: BillingConfig.source + "logout"
+            }).then(
                 function(response) {
-                    $rootScope.credentials = null;
+                    credentials = null;
                     $location.path("/login");
                 },
                 function(reason) {

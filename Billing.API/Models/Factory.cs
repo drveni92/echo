@@ -1,4 +1,5 @@
 ﻿using Billing.Api.Models;
+using Billing.API.Helpers.Identity;
 using Billing.Database;
 using Billing.Repository;
 using System;
@@ -211,12 +212,13 @@ namespace Billing.API.Models
             };
         }
 
-        public TokenModel Create(AuthToken authToken)
+        public TokenModel Create(AuthToken authToken, BillingIdentity Identity)
         {
             return new Models.TokenModel()
             {
                 Token = authToken.Token,
-                Expiration = authToken.Expiration
+                Expiration = authToken.Expiration,
+                CurrentUser = Identity.CurrentUser
             };
         }
 
@@ -235,7 +237,6 @@ namespace Billing.API.Models
             };
 
         }
-
 
 
         //Model To Entity

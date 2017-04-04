@@ -3,9 +3,9 @@
     var app = angular.module("Billing");
 
     var DataFactory = function($http, $rootScope) {
-        var source = "http://localhost:9000/api/";
-        $http.defaults.headers.common.Token = $rootScope.currentUser.token;
-        $http.defaults.headers.common.ApiKey = "RWNoby1CaWxsaW5n";
+        var source = BillingConfig.source;
+        $http.defaults.headers.common.Token = credentials.token;
+        $http.defaults.headers.common.ApiKey = BillingConfig.apiKey;
 
         return {
             promise: function(dataSet) {
@@ -13,11 +13,8 @@
             },
 
             list: function(dataSet, callback) {
-                $rootScope.message = "Please wait...";
-                console.log($http.defaults.headers);
                 $http.get(source + dataSet)
                     .success(function (data, status, headers) {
-                        $rootScope.message = "";
                         return callback(data);
                     })
                     .error(function (error) {

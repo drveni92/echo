@@ -2,5 +2,5 @@
 	"source": "http://localhost:9000/api/",
 	"signature": "rxNzHu3jm6ubUy5sSHiHoyYo3I3Jt9rsRXQFsmTCNIM=",
 	"apiKey": "RWNoby1CaWxsaW5n",
-	"regions": ""
+	"regions": [ "Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica" ]
 }

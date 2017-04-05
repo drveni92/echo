@@ -13,6 +13,7 @@
     };
 
     function authenticated() {
+        if(credentials.currentUser == null) return false;
         return (credentials.currentUser.id != 0);
     };
 

@@ -26,9 +26,9 @@
                 <td>{{ item.address }}</td>
                 <td>{{ item.town.name }}</td>
                 <td>
-                    <button ng-href="#/customer/item.id" class="btn btn-info">
+                    <a ng-href="#/customer/{{item.id}}" class="btn btn-info">
                         <i class="fa fa-eye" aria-hidden="true"></i>
-                    </button>
+                    </a>
                     <button ng-click="edit(item)" class="btn btn-success">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </button>

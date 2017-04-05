@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('CustomersController', ['$scope', '$http','$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
+    .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
 
         $scope.delete = function() {
             DataFactory.delete("customers", $scope.customer.id, function(data) { ListCustomers(); });
@@ -65,6 +65,35 @@ angular
                 }, function() {
                     console.log('Modal dismissed at: ' + new Date());
                 });
+            });
+        }
+
+
+        $scope.delete = function(customer) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/customers/templates/delete.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return customer
+                    },
+                    options: function() {
+                        return null
+                    }
+                }
+            });
+
+            modalInstance.result.then(function(customer) {
+                DataFactory.delete("customers", customer.id, function(data) {
+                    ListCustomers();
+                    //message success missing
+                });
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
             });
         }
 

@@ -2,10 +2,6 @@ angular
     .module("Billing")
     .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
 
-        $scope.delete = function() {
-            DataFactory.delete("customers", $scope.customer.id, function(data) { ListCustomers(); });
-        };
-
         function ListCustomers() {
             DataFactory.list("customers", function(data) { $scope.customers = data });
         }
@@ -40,6 +36,7 @@ angular
         };
 
         $scope.edit = function(customer) {
+                    
             DataFactory.list("towns", function(data) {
                 var modalInstance = $uibModal.open({
                     animation: true,
@@ -50,7 +47,7 @@ angular
                     controllerAs: '$modal',
                     resolve: {
                         data: function() {
-                            return customer
+                            return $.extend(true, {}, customer)
                         },
                         options: function() {
                             return { towns: data }
@@ -60,10 +57,10 @@ angular
 
                 modalInstance.result.then(function(customer) {
                     DataFactory.update("customers", customer.id, customer, function(data) {
-                        //message success missing
+                        ListCustomers();
                     });
                 }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
+                    ListCustomers();
                 });
             });
         }

@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">New customer</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row" style="padding: 20px;">
+        <div ng-repeat="item in suppliers">
+            {{item}}
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$modal.ok()">Create</button>
+    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
+</div>

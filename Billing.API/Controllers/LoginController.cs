@@ -14,9 +14,9 @@ using WebMatrix.WebData;
 
 namespace Billing.API.Controllers
 {
-    [BillingAuthorization]
     public class LoginController : BaseController
     {
+        [BillingAuthorization]
         [Route("api/login")]
         [HttpPost]
         public IHttpActionResult Login([FromBody]TokenRequestModel request)

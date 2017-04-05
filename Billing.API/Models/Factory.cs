@@ -163,7 +163,7 @@ namespace Billing.API.Models
             {
                 Id = procurement.Id,
                 Quantity = procurement.Quantity,
-                Price = procurement.Price,
+                Price = Math.Round(procurement.Price, 2),
                 Date = procurement.Date,
                 Document = procurement.Document,
                 Product = new ProcurementModel.ProcurementProduct()

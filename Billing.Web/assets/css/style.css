@@ -219,3 +219,14 @@
 .item-value {
     padding: 20px;
 }
+
+
+
+.errspan {
+    float: right;
+    margin-right: 6px;
+    margin-top: -24px;
+    position: relative;
+    z-index: 2;
+    color: red;
+}

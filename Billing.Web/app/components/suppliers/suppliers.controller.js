@@ -61,6 +61,7 @@ angular
 
                     modalInstance.result.then(function(supplier) {
                         DataFactory.update("suppliers", supplier.id, supplier, function(data) {
+                            ListSuppliers();
                             //message success missing
                         });
                     }, function() {

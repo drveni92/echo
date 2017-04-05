@@ -1,63 +1,115 @@
-(function(){
-
-    var app = angular.module("Billing");
-
-    var TownsController = function($scope, $http, DataFactory) {
+angular
+    .module("Billing")
+    .controller('TownsController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
 
         $scope.regions= REGIONS;
-        $scope.showTown = false;
-        var idx = 0;
-
         ListTowns();
+
         $scope.getTown = function(currentTown){
-            idx = 0;
-            $scope.town = currentTown;
-            $scope.showTown = true;
+            $scope.town =  currentTown;
         };
-        $scope.makeChanged = function(selectedMakeCode) {
 
-            idx = selectedMakeCode;
-            idx++;
-        };
-        $scope.save = function(){
-            if($scope.town.id === 0)
-            {
-
-                $scope.town.region = idx;
-
-                DataFactory.insert("towns", $scope.town, function(data){ ListTowns();} );
-            }
-            else {
-                $scope.town.region = idx;
-
-                DataFactory.update("towns", $scope.town.id, $scope.town, function (data) {
-                    ListTowns();
-                });
-            }
-        };
         $scope.delete = function(){
-
             DataFactory.delete("towns", $scope.town.id, function(data){ListTowns();});
-            $scope.showTown = false;
-
-        };
-
-        $scope.new = function(){
-            $scope.town = {
-                id: 0,
-                name: "",
-                zip: "",
-                Region: 1
-            };
-            $scope.showTown = true;
         };
 
         function ListTowns(){
             DataFactory.list("towns", function(data){ $scope.towns = data});
 
-        }
+        };
+
+
+    $scope.new = function() {
+        DataFactory.list("towns", function(data) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/towns/templates/new.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return {  id: 0,
+                            name: '',
+                            zip: '',
+                            region: 1 }
+                    },
+                    options: function() {
+
+                        return { regions: REGIONS }
+                    }
+                }
+            });
+
+            modalInstance.result.then(function(town) {
+                DataFactory.insert("towns", town, function(data) { ListTowns(); });
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        });
     };
 
-    app.controller("TownsController", TownsController);
+        $scope.edit = function(item) {
+            DataFactory.list("towns", function(data) {
 
-}());
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'app/components/towns/templates/edit.html',
+                    controller: 'ModalInstanceController',
+                    controllerAs: '$modal',
+                    resolve: {
+                        data: function() {
+                            return {  id: item.id,
+                                name: item.name,
+                                zip: item.zip,
+                                region: item.region }
+                        },
+                        options: function() {
+                            return { regions: REGIONS }
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function(town) {
+                    DataFactory.update("towns", town.id, town, function (data) {
+                        ListTowns();
+                    });
+                }, function() {
+                    console.log('Modal dismissed at: ' + new Date());
+                });
+            });
+        };
+
+        $scope.delete = function(town) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/towns/templates/delete.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return town
+                    },
+                    options: function() {
+                        return null
+                    }
+                }
+            });
+
+            modalInstance.result.then(function(town) {
+                DataFactory.delete("towns", town.id, function(data) {
+                    ListTowns();
+                    //message success missing
+                });
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+
+        };
+
+}]);

@@ -80,11 +80,12 @@ namespace Billing.API.Models
 
         public TownModel Create(Town town)
         {
+
             return new TownModel()
             {
                 Id = town.Id,
                 Name = town.Name,
-                Region = town.Region.ToString(),
+                Region = string.Concat(town.Region.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '),
                 Zip = town.Zip
             };
         }
@@ -350,7 +351,7 @@ namespace Billing.API.Models
         {
             List<Item> items = new List<Item>();
             List<Event> histories = new List<Event>();
-            Shipper shipper = _unitOfWork.Shippers.Get(model.Shipper.Id);
+            Shipper shipper = _unitOfWork.Shippers.Get(model.Shipper.Id);          
             foreach (ItemModel item in model.Items)
             {
                 Item tmp = _unitOfWork.Items.Get(item.Id);
@@ -389,11 +390,12 @@ namespace Billing.API.Models
                     customers.Add(tmp);
                 }
             }
+            string region =  model.Region.ToString().Replace(" ", string.Empty); ;
             return new Town()
             {
                 Id = model.Id,
                 Name = model.Name,
-                Region =(Region)Enum.Parse(typeof(Region), model.Region),
+                Region = (Region)Enum.Parse(typeof(Region),region),
                 Zip = model.Zip,
                 Customers = customers
             };

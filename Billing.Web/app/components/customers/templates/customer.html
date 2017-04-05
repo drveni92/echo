@@ -15,6 +15,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Address</th>
+                <th>Town</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -23,14 +24,15 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.address }}</td>
+                <td>{{ item.town.name }}</td>
                 <td>
-                    <button ng-click="getCustomer(item)" class="btn btn-primary">
+                    <button ng-href="#/customer/item.id" class="btn btn-info">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
-                    <button ng-click="getCustomer(item)" class="btn btn-success">
+                    <button ng-click="edit(item)" class="btn btn-success">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </button>
-                    <button ng-click="getCustomer(item)" class="btn btn-danger">
+                    <button ng-click="delete(item)" class="btn btn-danger">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </td>

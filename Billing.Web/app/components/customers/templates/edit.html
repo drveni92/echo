@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Edit customer</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row" style="padding: 20px;">
+        <form name="edit_customer" class="form-horizontal" novalidate>
+
+            <div class="form-group" ng-class="{ 'has-error' : edit_customer.name.$invalid && !edit_customer.name.$pristine }">
+                <label class="control-label col-sm-2" for="name">Name:</label>
+                <div class="col-sm-10">
+                    <input type="name" name="name" class="form-control" ng-model="$modal.data.name" placeholder="Name" required>
+                    <p ng-show="edit_customer.name.$invalid && !edit_customer.name.$pristine" class="help-block">Customer name is required.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Address:</label>
+                <div class="col-sm-10">
+                    <input type="name" class="form-control" ng-model="$modal.data.address" id="address" placeholder="Address">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Town:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="$modal.data.town.id"
+                            ng-options="town.id as town.name for town in $modal.options.towns">
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$modal.ok()">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
+</div>

@@ -105,7 +105,7 @@
 }
 
 #main-content {
-    padding: 0px 50px 0px 50px;
+    padding: 0px 100px 0px 100px;
 }
 
 
@@ -205,4 +205,17 @@
 
 .new-button {
     margin-top: 20px;
+}
+
+/* Display data */
+
+.item-name {
+    padding: 20px;
+    background-color: gainsboro;
+    border-radius: 5px;
+    text-align: center !important;
+}
+
+.item-value {
+    padding: 20px;
 }

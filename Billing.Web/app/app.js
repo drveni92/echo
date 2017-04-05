@@ -32,7 +32,10 @@
                 templateUrl: "app/components/customers/templates/customer.html",
                 controller: "CustomersController"
             })
-
+            .when("/customer/:id", {
+                templateUrl: "app/components/customers/templates/show.html",
+                controller: "CustomerShowController"
+            })
             .when("/towns", {
                 templateUrl: "app/components/towns/templates/town.html",
                 controller: "TownsController"

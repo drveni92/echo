@@ -25,29 +25,29 @@ angular
         ListSuppliers();
 
         $scope.new = function() {
-            DataFactory.list("towns", function(data) {
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/suppliers/templates/new.html',
-                    controller: 'ModalInstanceController',
-                    controllerAs: '$modal',
-                    resolve: {
-                        data: function() {
-                            return { id: 0, name: '', address: '', town: { id: null } }
-                        },
-                        options: function() {
-                            return { towns: data }
-                        }
-                    }
-                });
-                modalInstance.result.then(function(supplier) {
-                    DataFactory.insert("suppliers", supplier, function(data) { ListSuppliers(); });
-                }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
-                });
+    DataFactory.list("towns", function(data) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'app/components/suppliers/templates/new.html',
+            controller: 'ModalInstanceController',
+            controllerAs: '$modal',
+            resolve: {
+                data: function() {
+                    return { id: 0, name: '', address: '', town: { id: null } }
+                },
+                options: function() {
+                    return { towns: data }
+                }
+            }
+        });
+        modalInstance.result.then(function(supplier) {
+            DataFactory.insert("suppliers", supplier, function(data) { ListSuppliers(); });
+        }, function() {
+            console.log('Modal dismissed at: ' + new Date());
+        });
 
-            });
-        };
-    }]);
+    });
+};
+}]);

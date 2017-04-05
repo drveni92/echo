@@ -1,13 +1,7 @@
-(function(){
-
-    var app = angular.module("Billing");
-
-    var CategoriesController = function($scope, $http, DataFactory) {
-
-        $scope.showCategory = false;
-        ListCategories();
-
-        $scope.getCategory = function(currentCategory){
+angular
+    .module("Billing")
+    .controller('CategoriesController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
+        $scope.get = function(currentCategory) {
             $scope.category = currentCategory;
             $scope.showCategory = true;
         };
@@ -24,20 +18,36 @@
             $scope.showCategory = false;
 
         };
-
-        $scope.new = function(){
-            $scope.category = {
-                id: 0,
-                name: ""
-            };
-            $scope.showCategory = true;
-        };
-
-        function ListCategories(){
-            DataFactory.list("categories", function(data){ $scope.categories = data});
+        function ListCategories() {
+            DataFactory.list("categories", function(data) { $scope.categories = data });
         }
-    };
 
-    app.controller("CategoriesController", CategoriesController);
+        ListCategories();
 
-}());
+        $scope.new = function() {
+
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'app/components/categories/templates/new.html',
+                    controller: 'ModalInstanceController',
+                    controllerAs: '$modal',
+                    resolve: {
+                        data: function() {
+                            return { id: 0, name: '' }
+                        },
+                        options: function() {
+                            return null
+                        }
+                    }
+                });
+                modalInstance.result.then(function(category) {
+                    DataFactory.insert("categories", category, function(data) { ListCategories(); });
+                }, function() {
+                    console.log('Modal dismissed at: ' + new Date());
+                });
+
+
+        };
+    }]);

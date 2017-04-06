@@ -1,19 +1,16 @@
 ﻿using Billing.API.Models;
 using Billing.Database;
 using Billing.Repository;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Web;
+using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace Billing.API.Helpers.Identity
 {
     public class BillingIdentity
     {
         private UnitOfWork _unitOfWork;
-
-        private string[] roles = { "user", "admin" };
 
         public BillingIdentity(UnitOfWork unitOfWork)
         {
@@ -29,27 +26,21 @@ namespace Billing.API.Helpers.Identity
         {
             get
             {
+
                 string username = Thread.CurrentPrincipal.Identity.Name;
                 if (string.IsNullOrEmpty(username)) return null;
                 Agent agent = _unitOfWork.Agents.Get().FirstOrDefault(x => x.Username == username);
                 if (agent == null) return null;
+
+                if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
+
                 return new CurrentUserModel()
                 {
                     Id = agent.Id,
                     Name = agent.Name,
-                    Roles = GetRoles()
+                    Roles = Roles.GetRolesForUser(username).ToList()
                 };
             }
-        }
-
-        public List<string> GetRoles()
-        {
-            List<string> user_roles = new List<string>();
-            foreach (string role in roles)
-            {
-                if (HasRole(role)) user_roles.Add(role);
-            }
-            return user_roles;
         }
 
         public bool HasRole(string role)

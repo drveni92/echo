@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace Billing.API.Models
 {
@@ -213,13 +214,19 @@ namespace Billing.API.Models
             };
         }
 
-        public TokenModel Create(AuthToken authToken, BillingIdentity Identity)
+        public TokenModel Create(AuthToken authToken)
         {
-            return new Models.TokenModel()
+            return new TokenModel()
             {
                 Token = authToken.Token,
                 Expiration = authToken.Expiration,
-                CurrentUser = Identity.CurrentUser
+                Remember = authToken.Remember,
+                CurrentUser = new CurrentUserModel()
+                {
+                    Id = authToken.Agent.Id,
+                    Name = authToken.Agent.Name,
+                    Roles = Roles.GetRolesForUser(authToken.Agent.Username).ToList()
+                }
             };
         }
 
@@ -411,6 +418,16 @@ namespace Billing.API.Models
                 Invoice = _unitOfWork.Invoices.Get(model.Invoice.Id)
             };
         }
-        
+
+        // Remember token
+        public string Create()  
+        {
+            string CharBase = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            string Remember = "";
+            Random rnd = new Random();
+            for (int i = 0; i < 24; i++) Remember += CharBase.Substring(rnd.Next(61), 1);
+            return Remember;
+        }
+
     }
 }

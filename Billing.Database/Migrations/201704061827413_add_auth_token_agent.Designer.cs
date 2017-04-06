@@ -7,13 +7,13 @@ namespace Billing.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class add_auth_token_agent : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(add_auth_token_agent));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703261754330_init"; }
+            get { return "201704061827413_add_auth_token_agent"; }
         }
         
         string IMigrationMetadata.Source

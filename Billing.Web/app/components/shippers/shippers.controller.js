@@ -9,7 +9,7 @@ angular
         ListShippers();
 
         $scope.new = function() {
-            DataFactory.list("towns", function(data) {
+
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -22,7 +22,7 @@ angular
                             return { id: 0, name: '', address: '', town: { id: null } }
                         },
                         options: function() {
-                            return { towns: data }
+                            return ["towns"]
                         }
                     }
                 });
@@ -32,11 +32,9 @@ angular
                 }, function() {
                     console.log('Modal dismissed at: ' + new Date());
                 });
-            });
         };
 
         $scope.edit = function(shipper) {
-            DataFactory.list("towns", function(data) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -46,10 +44,10 @@ angular
                     controllerAs: '$modal',
                     resolve: {
                         data: function() {
-                            return shipper
+                            return $.extend(true, {}, shipper)
                         },
                         options: function() {
-                            return { towns: data }
+                            return ["towns"]
                         }
                     }
                 });
@@ -57,12 +55,10 @@ angular
                 modalInstance.result.then(function(shipper) {
                     DataFactory.update("shippers", shipper.id, shipper, function(data) {
                         ListShippers();
-                        //message success missing
                     });
                 }, function() {
                     console.log('Modal dismissed at: ' + new Date());
                 });
-            });
         }
 
 
@@ -79,7 +75,7 @@ angular
                         return shipper
                     },
                     options: function() {
-                        return null
+                        return []
                     }
                 }
             });

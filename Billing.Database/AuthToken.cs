@@ -12,5 +12,7 @@ namespace Billing.Database
         public string Token { get; set; }
         public DateTime Expiration { get; set; }
         public virtual ApiUser ApiUser { get; set; }
+        public string Remember { get; set; }
+        public virtual Agent Agent { get; set; }
     }
 }

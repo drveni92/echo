@@ -1,6 +1,6 @@
 (function() {
 
-    REGIONS = [ "Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica" ];
+    REGIONS = ["Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica"];
 
     credentials = {
         token: "",
@@ -12,18 +12,24 @@
         }
     };
 
+    redirectTo = '/';
+
     function authenticated() {
-        if(credentials == null) return false;
+        if (credentials == null) return false;
         return (credentials.currentUser.id != 0);
     };
 
-    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap"]);
+    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap", "LocalStorageModule"]);
 
     app.config(function($routeProvider) {
         $routeProvider
-          .when("/login", {
+            .when("/login", {
                 templateUrl: "app/components/sessions/templates/login.html",
-                controller: "SessionsController"
+                controller: "LoginController"
+            })
+            .when("/logout", {
+                template: "",
+                controller: "LogoutController"
             })
             .when("/agents", {
                 templateUrl: "app/components/agents/templates/agents.html",
@@ -40,7 +46,7 @@
             .when("/towns", {
                 templateUrl: "app/components/towns/templates/town.html",
                 controller: "TownsController"
-              })
+            })
             .when("/categories", {
                 templateUrl: "app/components/categories/templates/category.html",
                 controller: "CategoriesController"
@@ -63,6 +69,7 @@
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
             if (!authenticated()) {
                 if (next.templateUrl != "app/components/sessions/templates/login.html") {
+                    redirectTo = $location.path();
                     $location.path("/login");
                 }
             }

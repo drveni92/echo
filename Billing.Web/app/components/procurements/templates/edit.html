@@ -25,22 +25,21 @@
                 </div>
             </div>
             <!-- Supplier -->
-            <div class="form-group" ng-class="{ 'has-error' : new_procurement.supplier.$invalid && !new_customer.supplier.$pristine }">
+            <div class="form-group" ng-class="{ 'has-error' : new_procurement.supplier.$invalid && !new_procurement.supplier.$pristine }">
                 <label class="control-label col-sm-2" for="supplier">Supplier:</label>
                 <div class="col-sm-10">
-                    <select class="form-control" ng-model="$modal.data.supplier.id"
+                    <select name="supplier" class="form-control" ng-model="$modal.data.supplier.id"
                             ng-options="supplier.id as supplier.name for supplier in $modal.options.suppliers">
                     </select>
                     <p ng-show="new_procurement.supplier.$invalid && !new_procurement.supplier.$pristine" class="help-block">Procurement supplier is required.</p>
                 </div>
             </div>
             <!-- Products -->
-            <div class="form-group" ng-class="{ 'has-error' : new_procurement.product.$invalid && !new_customer.product.$pristine }">
+            <div class="form-group" ng-class="{ 'has-error' : new_procurement.product.$invalid && !new_procurement.product.$pristine }">
                 <label class="control-label col-sm-2" for="product">Product:</label>
                 <div class="col-sm-10">
-                    <select class="form-control" ng-model="$modal.data.product.id"
-                            ng-options="product.id as product.name for product in $modal.options.products"
-                            ng-change="$modal.data.product.name = product.name">
+                    <select name="product" class="form-control" ng-model="$modal.data.product.id"
+                            ng-options="product.id as product.name for product in $modal.options.products">
                     </select>
                     <p ng-show="new_procurement.product.$invalid && !new_procurement.product.$pristine" class="help-block">Procurement product is required.</p>
                 </div>
@@ -65,6 +64,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="$modal.ok()">Save</button>
+    <button class="btn btn-primary" ng-disabled="new_procurement.$invalid" type="button" ng-click="$modal.ok()">Save</button>
     <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
 </div>

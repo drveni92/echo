@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">New procurement</h3>
+    <h3 class="modal-title" id="modal-title">Edit procurement</h3>
 </div>
 <div class="modal-body" id="modal-body">
     <div class="row" style="padding: 20px;">
@@ -26,22 +26,21 @@
             </div>
             <!-- Supplier -->
             <div class="form-group" ng-class="{ 'has-error' : new_procurement.supplier.$invalid && !new_customer.supplier.$pristine }">
-                <label class="control-label col-sm-2" for="town">Supplier:</label>
+                <label class="control-label col-sm-2" for="supplier">Supplier:</label>
                 <div class="col-sm-10">
-                    <select name="supplier" class="form-control" ng-model="$modal.data.supplier.id" required>
-                        <option value="" disabled selected>Select supplier</option>
-                        <option ng-repeat="x in $modal.options.suppliers" value="{{x.id}}">{{x.name}}</option>
+                    <select class="form-control" ng-model="$modal.data.supplier.id"
+                            ng-options="supplier.id as supplier.name for supplier in $modal.options.suppliers">
                     </select>
                     <p ng-show="new_procurement.supplier.$invalid && !new_procurement.supplier.$pristine" class="help-block">Procurement supplier is required.</p>
                 </div>
             </div>
             <!-- Products -->
             <div class="form-group" ng-class="{ 'has-error' : new_procurement.product.$invalid && !new_customer.product.$pristine }">
-                <label class="control-label col-sm-2" for="town">Product:</label>
+                <label class="control-label col-sm-2" for="product">Product:</label>
                 <div class="col-sm-10">
-                    <select name="product" class="form-control" ng-model="$modal.data.product.id" required>
-                        <option value="" disabled selected>Select product</option>
-                        <option ng-repeat="x in $modal.options.products" value="{{x.id}}">{{x.name}}</option>
+                    <select class="form-control" ng-model="$modal.data.product.id"
+                            ng-options="product.id as product.name for product in $modal.options.products"
+                            ng-change="$modal.data.product.name = product.name">
                     </select>
                     <p ng-show="new_procurement.product.$invalid && !new_procurement.product.$pristine" class="help-block">Procurement product is required.</p>
                 </div>
@@ -66,6 +65,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="$modal.ok()">Create</button>
+    <button class="btn btn-primary" type="button" ng-click="$modal.ok()">Save</button>
     <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
 </div>

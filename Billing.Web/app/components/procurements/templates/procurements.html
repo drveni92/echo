@@ -35,7 +35,7 @@
                     <td>{{ item.price }}</td>
                     <td>{{ item.total }}</td>
                     <td>
-                        <a ng-href="#/procurement/{{item.id}}" class="btn btn-info">
+                        <a ng-click="show(item)" class="btn btn-info">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </a>
                         <button ng-click="edit(item)" class="btn btn-success">

@@ -230,3 +230,8 @@
     z-index: 2;
     color: red;
 }
+
+/* Modal dl items */
+.dl-item {
+    padding: 10px;
+}

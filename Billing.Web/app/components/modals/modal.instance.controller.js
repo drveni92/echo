@@ -1,19 +1,25 @@
 angular
     .module("Billing")
-    .controller('ModalInstanceController', ['$uibModalInstance', '$scope', 'DataFactory', function($uibModalInstance, $scope, DataFactory, data, options){
-        
-        this.data = data;
-        this.options = options;
+    .controller('ModalInstanceController', ['$uibModalInstance', '$scope', 'DataFactory', 'data', 'options', function($uibModalInstance, $scope, DataFactory, data, options) {
 
-        DataFactory.list("suppliers", function(data){
-            $scope.suppliers =  data;
-        });
+        var $modal = this;
 
-        this.ok = function() {
-            $uibModalInstance.close(this.data);
+        $modal.data = data;
+        $modal.options = {};
+        $modal.counter = options.length - 1;
+
+        for (var i = options.length - 1; i >= 0; i--) {
+            DataFactory.list(options[i], function(data) {
+                $modal.options[options[$modal.counter]] = data;
+                $modal.counter -= 1;
+            });
+        }
+
+        $modal.ok = function() {
+            $uibModalInstance.close($modal.data);
         };
 
-        this.cancel = function() {
+        $modal.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
     }]);

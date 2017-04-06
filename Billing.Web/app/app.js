@@ -54,6 +54,10 @@
                 templateUrl: "app/components/suppliers/templates/supplier.html",
                 controller: "SuppliersController"
             })
+            .when("/procurements", {
+                templateUrl: "app/components/procurements/templates/procurements.html",
+                controller: "ProcurementsController"
+            })
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {

@@ -1,0 +1,70 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Edit procurement</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row" style="padding: 20px;">
+        <form name="new_procurement" class="form-horizontal" novalidate>
+            <!-- Document -->
+            <div class="form-group" ng-class="{ 'has-error' : new_procurement.document.$invalid && !new_procurement.document.$pristine }">
+                <label class="control-label col-sm-2" for="document">Document:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="document" class="form-control" ng-model="$modal.data.document" placeholder="Document" required>
+                    <p ng-show="new_procurement.document.$invalid && !new_procurement.document.$pristine" class="help-block">Procurement document is required.</p>
+                </div>
+            </div>
+            <!-- Date -->
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="date">Date:</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="$modal.data.date" is-open="open.datepicker" show-button-bar="false"  ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open.datepicker = true"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Supplier -->
+            <div class="form-group" ng-class="{ 'has-error' : new_procurement.supplier.$invalid && !new_customer.supplier.$pristine }">
+                <label class="control-label col-sm-2" for="supplier">Supplier:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="$modal.data.supplier.id"
+                            ng-options="supplier.id as supplier.name for supplier in $modal.options.suppliers">
+                    </select>
+                    <p ng-show="new_procurement.supplier.$invalid && !new_procurement.supplier.$pristine" class="help-block">Procurement supplier is required.</p>
+                </div>
+            </div>
+            <!-- Products -->
+            <div class="form-group" ng-class="{ 'has-error' : new_procurement.product.$invalid && !new_customer.product.$pristine }">
+                <label class="control-label col-sm-2" for="product">Product:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="$modal.data.product.id"
+                            ng-options="product.id as product.name for product in $modal.options.products"
+                            ng-change="$modal.data.product.name = product.name">
+                    </select>
+                    <p ng-show="new_procurement.product.$invalid && !new_procurement.product.$pristine" class="help-block">Procurement product is required.</p>
+                </div>
+            </div>
+            <!-- Quantity -->
+            <div class="form-group" ng-class="{ 'has-error' : new_procurement.quantity.$invalid && !new_procurement.quantity.$pristine }">
+                <label class="control-label col-sm-2" for="name">Quantity:</label>
+                <div class="col-sm-10">
+                    <input type="number" min=1 step=1 name="quantity" class="form-control" ng-model="$modal.data.quantity" placeholder="Quantity" required>
+                    <p ng-show="new_procurement.quantity.$invalid && !new_procurement.quantity.$pristine" class="help-block">Procurement quantity is required.</p>
+                </div>
+            </div>
+            <!-- Price -->
+            <div class="form-group" ng-class="{ 'has-error' : new_procurement.price.$invalid && !new_procurement.price.$pristine }">
+                <label class="control-label col-sm-2" for="name">Price:</label>
+                <div class="col-sm-10">
+                    <input type="number" min=1 name="price" class="form-control" ng-model="$modal.data.price" placeholder="Price" required>
+                    <p ng-show="new_procurement.price.$invalid && !new_procurement.price.$pristine" class="help-block">Procurement price is required.</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$modal.ok()">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
+</div>

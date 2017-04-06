@@ -39,6 +39,7 @@
                 url: BillingConfig.source + "logout"
             }).then(
                 function(response) {
+                    console.log(response);
                     credentials = null;
                     $location.path("/login");
                 },

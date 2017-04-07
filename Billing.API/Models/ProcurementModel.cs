@@ -25,6 +25,6 @@ namespace Billing.API.Models
         public string Document { get; set; }
         public ProcurementProduct Product { get; set; }
         public ProcurementSupplier Supplier { get; set; }
-        public double Total { get { return Price * Quantity; } }
+        public double Total { get { return Math.Round(Price * Quantity, 2); } }
     }
 }

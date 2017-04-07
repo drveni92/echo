@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using System.Web.Security;
 using WebMatrix.WebData;
 
 namespace Billing.API.Helpers.Identity
@@ -35,11 +36,15 @@ namespace Billing.API.Helpers.Identity
                 if (!(ApiKey == null || Token == null))
                 {
                     var authToken = new UnitOfWork().Tokens.Get().FirstOrDefault(x => x.Token == Token.FirstOrDefault());
+
+                    if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
+
+                    Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(authToken.Agent.Username), Roles.GetRolesForUser(authToken.Agent.Username));
+
                     if (authToken != null)
                         if (authToken.ApiUser.AppId == ApiKey.First() && authToken.Expiration > DateTime.UtcNow)
-                            return;
-                            /*foreach (string role in _role)
-                                if(Identity.HasRole(role)) return;*/
+                            foreach (string role in _role)
+                                if (Identity.CurrentUser.Roles.Contains(role)) return;
                 }
             }
             catch (Exception ex)

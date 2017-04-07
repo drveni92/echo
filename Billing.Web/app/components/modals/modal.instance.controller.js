@@ -1,3 +1,4 @@
+
 angular
     .module("Billing")
     .controller('ModalInstanceController', ['$uibModalInstance', '$scope', 'DataFactory', 'data', 'options', function($uibModalInstance, $scope, DataFactory, data, options) {

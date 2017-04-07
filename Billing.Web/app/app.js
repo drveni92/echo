@@ -60,6 +60,13 @@
                 templateUrl: "app/components/suppliers/templates/supplier.html",
                 controller: "SuppliersController"
             })
+            .when("/shippers", {
+                templateUrl: "app/components/shippers/templates/shipper.html",
+                controller: "ShippersController"
+            })
+            .when("/shipper/:id", {
+                templateUrl: "app/components/shippers/templates/show.html",
+                controller: "ShipperShowController"
             .when("/procurements", {
                 templateUrl: "app/components/procurements/templates/procurements.html",
                 controller: "ProcurementsController"

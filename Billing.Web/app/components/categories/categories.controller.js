@@ -13,60 +13,58 @@ angular
         ListCategories();
 
         $scope.new = function() {
-
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/categories/templates/new.html',
-                    controller: 'ModalInstanceController',
-                    controllerAs: '$modal',
-                    resolve: {
-                        data: function() {
-                            return { id: 0, name: '' }
-                        },
-                        options: function() {
-                            return null
-                        }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/categories/templates/new.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function () {
+                        return {id: 0, name: ''}
+                    },
+                    options: function () {
+                        return []
                     }
+                }
+            });
+            modalInstance.result.then(function (category) {
+                DataFactory.insert("categories", category, function (data) {
+                    ListCategories();
                 });
-                modalInstance.result.then(function(category) {
-                    DataFactory.insert("categories", category, function(data) { ListCategories(); });
-                }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
-                });
-
-
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
         };
 
         $scope.edit = function(category) {
-
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/categories/templates/edit.html',
-                    controller: 'ModalInstanceController',
-                    controllerAs: '$modal',
-                    resolve: {
-                        data: function() {
-                            return category
-                        },
-                        options: function() {
-                            return null
-                        }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/categories/templates/edit.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return $.extend(true, {}, category)
+                    },
+                    options: function() {
+                        return []
                     }
-                });
+                }
+            });
 
-                modalInstance.result.then(function(category) {
-                    DataFactory.update("categories", category.id, category, function(data) {
-                        //message success missing
-                    });
-                }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
+            modalInstance.result.then(function(category) {
+                DataFactory.update("categories", category.id, category, function(data) {
+                    ListCategories();
                 });
-
+            }, function() {
+                ListCategories();
+            });
         }
+
         $scope.delete = function(category) {
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -80,7 +78,7 @@ angular
                         return category
                     },
                     options: function() {
-                        return null
+                        return []
                     }
                 }
             });
@@ -88,7 +86,6 @@ angular
             modalInstance.result.then(function(category) {
                 DataFactory.delete("categories", category.id, function(data) {
                     ListCategories();
-                    //message success missing
                 });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());

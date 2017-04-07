@@ -1,0 +1,67 @@
+<uib-tabset active="activeJustified" justified="true">
+    <uib-tab index="0" heading="Invoice">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form name="new_invoice" class="form-horizontal" novalidate>
+                    <!-- invoiceNo -->
+                    <div class="form-group" ng-class="{ 'has-error' : new_invoice.invoiceNo.$invalid && !new_invoice.invoiceNo.$pristine }">
+                        <label class="control-label col-sm-3" for="document">Invoice No:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="invoiceNo" class="form-control" ng-model="invoice.invoiceNo" placeholder="Invoice No" required>
+                        </div>
+                        <div class="col-md-4">
+                            <p ng-show="new_invoice.invoiceNo.$invalid && !new_invoice.invoiceNo.$pristine" class="help-block">Invoice No is required.</p>
+                        </div>
+                    </div>
+                    <!-- Date -->
+                    <div class="form-group" ng-class="{ 'has-error' : new_invoice.date.$invalid && !new_invoice.date.$pristine }">
+                        <label class="control-label col-sm-3" for="date">Date:</label>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <input type="text" name="date" class="form-control" uib-datepicker-popup show-button-bar="false" ng-model="invoice.date" is-open="popup.opened" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+            				<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <p ng-show="new_invoice.date.$invalid && !new_invoice.date.$pristine" class="help-block">Date is required.</p>
+                        </div>
+                    </div>
+                    <!-- Customers -->
+                    <div class="form-group" ng-class="{ 'has-error' : new_invoice.customer.$invalid && !new_invoice.customer.$pristine }">
+                        <label class="control-label col-sm-3" for="town">Customer:</label>
+                        <div class="col-sm-5">
+                            <select name="customer" class="form-control" ng-model="invoice.customer.id" required>
+                                <option value="" disabled selected>Select customer</option>
+                                <option ng-repeat="x in customers" value="{{x.id}}">{{x.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <p ng-show="new_invoice.customer.$invalid && !new_invoice.customer.$pristine" class="help-block">Customer is required.</p>
+                        </div>
+                    </div>
+                    <!-- Shippers -->
+                    <div class="form-group" ng-class="{ 'has-error' : new_invoice.shipper.$invalid && !new_invoice.shipper.$pristine }">
+                        <label class="control-label col-sm-3" for="town">Shipper:</label>
+                        <div class="col-sm-5">
+                            <select name="shipper" class="form-control" ng-model="invoice.shipper.id" required>
+                                <option value="" disabled selected>Select shipper</option>
+                                <option ng-repeat="x in shippers" value="{{x.id}}">{{x.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <p ng-show="new_invoice.shipper.$invalid && !new_invoice.shipper.$pristine" class="help-block">shipper is required.</p>
+                        </div>
+                    </div>
+            </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+        </div>
+    </uib-tab>
+    <uib-tab index="1" heading="Items">
+    </uib-tab>
+    <uib-tab index="2" heading="Preview">
+    </uib-tab>
+</uib-tabset>

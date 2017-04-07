@@ -294,7 +294,10 @@
     padding: 10px;
 }
 
-
 .modal-row {
     padding: 20px;
+}
+
+.tab-content {
+    padding-top: 5%;
 }

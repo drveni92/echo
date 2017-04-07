@@ -76,6 +76,10 @@
                 templateUrl: "app/components/invoices/templates/invoices.html",
                 controller: "InvoicesController"
             })
+            .when("/invoices/new", {
+                templateUrl: "app/components/invoices/templates/new.html",
+                controller: "InvoicesNewController"
+            })
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {

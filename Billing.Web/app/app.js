@@ -67,6 +67,7 @@
             .when("/shipper/:id", {
                 templateUrl: "app/components/shippers/templates/show.html",
                 controller: "ShipperShowController"
+            })
             .when("/procurements", {
                 templateUrl: "app/components/procurements/templates/procurements.html",
                 controller: "ProcurementsController"

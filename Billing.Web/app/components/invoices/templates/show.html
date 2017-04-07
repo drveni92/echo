@@ -1,0 +1,103 @@
+<div class="modal-header" style="background-color: ghostwhite;">
+    <h3 class="modal-title" id="modal-title">InvoiceNo: {{ $modal.data.invoiceNo }}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row modal-row">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <div class="dl-item-sm">
+                    <dt>Agent:</dt>
+                    <dd>{{ $modal.data.agent.name }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Date:</dt>
+                    <dd>{{ $modal.data.date | date:'yyyy-MM-dd' }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Ship Date:</dt>
+                    <dd>{{ $modal.data.shippedOn | date:'yyyy-MM-dd' }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Shipper:</dt>
+                    <dd>{{ $modal.data.shipper.name }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Destination:</dt>
+                    <dd>{{ $modal.data.customer.town }} </dd>
+                </div>
+            </dl>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <div class="dl-item-sm">
+                    <dt>Customer:</dt>
+                    <dd>{{ $modal.data.customer.name }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt></dt>
+                    <dd>{{ $modal.data.customer.address }} </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="row modal-row">
+        <div style="background-color: ghostwhite; padding: 5px;">
+            <h3>Items</h3>
+        </div>
+        <hr>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="itemModel in $modal.data.items">
+                    <td>{{ itemModel.id }}</td>
+                    <td>{{ itemModel.product.name }}</td>
+                    <td>{{ itemModel.product.unit }}</td>
+                    <td>{{ itemModel.quantity }}</td>
+                    <td>{{ itemModel.price }}</td>
+                    <td>{{ itemModel.subTotal }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row modal-row" style="margin-top: -50px;">
+        <hr>
+        <div style="float:right; width: 30%;">
+            <dl class="dl-horizontal">
+                <div class="dl-item-sm">
+                    <dt>SubTotal:</dt>
+                    <dd>{{ $modal.data.subTotal | currency }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Vat rate:</dt>
+                    <dd>{{ $modal.data.vat }} %</dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Vat amount:</dt>
+                    <dd>{{ $modal.data.vatAmount | currency }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Shipping:</dt>
+                    <dd>{{ $modal.data.shipping | currency}} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Total:</dt>
+                    <dd>{{ $modal.data.total | currency }} </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
+</div>

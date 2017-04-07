@@ -27,7 +27,7 @@ namespace Billing.Database
         [NotMapped]
         public double VatAmount { get { return Math.Round(SubTotal * Vat / 100, 2); } }
         [NotMapped]
-        public double Total { get { return (SubTotal + VatAmount + Shipping); } }
+        public double Total { get { return Math.Round(SubTotal + VatAmount + Shipping, 2); } }
 
         public virtual Agent Agent { get; set; }
         public virtual Customer Customer { get; set; }

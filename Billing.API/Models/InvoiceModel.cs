@@ -26,6 +26,8 @@ namespace Billing.API.Models
         {
             public int Id;
             public string Name;
+            public string Address;
+            public string Town;
         }
 
         public int Id { get; set; }

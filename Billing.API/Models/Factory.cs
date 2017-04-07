@@ -149,7 +149,9 @@ namespace Billing.API.Models
                 Customer = new InvoiceModel.InvoiceCustomer()
                 {
                     Id = invoice.Customer.Id,
-                    Name = invoice.Customer.Name
+                    Name = invoice.Customer.Name,
+                    Address = invoice.Customer.Address,
+                    Town = invoice.Customer.Town.Name
                 },
                 Items = invoice.Items.Select(x => Create(x)).ToList(),
                 Histories = invoice.History.Select(x => Create(x)).ToList()

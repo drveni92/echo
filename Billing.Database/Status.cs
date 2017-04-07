@@ -10,6 +10,7 @@ namespace Billing.Database
     {
         Canceled = -1,
         OrderCreated,
+        OrderConfirmed,
         InvoiceCreated,
         InvoiceSent,
         InvoicePaid,

@@ -219,7 +219,9 @@
 .item-value {
     padding: 20px;
 }
-
+.boldtext {
+    font-weight: bold;
+}
 
 
 .errspan {

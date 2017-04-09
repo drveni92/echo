@@ -8,11 +8,16 @@
             public string Name;
             public string Unit;
         }
-        public struct ItemInvoice
+        public class ItemInvoice
         {
-            public int Id;
-            public string InvoiceNo;
+            public int Id { get; set; }
+            public string InvoiceNo { get; set; }
         }
+        public ItemModel()
+        {
+            Invoice = new ItemInvoice();
+        }
+
         public int Id { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }

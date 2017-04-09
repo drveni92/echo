@@ -3,7 +3,7 @@
         <h3>Invoices</h3>
     </div>
     <div class="col-sm-2">
-        <button class="btn btn-primary new-button" ng-click="new()">New invoice</button>
+        <a href="#/invoices/new" class="btn btn-primary new-button">New invoice</a>
     </div>
 </div>
 <hr>
@@ -37,9 +37,9 @@
                     <button ng-click="show(item)" class="btn btn-default ">
                         <i class="fa fa-eye " aria-hidden="true "></i>
                     </button>
-                    <button ng-click="edit(item) " class="btn btn-default ">
+                    <a href="#/invoices/{{item.id}}" class="btn btn-default ">
                         <i class="fa fa-pencil-square-o " aria-hidden="true "></i>
-                    </button>
+                    </a>
                     <button ng-click="delete(item) " class="btn btn-default ">
                         <i class="fa fa-trash-o " aria-hidden="true "></i>
                     </button>

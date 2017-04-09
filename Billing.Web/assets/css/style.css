@@ -239,7 +239,7 @@
     margin-top: -24px;
     position: relative;
     z-index: 2;
-    color: red;
+    color: #c40f0f;
 }
 
 
@@ -300,4 +300,26 @@
 
 .tab-content {
     padding-top: 5%;
+}
+
+.btn-add-items {
+    left: 47%;
+    width: 26%;
+    position: relative;
+    transform: translate(-50%);
+}
+
+.center-x {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+table {
+    border: 3px solid #607D8B;
+}
+
+thead {
+    background-color: #607D8B;
+    color: white;
 }

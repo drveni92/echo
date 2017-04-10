@@ -11,6 +11,7 @@
     <script src="library/angular-route.min.js"></script>
     <script src="library/angular-local-storage.min.js"></script>
     <script src="app/app.js"></script>
+    <script src="app/components/products/products.controller.js"></script>
     <script src="app/components/agents/agents.controller.js"></script>
     <script src="app/components/customers/customers.controller.js"></script>
     <script src="app/components/customers/customer.show.controller.js"></script>
@@ -36,65 +37,73 @@
 
 <body>
     <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper" ng-show="authenticated()">
-            <div class="menu-toggle-wrapper">
-                <a id="menu-toggle" href="#">
-                    <i id="menu-right" class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i>
-                    <i id="menu-left" class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" ng-show="authenticated()">
+        <div class="menu-toggle-wrapper">
+            <a id="menu-toggle" href="#">
+                <i id="menu-right" class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i>
+                <i id="menu-left" class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
+            </a>
+            <div class="clear"></div>
+            <hr>
+
+        </div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="#" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i>
+                    <span class="list-item">Dashboard</span>
                 </a>
-                <div class="clear"></div>
-                <hr>
-            </div>
-            <ul class="sidebar-nav">
-                <li>
-                    <a href="#" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                        <i class="fa fa-tachometer" aria-hidden="true"></i>
-                        <span class="list-item">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#/invoices" data-toggle="tooltip" data-placement="right" title="Invoices">
-                        <i class="fa fa-list" aria-hidden="true"></i>
-                        <span class="list-item">Invoices</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#/customers" data-toggle="tooltip" data-placement="right" title="Customers">
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                        <span class="list-item">Customers</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#/agents" data-toggle="tooltip" data-placement="right" title="Agents">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                        <span class="list-item">Agents</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#/categories" data-toggle="tooltip" data-placement="right" title="Categories">
-                        <i class="fa fa-list-ol" aria-hidden="true"></i>
-                        <span class="list-item">Categories</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#/procurements" data-toggle="tooltip" data-placement="right" title="Procurements">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                        <span class="list-item">Procurements</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#/stocks" data-toggle="tooltip" data-placement="right" title="Stocks">
-                        <i class="fa fa-cubes" aria-hidden="true"></i>
-                        <span class="list-item">Stocks</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#/suppliers" data-toggle="tooltip" data-placement="right" title="Suppliers">
-                        <i class="fa fa-truck" aria-hidden="true"></i>
-                        <span class="list-item">Suppliers</span>
-                    </a>
-                </li>
+            </li>
+            <li>
+                <a href="#" data-toggle="tooltip" data-placement="right" title="Invoices">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <span class="list-item">Invoices</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/customers" data-toggle="tooltip" data-placement="right" title="Customers">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span class="list-item">Customers</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/agents" data-toggle="tooltip" data-placement="right" title="Agents">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="list-item">Agents</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/categories" data-toggle="tooltip" data-placement="right" title="Categories">
+                    <i class="fa fa-list-ol" aria-hidden="true"></i>
+                    <span class="list-item">Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/products" data-toggle="tooltip" data-placement="right" title="Products">
+                    <i class="fa fa-laptop" aria-hidden="true"></i>
+                    <span class="list-item">Products</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/procurements" data-toggle="tooltip" data-placement="right" title="Procurements">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <span class="list-item">Procurements</span>
+                </a>
+            </li>
+            <li>
+                <a href="#/stocks" data-toggle="tooltip" data-placement="right" title="Stocks">
+                    <i class="fa fa-cubes" aria-hidden="true"></i>
+                    <span class="list-item">Stocks</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#/suppliers" data-toggle="tooltip" data-placement="right" title="Suppliers">
+                    <i class="fa fa-truck" aria-hidden="true"></i>
+                    <span class="list-item">Suppliers</span>
+                </a>
+            </li>
                 <li>
                     <a href="#/shippers" data-toggle="tooltip" data-placement="right" title="Shippers">
                         <i class="fa fa-envelope" aria-hidden="true"></i>

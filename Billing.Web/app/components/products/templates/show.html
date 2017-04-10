@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Product: {{ $modal.data.name }}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row" style="padding: 20px;">
+        <dl class="dl-horizontal">
+            <div class="dl-item">
+                <dt>Category:</dt>
+                <dd>{{ $modal.data.category.name }}</dd>
+            </div>
+            <div class="dl-item">
+                <dt>Unit:</dt>
+                <dd>{{ $modal.data.unit }}</dd>
+            </div>
+            <div class="dl-item">
+                <dt>Price:</dt>
+                <dd>{{ $modal.data.price }}</dd>
+            </div>
+            <hr>
+            <div class="dl-item">
+            <dt>Input:</dt>
+            <dd>{{ $modal.data.stock.input }}</dd>
+            </div>
+            <div class="dl-item">
+            <dt>Output:</dt>
+            <dd>{{ $modal.data.stock.output }}</dd>
+            </div>
+            <hr>
+            <div class="dl-item">
+            <dt>Inventory:</dt>
+            <dd class="boldtext">{{ $modal.data.stock.inventory }}</dd>
+            </div>
+        </dl>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
+</div>

@@ -233,6 +233,10 @@
     padding: 20px;
 }
 
+.boldtext {
+    font-weight: bold;
+}
+
 .errspan {
     float: right;
     margin-right: 6px;

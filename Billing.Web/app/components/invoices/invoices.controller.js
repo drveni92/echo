@@ -40,5 +40,34 @@
             		ListInvoices();
             	});
             }
+
+
+            $scope.delete = function(invoice) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/invoices/templates/delete.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return invoice
+                    },
+                    options: function() {
+                        return []
+                    }
+                }
+            });
+
+            modalInstance.result.then(function(invoice) {
+                DataFactory.delete("invoices", invoice.id, function(data) {
+                    ListInvoices();
+                    //message success missing
+                });
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        };
         }])
 }());

@@ -4,5 +4,6 @@
 	"apiKey": "RWNoby1CaWxsaW5n",
 	"ExpirationDate": 30,
 	"DefaultRoute": "/agents",
-	"regions": [ "Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica" ]
+	"regions": [ "Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica" ],
+	"states": [ "Canceled", "Order Created", "Order Confirmed", "Invoice Created", "Invoice Sent", "Invoice Paid", "On Hold", "Ready", "Shipped" ]
 }

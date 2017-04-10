@@ -21,6 +21,9 @@
     <script src="app/components/shippers/shippers.controller.js"></script>
     <script src="app/components/shippers/shipper.show.controller.js"></script>
     <script src="app/components/procurements/procurements.controller.js"></script>
+    <script src="app/components/invoices/invoices.controller.js"></script>
+    <script src="app/components/invoices/invoice.new.controller.js"></script>
+    <script src="app/components/invoices/services/invoices.service.js"></script>
     <script src="app/factory/data.factory.js"></script>
     <script src="app/components/sessions/sessions.controller.js"></script>
     <script type="text/javascript" src="app/components/modals/modal.instance.controller.js"></script>
@@ -29,12 +32,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/libs/particles.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
-
     <script src="app/components/towns/towns.controller.js"></script>
-
 </head>
+
 <body>
-<div id="wrapper">
+    <div id="wrapper">
     <!-- Sidebar -->
     <div id="sidebar-wrapper" ng-show="authenticated()">
         <div class="menu-toggle-wrapper">
@@ -102,60 +104,59 @@
                     <span class="list-item">Suppliers</span>
                 </a>
             </li>
-
-            <li>
-                <a href="#/shippers" data-toggle="tooltip" data-placement="right" title="Shippers">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <span class="list-item">Shippers</span>
-                </a>
-            </li>
-
-           <li>
-                <a href="#/towns" data-toggle="tooltip" data-placement="right" title="Towns">
+                <li>
+                    <a href="#/shippers" data-toggle="tooltip" data-placement="right" title="Shippers">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span class="list-item">Shippers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/towns" data-toggle="tooltip" data-placement="right" title="Towns">
                         <i class="fa fa-building" aria-hidden="true"></i>
                         <span class="list-item">Towns</span>
                     </a>
                 </li>
-
-        </ul>
-    </div>
-    <!-- Menu -->
-    <div id="menu" ng-show="authenticated()">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Billing</a>
+            </ul>
+        </div>
+        <!-- Menu -->
+        <div id="menu" ng-show="authenticated()">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Billing</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#">
+                                    <span style="margin-right:10px;">
+                                        {{ currentUser }}
+                                    </span>
+                                    <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#/logout">
+                                    <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">
-                                <span style="margin-right:10px;">{{ currentUser }}</span>
-                                <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/logout">
-                                <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
+        <!-- Content -->
+        <div id="page-content-wrapper">
+            <div id="main-content" ng-view></div>
+        </div>
     </div>
-    <!-- Content -->
-    <div id="page-content-wrapper">
-        <div id="main-content" ng-view></div>
-    </div>
-</div>
-<!-- Menu Toggle -->
-<script type="text/javascript">
+    <!-- Menu Toggle -->
+    <script type="text/javascript">
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("menu-displayed");
@@ -163,7 +164,7 @@
     $('[data-toggle="tooltip"]').tooltip({
         trigger: 'hover'
     });
-</script>
+    </script>
 </body>
 
 </html>

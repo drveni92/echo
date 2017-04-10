@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-sm-10">
+        <h3>Invoices</h3>
+    </div>
+    <div class="col-sm-2">
+        <a href="#/invoices/new" class="btn btn-primary new-button">New invoice</a>
+    </div>
+</div>
+<hr>
+</div>
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#No</th>
+                <th>Date</th>
+                <th>Agent</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in invoices">
+                <td>{{ item.invoiceNo }}</td>
+                <td>{{ item.date | date:'yyyy-MM-dd' }}</td>
+                <td>{{ item.agent.name }}</td>
+                <td>{{ item.customer.name }}</td>
+                <td>
+                    <button ng-class="{'btn btn-danger': item.status == -1, 'btn btn-warning': (item.status < 2 && item.status > -1), 'btn btn-primary': (item.status < 4 && item.status > 1), 'btn btn-success': (item.status < 8 && item.status > 3)}" ng-click="nextState(item)">
+                        {{ states[item.status + 1] }}
+                    </button>
+                </td>
+                <td>{{ item.total }}</td>
+                <td>
+                    <button ng-click="show(item)" class="btn btn-default ">
+                        <i class="fa fa-eye " aria-hidden="true "></i>
+                    </button>
+                    <a href="#/invoices/{{item.id}}" class="btn btn-default ">
+                        <i class="fa fa-pencil-square-o " aria-hidden="true "></i>
+                    </a>
+                    <button ng-click="delete(item) " class="btn btn-default ">
+                        <i class="fa fa-trash-o " aria-hidden="true "></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -142,8 +142,33 @@ namespace Billing.API.Controllers
             {
                 var invoice = UnitOfWork.Invoices.Get(id);
                 if (Identity.HasNotAccess(invoice.Agent.Id)) return Unauthorized();
-                if (invoice.Items.Count != 0) return BadRequest($"Invoice {invoice.InvoiceNo} has items.");
-                UnitOfWork.Invoices.Delete(id);
+                // If admin delete invoice
+                if (Identity.HasRole("admin"))
+                {
+                    if (invoice.Items.Count != 0)
+                    {
+                        // Delete all items
+                        foreach (var item in invoice.Items.ToList())
+                        {
+                            UnitOfWork.Items.Delete(item.Id);
+                        }
+                    }
+                    if (invoice.History.Count != 0)
+                    {
+                        // Delete all history
+                        foreach (var history in invoice.History.ToList())
+                        {
+                            UnitOfWork.Histories.Delete(history.Id);
+                        }
+                    }
+                    UnitOfWork.Invoices.Delete(id);
+                }
+                // User can only change state of invoice
+                else
+                {
+                    invoice.Status = Status.Canceled;
+                    UnitOfWork.Invoices.Update(invoice, invoice.Id);
+                }
                 UnitOfWork.Commit();
                 return Ok();
             }

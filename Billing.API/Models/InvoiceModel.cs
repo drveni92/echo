@@ -22,10 +22,17 @@ namespace Billing.API.Models
             public int Id;
             public string Name;
         }
+        public struct InvoiceCustomerTown
+        {
+            public int Id;
+            public string Name;
+        }
         public struct InvoiceCustomer
         {
             public int Id;
             public string Name;
+            public string Address;
+            public InvoiceCustomerTown Town;
         }
 
         public int Id { get; set; }

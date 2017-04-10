@@ -129,7 +129,7 @@ namespace Billing.API.Models
                 Id = invoice.Id,
                 InvoiceNo = invoice.InvoiceNo,
                 Date = invoice.Date,
-                ShippedOn = invoice.Date,
+                ShippedOn = invoice.ShippedOn,
                 SubTotal = invoice.SubTotal,
                 Vat = invoice.Vat,
                 VatAmount = invoice.VatAmount,
@@ -149,7 +149,13 @@ namespace Billing.API.Models
                 Customer = new InvoiceModel.InvoiceCustomer()
                 {
                     Id = invoice.Customer.Id,
-                    Name = invoice.Customer.Name
+                    Name = invoice.Customer.Name,
+                    Address = invoice.Customer.Address,
+                    Town = new InvoiceModel.InvoiceCustomerTown()
+                    {
+                        Id = invoice.Customer.Town.Id,
+                        Name = invoice.Customer.Town.Name
+                    }
                 },
                 Items = invoice.Items.Select(x => Create(x)).ToList(),
                 Histories = invoice.History.Select(x => Create(x)).ToList()
@@ -363,7 +369,26 @@ namespace Billing.API.Models
             {
                 Item tmp = _unitOfWork.Items.Get(item.Id);
                 if (tmp != null) items.Add(tmp);
+                else
+                {
+                    item.Invoice.Id = model.Id;
+                    items.Add(Create(item)); //if item null create new
+                }
             }
+
+            if(model.Id > 0)
+            {
+                var temps = _unitOfWork.Items.Get().ToList().Where(x => x.Invoice.Id == model.Id);
+                foreach(var item in temps)
+                {
+                    if(!items.Contains(item))
+                    {
+                        _unitOfWork.Items.Delete(item.Id);
+                    }
+                }
+
+            }
+
             foreach (HistoryModel item in model.Histories)
             {
                 Event tmp = _unitOfWork.Histories.Get(item.Id);
@@ -374,7 +399,7 @@ namespace Billing.API.Models
                 Id = model.Id,
                 Date = model.Date,
                 InvoiceNo = model.InvoiceNo,
-                ShippedOn = model.ShippedOn,
+                ShippedOn = (model.ShippedOn == null) ? null : model.ShippedOn,
                 Shipping = model.Shipping,
                 Vat = model.Vat,
                 Status = (Status)model.Status,

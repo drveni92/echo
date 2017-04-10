@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One');
 
 /* Login - start */
+
 #login-box {
     position: absolute;
     top: 150px;
@@ -15,12 +16,14 @@
     padding: 20px;
     z-index: 9999;
 }
+
 #login-box .logo .logo-caption {
     font-family: 'Poiret One', cursive;
     color: white;
     text-align: center;
     margin-bottom: 0px;
 }
+
 .logo {
     margin-bottom: 20px;
 }
@@ -29,13 +32,14 @@
     margin: 20px;
 }
 
-#username, #password {
+#username,
+#password {
     padding-top: 16px;
     padding-bottom: 16px;
     font-size: 18px;
 }
 
-#particles-js{
+#particles-js {
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -43,14 +47,16 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index:1;
-    background:#140b44;
+    z-index: 1;
+    background: #140b44;
 }
-.help-block{
+
+.help-block {
     color: red;
     font-family: 'Nunito', sans-serif;
 }
-#logo{
+
+#logo {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
@@ -58,8 +64,10 @@
 }
 
 #logError {
-    margin-top: 20px; 
+    margin-top: 20px;
 }
+
+
 /* Login - end */
 
 
@@ -86,6 +94,7 @@
     display: none;
 }
 
+
 /* Top Menu */
 
 #menu {
@@ -93,6 +102,7 @@
     transition: 1s;
     padding-left: 50px;
 }
+
 
 /* Main content */
 
@@ -199,13 +209,16 @@
     position: fixed;
 }
 
+
 /* Sidebar end */
+
 
 /* Buttons */
 
 .new-button {
     margin-top: 20px;
 }
+
 
 /* Display data */
 
@@ -219,10 +232,10 @@
 .item-value {
     padding: 20px;
 }
+
 .boldtext {
     font-weight: bold;
 }
-
 
 .errspan {
     float: right;
@@ -230,16 +243,19 @@
     margin-top: -24px;
     position: relative;
     z-index: 2;
-    color: red;
+    color: #c40f0f;
 }
 
+
 /* Modal dl items */
+
 .dl-item {
     padding: 10px;
 }
 
 
 /* Login checkbox */
+
 .form-group input[type="checkbox"] {
     display: none;
 }
@@ -251,13 +267,63 @@
 .form-group input[type="checkbox"] + .btn-group > label span:first-child {
     display: none;
 }
+
 .form-group input[type="checkbox"] + .btn-group > label span:last-child {
-    display: inline-block;   
+    display: inline-block;
 }
 
 .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
     display: inline-block;
 }
+
 .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
-    display: none;   
+    display: none;
+}
+
+.dl-item-sm {
+    float: left;
+    width: 100%;
+}
+
+.dl-item-sm dt {
+    width: 50%;
+    float: left;
+    padding: 10px;
+}
+
+.dl-item-sm dd {
+    width: 50%;
+    margin: 0px;
+    float: right;
+    padding: 10px;
+}
+
+.modal-row {
+    padding: 20px;
+}
+
+.tab-content {
+    padding-top: 5%;
+}
+
+.btn-add-items {
+    left: 47%;
+    width: 26%;
+    position: relative;
+    transform: translate(-50%);
+}
+
+.center-x {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+table {
+    border: 3px solid #607D8B;
+}
+
+thead {
+    background-color: #607D8B;
+    color: white;
 }

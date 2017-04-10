@@ -21,6 +21,8 @@ namespace Repository
                 oldEntity.Agent = entity.Agent;
                 oldEntity.Customer = entity.Customer;
                 oldEntity.Shipper = entity.Shipper;
+                oldEntity.Items = entity.Items;
+                oldEntity.History = entity.History;
             }
         }
     }

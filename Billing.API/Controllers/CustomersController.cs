@@ -18,17 +18,21 @@ namespace Billing.API.Controllers
     {
        
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null)
+        public IHttpActionResult Get(string name = null, int page = 0)
         {
             try
             {
+                List<CustomerModel> customers;
                 if (name != null)
                 {
-                    var customers = UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                    if (customers.Count != 0) return Ok(customers);
-                    return NotFound();
+                    customers = UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                    if (customers.Count == 0) return NotFound();
                 }
-                return Ok(UnitOfWork.Customers.Get().ToList().Select(x => Factory.Create(x)).ToList());
+                var query = UnitOfWork.Customers.Get().ToList();
+                var list = query.Skip(Pagination.PageSize * page)
+                                .Take(Pagination.PageSize)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<CustomerModel>(page, query.Count, list));
             }
             catch (Exception ex)
             {

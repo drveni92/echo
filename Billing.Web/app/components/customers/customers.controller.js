@@ -2,11 +2,21 @@ angular
     .module("Billing")
     .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
-        function ListCustomers() {
-            DataFactory.list("customers", function(data) { $scope.customers = data });
+        $scope.maxPagination = BillingConfig.maxPagination
+        
+        function ListCustomers(page) {
+            DataFactory.list("customers?page=" + page, function(data) {
+                $scope.customers = data.list;
+                $scope.totalItems = data.totalItems;
+                $scope.currentPage = data.currentPage + 1;
+            });
         }
 
-        ListCustomers();
+        $scope.pageChanged = function() {
+            ListCustomers($scope.currentPage - 1);
+        };
+
+        ListCustomers(0);
 
         $scope.new = function() {
             var modalInstance = $uibModal.open({
@@ -27,9 +37,9 @@ angular
             });
 
             modalInstance.result.then(function(customer) {
-                DataFactory.insert("customers", customer, function(data) { 
+                DataFactory.insert("customers", customer, function(data) {
                     ToasterService.pop('success', "Success", "Customer added");
-                    ListCustomers(); 
+                    ListCustomers();
                 });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());
@@ -55,9 +65,7 @@ angular
                 }
             });
 
-            modalInstance.result.then(function() {
-            }, function() {
-            });
+            modalInstance.result.then(function() {}, function() {});
 
         };
 

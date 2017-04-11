@@ -17,11 +17,15 @@ namespace Billing.API.Controllers
     {
         [TokenAuthorization("user")]
         [Route("")]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int page = 0)
         {
             try
             {
-                return Ok(UnitOfWork.Invoices.Get().ToList().Select(x => Factory.Create(x)).ToList());
+                var query = UnitOfWork.Invoices.Get().ToList();
+                var list = query.Skip(Pagination.PageSize * page)
+                                .Take(Pagination.PageSize)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<InvoiceModel>(page, query.Count, list));
             }
             catch (Exception ex)
             {

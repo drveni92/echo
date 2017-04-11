@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('SuppliersController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
+    .controller('SuppliersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
         function ListSuppliers() {
             DataFactory.list("suppliers", function(data) { $scope.suppliers = data });
@@ -27,6 +27,7 @@ angular
                 });
                 modalInstance.result.then(function (supplier) {
                     DataFactory.insert("suppliers", supplier, function (data) {
+                        ToasterService.pop('success', "Success", "Supplier added");
                         ListSuppliers();
                     });
                 }, function () {
@@ -79,6 +80,7 @@ angular
 
                     modalInstance.result.then(function(supplier) {
                         DataFactory.update("suppliers", supplier.id, supplier, function(data) {
+                            ToasterService.pop('success', "Success", "Supplier saved");
                             ListSuppliers();
                         });
                     }, function() {
@@ -106,6 +108,7 @@ angular
 
             modalInstance.result.then(function(supplier) {
                 DataFactory.delete("suppliers", supplier.id, function(data) {
+                    ToasterService.pop('success', "Success", "Supplier deleted");
                     ListSuppliers();
                 });
             }, function() {

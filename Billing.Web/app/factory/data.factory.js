@@ -2,7 +2,7 @@
 
     var app = angular.module("Billing");
 
-    var DataFactory = function($http, $rootScope) {
+    var DataFactory = function($http, $rootScope, ToasterService) {
         var source = BillingConfig.source;
         $http.defaults.headers.common.Token = credentials.token;
         $http.defaults.headers.common.ApiKey = BillingConfig.apiKey;
@@ -18,6 +18,8 @@
                         return callback(data);
                     })
                     .error(function (error) {
+                        console.log(error);
+                        ToasterService.pop('error', "Error", error.message);
                         return callback(false);
                     });
             },
@@ -28,6 +30,7 @@
                         return callback(data);
                     })
                     .error(function(error) {
+                        ToasterService.pop('error', "error", error);
                         return callback(false);
                     });
             },
@@ -38,6 +41,7 @@
                         return callback(data);
                     })
                     .error(function(error){
+                        ToasterService.pop('error', "error", error);
                         return callback(false);
                     });
             },
@@ -48,6 +52,7 @@
                         return callback(data);
                     })
                     .error(function(error){
+                        ToasterService.pop('error', "error", error);
                         return callback(false);
                     });
             },
@@ -58,6 +63,7 @@
                         return callback(true);
                     })
                     .error(function(error){
+                        ToasterService.pop('error', "error", error);
                         return callback(false);
                     });
             }

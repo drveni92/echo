@@ -3,6 +3,7 @@
         .module("Billing")
         .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', function($scope, $uibModal, DataFactory, InvoicesService, ToasterService) {
             $scope.states = BillingConfig.states;
+            $scope.userId = credentials.currentUser.id;
 
             function ListInvoices() {
                 DataFactory.list("invoices", function(data) { $scope.invoices = data; });

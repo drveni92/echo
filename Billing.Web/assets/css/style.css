@@ -69,6 +69,30 @@
 
 
 /* Login - end */
+.danger_status {
+    background-color: #d9534f;
+    margin-left:60px;
+    margin-right: 60px;
+    border-radius: 5px
+}
+.success_status {
+    background-color: #337ab7;
+    margin-left:60px;
+    margin-right: 60px;
+    border-radius: 5px
+}
+.warning_status {
+    background-color:#ec971f;
+    margin-left:60px;
+    margin-right: 60px;
+    border-radius: 5px
+}
+.normal_status {
+    background-color: #5cb85c;
+    margin-left:60px;
+    margin-right: 60px;
+    border-radius: 5px
+}
 
 
 /* Sidebar start */

@@ -26,6 +26,9 @@
             <td class="col-md-3">{{ item.address }}</td>
             <td class="col-md-2">{{ item.town.name }}</td>
             <td class="col-md-2">
+                <a ng-click="show(item)" class="btn btn-info">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
                 <button ng-click="edit(item)" class="btn btn-success">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </button>

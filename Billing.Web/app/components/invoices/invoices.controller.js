@@ -32,6 +32,29 @@
                 modalInstance.result.then(function() {}, function() {});
             }
 
+            $scope.show_history = function(invoice) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'app/components/invoices/templates/show_histories.html',
+                    controller: 'ModalInstanceController',
+                    controllerAs: '$modal',
+                    size: 'lg',
+                    resolve: {
+                        data: function() {
+                            return invoice
+                        },
+                        options: function() {
+                            return []
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function() {}, function() {});
+            }
+
+
 
             $scope.nextState = function(invoice, cancel = false) {
             	var url = "invoices/" + invoice.id + "/next/" + cancel;

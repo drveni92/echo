@@ -237,6 +237,14 @@
     font-weight: bold;
 }
 
+.show_invoices {
+    padding: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
 .errspan {
     float: right;
     margin-right: 6px;

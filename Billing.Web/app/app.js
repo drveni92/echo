@@ -43,10 +43,6 @@
                 templateUrl: "app/components/customers/templates/customer.html",
                 controller: "CustomersController"
             })
-            .when("/customer/:id", {
-                templateUrl: "app/components/customers/templates/show.html",
-                controller: "CustomerShowController"
-            })
             .when("/towns", {
                 templateUrl: "app/components/towns/templates/town.html",
                 controller: "TownsController"
@@ -67,10 +63,6 @@
             .when("/shippers", {
                 templateUrl: "app/components/shippers/templates/shipper.html",
                 controller: "ShippersController"
-            })
-            .when("/shipper/:id", {
-                templateUrl: "app/components/shippers/templates/show.html",
-                controller: "ShipperShowController"
             })
             .when("/procurements", {
                 templateUrl: "app/components/procurements/templates/procurements.html",

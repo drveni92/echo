@@ -37,10 +37,10 @@
                     <button ng-click="show(item)" class="btn btn-default ">
                         <i class="fa fa-eye " aria-hidden="true "></i>
                     </button>
-                    <a href="#/invoices/{{item.id}}" class="btn btn-default ">
+                    <a admin-access owner="item.agent.id" href="#/invoices/{{item.id}}" class="btn btn-default ">
                         <i class="fa fa-pencil-square-o " aria-hidden="true "></i>
                     </a>
-                    <button ng-click="delete(item) " class="btn btn-default ">
+                    <button admin-access ng-click="delete(item) " class="btn btn-default ">
                         <i class="fa fa-trash-o " aria-hidden="true "></i>
                     </button>
                     <button ng-click="show_history(item)" class="btn btn-default ">

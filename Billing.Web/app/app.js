@@ -8,7 +8,7 @@
         currentUser: {
             id: 0,
             name: "",
-            role: ""
+            roles: []
         }
     };
 
@@ -80,7 +80,7 @@
                 templateUrl: "app/components/invoices/templates/new.html",
                 controller: "InvoicesNewController"
             })
-            .otherwise({ redirectTo: "/agents" });
+            .otherwise({ redirectTo: "/invoices" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
             if (!authenticated()) {
@@ -92,4 +92,21 @@
         });
         $rootScope.authenticated = authenticated;
     });
+
+    app.directive('adminAccess', function() {
+        return {
+            priority: 100000,
+            scope: { owner: '=' },
+            restrict: 'A',
+            link: function(scope, element, attr) {
+                var access = (credentials.currentUser.roles.indexOf("admin") > -1);
+                if (!access) {
+                    var user = credentials.currentUser.id;
+                    var owner = scope.owner;
+                    if (owner != user) element.remove();
+                }
+            }
+        };
+    });
+
 }());

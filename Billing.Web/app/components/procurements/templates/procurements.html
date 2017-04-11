@@ -3,7 +3,9 @@
         <h3>Procurements</h3>
     </div>
     <div class="col-sm-2">
-        <button class="btn btn-primary new-button" ng-click="new()">New procurement</button>
+        <button admin-access class="btn btn-primary new-button" ng-click="new()">
+            New procurement
+        </button>
     </div>
 </div>
 <hr>
@@ -21,7 +23,7 @@
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Total</th>
-                    <th>Action</th>
+                    <th admin-access>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +36,7 @@
                     <td>{{ item.quantity }}</td>
                     <td>{{ item.price }}</td>
                     <td>{{ item.total }}</td>
-                    <td>
+                    <td admin-access>
                         <a ng-click="show(item)" class="btn btn-info">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </a>

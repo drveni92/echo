@@ -13,7 +13,7 @@
                 shipping: 0,
                 agent: { id: 0, name: '' },
                 shipper: { id: 0, name: '' },
-                customer: { id: 0, name: '', address: '', town: {id: 0, name: ''} },
+                customer: { id: 0, name: '', address: '', town: { id: 0, name: '' } },
                 items: [],
                 subTotal: 0,
                 vat: 17,
@@ -102,8 +102,13 @@
 
             $scope.invoicePrepare = function() {
                 var invoice = $scope.invoice;
-                invoice.agent.id = credentials.currentUser.id;
-                invoice.agent.name = credentials.currentUser.name;
+                if ($scope.invoice.agent.id != 0) {
+                    invoice.agent.id = $scope.invoice.agent.id;
+                    invoice.agent.name = $scope.invoice.agent.name;
+                } else {
+                    invoice.agent.id = credentials.currentUser.id;
+                    invoice.agent.name = credentials.currentUser.name;
+                }
                 invoice.status = 0;
                 invoice.vat = 17;
                 invoice.subTotal = 0;
@@ -118,15 +123,19 @@
             $scope.save = function() {
                 if (invoiceId == null) {
                     DataFactory.insert("invoices", $scope.invoice, function(data) {
-                        $scope.invoice = data;
-                        $scope.invoice.date = new Date(data.date);
-                        ToasterService.pop('success', "Success", "Invoice added");
+                        if (data) {
+                            $scope.invoice = data;
+                            $scope.invoice.date = new Date(data.date);
+                            ToasterService.pop('success', "Success", "Invoice added");
+                        }
                     });
                 } else {
                     DataFactory.update("invoices", $scope.invoice.id, $scope.invoice, function(data) {
-                        $scope.invoice = data;
-                        $scope.invoice.date = new Date(data.date);
-                        ToasterService.pop('success', "Success", "Invoice saved");
+                        if (data) {
+                            $scope.invoice = data;
+                            $scope.invoice.date = new Date(data.date);
+                            ToasterService.pop('success', "Success", "Invoice saved");
+                        }
                     });
                 }
             };

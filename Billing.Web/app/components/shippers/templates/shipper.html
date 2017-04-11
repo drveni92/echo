@@ -3,7 +3,7 @@
         <h3>Shippers</h3>
     </div>
     <div class="col-sm-2">
-        <button class="btn btn-primary new-button" ng-click="new()">New shipper</button>
+        <button admin-access class="btn btn-primary new-button" ng-click="new()">New shipper</button>
     </div>
 </div>
 <hr>
@@ -16,7 +16,7 @@
             <th>Name</th>
             <th>Address</th>
             <th>Town</th>
-            <th>Action</th>
+            <th admin-access>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
             <td class="col-md-4">{{ item.name }}</td>
             <td class="col-md-3">{{ item.address }}</td>
             <td class="col-md-2">{{ item.town.name }}</td>
-            <td>
+            <td admin-access>
                 <a ng-click="show(item)" class="btn btn-info">
                     <i class="fa fa-eye" aria-hidden="true"></i>
                 </a>

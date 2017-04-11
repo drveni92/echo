@@ -35,7 +35,9 @@
         };
 
         function ListAgents(){
-            DataFactory.list("agents", function(data){ $scope.agents = data});
+            DataFactory.list("agents", function(data){ 
+                $scope.agents = data
+            });
         }
     };
 

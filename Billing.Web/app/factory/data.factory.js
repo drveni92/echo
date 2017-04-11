@@ -18,7 +18,6 @@
                         return callback(data);
                     })
                     .error(function (error) {
-                        console.log(error);
                         ToasterService.pop('error', "Error", error.message);
                         return callback(false);
                     });
@@ -30,7 +29,7 @@
                         return callback(data);
                     })
                     .error(function(error) {
-                        ToasterService.pop('error', "error", error);
+                        ToasterService.pop('error', "error", error.message);
                         return callback(false);
                     });
             },
@@ -41,7 +40,7 @@
                         return callback(data);
                     })
                     .error(function(error){
-                        ToasterService.pop('error', "error", error);
+                        ToasterService.pop('error', "error", error.message);
                         return callback(false);
                     });
             },
@@ -52,7 +51,7 @@
                         return callback(data);
                     })
                     .error(function(error){
-                        ToasterService.pop('error', "error", error);
+                        ToasterService.pop('error', "error", error.message);
                         return callback(false);
                     });
             },
@@ -63,7 +62,7 @@
                         return callback(true);
                     })
                     .error(function(error){
-                        ToasterService.pop('error', "error", error);
+                        ToasterService.pop('error', "error", error.message);
                         return callback(false);
                     });
             }

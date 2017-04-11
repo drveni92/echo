@@ -41,6 +41,7 @@
                     templateUrl: 'app/components/invoices/templates/show_histories.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
+                    scope: $scope,
                     size: 'lg',
                     resolve: {
                         data: function() {

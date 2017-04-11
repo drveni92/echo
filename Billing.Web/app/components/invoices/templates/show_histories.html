@@ -55,9 +55,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="historyModel in $modal.data.histories">
-                <td class="col-md-9" ng-class="{'btn btn-danger': historyModel.status == -1, 'btn btn.warning': (historyModel.status < 2 && historyModel.status > -1), 'btn btn.primary': (historyModel.status < 4 && historyModel.status > 1), 'btn btn-success': (historyModel.status < 8 && historyModel.status > 3)}"> {{ historyModel.status }}</td>
-                <td class="col-md-3">{{ historyModel.date | date:'yyyy-MM-dd' }}</td>
+            <tr ng-repeat="item in $modal.data.histories">
+                <td style="text-align: center; color: white"> <div ng-class="{'danger_status': (item.status == -1),'warning_status': (item.status < 2 && item.status > -1), 'normal_status': (item.status < 4 && item.status > 1), 'success_status': (item.status < 8 && item.status > 3)}">{{ $parent.states[item.status + 1] }}</div> </td>
+                <td class="col-md-3">{{ item.date | date:'yyyy-MM-dd' }}</td>
             </tr>
             </tbody>
         </table>

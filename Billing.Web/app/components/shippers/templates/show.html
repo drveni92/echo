@@ -16,7 +16,7 @@
             <div class="row">
                 <input class="form-control center-x" style="width: 50%" placeholder="Search for invoices" ng-model="searchText"> </input>
                 <hr>
-                <a href="#/invoice/{{$modal.data.id}}" class="btn btn-default" style="margin:5px;" ng-repeat="itemModal in $modal.data.invoicesNo | filter: searchText"> {{ itemModal }} </a>
+                <a href="#/invoice/{{$modal.data.id}}" ng-click="$modal.cancel()" class="btn btn-default" style="margin:5px;" ng-repeat="itemModal in $modal.data.invoicesNo | filter: searchText"> {{ itemModal }} </a>
             </div>
         </dl>
     </div>

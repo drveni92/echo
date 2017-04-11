@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('ProductsController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
+    .controller('ProductsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
         function ListProducts() {
             DataFactory.list("products", function(data) { $scope.products = data });
@@ -34,8 +34,10 @@ angular
             });
 
             modalInstance.result.then(function(product) {
-                console.log(product);
-                DataFactory.insert("products", product, function(data) { ListProducts(); });
+                DataFactory.insert("products", product, function(data) {
+                    ToasterService.pop('success', "Success", "Product added");
+                    ListProducts();
+                });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());
             });
@@ -61,9 +63,7 @@ angular
                 }
             });
 
-            modalInstance.result.then(function() {
-            }, function() {
-            });
+            modalInstance.result.then(function() {}, function() {});
 
         };
 
@@ -88,6 +88,7 @@ angular
 
             modalInstance.result.then(function(product) {
                 DataFactory.update("products", product.id, product, function(data) {
+                    ToasterService.pop('success', "Success", "Product saved");
                     ListProducts();
                 });
             }, function() {
@@ -116,8 +117,8 @@ angular
 
             modalInstance.result.then(function(product) {
                 DataFactory.delete("products", product.id, function(data) {
+                    ToasterService.pop('success', "Success", "Product deleted");
                     ListProducts();
-                    //message success missing
                 });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());

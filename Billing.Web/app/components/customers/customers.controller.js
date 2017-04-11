@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
+    .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
         function ListCustomers() {
             DataFactory.list("customers", function(data) { $scope.customers = data });
@@ -27,7 +27,10 @@ angular
             });
 
             modalInstance.result.then(function(customer) {
-                DataFactory.insert("customers", customer, function(data) { ListCustomers(); });
+                DataFactory.insert("customers", customer, function(data) { 
+                    ToasterService.pop('success', "Success", "Customer added");
+                    ListCustomers(); 
+                });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());
             });
@@ -53,6 +56,7 @@ angular
 
             modalInstance.result.then(function(customer) {
                 DataFactory.update("customers", customer.id, customer, function(data) {
+                    ToasterService.pop('success', "Success", "Customer saved");
                     ListCustomers();
                 });
             }, function() {
@@ -81,8 +85,8 @@ angular
 
             modalInstance.result.then(function(customer) {
                 DataFactory.delete("customers", customer.id, function(data) {
+                    ToasterService.pop('success', "Success", "Customer deleted");
                     ListCustomers();
-                    //message success missing
                 });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());

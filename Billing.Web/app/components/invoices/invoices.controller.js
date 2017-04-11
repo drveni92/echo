@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', function($scope, $uibModal, DataFactory, InvoicesService) {
+        .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', function($scope, $uibModal, DataFactory, InvoicesService, ToasterService) {
             $scope.states = BillingConfig.states;
 
             function ListInvoices() {
@@ -36,7 +36,7 @@
             $scope.nextState = function(invoice, cancel = false) {
             	var url = "invoices/" + invoice.id + "/next/" + cancel;
             	InvoicesService.next(url, function(data) {
-            		/* success message */
+            		ToasterService.pop('info', "Invoice " + invoice.invoiceNo, "New state of the invoice is " + $scope.states[data.status + 1]);
             		ListInvoices();
             	});
             }
@@ -62,8 +62,8 @@
 
             modalInstance.result.then(function(invoice) {
                 DataFactory.delete("invoices", invoice.id, function(data) {
+                    ToasterService.pop('success', "Success", "Invoice deleted");
                     ListInvoices();
-                    //message success missing
                 });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());

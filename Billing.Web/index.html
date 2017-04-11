@@ -35,10 +35,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/libs/particles.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+    <script src="app/directives/toaster/toaster.directive.js"></script>
+    <script src="app/directives/toaster/toaster.service.js"></script>
 </head>
 
 <body>
     <div class="loading" spinner></div>
+     <toaster-container></toaster-container>
     <div id="wrapper">
     <!-- Sidebar -->
     <div id="sidebar-wrapper" ng-show="authenticated()">

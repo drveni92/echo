@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('CategoriesController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
+    .controller('CategoriesController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
         $scope.get = function(currentCategory) {
             $scope.category = currentCategory;
             $scope.showCategory = true;
@@ -31,6 +31,7 @@ angular
             });
             modalInstance.result.then(function (category) {
                 DataFactory.insert("categories", category, function (data) {
+                    ToasterService.pop('success', "Success", "Category added");
                     ListCategories();
                 });
             }, function () {
@@ -58,6 +59,7 @@ angular
 
             modalInstance.result.then(function(category) {
                 DataFactory.update("categories", category.id, category, function(data) {
+                    ToasterService.pop('success', "Success", "Category saved");
                     ListCategories();
                 });
             }, function() {
@@ -85,6 +87,7 @@ angular
 
             modalInstance.result.then(function(category) {
                 DataFactory.delete("categories", category.id, function(data) {
+                    ToasterService.pop('success', "Success", "Category deleted");
                     ListCategories();
                 });
             }, function() {

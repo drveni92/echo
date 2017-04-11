@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .controller('InvoicesNewController', ['$scope', '$uibModal', '$route', '$routeParams', 'DataFactory', function($scope, $uibModal, $route, $routeParams, DataFactory) {
+        .controller('InvoicesNewController', ['$scope', '$uibModal', '$route', '$routeParams', 'DataFactory', 'ToasterService', function($scope, $uibModal, $route, $routeParams, DataFactory, ToasterService) {
             $scope.states = BillingConfig.states;
 
             $scope.active = 0;
@@ -55,6 +55,7 @@
                         subTotal: item.quantity * item.price
                     });
                 }
+                ToasterService.pop('info', "Info", "Item added");
             };
 
             $scope.deleteItem = function(item) {
@@ -63,6 +64,7 @@
                         $scope.invoice.items.splice(i, 1);
                     }
                 }
+                ToasterService.pop('success', "Success", "Item deleted");
             };
 
             (function() {
@@ -118,11 +120,13 @@
                     DataFactory.insert("invoices", $scope.invoice, function(data) {
                         $scope.invoice = data;
                         $scope.invoice.date = new Date(data.date);
+                        ToasterService.pop('success', "Success", "Invoice added");
                     });
                 } else {
                     DataFactory.update("invoices", $scope.invoice.id, $scope.invoice, function(data) {
                         $scope.invoice = data;
                         $scope.invoice.date = new Date(data.date);
+                        ToasterService.pop('success', "Success", "Invoice saved");
                     });
                 }
             };

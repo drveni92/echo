@@ -26,7 +26,7 @@
                 <td>{{ item.invoiceNo }}</td>
                 <td>{{ item.date | date:'yyyy-MM-dd' }}</td>
                 <td>{{ item.agent.name }}</td>
-                <td>{{ item.customer.name }}</td>
+                <td class="col-md-3">{{ item.customer.name }}</td>
                 <td>
                     <button ng-class="{'btn btn-danger': item.status == -1, 'btn btn-warning': (item.status < 2 && item.status > -1), 'btn btn-primary': (item.status < 4 && item.status > 1), 'btn btn-success': (item.status < 8 && item.status > 3)}" ng-click="nextState(item)">
                         {{ states[item.status + 1] }}

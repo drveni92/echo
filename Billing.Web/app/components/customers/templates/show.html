@@ -1,18 +1,26 @@
-<div class="row">
-    <div class="col-md-6 item-box">
-        <h3> {{customer.name}} </h3>
-        <hr>
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Customer: {{ $modal.data.name }}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row" style="padding: 20px;">
         <dl class="dl-horizontal">
-            <dt class="item-name">Address</dt>
-            <dd class="item-value">{{customer.address}}</dd>
-            <dt class="item-name">Town</dt>
-            <dd class="item-value">{{customer.town.name}}</dd>
+            <div class="dl-item">
+                <dt>Address:</dt>
+                <dd>{{ $modal.data.address }}</dd>
+            </div>
+            <div class="dl-item">
+                <dt>Town:</dt>
+                <dd>{{ $modal.data.town.name }}</dd>
+            </div>
+            <hr>
+            <div class="row">
+                <input class="form-control center-x" style="width: 50%" placeholder="Search for invoices" ng-model="searchText"> </input>
+                <hr>
+                <a href="#/invoice/{{$modal.data.id}}" class="btn btn-default" style="margin:5px;" ng-repeat="itemModal in $modal.data.invoicesNo | filter: searchText"> {{ itemModal }} </a>
+            </div>
         </dl>
     </div>
-    <div class="col-md-6 item-box">
-        <h3>Invoices</h3>
-        <div ng-repeat="item in customer.invoicesNo">
-            <a href="#" class="btn btn-link">{{item}}</a>
-        </div>
-    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
 </div>

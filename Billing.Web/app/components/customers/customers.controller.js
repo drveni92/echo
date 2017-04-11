@@ -36,6 +36,31 @@ angular
             });
         };
 
+        $scope.show = function(customer) {
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/customers/templates/show.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return customer
+                    },
+                    options: function() {
+                        return []
+                    }
+                }
+            });
+
+            modalInstance.result.then(function() {
+            }, function() {
+            });
+
+        };
+
         $scope.edit = function(customer) {
             var modalInstance = $uibModal.open({
                 animation: true,

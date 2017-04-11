@@ -1,0 +1,68 @@
+<div class="modal-header" style="background-color: ghostwhite;">
+    <h3 class="modal-title" id="modal-title">InvoiceNo: {{ $modal.data.invoiceNo }}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row modal-row">
+        <div class="col-md-5">
+            <dl class="dl-horizontal">
+                <div class="dl-item-sm">
+                    <dt>Agent:</dt>
+                    <dd>{{ $modal.data.agent.name }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Date:</dt>
+                    <dd>{{ $modal.data.date | date:'yyyy-MM-dd' }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Ship Date:</dt>
+                    <dd>{{ $modal.data.shippedOn | date:'yyyy-MM-dd' }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Shipper:</dt>
+                    <dd>{{ $modal.data.shipper.name }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt>Destination:</dt>
+                    <dd>{{ $modal.data.customer.town.name }} </dd>
+                </div>
+            </dl>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <div class="dl-item-sm">
+                    <dt>Customer:</dt>
+                    <dd>{{ $modal.data.customer.name }} </dd>
+                </div>
+                <div class="dl-item-sm">
+                    <dt></dt>
+                    <dd>{{ $modal.data.customer.address }} </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="row modal-row">
+        <div style="background-color: ghostwhite; padding: 5px;">
+            <h3>History</h3>
+        </div>
+        <hr>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="historyModel in $modal.data.histories">
+                <td class="col-md-9" ng-class="{'btn btn-danger': historyModel.status == -1, 'btn btn.warning': (historyModel.status < 2 && historyModel.status > -1), 'btn btn.primary': (historyModel.status < 4 && historyModel.status > 1), 'btn btn-success': (historyModel.status < 8 && historyModel.status > 3)}"> {{ historyModel.status }}</td>
+                <td class="col-md-3">{{ historyModel.date | date:'yyyy-MM-dd' }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
+</div>

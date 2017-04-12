@@ -18,17 +18,23 @@ namespace Billing.API.Controllers
     {
         [TokenAuthorization("admin")]
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null)
+        public IHttpActionResult Get(string name = null, int page = 0)
         {
             try
             {
+                List<Agent> agents;
+
                 if (name != null)
                 {
-                    var agents = UnitOfWork.Agents.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                    if (agents.Count != 0) return Ok(agents);
-                    return NotFound();
+                    agents = UnitOfWork.Agents.Get().Where(x => x.Name.Contains(name)).ToList();
+                    if (agents.Count == 0) return NotFound();
                 }
-                return Ok(UnitOfWork.Agents.Get().ToList().Select(x => Factory.Create(x)).ToList());
+                else agents = UnitOfWork.Agents.Get().ToList();
+                var list = agents.Skip(Pagination.PageSize * page)
+                                    .Take(Pagination.PageSize)
+                                    .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<AgentModel>(page, agents.Count, list));
+          
             }
             catch (Exception ex)
             {

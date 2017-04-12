@@ -22,26 +22,29 @@ angular
         };
 
         ListTowns();
-    $scope.new = function() {
-        DataFactory.list("towns", function(data) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'app/components/towns/templates/new.html',
-                controller: 'ModalInstanceController',
-                controllerAs: '$modal',
-                resolve: {
-                    data: function() {
-                        return {  id: 0,
-                            name: '',
-                            zip: '',
-                            region: null }
-                    },
-                    options: function() {
+        $scope.new = function() {
+            DataFactory.list("towns", function(data) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'app/components/towns/templates/new.html',
+                    controller: 'ModalInstanceController',
+                    controllerAs: '$modal',
+                    resolve: {
+                        data: function() {
+                            return {
+                                id: 0,
+                                name: '',
+                                zip: '',
+                                region: null
+                            }
+                        },
+                        options: function() {
 
-                        return []
+                            return []
 
+                        }
                     }
                 });
 

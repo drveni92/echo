@@ -30,7 +30,6 @@ angular
 
         /* Data for autocomplete */
         $modal.getSuppliers = function(value) {
-            console.log(value);
             var url = 'suppliers/' + value;
             return DataFactory.promise(url)
                 .then(function(response) {

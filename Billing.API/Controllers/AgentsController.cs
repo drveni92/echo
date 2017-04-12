@@ -103,7 +103,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-                if (Identity.HasNotAccess(id)) return Unauthorized();
+               if (Identity.HasNotAccess(id)) return Unauthorized();
                 Agent agent = Factory.Create(model);
                 UnitOfWork.Agents.Update(agent, id);
                 UnitOfWork.Commit();

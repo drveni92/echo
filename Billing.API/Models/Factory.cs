@@ -23,12 +23,26 @@ namespace Billing.API.Models
 
         public AgentModel Create(Agent agent)
         {
+            List<AgentModel.AgentTown> towns = new List<AgentModel.AgentTown>();
+            int i = 0;
+            foreach (var town in agent.Towns)
+            {
+                Town tmp = _unitOfWork.Towns.Get().FirstOrDefault(x => x.Id == town.Id);
+                if (tmp != null)
+                {
+                    AgentModel.AgentTown a = new AgentModel.AgentTown();
+                    a.Id = tmp.Id;
+                    a.Name = tmp.Name;
+                    towns.Add(a);
+                }
+                else throw new Exception("Town not found");
+            }
             return new AgentModel()
             {
                 Id = agent.Id,
                 Name = agent.Name,
                 Username = agent.Username,
-                Towns = new List<AgentModel.AgentTown>(agent.Towns.Where(x => x.Customers.Count != 0).Select(x => new AgentModel.AgentTown() { Id = x.Id, Name = x.Name}).ToList())
+                Towns = towns
             };
         }
 

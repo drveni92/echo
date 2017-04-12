@@ -26,7 +26,7 @@ angular
                             return { id: 0, name: '' }
                         },
                         options: function() {
-                            return null
+                            return []
                         }
                     }
                 });
@@ -53,7 +53,7 @@ angular
                             return category
                         },
                         options: function() {
-                            return null
+                            return []
                         }
                     }
                 });
@@ -80,7 +80,7 @@ angular
                         return category
                     },
                     options: function() {
-                        return null
+                        return []
                     }
                 }
             });

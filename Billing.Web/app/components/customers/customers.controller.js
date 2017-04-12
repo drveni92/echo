@@ -27,6 +27,7 @@ angular
             });
 
             modalInstance.result.then(function(customer) {
+                console.log(customer.town);
                 DataFactory.insert("customers", customer, function(data) { ListCustomers(); });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());

@@ -3,22 +3,13 @@ angular
     .controller('TownsController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
 
         $scope.regions= REGIONS;
-        ListTowns();
-
-        $scope.getTown = function(currentTown){
-            $scope.town =  currentTown;
-        };
-
-        $scope.delete = function(){
-            DataFactory.delete("towns", $scope.town.id, function(data){ListTowns();});
-        };
 
         function ListTowns(){
             DataFactory.list("towns", function(data){ $scope.towns = data});
 
         };
 
-
+        ListTowns();
     $scope.new = function() {
         DataFactory.list("towns", function(data) {
             var modalInstance = $uibModal.open({
@@ -33,11 +24,11 @@ angular
                         return {  id: 0,
                             name: '',
                             zip: '',
-                            region: 1 }
+                            region: null }
                     },
                     options: function() {
 
-                        return { regions: REGIONS }
+                        return []
                     }
                 }
             });
@@ -68,7 +59,7 @@ angular
                                 region: item.region }
                         },
                         options: function() {
-                            return { regions: REGIONS }
+                            return []
                         }
                     }
                 });
@@ -96,20 +87,20 @@ angular
                         return town
                     },
                     options: function() {
-                        return null
+                        return []
                     }
                 }
             });
 
             modalInstance.result.then(function(town) {
-                DataFactory.delete("towns", town.id, function(data) {
+                DataFactory.delete("towns", town.id, function(data){
                     ListTowns();
-                    //message success missing
+
                 });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());
             });
 
-        };
+        }
 
 }]);

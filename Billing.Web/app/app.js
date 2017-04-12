@@ -19,8 +19,24 @@
         return (credentials.currentUser.id != 0);
     };
 
-    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap", "LocalStorageModule"]);
+    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap", "LocalStorageModule", "btorfs.multiselect"]);
 
+app.filter('exclude', [function () {
+    return function(input,select,selection){
+        var newInput = [];
+        for(var i = 0; i < input.length; i++){
+            var addToArray=true;
+            for(var j=0;j<select.length;j++){
+                if(select[j].name===input[i].name){
+                    addToArray=false;
+                }
+            }
+            if(addToArray || input[i].name === selection.name){
+                newInput.push(input[i]);
+            }
+        }
+        return newInput;
+    }}]);
     app.config(function($routeProvider) {
         $routeProvider
             .when("/login", {

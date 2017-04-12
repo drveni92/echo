@@ -2,6 +2,8 @@ angular
     .module("Billing")
     .controller('ShippersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
+        $scope.maxPagination = BillingConfig.maxPagination;
+
         function ListShippers(page) {
             DataFactory.list("shippers?page=" + page, function(data) { 
                 $scope.shippers = data.list;

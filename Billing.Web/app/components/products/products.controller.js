@@ -2,11 +2,22 @@ angular
     .module("Billing")
     .controller('ProductsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
-        function ListProducts() {
-            DataFactory.list("products", function(data) { $scope.products = data });
-        }
+        $scope.maxPagination = BillingConfig.maxPagination;
 
-        ListProducts();
+        function ListProducts(page) {
+            DataFactory.list("products?page=" + page, function(data) {
+                $scope.products = data.list;
+                $scope.totalItems = data.totalItems;
+                $scope.currentPage = data.currentPage + 1;
+            });
+        };
+
+        $scope.pageChanged = function() {
+            ListProducts($scope.currentPage - 1);
+        };
+
+
+        ListProducts(0);
 
         $scope.new = function() {
 

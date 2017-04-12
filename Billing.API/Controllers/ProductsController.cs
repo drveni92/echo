@@ -6,6 +6,7 @@ using Billing.API.Helpers.Identity;
 using Billing.Database;
 using Billing.Repository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
@@ -15,28 +16,22 @@ namespace Billing.Api.Controllers
     [RoutePrefix("api/products")]
     public class ProductsController : BaseController
     {
-        [Route("")]
-        public IHttpActionResult Get()
+        [Route("{name?}")]
+        public IHttpActionResult Get(string name = null, int page = 0)
         {
             try
             {
-                return Ok(UnitOfWork.Products.Get().ToList().Select(x => Factory.Create(x)).ToList());
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex.Message, "ERROR");
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [Route("{name}")]
-        public IHttpActionResult Get(string name)
-        {
-            try
-            {
-                var products = UnitOfWork.Products.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                if (products.Count != 0) return Ok(products);
-                return NotFound();
+                List<Product> products;
+                if (name != null)
+                {
+                    products = UnitOfWork.Products.Get().Where(x => x.Name.Contains(name)).ToList();
+                    if (products.Count == 0) return NotFound();
+                }
+                else products = UnitOfWork.Products.Get().ToList();
+                var list = products.Skip(Pagination.PageSize * page)
+                                    .Take(Pagination.PageSize)
+                                    .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<ProductModel>(page, products.Count, list));
             }
             catch (Exception ex)
             {

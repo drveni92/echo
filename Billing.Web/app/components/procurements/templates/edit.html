@@ -17,8 +17,8 @@
                 <label class="control-label col-sm-2" for="date">Date:</label>
                 <div class="col-sm-10">
                     <div class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup ng-model="$modal.data.date" is-open="open.datepicker" show-button-bar="false"  ng-required="true" close-text="Close" />
-                    <span class="input-group-btn">
+                        <input type="text" class="form-control" uib-datepicker-popup ng-model="$modal.data.date" is-open="open.datepicker" show-button-bar="false" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open.datepicker = true"><i class="fa fa-calendar" aria-hidden="true"></i></button>
                     </span>
                     </div>
@@ -28,9 +28,8 @@
             <div class="form-group" ng-class="{ 'has-error' : new_procurement.supplier.$invalid && !new_procurement.supplier.$pristine }">
                 <label class="control-label col-sm-2" for="supplier">Supplier:</label>
                 <div class="col-sm-10">
-                    <select name="supplier" class="form-control" ng-model="$modal.data.supplier.id"
-                            ng-options="supplier.id as supplier.name for supplier in $modal.options.suppliers">
-                    </select>
+                    <input name="supplier" required type="text" ng-model="$modal.data.supplier" placeholder="Search for supplier" uib-typeahead="searchSupplier as searchSupplier.name for searchSupplier in $modal.getSuppliers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                    <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                     <p ng-show="new_procurement.supplier.$invalid && !new_procurement.supplier.$pristine" class="help-block">Procurement supplier is required.</p>
                 </div>
             </div>
@@ -38,9 +37,8 @@
             <div class="form-group" ng-class="{ 'has-error' : new_procurement.product.$invalid && !new_procurement.product.$pristine }">
                 <label class="control-label col-sm-2" for="product">Product:</label>
                 <div class="col-sm-10">
-                    <select name="product" class="form-control" ng-model="$modal.data.product.id"
-                            ng-options="product.id as product.name for product in $modal.options.products">
-                    </select>
+                    <input name="product" required type="text" ng-model="$modal.data.product" placeholder="Search for product" uib-typeahead="searchProduct as searchProduct.name for searchProduct in $modal.getProducts($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                    <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                     <p ng-show="new_procurement.product.$invalid && !new_procurement.product.$pristine" class="help-block">Procurement product is required.</p>
                 </div>
             </div>

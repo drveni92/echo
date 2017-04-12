@@ -687,3 +687,8 @@ thead {
 .animateToaster-enter {
     opacity: 0;
 }
+
+
+.pagination-center{
+    text-align: center;
+}

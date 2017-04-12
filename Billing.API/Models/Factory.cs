@@ -1,4 +1,5 @@
 ﻿using Billing.Api.Models;
+using Billing.API.Helpers;
 using Billing.API.Helpers.Identity;
 using Billing.Database;
 using Billing.Repository;
@@ -454,5 +455,16 @@ namespace Billing.API.Models
             return Remember;
         }
 
+
+        // General object creator
+        public ReturnObject<T> Create<T>(int page, int total, List<T> query)
+        {
+            return new ReturnObject<T>()
+            {
+                CurrentPage = page,
+                TotalItems = total,
+                List = query
+            };
+        }
     }
 }

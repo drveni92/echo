@@ -22,18 +22,17 @@ namespace Billing.API.Controllers
         {
             try
             {
+                List<Town> towns;
                 if (name != null)
                 {
-                    var towns = UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                    if (towns.Count != 0) return Ok(towns);
-                    return NotFound();
+                    towns = UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList();
+                    if (towns.Count == 0) return NotFound();
                 }
-
-                var query = UnitOfWork.Towns.Get().ToList();
-                var list = query.Skip(Pagination.PageSize * page)
+                else towns = UnitOfWork.Towns.Get().ToList();
+                var list = towns.Skip(Pagination.PageSize * page)
                                 .Take(Pagination.PageSize)
                                 .Select(x => Factory.Create(x)).ToList();
-                return Ok(Factory.Create<TownModel>(page, query.Count, list));
+                return Ok(Factory.Create<TownModel>(page, towns.Count, list));
 
             }
             catch (Exception ex)

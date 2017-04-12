@@ -32,15 +32,12 @@ angular
                         return {
                             id: 0,
                             document: '',
-                            date: '',
+                            date: new Date(),
                             product: { id: null, name: '' },
                             supplier: { id: null, name: '' },
                             quantity: null,
                             price: null
                         }
-                    },
-                    options: function() {
-                        return ["products", "suppliers"]
                     }
                 }
             });
@@ -69,9 +66,6 @@ angular
                 resolve: {
                     data: function() {
                         return procurement
-                    },
-                    options: function() {
-                        return []
                     }
                 }
             });
@@ -94,9 +88,6 @@ angular
                 resolve: {
                     data: function() {
                         return $.extend(true, {}, procurement)
-                    },
-                    options: function() {
-                        return ["products", "suppliers"]
                     }
                 }
             });
@@ -123,9 +114,6 @@ angular
                 resolve: {
                     data: function() {
                         return procurement
-                    },
-                    options: function() {
-                        return []
                     }
                 }
             });

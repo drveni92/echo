@@ -45,8 +45,8 @@
                     <div class="form-group" ng-class="{ 'has-error' : new_invoice.shipper.$invalid && !new_invoice.shipper.$pristine }">
                         <label class="control-label col-sm-3" for="town">Shipper:</label>
                         <div class="col-sm-5">
-                            <input type="text" name="shipper" ng-model="invoice.shipper" placeholder="Search for shipper" uib-typeahead="searchShipper as searchShipper.name for searchShipper in getShippers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
-                            <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
+                            <input type="text" name="shipper" ng-model="invoice.shipper" placeholder="Search for shipper" uib-typeahead="searchShipper as searchShipper.name for searchShipper in getShippers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResultsShippers">
+                            <span ng-show="noResultsShippers" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                         </div>
                         <div class="col-sm-4">
                             <p ng-show="new_invoice.shipper.$invalid && !new_invoice.shipper.$pristine" class="help-block">shipper is required.</p>

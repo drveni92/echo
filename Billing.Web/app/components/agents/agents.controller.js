@@ -1,13 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .controller('AgentsController', ['$scope', '$http', '$uibModal', 'DataFactory', '$rootScope', '$timeout', function($scope, $http, $uibModal, DataFactory, $rootScope, $timeout) {
-            $scope.regions = REGIONS;
-            $scope.get = function(currentAgent) {
-                $scope.agent = currentAgent;
-                $scope.showAgent = true;
-            };
-
+        .controller('AgentsController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
             $scope.maxPagination = BillingConfig.maxPagination
 
             function ListAgents(page) {
@@ -36,17 +30,15 @@
                     resolve: {
                         data: function() {
                             return { id: 0, name: '', towns: [] }
-                        },
-                        options: function() {
-                            return ["towns"]
                         }
                     }
                 });
-                modalInstance.rendered.then(function() {
-                    $('.ui.dropdown').dropdown();
-                });
                 modalInstance.result.then(function(agent) {
-                    console.log($rootScope.workexps);
+                    var tempTowns = [];
+                    for (var i = agent.towns.length - 1; i >= 0; i--) {
+                        tempTowns.push({id: agent.towns[i].id, name: agent.towns[i].name});
+                    }
+                    agent.towns = tempTowns;
                     DataFactory.insert("agents", agent, function(data) { ListAgents(); });
                 }, function() {
                     console.log('Modal dismissed at: ' + new Date());
@@ -64,28 +56,22 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function() {
-                            return agent
-                        },
-                        options: function() {
-                            return ["towns"]
+                            return $.extend(true, {}, agent)
                         }
                     }
                 });
-
-                modalInstance.rendered.then(function() {
-                    $timeout(getTowns, 1000);
-                });
                 modalInstance.result.then(function(agent) {
+                    var tempTowns = [];
+                    for (var i = agent.towns.length - 1; i >= 0; i--) {
+                        tempTowns.push({id: agent.towns[i].id, name: agent.towns[i].name});
+                    }
+                    agent.towns = tempTowns;
                     DataFactory.update("agents", agent.id, agent, function(data) {
                         ListAgents();
                     });
                 }, function() {
                     ListAgents();
                 });
-            };
-
-            getTowns = function() {
-                $('.ui.dropdown').dropdown();
             };
 
             $scope.delete = function(agent) {

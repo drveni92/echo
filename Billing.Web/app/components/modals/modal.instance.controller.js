@@ -35,7 +35,7 @@
                     });
             };
 
-            $modal.getTowns = function(value) {
+            $modal.getTowns =  function(value) {
                 var url = 'towns/' + value;
                 return DataFactory.promise(url)
                     .then(function(response) {
@@ -43,7 +43,7 @@
                     });
             };
 
-            $modal.getCategories = function(value) {
+            $modal.getCategories =  function(value) {
                 var url = 'categories/' + value;
                 return DataFactory.promise(url)
                     .then(function(response) {

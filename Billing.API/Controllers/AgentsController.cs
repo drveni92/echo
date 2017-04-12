@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Security;
 using WebMatrix.WebData;
 
 namespace Billing.API.Controllers
@@ -34,7 +35,7 @@ namespace Billing.API.Controllers
                                     .Take(Pagination.PageSize)
                                     .Select(x => Factory.Create(x)).ToList();
                 return Ok(Factory.Create<AgentModel>(page, agents.Count, list));
-          
+
             }
             catch (Exception ex)
             {
@@ -58,7 +59,7 @@ namespace Billing.API.Controllers
                     }
                     return false;
                 }).Select(x => Factory.Create(x)).ToList());
-            } 
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex.Message, "ERROR");
@@ -70,7 +71,7 @@ namespace Billing.API.Controllers
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)
         {
-            
+
             try
             {
                 if (Identity.HasNotAccess(id)) return Unauthorized();
@@ -94,6 +95,9 @@ namespace Billing.API.Controllers
                 Agent agent = Factory.Create(model);
                 UnitOfWork.Agents.Insert(agent);
                 UnitOfWork.Commit();
+                if(!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
+                WebSecurity.CreateAccount(agent.Username, "billing", false);
+                Roles.AddUserToRole(agent.Username, "user");
                 return Ok(Factory.Create(agent));
             }
             catch (Exception ex)
@@ -109,7 +113,7 @@ namespace Billing.API.Controllers
         {
             try
             {
-               if (Identity.HasNotAccess(id)) return Unauthorized();
+                if (Identity.HasNotAccess(id)) return Unauthorized();
                 Agent agent = Factory.Create(model);
                 UnitOfWork.Agents.Update(agent, id);
                 UnitOfWork.Commit();

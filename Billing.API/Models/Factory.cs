@@ -246,6 +246,7 @@ namespace Billing.API.Models
                 {
                     Id = authToken.Agent.Id,
                     Name = authToken.Agent.Name,
+                    Username = authToken.Agent.Username,
                     Roles = Roles.GetRolesForUser(authToken.Agent.Username).ToList()
                 }
             };
@@ -330,11 +331,13 @@ namespace Billing.API.Models
                 }
                 else throw new Exception("Town not found");
             }
+            string name = model.Name.Split(' ')[0].ToLower();
+
             return new Agent()
             {
                 Id = model.Id,
                 Name = model.Name,
-                Username = model.Username,
+                Username = name,
                 Towns = towns
 
             };

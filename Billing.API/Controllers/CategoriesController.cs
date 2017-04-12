@@ -56,7 +56,7 @@ namespace Billing.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+            
         [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody]CategoryModel model)

@@ -33,8 +33,8 @@ angular
                             id: 0,
                             document: '',
                             date: '',
-                            product: { id: null },
-                            supplier: { id: null },
+                            product: { id: null, name: '' },
+                            supplier: { id: null, name: '' },
                             quantity: null,
                             price: null
                         }

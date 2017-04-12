@@ -67,18 +67,6 @@
                 ToasterService.pop('success', "Success", "Item deleted");
             };
 
-            (function() {
-                DataFactory.list("shippers", function(data) {
-                    $scope.shippers = data;
-                });
-            }());
-
-            (function() {
-                DataFactory.list("customers", function(data) {
-                    $scope.customers = data;
-                });
-            }());
-
             $scope.open = function() {
                 $scope.popup.opened = true;
             };
@@ -99,6 +87,22 @@
                         return response.data;
                     });
             };
+
+            $scope.getCustomers = function(value) {
+                var url = 'customers/' + value;
+                return DataFactory.promise(url)
+                    .then(function(response) {
+                        return response.data.list;
+                    });
+            };
+
+            $scope.getShippers = function(value) {
+                var url = 'shippers/' + value;
+                return DataFactory.promise(url)
+                    .then(function(response) {
+                        return response.data.list;
+                    });
+            }
 
             $scope.invoicePrepare = function() {
                 var invoice = $scope.invoice;

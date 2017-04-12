@@ -8,7 +8,6 @@ angular
             $scope.town = currentTown;
         };
 
-
         $scope.maxPagination = BillingConfig.maxPagination
 
         function ListTowns(page) {
@@ -24,8 +23,7 @@ angular
         };
 
         ListTowns(0);
-
-
+      
         $scope.new = function() {
             DataFactory.list("towns", function(data) {
                 var modalInstance = $uibModal.open({
@@ -41,12 +39,13 @@ angular
                                 id: 0,
                                 name: '',
                                 zip: '',
-                                region: 1
+                                region: null
                             }
                         },
                         options: function() {
 
-                            return { regions: REGIONS }
+                            return []
+
                         }
                     }
                 });
@@ -82,7 +81,7 @@ angular
                             }
                         },
                         options: function() {
-                            return { regions: REGIONS }
+                            return []
                         }
                     }
                 });
@@ -111,7 +110,7 @@ angular
                         return town
                     },
                     options: function() {
-                        return null
+                        return []
                     }
                 }
             });
@@ -125,6 +124,6 @@ angular
                 console.log('Modal dismissed at: ' + new Date());
             });
 
-        };
+        }
 
     }]);

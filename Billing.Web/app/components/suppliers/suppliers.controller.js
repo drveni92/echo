@@ -2,37 +2,49 @@ angular
     .module("Billing")
     .controller('SuppliersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
-        function ListSuppliers() {
-            DataFactory.list("suppliers", function(data) { $scope.suppliers = data });
+        $scope.maxPagination = BillingConfig.maxPagination;
+
+        function ListSuppliers(page) {
+            DataFactory.list("suppliers?page=" + page, function(data) {
+                $scope.totalItems = data.totalItems;
+                $scope.currentPage = data.currentPage + 1;
+                $scope.suppliers = data.list;
+            });
+
         }
 
-        ListSuppliers();
+        $scope.pageChanged = function() {
+            ListSuppliers($scope.currentPage - 1);
+        };
+
+
+        ListSuppliers(0);
 
         $scope.new = function() {
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/suppliers/templates/new.html',
-                    controller: 'ModalInstanceController',
-                    controllerAs: '$modal',
-                    resolve: {
-                        data: function () {
-                            return {id: 0, name: '', address: '', town: {id: null}}
-                        },
-                        options: function () {
-                            return ["towns"]
-                        }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/suppliers/templates/new.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return { id: 0, name: '', address: '', town: { id: null } }
+                    },
+                    options: function() {
+                        return ["towns"]
                     }
+                }
+            });
+            modalInstance.result.then(function(supplier) {
+                DataFactory.insert("suppliers", supplier, function(data) {
+                    ToasterService.pop('success', "Success", "Supplier added");
+                    ListSuppliers();
                 });
-                modalInstance.result.then(function (supplier) {
-                    DataFactory.insert("suppliers", supplier, function (data) {
-                        ToasterService.pop('success', "Success", "Supplier added");
-                        ListSuppliers();
-                    });
-                }, function () {
-                    console.log('Modal dismissed at: ' + new Date());
-                });
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
+            });
         };
 
         $scope.show = function(supplier) {
@@ -54,39 +66,37 @@ angular
                 }
             });
 
-            modalInstance.result.then(function() {
-            }, function() {
-            });
+            modalInstance.result.then(function() {}, function() {});
 
         };
 
-            $scope.edit = function(supplier) {
-                    var modalInstance = $uibModal.open({
-                        animation: true,
-                        ariaLabelledBy: 'modal-title',
-                        ariaDescribedBy: 'modal-body',
-                        templateUrl: 'app/components/suppliers/templates/edit.html',
-                        controller: 'ModalInstanceController',
-                        controllerAs: '$modal',
-                        resolve: {
-                            data: function() {
-                                return $.extend(true, {}, supplier)
-                            },
-                            options: function() {
-                                return ["towns"]
-                            }
-                        }
-                    });
+        $scope.edit = function(supplier) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/suppliers/templates/edit.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return $.extend(true, {}, supplier)
+                    },
+                    options: function() {
+                        return ["towns"]
+                    }
+                }
+            });
 
-                    modalInstance.result.then(function(supplier) {
-                        DataFactory.update("suppliers", supplier.id, supplier, function(data) {
-                            ToasterService.pop('success', "Success", "Supplier saved");
-                            ListSuppliers();
-                        });
-                    }, function() {
-                        ListSuppliers();
-                    });
-            }
+            modalInstance.result.then(function(supplier) {
+                DataFactory.update("suppliers", supplier.id, supplier, function(data) {
+                    ToasterService.pop('success', "Success", "Supplier saved");
+                    ListSuppliers();
+                });
+            }, function() {
+                ListSuppliers();
+            });
+        }
 
         $scope.delete = function(supplier) {
             var modalInstance = $uibModal.open({
@@ -116,4 +126,4 @@ angular
             });
         }
 
-}]);
+    }]);

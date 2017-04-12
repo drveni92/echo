@@ -324,7 +324,7 @@ namespace Billing.API.Models
             List<Town> towns = new List<Town>();
             foreach (var town in model.Towns)
             {
-                Town tmp = _unitOfWork.Towns.Get().FirstOrDefault(x => x.Id == town.Id);
+                Town tmp = _unitOfWork.Towns.Get(town.Id);
                 if (tmp != null)
                 {
                     towns.Add(tmp);

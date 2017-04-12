@@ -19,6 +19,7 @@ namespace Repository
             if (oldEntity != null)
             {
                 context.Entry(oldEntity).CurrentValues.SetValues(entity);
+                oldEntity.Towns.Clear();
                 oldEntity.Towns = entity.Towns;
             }
         }

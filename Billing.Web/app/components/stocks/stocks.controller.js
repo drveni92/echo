@@ -1,22 +1,22 @@
-(function(){
+  angular
+      .module("Billing")
+      .controller ('StocksController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
-    var app = angular.module("Billing");
 
-    var StocksController = function($scope, $http, DataFactory) {
+          $scope.maxPagination = BillingConfig.maxPagination
 
-        $scope.showStock = false;
-        ListStock();
+          function ListStocks(page) {
+              DataFactory.list("stocks?page=" + page, function(data) {
+                  $scope.stocks = data.list;
+                  $scope.totalItems = data.totalItems;
+                  $scope.currentPage = data.currentPage + 1;
+              });
+          }
 
-        $scope.getStock = function(currentStock){
-            $scope.stock = currentStock;
-            $scope.showStock = true;
-        };
+          $scope.pageChanged = function() {
+              ListStocks($scope.currentPage - 1);
+          };
 
-        function ListStock(){
-            DataFactory.list("stocks", function(data){ $scope.stocks = data});
-        }
-    };
+          ListStocks(0);
 
-    app.controller("StocksController", StocksController);
-
-}());
+      }]);

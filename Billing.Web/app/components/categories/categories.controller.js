@@ -6,11 +6,21 @@ angular
             $scope.showCategory = true;
         };
 
-        function ListCategories() {
-            DataFactory.list("categories", function(data) { $scope.categories = data });
+        $scope.maxPagination = BillingConfig.maxPagination
+
+        function ListCategories(page) {
+            DataFactory.list("categories?page=" + page, function(data) {
+                $scope.categories = data.list;
+                $scope.totalItems = data.totalItems;
+                $scope.currentPage = data.currentPage + 1;
+            });
         }
 
-        ListCategories();
+        $scope.pageChanged = function() {
+            ListCategories($scope.currentPage - 1);
+        };
+
+        ListCategories(0);
 
         $scope.new = function() {
             var modalInstance = $uibModal.open({

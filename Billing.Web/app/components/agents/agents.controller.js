@@ -8,12 +8,21 @@
                 $scope.showAgent = true;
             };
 
-            function ListAgents() {
+            $scope.maxPagination = BillingConfig.maxPagination
 
-                DataFactory.list("agents", function(data) { $scope.agents = data; });
+            function ListAgents(page) {
+                DataFactory.list("agents?page=" + page, function(data) {
+                    $scope.agents = data.list;
+                    $scope.totalItems = data.totalItems;
+                    $scope.currentPage = data.currentPage + 1;
+                });
             }
 
-            ListAgents();
+            $scope.pageChanged = function() {
+                ListAgents($scope.currentPage - 1);
+            };
+
+            ListAgents(0);
 
             $scope.new = function() {
                 var modalInstance = $uibModal.open({
@@ -73,19 +82,12 @@
                 }, function() {
                     ListAgents();
                 });
+            };
 
-
-
-            }
             getTowns = function() {
                 $('.ui.dropdown').dropdown();
-            }
+            };
 
-            function ListAgents() {
-                DataFactory.list("agents", function(data) {
-                    $scope.agents = data
-                });
-            }
             $scope.delete = function(agent) {
                 DataFactory.delete("agents", agent.id, function(data) { ListAgents(); });
             };

@@ -16,17 +16,22 @@ namespace Billing.API.Controllers
     {
         [TokenAuthorization("user")]
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null)
+        public IHttpActionResult Get(string name = null, int page = 0)
         {
             try
             {
+                List<Category> categories;
+
                 if (name != null)
                 {
-                    var categories = UnitOfWork.Categories.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                    if (categories.Count != 0) return Ok(categories);
-                    return NotFound();
+                    categories = UnitOfWork.Categories.Get().Where(x => x.Name.Contains(name)).ToList();
+                    if (categories.Count == 0) return NotFound();
                 }
-                return Ok(UnitOfWork.Categories.Get().ToList().Select(x => Factory.Create(x)).ToList());
+                else categories = UnitOfWork.Categories.Get().ToList();
+                var list = categories.Skip(Pagination.PageSize * page)
+                                    .Take(Pagination.PageSize)
+                                    .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<CategoryModel>(page, categories.Count, list));
             }
             catch (Exception ex)
             {

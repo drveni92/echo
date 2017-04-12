@@ -35,7 +35,7 @@ angular
                             name: '',
                             unit: '',
                             price: null,
-                            category: { id: null }
+                            category: { id: null, name: '' }
                         }
                     },
                     options: function() {
@@ -90,9 +90,6 @@ angular
                 resolve: {
                     data: function() {
                         return $.extend(true, {}, product)
-                    },
-                    options: function() {
-                        return ["categories"]
                     }
                 }
             });

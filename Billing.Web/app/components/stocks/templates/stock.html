@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in stocks">
+        <tr ng-repeat="item in stocks ">
             <td class="col-md-2">{{ item.id }}</td>
             <td class="col-md-4">{{ item.product.name }}</td>
             <td class="col-md-2">{{ item.input }}</td>
@@ -27,4 +27,7 @@
         </tr>
         </tbody>
     </table>
+</div>
+<div class="row pagination-center">
+    <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
 </div>

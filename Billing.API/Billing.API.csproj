@@ -18,8 +18,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -178,6 +178,7 @@
     <Compile Include="Helpers\Identity\TokenAuthorizationAttribute.cs" />
     <Compile Include="Helpers\InvoiceHelper.cs" />
     <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Helpers\Pagination.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CurrentUserModel.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Models\Reports\InvoiceReportModel.cs" />
     <Compile Include="Models\Reports\SalesCustomersCategoriesModel.cs" />
     <Compile Include="Models\Reports\StockLevelModel.cs" />
+    <Compile Include="Models\ReturnObject.cs" />
     <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Reports\BaseReport.cs" />
     <Compile Include="Reports\DashboardReport.cs" />

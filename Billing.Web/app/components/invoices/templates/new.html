@@ -1,0 +1,262 @@
+<uib-tabset active="active" justified="true">
+    <uib-tab index="0">
+        <uib-tab-heading>
+            <i class="fa fa-info-circle" aria-hidden="true"></i> Invoice
+        </uib-tab-heading>
+        <div class="row">
+            <div class="col-md-8 center-x">
+                <form name="new_invoice" class="form-horizontal" novalidate>
+                    <!-- invoiceNo -->
+                    <div class="form-group" ng-class="{ 'has-error' : new_invoice.invoiceNo.$invalid && !new_invoice.invoiceNo.$pristine }">
+                        <label class="control-label col-sm-3" for="invoiceNo">Invoice No:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="invoiceNo" class="form-control" ng-model="invoice.invoiceNo" placeholder="Invoice No" required>
+                        </div>
+                        <div class="col-md-4">
+                            <p ng-show="new_invoice.invoiceNo.$invalid && !new_invoice.invoiceNo.$pristine" class="help-block">Invoice No is required.</p>
+                        </div>
+                    </div>
+                    <!-- Date -->
+                    <div class="form-group" ng-class="{ 'has-error' : new_invoice.date.$invalid && !new_invoice.date.$pristine }">
+                        <label class="control-label col-sm-3" for="date">Date:</label>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <input type="text" name="date" class="form-control" uib-datepicker-popup show-button-bar="false" ng-model="invoice.date" is-open="popup.opened" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <p ng-show="new_invoice.date.$invalid && !new_invoice.date.$pristine" class="help-block">Date is required.</p>
+                        </div>
+                    </div>
+                    <!-- Customers -->
+                    <div class="form-group" ng-class="{ 'has-error' : new_invoice.customer.$invalid && !new_invoice.customer.$pristine }">
+                        <label class="control-label col-sm-3" for="town">Customer:</label>
+                        <div class="col-sm-5">
+                            <input name="customer" required type="text" ng-model="invoice.customer" placeholder="Search for customer" uib-typeahead="searchCustomer as searchCustomer.name for searchCustomer in getCustomers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                            <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
+                        </div>
+                        <div class="col-sm-4">
+                            <p ng-show="new_invoice.customer.$invalid && !new_invoice.customer.$pristine" class="help-block">Customer is required.</p>
+                        </div>
+                    </div>
+                    <!-- Shippers -->
+                    <div class="form-group" ng-class="{ 'has-error' : new_invoice.shipper.$invalid && !new_invoice.shipper.$pristine }">
+                        <label class="control-label col-sm-3" for="town">Shipper:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="shipper" ng-model="invoice.shipper" placeholder="Search for shipper" uib-typeahead="searchShipper as searchShipper.name for searchShipper in getShippers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                            <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
+                        </div>
+                        <div class="col-sm-4">
+                            <p ng-show="new_invoice.shipper.$invalid && !new_invoice.shipper.$pristine" class="help-block">shipper is required.</p>
+                        </div>
+                    </div>
+                    <!-- shipping price -->
+                    <div class="form-group" ng-class="{ 'has-error' : new_invoice.shipping.$invalid && !new_invoice.shipping.$pristine }">
+                        <label class="control-label col-sm-3" for="shipping">Shipping:</label>
+                        <div class="col-sm-5">
+                            <input type="number" min=0 name="shipping" class="form-control" ng-model="invoice.shipping" placeholder="Shipping" required>
+                        </div>
+                        <div class="col-md-4">
+                            <p ng-show="new_invoice.shipping.$invalid && !new_invoice.shipping.$pristine" class="help-block">Invalid format.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+            <button type="button" class="btn btn-primary btn-add-items" ng-disabled="new_invoice.$invalid" ng-click="setActieveTab(1)">
+                Add Items
+            </button>
+        </div>
+    </uib-tab>
+    <uib-tab index="1" disable="new_invoice.$invalid">
+        <uib-tab-heading>
+            <i class="fa fa-list-ol" aria-hidden="true"></i> Items
+        </uib-tab-heading>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" ng-model="selectedItem" placeholder="Search for product" uib-typeahead="searchProduct as searchProduct.name for searchProduct in getProducts($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
+            </div>
+            <div class="col-md-8">
+                <div ng-show="selectedItem.name">
+                    <form name="add_product" class="form-horizontal" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Name: </label>
+                            <span class="col-sm-10">{{ selectedItem.name }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Unit: </label>
+                            <span class="col-sm-10">{{ selectedItem.unit }}</span>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : add_product.quantity.$invalid && !add_product.quantity.$pristine }">
+                            <label class="control-label col-sm-2" for="quantity">Quantity:</label>
+                            <div class="col-sm-6">
+                                <input type="number" name="quantity" ng-max="selectedItem.stock.inventory" min="1" ng-model="selectedItem.quantity" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                <p ng-show="add_product.quantity.$invalid && !add_product.quantity.$pristine" class="help-block">Maximum quantity is {{ selectedItem.stock.inventory }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : add_product.price.$invalid && !add_product.price.$pristine }">
+                            <label class="control-label col-sm-2" for="price">Price:</label>
+                            <div class="col-sm-6">
+                                <input type="number" name="price" ng-model="selectedItem.price" min="0" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                <p ng-show="add_product.price.$invalid && !add_product.price.$pristine" class="help-block">Price can not be 0</p>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-primary" style="width: 30%;" ng-disabled="add_product.$invalid" type="button" ng-click="add_new_item(selectedItem)">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+        </div>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="itemModel in invoice.items">
+                        <td>{{ itemModel.product.name }}</td>
+                        <td>{{ itemModel.product.unit }}</td>
+                        <td>{{ itemModel.quantity }}</td>
+                        <td>{{ itemModel.price }}</td>
+                        <td>{{ itemModel.subTotal }}</td>
+                        <td>
+                            <button ng-click="deleteItem(itemModel)" class="btn btn-danger">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <hr>
+            <button type="button" class="btn btn-primary btn-add-items" ng-disabled="new_invoice.$invalid" ng-click="setActieveTab(2)">
+                Preivew Invoice
+            </button>
+        </div>
+    </uib-tab>
+    <uib-tab index="2" ng-click="invoicePrepare()" disable="new_invoice.$invalid">
+        <uib-tab-heading>
+            <i class="fa fa-eye" aria-hidden="true"></i> Preview
+        </uib-tab-heading>
+        <div class="row">
+            <div class="col-md-5">
+                <dl class="dl-horizontal">
+                    <div class="dl-item-sm">
+                        <dt>Agent:</dt>
+                        <dd>{{ invoice.agent.name }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Date:</dt>
+                        <dd>{{ invoice.date | date:'yyyy-MM-dd' }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Ship Date:</dt>
+                        <dd>{{ invoice.shippedOn | date:'yyyy-MM-dd' }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Shipper:</dt>
+                        <dd>{{ invoice.shipper.name }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Destination:</dt>
+                        <dd>{{ invoice.customer.town.name }} </dd>
+                    </div>
+                </dl>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <div class="dl-item-sm">
+                        <dt>Customer:</dt>
+                        <dd>{{ invoice.customer.name }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt></dt>
+                        <dd>{{ invoice.customer.address }} </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div style="background-color: ghostwhite; padding: 5px;">
+                <h3>Items</h3>
+            </div>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="itemModel in invoice.items">
+                        <td>{{ itemModel.id }}</td>
+                        <td>{{ itemModel.product.name }}</td>
+                        <td>{{ itemModel.product.unit }}</td>
+                        <td>{{ itemModel.quantity }}</td>
+                        <td>{{ itemModel.price }}</td>
+                        <td>{{ itemModel.subTotal }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row" style="margin-top: -50px;">
+            <hr>
+            <div style="float:right; width: 30%;">
+                <dl class="dl-horizontal">
+                    <div class="dl-item-sm">
+                        <dt>SubTotal:</dt>
+                        <dd>{{ invoice.subTotal | currency }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Vat rate:</dt>
+                        <dd>{{ invoice.vat }} %</dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Vat amount:</dt>
+                        <dd>{{ invoice.vatAmount | currency }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Shipping:</dt>
+                        <dd>{{ invoice.shipping | currency}} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Total:</dt>
+                        <dd>{{ invoice.total | currency }} </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        <div class="row" style="padding: 0px 0px 50px 0px">
+            <hr>
+            <button class="btn btn-success" style="float:right; width: 200px;" ng-click="save()">Save</button>
+        </div>
+    </uib-tab>
+</uib-tabset>

@@ -1,12 +1,22 @@
 angular
     .module("Billing")
-    .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
+    .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
-        function ListCustomers() {
-            DataFactory.list("customers", function(data) { $scope.customers = data });
+        $scope.maxPagination = BillingConfig.maxPagination
+        
+        function ListCustomers(page) {
+            DataFactory.list("customers?page=" + page, function(data) {
+                $scope.customers = data.list;
+                $scope.totalItems = data.totalItems;
+                $scope.currentPage = data.currentPage + 1;
+            });
         }
 
-        ListCustomers();
+        $scope.pageChanged = function() {
+            ListCustomers($scope.currentPage - 1);
+        };
+
+        ListCustomers(0);
 
         $scope.new = function() {
             var modalInstance = $uibModal.open({
@@ -27,11 +37,36 @@ angular
             });
 
             modalInstance.result.then(function(customer) {
-                console.log(customer.town);
-                DataFactory.insert("customers", customer, function(data) { ListCustomers(); });
+                DataFactory.insert("customers", customer, function(data) {
+                    ToasterService.pop('success', "Success", "Customer added");
+                    ListCustomers();
+                });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());
             });
+        };
+
+        $scope.show = function(customer) {
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/customers/templates/show.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return customer
+                    },
+                    options: function() {
+                        return []
+                    }
+                }
+            });
+
+            modalInstance.result.then(function() {}, function() {});
+
         };
 
         $scope.edit = function(customer) {
@@ -54,6 +89,7 @@ angular
 
             modalInstance.result.then(function(customer) {
                 DataFactory.update("customers", customer.id, customer, function(data) {
+                    ToasterService.pop('success', "Success", "Customer saved");
                     ListCustomers();
                 });
             }, function() {
@@ -82,8 +118,8 @@ angular
 
             modalInstance.result.then(function(customer) {
                 DataFactory.delete("customers", customer.id, function(data) {
+                    ToasterService.pop('success', "Success", "Customer deleted");
                     ListCustomers();
-                    //message success missing
                 });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());

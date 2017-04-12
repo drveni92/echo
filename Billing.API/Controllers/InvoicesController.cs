@@ -17,11 +17,15 @@ namespace Billing.API.Controllers
     {
         [TokenAuthorization("user")]
         [Route("")]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int page = 0)
         {
             try
             {
-                return Ok(UnitOfWork.Invoices.Get().ToList().Select(x => Factory.Create(x)).ToList());
+                var query = UnitOfWork.Invoices.Get().ToList();
+                var list = query.Skip(Pagination.PageSize * page)
+                                .Take(Pagination.PageSize)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<InvoiceModel>(page, query.Count, list));
             }
             catch (Exception ex)
             {
@@ -122,6 +126,8 @@ namespace Billing.API.Controllers
             try
             {
                 if (Identity.HasNotAccess(model.Agent.Id)) return Unauthorized();
+                /* Check if user owns invoice */
+                if (UnitOfWork.Invoices.Get(model.Id).Agent.Id != Identity.CurrentUser.Id) return Unauthorized();
                 Invoice invoice = Factory.Create(model);
                 UnitOfWork.Invoices.Update(invoice, id);
                 UnitOfWork.Commit();
@@ -142,8 +148,33 @@ namespace Billing.API.Controllers
             {
                 var invoice = UnitOfWork.Invoices.Get(id);
                 if (Identity.HasNotAccess(invoice.Agent.Id)) return Unauthorized();
-                if (invoice.Items.Count != 0) return BadRequest($"Invoice {invoice.InvoiceNo} has items.");
-                UnitOfWork.Invoices.Delete(id);
+                // If admin delete invoice
+                if (Identity.HasRole("admin"))
+                {
+                    if (invoice.Items.Count != 0)
+                    {
+                        // Delete all items
+                        foreach (var item in invoice.Items.ToList())
+                        {
+                            UnitOfWork.Items.Delete(item.Id);
+                        }
+                    }
+                    if (invoice.History.Count != 0)
+                    {
+                        // Delete all history
+                        foreach (var history in invoice.History.ToList())
+                        {
+                            UnitOfWork.Histories.Delete(history.Id);
+                        }
+                    }
+                    UnitOfWork.Invoices.Delete(id);
+                }
+                // User can only change state of invoice
+                else
+                {
+                    invoice.Status = Status.Canceled;
+                    UnitOfWork.Invoices.Update(invoice, invoice.Id);
+                }
                 UnitOfWork.Commit();
                 return Ok();
             }

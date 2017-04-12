@@ -19,6 +19,7 @@ namespace Billing.API.Helpers
                 switch (Invoice.Status)
                 {
                     case Status.OrderCreated: OrderCreated(Cancel); break;
+                    case Status.OrderConfirmed: OrderConfirmed(Cancel); break;
                     case Status.InvoiceCreated: InvoiceCreated(Cancel); break;
                     case Status.InvoiceSent: InvoiceSent(Cancel); break;
                     case Status.InvoicePaid: InvoicePaid(); break;
@@ -34,6 +35,18 @@ namespace Billing.API.Helpers
         }
 
         private void OrderCreated(bool Cancel)
+        {
+            if (Cancel)
+            {
+                Invoice.Status = Status.Canceled;
+            }
+            else
+            {
+                Invoice.Status = Status.OrderConfirmed;
+            }
+        }
+
+        private void OrderConfirmed(bool Cancel)
         {
             if (Cancel)
             {

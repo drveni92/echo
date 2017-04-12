@@ -22,21 +22,24 @@
         <tbody>
             <tr ng-repeat="item in customers">
                 <td>{{ item.id }}</td>
-                <td>{{ item.name }}</td>
+                <td class="col-md-4">{{ item.name }}</td>
                 <td>{{ item.address }}</td>
                 <td>{{ item.town.name }}</td>
                 <td>
-                    <a ng-href="#/customer/{{item.id}}" class="btn btn-info">
+                    <a ng-click="show(item)" class="btn btn-info">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </a>
                     <button ng-click="edit(item)" class="btn btn-success">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </button>
-                    <button ng-click="delete(item)" class="btn btn-danger">
+                    <button admin-access ng-click="delete(item)" class="btn btn-danger">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+<div class="row pagination-center">
+    <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
 </div>

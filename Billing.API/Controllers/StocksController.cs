@@ -1,5 +1,6 @@
 ﻿using Billing.API.Helpers;
 using Billing.API.Helpers.Identity;
+using Billing.API.Models;
 using Billing.Database;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,16 @@ namespace Billing.API.Controllers
     public class StocksController : BaseController
     {
         [Route("")]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int page = 0)
         {
             try
             {
-                return Ok(UnitOfWork.Stocks.Get().ToList().Select(x => Factory.Create(x)).ToList());
+                var query = UnitOfWork.Stocks.Get().ToList();
+                var list = query.Skip(Pagination.PageSize * page)
+                                .Take(Pagination.PageSize)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<StockModel>(page, query.Count, list));
+
             }
             catch (Exception ex)
             {

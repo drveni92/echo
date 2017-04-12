@@ -75,7 +75,6 @@ namespace Billing.API.Controllers
             return Ok(Factory.Create(authToken));
         }
 
-
         [TokenAuthorization("user")]
         [Route("api/logout")]
         [HttpGet]
@@ -85,6 +84,8 @@ namespace Billing.API.Controllers
             {
                 AuthToken token = UnitOfWork.Tokens.Get().FirstOrDefault(x => x.Agent.Id == Identity.CurrentUser.Id);
                 if (token == null) return BadRequest("No user logged in");
+                if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing", "Agents", "Id", "Username", autoCreateTables: true);
+                WebSecurity.Logout();
                 UnitOfWork.Tokens.Delete(token.Id);
                 return Ok($"User {Identity.CurrentUser.Name} logged out");
             }

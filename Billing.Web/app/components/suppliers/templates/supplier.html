@@ -3,7 +3,7 @@
         <h3>Suppliers</h3>
     </div>
     <div class="col-sm-2">
-        <button class="btn btn-primary new-button" ng-click="new()">New supplier</button>
+        <button admin-access class="btn btn-primary new-button" ng-click="new()">New supplier</button>
     </div>
 </div>
 <hr>
@@ -16,7 +16,7 @@
             <th>Name</th>
             <th>Address</th>
             <th>Town</th>
-            <th>Action</th>
+            <th admin-access>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -25,7 +25,10 @@
             <td class="col-md-4">{{ item.name }}</td>
             <td class="col-md-3">{{ item.address }}</td>
             <td class="col-md-2">{{ item.town.name }}</td>
-            <td class="col-md-2">
+            <td admin-access class="col-md-2">
+                <a ng-click="show(item)" class="btn btn-info">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
                 <button ng-click="edit(item)" class="btn btn-success">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </button>
@@ -36,4 +39,7 @@
         </tr>
         </tbody>
     </table>
+</div>
+<div class="row pagination-center">
+    <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
 </div>

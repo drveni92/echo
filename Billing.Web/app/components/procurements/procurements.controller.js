@@ -1,12 +1,22 @@
 angular
     .module("Billing")
-    .controller('ProcurementsController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
+    .controller('ProcurementsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
-        function ListProcurements() {
-            DataFactory.list("procurements", function(data) { $scope.procurements = data });
+        $scope.maxPagination = BillingConfig.maxPagination
+
+        function ListProcurements(page) {
+            DataFactory.list("procurements?page=" + page, function(data) {
+                $scope.procurements = data.list;
+                $scope.totalItems = data.totalItems;
+                $scope.currentPage = data.currentPage + 1;
+            });
         }
 
-        ListProcurements();
+        $scope.pageChanged = function() {
+            ListProcurements($scope.currentPage - 1);
+        };
+
+        ListProcurements(0);
 
         $scope.new = function() {
 
@@ -23,8 +33,8 @@ angular
                             id: 0,
                             document: '',
                             date: '',
-                            product: { id: null },
-                            supplier: { id: null },
+                            product: { id: null, name: '' },
+                            supplier: { id: null, name: '' },
                             quantity: null,
                             price: null
                         }
@@ -36,8 +46,10 @@ angular
             });
 
             modalInstance.result.then(function(procurement) {
-                console.log(procurement);
-                DataFactory.insert("procurements", procurement, function(data) { ListProcurements(); });
+                DataFactory.insert("procurements", procurement, function(data) {
+                    ToasterService.pop('success', "Success", "Procurement added");
+                    ListProcurements();
+                });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());
             });
@@ -46,7 +58,7 @@ angular
 
         $scope.show = function(procurement) {
             procurement.date = new Date(procurement.date);
-            
+
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -64,16 +76,14 @@ angular
                 }
             });
 
-            modalInstance.result.then(function() {
-            }, function() {
-            });
+            modalInstance.result.then(function() {}, function() {});
 
         };
 
         $scope.edit = function(procurement) {
-            
+
             procurement.date = new Date(procurement.date);
-            
+
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -93,6 +103,7 @@ angular
 
             modalInstance.result.then(function(procurement) {
                 DataFactory.update("procurements", procurement.id, procurement, function(data) {
+                    ToasterService.pop('success', "Success", "Procurement saved");
                     ListProcurements();
                 });
             }, function() {
@@ -121,8 +132,8 @@ angular
 
             modalInstance.result.then(function(procurement) {
                 DataFactory.delete("procurements", procurement.id, function(data) {
+                    ToasterService.pop('success', "Success", "Procurement deleted");
                     ListProcurements();
-                    //message success missing
                 });
             }, function() {
                 console.log('Modal dismissed at: ' + new Date());

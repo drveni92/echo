@@ -18,17 +18,21 @@ namespace Billing.API.Controllers
     public class SuppliersController : BaseController
     {
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null)
+        public IHttpActionResult Get(string name = null, int page = 0)
         {
             try
             {
+                List<Supplier> suppliers;
                 if (name != null)
                 {
-                    var suppliers = UnitOfWork.Suppliers.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
-                    if (suppliers.Count != 0) return Ok(suppliers);
-                    return NotFound();
+                    suppliers = UnitOfWork.Suppliers.Get().Where(x => x.Name.Contains(name)).ToList();
+                    if (suppliers.Count == 0) return NotFound();
                 }
-                return Ok(UnitOfWork.Suppliers.Get().ToList().Select(x => Factory.Create(x)).ToList());
+                else suppliers = UnitOfWork.Suppliers.Get().ToList();
+                var list = suppliers.Skip(Pagination.PageSize * page)
+                                    .Take(Pagination.PageSize)
+                                    .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<SupplierModel>(page, suppliers.Count, list));
             }
             catch (Exception ex)
             {

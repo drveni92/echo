@@ -27,4 +27,24 @@ angular
         $modal.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
+
+        /* Data for autocomplete */
+        $modal.getSuppliers = function(value) {
+            console.log(value);
+            var url = 'suppliers/' + value;
+            return DataFactory.promise(url)
+                .then(function(response) {
+                    return response.data.list;
+                });
+        };
+
+        $modal.getProducts = function(value) {
+            console.log(value);
+            var url = 'products/' + value;
+            return DataFactory.promise(url)
+                .then(function(response) {
+                    return response.data.list;
+                });
+        };
+
     }]);

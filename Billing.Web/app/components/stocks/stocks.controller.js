@@ -1,43 +1,22 @@
-(function(){
+  angular
+      .module("Billing")
+      .controller ('StocksController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
-    var app = angular.module("Billing");
 
-    var StocksController = function($scope, $http, DataFactory) {
+          $scope.maxPagination = BillingConfig.maxPagination
 
-        $scope.showCategory = false;
-        ListStock();
+          function ListStocks(page) {
+              DataFactory.list("stocks?page=" + page, function(data) {
+                  $scope.stocks = data.list;
+                  $scope.totalItems = data.totalItems;
+                  $scope.currentPage = data.currentPage + 1;
+              });
+          }
 
-        $scope.getStock = function(currentStock){
-            $scope.stock = currentStock;
-            $scope.showStock = true;
-        };
+          $scope.pageChanged = function() {
+              ListStocks($scope.currentPage - 1);
+          };
 
-        $scope.save = function(){
-            if($scope.stock.id === 0)
-                DataFactory.insert("stocks", $scope.stock, function(data){ ListStock();} );
-            else
-                DataFactory.update("stocks", $scope.stock.id, $scope.stock, function(data){ListStock();});
-        };
-        $scope.delete = function(){
+          ListStocks(0);
 
-            DataFactory.delete("stocks", $scope.stock.id, function(data){ListStock();});
-            $scope.showStock = false;
-
-        };
-
-        $scope.new = function(){
-            $scope.stock = {
-                id: 0,
-                name: ""
-            };
-            $scope.showStock = true;
-        };
-
-        function ListStock(){
-            DataFactory.list("stocks", function(data){ $scope.stocks = data});
-        }
-    };
-
-    app.controller("StocksController", StocksController);
-
-}());
+      }]);

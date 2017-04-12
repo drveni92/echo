@@ -8,7 +8,7 @@
         currentUser: {
             id: 0,
             name: "",
-            role: ""
+            roles: []
         }
     };
 
@@ -51,13 +51,13 @@ app.filter('exclude', [function () {
                 templateUrl: "app/components/agents/templates/agents.html",
                 controller: "AgentsController"
             })
+            .when("/products", {
+                templateUrl: "app/components/products/templates/product.html",
+                controller: "ProductsController"
+            })
             .when("/customers", {
                 templateUrl: "app/components/customers/templates/customer.html",
                 controller: "CustomersController"
-            })
-            .when("/customer/:id", {
-                templateUrl: "app/components/customers/templates/show.html",
-                controller: "CustomerShowController"
             })
             .when("/towns", {
                 templateUrl: "app/components/towns/templates/town.html",
@@ -76,11 +76,31 @@ app.filter('exclude', [function () {
                 templateUrl: "app/components/suppliers/templates/supplier.html",
                 controller: "SuppliersController"
             })
+            .when("/shippers", {
+                templateUrl: "app/components/shippers/templates/shipper.html",
+                controller: "ShippersController"
+            })
             .when("/procurements", {
                 templateUrl: "app/components/procurements/templates/procurements.html",
                 controller: "ProcurementsController"
             })
-            .otherwise({ redirectTo: "/agents" });
+            .when("/invoices", {
+                templateUrl: "app/components/invoices/templates/invoices.html",
+                controller: "InvoicesController"
+            })
+            .when("/invoices/new", {
+                templateUrl: "app/components/invoices/templates/new.html",
+                controller: "InvoicesNewController"
+            })
+            .when("/invoices/:id", {
+                templateUrl: "app/components/invoices/templates/new.html",
+                controller: "InvoicesNewController"
+            })
+            .when("/invoice/:id", {
+                templateUrl: "app/components/invoices/templates/show_invoice.html",
+                controller: "InvoiceShowController"
+            })
+            .otherwise({ redirectTo: "/invoices" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
             if (!authenticated()) {
@@ -92,4 +112,21 @@ app.filter('exclude', [function () {
         });
         $rootScope.authenticated = authenticated;
     });
+
+    app.directive('adminAccess', function() {
+        return {
+            priority: 100000,
+            scope: { owner: '=' },
+            restrict: 'A',
+            link: function(scope, element, attr) {
+                var access = (credentials.currentUser.roles.indexOf("admin") > -1);
+                if (!access) {
+                    var user = credentials.currentUser.id;
+                    var owner = scope.owner;
+                    if (owner != user) element.remove();
+                }
+            }
+        };
+    });
+
 }());

@@ -43,10 +43,6 @@ angular
         });
         };
 
-
-
-
-
         $scope.edit = function(agent) {
             var modalInstance = $uibModal.open(
                 {
@@ -83,6 +79,11 @@ angular
         }
         getTowns = function() {
             $('.ui.dropdown').dropdown();
+
+        function ListAgents(){
+            DataFactory.list("agents", function(data){ 
+                $scope.agents = data
+            });
         }
         $scope.delete = function(agent){
             DataFactory.delete("agents", agent.id, function(data){ ListAgents();});

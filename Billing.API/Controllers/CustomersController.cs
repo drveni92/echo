@@ -16,23 +16,24 @@ namespace Billing.API.Controllers
     [RoutePrefix("api/customers")]
     public class CustomersController : BaseController
     {
-       
+
         [Route("{name?}")]
         public IHttpActionResult Get(string name = null, int page = 0)
         {
             try
             {
-                List<CustomerModel> customers;
+
+                List<Customer> customers;
                 if (name != null)
                 {
-                    customers = UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(x => Factory.Create(x)).ToList();
+                    customers = UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList();
                     if (customers.Count == 0) return NotFound();
                 }
-                var query = UnitOfWork.Customers.Get().ToList();
-                var list = query.Skip(Pagination.PageSize * page)
-                                .Take(Pagination.PageSize)
-                                .Select(x => Factory.Create(x)).ToList();
-                return Ok(Factory.Create<CustomerModel>(page, query.Count, list));
+                else customers = UnitOfWork.Customers.Get().ToList();
+                var list = customers.Skip(Pagination.PageSize * page)
+                                    .Take(Pagination.PageSize)
+                                    .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<CustomerModel>(page, customers.Count, list));
             }
             catch (Exception ex)
             {
@@ -72,7 +73,7 @@ namespace Billing.API.Controllers
             }
         }
 
-   
+
         [Route("")]
         public IHttpActionResult Post([FromBody]CustomerModel model)
         {

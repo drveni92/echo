@@ -2,11 +2,20 @@ angular
     .module("Billing")
     .controller('ShippersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
-        function ListShippers() {
-            DataFactory.list("shippers", function(data) { $scope.shippers = data });
-        }
+        function ListShippers(page) {
+            DataFactory.list("shippers?page=" + page, function(data) { 
+                $scope.shippers = data.list;
+                $scope.totalItems = data.totalItems;
+                $scope.currentPage = data.currentPage + 1;
+            });
+        };
 
-        ListShippers();
+        $scope.pageChanged = function() {
+            ListShippers($scope.currentPage - 1);
+        };
+
+
+        ListShippers(0);
 
         $scope.new = function() {
 

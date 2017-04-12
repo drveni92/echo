@@ -34,9 +34,8 @@
                     <div class="form-group" ng-class="{ 'has-error' : new_invoice.customer.$invalid && !new_invoice.customer.$pristine }">
                         <label class="control-label col-sm-3" for="town">Customer:</label>
                         <div class="col-sm-5">
-                            <select name="customer" class="form-control" ng-model="invoice.customer" required ng-options="x as x.name for x in customers track by x.id">
-                                <option value="" disabled selected>Select customer</option>
-                            </select>
+                            <input name="customer" required type="text" ng-model="invoice.customer" placeholder="Search for customer" uib-typeahead="searchCustomer as searchCustomer.name for searchCustomer in getCustomers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                            <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                         </div>
                         <div class="col-sm-4">
                             <p ng-show="new_invoice.customer.$invalid && !new_invoice.customer.$pristine" class="help-block">Customer is required.</p>
@@ -46,9 +45,8 @@
                     <div class="form-group" ng-class="{ 'has-error' : new_invoice.shipper.$invalid && !new_invoice.shipper.$pristine }">
                         <label class="control-label col-sm-3" for="town">Shipper:</label>
                         <div class="col-sm-5">
-                            <select name="shipper" class="form-control" ng-model="invoice.shipper" required ng-options="x as x.name for x in shippers track by x.id">
-                                <option value="" disabled selected>Select shipper</option>
-                            </select>
+                            <input type="text" name="shipper" ng-model="invoice.shipper" placeholder="Search for shipper" uib-typeahead="searchShipper as searchShipper.name for searchShipper in getShippers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                            <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                         </div>
                         <div class="col-sm-4">
                             <p ng-show="new_invoice.shipper.$invalid && !new_invoice.shipper.$pristine" class="help-block">shipper is required.</p>
@@ -119,7 +117,9 @@
                 </div>
             </div>
         </div>
-        <div class="row"><hr></div>
+        <div class="row">
+            <hr>
+        </div>
         <div class="row">
             <table class="table table-striped">
                 <thead>
@@ -153,7 +153,6 @@
             <button type="button" class="btn btn-primary btn-add-items" ng-disabled="new_invoice.$invalid" ng-click="setActieveTab(2)">
                 Preivew Invoice
             </button>
-
         </div>
     </uib-tab>
     <uib-tab index="2" ng-click="invoicePrepare()" disable="new_invoice.$invalid">
@@ -161,103 +160,103 @@
             <i class="fa fa-eye" aria-hidden="true"></i> Preview
         </uib-tab-heading>
         <div class="row">
-        <div class="col-md-5">
-            <dl class="dl-horizontal">
-                <div class="dl-item-sm">
-                    <dt>Agent:</dt>
-                    <dd>{{ invoice.agent.name }} </dd>
-                </div>
-                <div class="dl-item-sm">
-                    <dt>Date:</dt>
-                    <dd>{{ invoice.date | date:'yyyy-MM-dd' }} </dd>
-                </div>
-                <div class="dl-item-sm">
-                    <dt>Ship Date:</dt>
-                    <dd>{{ invoice.shippedOn | date:'yyyy-MM-dd' }} </dd>
-                </div>
-                <div class="dl-item-sm">
-                    <dt>Shipper:</dt>
-                    <dd>{{ invoice.shipper.name }} </dd>
-                </div>
-                <div class="dl-item-sm">
-                    <dt>Destination:</dt>
-                    <dd>{{ invoice.customer.town.name }} </dd>
-                </div>
-            </dl>
+            <div class="col-md-5">
+                <dl class="dl-horizontal">
+                    <div class="dl-item-sm">
+                        <dt>Agent:</dt>
+                        <dd>{{ invoice.agent.name }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Date:</dt>
+                        <dd>{{ invoice.date | date:'yyyy-MM-dd' }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Ship Date:</dt>
+                        <dd>{{ invoice.shippedOn | date:'yyyy-MM-dd' }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Shipper:</dt>
+                        <dd>{{ invoice.shipper.name }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Destination:</dt>
+                        <dd>{{ invoice.customer.town.name }} </dd>
+                    </div>
+                </dl>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <div class="dl-item-sm">
+                        <dt>Customer:</dt>
+                        <dd>{{ invoice.customer.name }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt></dt>
+                        <dd>{{ invoice.customer.address }} </dd>
+                    </div>
+                </dl>
+            </div>
         </div>
-        <div class="col-md-1">
+        <div class="row">
+            <div style="background-color: ghostwhite; padding: 5px;">
+                <h3>Items</h3>
+            </div>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="itemModel in invoice.items">
+                        <td>{{ itemModel.id }}</td>
+                        <td>{{ itemModel.product.name }}</td>
+                        <td>{{ itemModel.product.unit }}</td>
+                        <td>{{ itemModel.quantity }}</td>
+                        <td>{{ itemModel.price }}</td>
+                        <td>{{ itemModel.subTotal }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-6">
-            <dl class="dl-horizontal">
-                <div class="dl-item-sm">
-                    <dt>Customer:</dt>
-                    <dd>{{ invoice.customer.name }} </dd>
-                </div>
-                <div class="dl-item-sm">
-                    <dt></dt>
-                    <dd>{{ invoice.customer.address }} </dd>
-                </div>
-            </dl>
+        <div class="row" style="margin-top: -50px;">
+            <hr>
+            <div style="float:right; width: 30%;">
+                <dl class="dl-horizontal">
+                    <div class="dl-item-sm">
+                        <dt>SubTotal:</dt>
+                        <dd>{{ invoice.subTotal | currency }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Vat rate:</dt>
+                        <dd>{{ invoice.vat }} %</dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Vat amount:</dt>
+                        <dd>{{ invoice.vatAmount | currency }} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Shipping:</dt>
+                        <dd>{{ invoice.shipping | currency}} </dd>
+                    </div>
+                    <div class="dl-item-sm">
+                        <dt>Total:</dt>
+                        <dd>{{ invoice.total | currency }} </dd>
+                    </div>
+                </dl>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div style="background-color: ghostwhite; padding: 5px;">
-            <h3>Items</h3>
+        <div class="row" style="padding: 0px 0px 50px 0px">
+            <hr>
+            <button class="btn btn-success" style="float:right; width: 200px;" ng-click="save()">Save</button>
         </div>
-        <hr>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Unit</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="itemModel in invoice.items">
-                    <td>{{ itemModel.id }}</td>
-                    <td>{{ itemModel.product.name }}</td>
-                    <td>{{ itemModel.product.unit }}</td>
-                    <td>{{ itemModel.quantity }}</td>
-                    <td>{{ itemModel.price }}</td>
-                    <td>{{ itemModel.subTotal }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row" style="margin-top: -50px;">
-        <hr>
-        <div style="float:right; width: 30%;">
-            <dl class="dl-horizontal">
-                <div class="dl-item-sm">
-                    <dt>SubTotal:</dt>
-                    <dd>{{ invoice.subTotal | currency }} </dd>
-                </div>
-                <div class="dl-item-sm">
-                    <dt>Vat rate:</dt>
-                    <dd>{{ invoice.vat }} %</dd>
-                </div>
-                <div class="dl-item-sm">
-                    <dt>Vat amount:</dt>
-                    <dd>{{ invoice.vatAmount | currency }} </dd>
-                </div>
-                <div class="dl-item-sm">
-                    <dt>Shipping:</dt>
-                    <dd>{{ invoice.shipping | currency}} </dd>
-                </div>
-                <div class="dl-item-sm">
-                    <dt>Total:</dt>
-                    <dd>{{ invoice.total | currency }} </dd>
-                </div>
-            </dl>
-        </div>
-    </div>
-    <div class="row" style="padding: 0px 0px 50px 0px">
-        <hr>
-        <button class="btn btn-success" style="float:right; width: 200px;" ng-click="save()">Save</button>
-    </div>
     </uib-tab>
 </uib-tabset>

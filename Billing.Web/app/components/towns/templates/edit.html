@@ -24,7 +24,7 @@
                 <div class="col-sm-10">
                     <select class="form-control" name="region" ng-model="$modal.data.region" required>
                         <option value="" disabled selected>Select region</option>
-                        <option ng-repeat="x in $modal.options.regions" >{{x}}</option>
+                        <option ng-repeat="x in $modal.regions" >{{x}}</option>
                     </select>
                     <p ng-show="edit_town.region.$invalid && !edit_town.region.$pristine" class="help-block">Region is required.</p>
                 </div>

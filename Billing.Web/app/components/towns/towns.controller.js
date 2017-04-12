@@ -2,7 +2,7 @@ angular
     .module("Billing")
     .controller('TownsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
-        $scope.regions = REGIONS;
+        $scope.regions = BillingConfig.regions;
 
         $scope.getTown = function(currentTown) {
             $scope.town = currentTown;

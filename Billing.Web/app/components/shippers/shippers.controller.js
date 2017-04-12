@@ -30,10 +30,7 @@ angular
                     controllerAs: '$modal',
                     resolve: {
                         data: function() {
-                            return { id: 0, name: '', address: '', town: { id: null } }
-                        },
-                        options: function() {
-                            return ["towns"]
+                            return { id: 0, name: '', address: '', town: { id: null, name: '' } }
                         }
                     }
                 });
@@ -59,9 +56,6 @@ angular
                 resolve: {
                     data: function() {
                         return shipper
-                    },
-                    options: function() {
-                        return []
                     }
                 }
             });
@@ -84,9 +78,6 @@ angular
                     resolve: {
                         data: function() {
                             return $.extend(true, {}, shipper)
-                        },
-                        options: function() {
-                            return ["towns"]
                         }
                     }
                 });
@@ -113,9 +104,6 @@ angular
                 resolve: {
                     data: function() {
                         return shipper
-                    },
-                    options: function() {
-                        return []
                     }
                 }
             });

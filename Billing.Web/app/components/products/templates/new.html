@@ -31,10 +31,8 @@
             <div class="form-group" ng-class="{ 'has-error' : new_product.category.$invalid && !new_product.category.$pristine }">
                 <label class="control-label col-sm-2" for="category">Category:</label>
                 <div class="col-sm-10">
-                    <select name="category" class="form-control" ng-model="$modal.data.category.id" required>
-                        <option value="" disabled selected>Select category</option>
-                        <option ng-repeat="x in $modal.options.categories" value="{{x.id}}">{{x.name}}</option>
-                    </select>
+                    <input type="text" name="shipper" ng-model="$modal.data.category" placeholder="Search for category" uib-typeahead="searchCategory as searchCategory.name for searchCategory in getCategories($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResultsCustomers">
+                    <span ng-show="noResultsCustomers" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                     <p ng-show="new_product.category.$invalid && !new_product.category.$pristine" class="help-block">Product category is required.</p>
                 </div>
             </div>

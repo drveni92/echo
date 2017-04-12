@@ -32,9 +32,6 @@
                     resolve: {
                         data: function() {
                             return invoice
-                        },
-                        options: function() {
-                            return []
                         }
                     }
                 });
@@ -55,9 +52,6 @@
                     resolve: {
                         data: function() {
                             return invoice
-                        },
-                        options: function() {
-                            return []
                         }
                     }
                 });
@@ -87,9 +81,6 @@
                     resolve: {
                         data: function() {
                             return invoice
-                        },
-                        options: function() {
-                            return []
                         }
                     }
                 });

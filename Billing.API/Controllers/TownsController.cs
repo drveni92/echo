@@ -15,9 +15,10 @@ namespace Billing.API.Controllers
     [RoutePrefix("api/towns")]
     public class TownsController : BaseController
     {
+    
         [TokenAuthorization("user")]
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null)
+        public IHttpActionResult Get(string name = null, int page = 0)
         {
             try
             {
@@ -27,7 +28,13 @@ namespace Billing.API.Controllers
                     if (towns.Count != 0) return Ok(towns);
                     return NotFound();
                 }
-                return Ok(UnitOfWork.Towns.Get().ToList().Select(x => Factory.Create(x)).ToList());
+
+                var query = UnitOfWork.Towns.Get().ToList();
+                var list = query.Skip(Pagination.PageSize * page)
+                                .Take(Pagination.PageSize)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<TownModel>(page, query.Count, list));
+
             }
             catch (Exception ex)
             {

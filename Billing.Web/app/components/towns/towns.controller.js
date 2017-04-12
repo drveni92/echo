@@ -3,25 +3,27 @@ angular
     .controller('TownsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
 
         $scope.regions = REGIONS;
-        ListTowns();
 
         $scope.getTown = function(currentTown) {
             $scope.town = currentTown;
         };
 
-        $scope.delete = function() {
-            DataFactory.delete("towns", $scope.town.id, function(data) {
-                ToasterService.pop('success', "Success", "Town deleted");
-                ListTowns();
+        $scope.maxPagination = BillingConfig.maxPagination
+
+        function ListTowns(page) {
+            DataFactory.list("towns?page=" + page, function(data) {
+                $scope.towns = data.list;
+                $scope.totalItems = data.totalItems;
+                $scope.currentPage = data.currentPage + 1;
             });
         }
 
-        function ListTowns() {
-            DataFactory.list("towns", function(data) { $scope.towns = data });
-
+        $scope.pageChanged = function() {
+            ListTowns($scope.currentPage - 1);
         };
 
-        ListTowns();
+        ListTowns(0);
+      
         $scope.new = function() {
             DataFactory.list("towns", function(data) {
                 var modalInstance = $uibModal.open({

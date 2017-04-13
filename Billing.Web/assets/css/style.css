@@ -1,3 +1,12 @@
+body a {
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    text-decoration: none;
+}
+
 /* Login - end */
 
 .danger_status {
@@ -658,6 +667,7 @@ thead {
 }
 
 /*Bootstrap button outline override*/
+
 .btn-outline {
     background-color: transparent;
     color: inherit;

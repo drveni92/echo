@@ -50,8 +50,6 @@
                         credentials = response.data;
                         $rootScope.currentUser = credentials.currentUser.name;
                         $rootScope.currentUsername = credentials.currentUser.username;
-                        document.body.style.background = "#fff";
-
                         if ($scope.user.remember) {
                             localStorageService.cookie.set("Billing", credentials.remember, BillingConfig.ExpirationDate);
                         }

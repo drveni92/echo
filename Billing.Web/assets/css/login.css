@@ -5,7 +5,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: url("../img/back.jpg");
+    background: url("../img/back.jpeg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -15,24 +15,35 @@
     -o-background-size: cover;
     font-family: 'Roboto', sans-serif;
 }
-
+.deletep {
+    text-align: center;
+}
 .inputbuttonsumbit {
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
+    margin-left: 0px;
+    left: 50%;
+    position: relative;
+    transform: translate(-50%);
 }
 
-#login h1 {
-    font-size: 50px;
-    font-weight: 700;
+#login .content h1 {
+    font-size: 40px;
     letter-spacing: 2px;
+    text-align: center;
+    color: white;
+
 }
 
 #login h2 {
     font-size: 40px;
     font-weight: 100;
+    text-align: center;
+    color: white;
+
 }
 
 #login .content {
@@ -53,7 +64,7 @@
 }
 
 .inputtextpassword {
-    width: 84%;
+    width: 100%;
     padding: 15px 10px 15px 50px;
     font-size: 14px;
     background: transparent;
@@ -190,77 +201,122 @@ ul.agileinfotickwthree li {
 }
 
 .aitssendbuttonw3ls input {
-    margin-left: 97px;
+
 }
+
+
+
+.deletebutton {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+
+.content {
+    -webkit-animation: fadein 3s;
+    /* Safari and Chrome */
+    -moz-animation: fadein 2.5s;
+    /* Firefox */
+    -ms-animation: fadein 2.5s;
+    /* Internet Explorer */
+    -o-animation: fadein 2.5s;
+    /* Opera */
+    animation: fadein 2.5s;
+}
+.centerclass{
+    width: 50%;
+    height: 50%;
+    margin: 0 auto;
+}
+ul li label span{
+    position: relative;
+    top: 3px;
+}
+
+
+#login .content {
+    width: 34%;
+    z-index: 5000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: relative;
+    overflow-y: visible;
+    background-color: rgba(34, 34, 53, 0.48);
+    border-radius: 25px;
+    border: 2px solid rgba(169, 150, 150, 0.81);
+    padding: 20px;
+}
+
+
+.centerclass p {
+    color: white;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: relative;
+}
+
+#loginbutton:hover{
+    background-color: lightblue;
+}
+
+#countdown {
+    font-size: 25px;
+    color: #fff;
+    line-height: 1.1em;
+    text-align: center;
+}
+
 
 
 /*--- Responsive Code ---*/
 
 @media screen and (max-width: 1440px) {
-    .content {
-        width: 30%;
-    }
-}
-
-@media screen and (max-width: 1366px) {
-    .h21ogin {
-        margin: 75px auto;
-    }
-    .login-footer {
-        margin: 100px 10px 20px;
+    #login .content {
+        width: 40%;
     }
 }
 
 @media screen and (max-width: 1280px) {
-    .content {
-        width: 35%;
+    #login .content {
+        width: 45%;
     }
 }
+
 
 @media screen and (max-width: 1024px) {
     .h11ogin {
         font-size: 45px;
         margin: 50px auto;
     }
-    .content {
-        width: 40%;
+    #login .content {
+        width: 50%;
+
     }
     .login-footer {
         margin: 50px 10px 20px;
     }
-}
-
-@media screen and (max-width: 900px) {
-    .content {
-        width: 42%;
+    #countdown {
+        font-size: 18px;
     }
 }
 
-@media screen and (max-width: 853px) {
-    .content {
-        width: 45%;
+@media screen and (max-width: 880px) {
+    #login .content {
+        width: 60%;
     }
 }
 
-@media screen and (max-width: 800px) {
-    .content {
-        width: 48%;
-    }
-}
 
-@media screen and (max-width: 768px) {
-    .content {
-        width: 50%;
-    }
-}
-
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 700px) {
     .h11ogin {
         font-size: 40px;
         margin: 40px auto;
     }
-    .content {
-        width: 51%;
+    #login .content {
+        width: 70%;
+
     }
     .h21ogin {
         font-size: 35px;
@@ -272,43 +328,23 @@ ul.agileinfotickwthree li {
     }
 }
 
-@media screen and (max-width: 667px) {
-    .content {
-        width: 52%;
-    }
-}
-
-@media screen and (max-width: 640px) {
-    .h11ogin {
-        margin: 35px auto;
-    }
-    .content {
-        width: 55%;
-    }
-}
-
-@media screen and (max-width: 603px) {
-    .content {
-        width: 56%;
-    }
-}
 
 @media screen and (max-width: 600px) {
-    .content {
-        width: 60%;
+    #login .content {
+        width: 80%;
     }
 }
 
-@media screen and (max-width: 568px) {
-    .h11ogin {
+@media screen and (max-width: 558px) {
+    #login .content .h11ogin {
         font-size: 35px;
         margin: 25px auto;
     }
-    .h21ogin {
+    #login .content .h21ogin {
         font-size: 30px;
     }
     .inputtextpassword2 {
-        width: 79%;
+        width: 100%;
         padding: 10px 10px 10px 50px;
         font-size: 13px;
         border: 1px solid #FFF;
@@ -343,134 +379,59 @@ ul.agileinfotickwthree li {
     .login-footer p {
         font-size: 14px;
     }
+    #login .content .login-form .agileinfotickwthree li label{
+        font-size: 11px;
+    }
+    #login .content .centerclass p{
+        font-size: 11px;
+    }
+    #login .content {
+        width: 100%;
+
+    }
+    #countdown {
+        font-size: 14px;
+    }
 }
 
-@media screen and (max-width: 480px) {
-    .content {
-        width: 65%;
-    }
-    .aitssendbuttonw3ls {
-        text-align: center;
-    }
-    ul.agileinfotickwthree {
-        padding-left: 0;
-    }
-    input[type="submit"] {
-        float: inherit;
+@media screen and (max-width: 280px) {
+    #login .content {
         width: 100%;
     }
-    .aitssendbuttonw3ls p {
-        float: left;
-    }
 }
-
-@media screen and (max-width: 414px) {
-    .content {
-        width: 70%;
-    }
-    .inputtextpass3 {
-        width: 78%;
-    }
-}
-
-@media screen and (max-width: 384px) {
-    .h11ogin {
-        letter-spacing: 0;
-    }
-    .content {
-        width: 75%;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .h11ogin {
-        font-size: 32px;
-        font-weight: 500;
-    }
-    .h21ogin {
-        font-size: 27px;
-    }
-    .content {
-        width: 85%;
-    }
-}
-
-.deletebutton {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.deletep {
-    text-align: center;
-}
-
-.content {
-    -webkit-animation: fadein 4s;
-    /* Safari and Chrome */
-    -moz-animation: fadein 2.5s;
-    /* Firefox */
-    -ms-animation: fadein 2.5s;
-    /* Internet Explorer */
-    -o-animation: fadein 2.5s;
-    /* Opera */
-    animation: fadein 2.5s;
+#login .content {
+   -webkit-animation: fadein 4s; /* Safari and Chrome */
+  -moz-animation: fadein 2.5s; /* Firefox */
+   -ms-animation: fadein 2.5s; /* Internet Explorer */
+   -o-animation: fadein 2.5s; /* Opera */
+   animation: fadein 2.5s;
 }
 
 @keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
-
 
 /* Firefox */
-
 @-moz-keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
-
 
 /* Safari and Chrome */
-
 @-webkit-keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
-
 
 /* Internet Explorer */
-
 @-ms-keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}​
 
-​
 /* Opera */
-
 @-o-keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-​
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}​

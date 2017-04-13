@@ -17,8 +17,6 @@
                             }
                         }).then(function(response) {
                             credentials = response.data;
-                            document.body.style.background = "#fff";
-
                             localStorageService.cookie.set("Billing", credentials.remember, BillingConfig.ExpirationDate);
                             $rootScope.currentUser = credentials.currentUser.name;
                             $rootScope.currentUsername = credentials.currentUser.username;
@@ -32,7 +30,11 @@
                     console.log(reason);
                 });
             $( document ).ready(function() {
-                $( ".w3layoutscontaineragileits" ).hide().fadeIn( "slow" );
+
+                $( ".content" ).hide().fadeIn( "slow" );
+                $('#countdown').countdown('2017/05/19 14:00:00', function(event) {
+                    $(this).html(event.strftime('%Ddays   %Hh %Mm %Ss'));
+                });
             });
             $scope.login = function() {
                 $http.defaults.headers.common.Authorization = "Basic " + SessionService.encode($scope.user.name + ":" + $scope.user.pass);
@@ -57,6 +59,9 @@
                         $location.path(redirectTo);
                     },
                     function(reason) {
+                        document.getElementById('username').style.border = "2px solid #f00";
+                        document.getElementById('password').style.border = "2px solid #f00";
+
                         $scope.loginError = "Username or password is incorrect";
                         credentials = null;
                     });

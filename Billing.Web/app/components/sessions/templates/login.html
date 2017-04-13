@@ -1,25 +1,36 @@
 <div id="login">
+
+
     <div class="content">
-        <h1>SLEEK LOGIN FORM</h1>
-        <h2>Log in to your Account</h2>
-        <div class="login-form">
+        <h1 class="display-2 " >Welcome to Billing</h1>
+        <h2 class="h21ogin">Log in</h2>
+        <br><br>
+
+        <div class="login-form" id="loginform">
             <form ng-submit="login()">
                 <input type="text" class="inputbuttonsumbit inputtextpassword inputext inputtextpassword2 inputtext2 inputtextpass3 " id="username" name="username" placeholder="Username" ng-model="user.name" ng-init="user.name='marlon'" value="marlon" required>
                 <input type="password" class="inputbuttonsumbit inputtextpassword inputpass inputtextpassword2 inputpass2 inputtextpass3" id="password" name="password" placeholder="Password" ng-model="user.pass" ng-init="user.pass='billing'" value="billing" required>
                 <ul class="agileinfotickwthree">
                     <li>
                         <input type="checkbox" class="inputbuttonsumbit" type="checkbox" id="remember_me" name="remember" ng-model="user.remember" value="">
-                        <label for="remember_me"><span></span>Keep me logged in</label>
+                        <label for="remember_me"><span style="top: 2px;"></span>Keep me logged in</label>
                     </li>
                 </ul>
-                <div class="aitssendbuttonw3ls">
-                    <input class="inputbuttonsumbit inputsumbit inputsumbit2" ng-disabled="form.$invalid || vm.dataLoading" type="submit" value="LOGIN">
+                <div class="aitssendbuttonw3ls centerclass" >
+                    <input class="inputbuttonsumbit inputsumbit inputsumbit2" id="loginbutton" ng-disabled="form.$invalid || vm.dataLoading" type="submit" value="LOGIN">
                     <div class="clear"></div>
                 </div>
             </form>
         </div>
+        <br><br>
+        <div class="centerclass">
+            <div id="countdown"></div><br>
+            <p> &copy;Gigi's school | Design by team ECHO</p>
+
+        </div>
     </div>
-    <div class="w3footeragile">
-        <p> &copy; 2017 Gigi's school. All Rights Reserved | Design by team ECHO</p>
-    </div>
+
 </div>
+
+
+

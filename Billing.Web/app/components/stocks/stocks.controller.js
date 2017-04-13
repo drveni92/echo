@@ -5,8 +5,8 @@
 
           $scope.maxPagination = BillingConfig.maxPagination
 
-          function ListStocks(page) {
-              DataFactory.list("stocks?page=" + page, function(data) {
+          function ListStocks() {
+              DataFactory.list("stocks?page=" + ($scope.currentPage - 1), function(data) {
                   $scope.stocks = data.list;
                   $scope.totalItems = data.totalItems;
                   $scope.currentPage = data.currentPage + 1;
@@ -14,9 +14,9 @@
           }
 
           $scope.pageChanged = function() {
-              ListStocks($scope.currentPage - 1);
+              ListStocks();
           };
 
-          ListStocks(0);
+          ListStocks();
 
       }]);

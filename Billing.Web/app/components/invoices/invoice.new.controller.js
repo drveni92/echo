@@ -84,7 +84,7 @@
                 var url = 'products/' + value;
                 return DataFactory.promise(url)
                     .then(function(response) {
-                        return response.data;
+                        return response.data.list;
                     });
             };
 
@@ -113,6 +113,18 @@
                     invoice.agent.id = credentials.currentUser.id;
                     invoice.agent.name = credentials.currentUser.name;
                 }
+                invoice.shipper = {
+                    id: $scope.invoice.shipper.id,
+                    name: $scope.invoice.shipper.name
+                };
+                invoice.customer = {
+                    id: $scope.invoice.customer.id,
+                    name: $scope.invoice.customer.name,
+                    address: $scope.invoice.customer.address,
+                    town: {
+                        name: $scope.invoice.customer.town.name
+                    }
+                };
                 invoice.status = 0;
                 invoice.vat = 17;
                 invoice.subTotal = 0;

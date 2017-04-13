@@ -127,7 +127,7 @@ namespace Billing.API.Controllers
             {
                 if (Identity.HasNotAccess(model.Agent.Id)) return Unauthorized();
                 /* Check if user owns invoice */
-                if (UnitOfWork.Invoices.Get(model.Id).Agent.Id != Identity.CurrentUser.Id) return Unauthorized();
+                if (UnitOfWork.Invoices.Get(model.Id).Agent.Id != Identity.CurrentUser.Id && !Identity.HasRole("admin")) return Unauthorized();
                 Invoice invoice = Factory.Create(model);
                 UnitOfWork.Invoices.Update(invoice, id);
                 UnitOfWork.Commit();

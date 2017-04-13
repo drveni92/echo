@@ -4,8 +4,8 @@ angular
 
         $scope.maxPagination = BillingConfig.maxPagination;
 
-        function ListSuppliers(page) {
-            DataFactory.list("suppliers?page=" + page, function(data) {
+        function ListSuppliers() {
+            DataFactory.list("suppliers?page=" + ($scope.currentPage - 1), function(data) {
                 $scope.totalItems = data.totalItems;
                 $scope.currentPage = data.currentPage + 1;
                 $scope.suppliers = data.list;
@@ -14,11 +14,11 @@ angular
         }
 
         $scope.pageChanged = function() {
-            ListSuppliers($scope.currentPage - 1);
+            ListSuppliers();
         };
 
 
-        ListSuppliers(0);
+        ListSuppliers();
 
         $scope.new = function() {
             var modalInstance = $uibModal.open({

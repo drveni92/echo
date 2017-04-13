@@ -4,8 +4,8 @@
         .controller('AgentsController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
             $scope.maxPagination = BillingConfig.maxPagination
 
-            function ListAgents(page) {
-                DataFactory.list("agents?page=" + page, function(data) {
+            function ListAgents() {
+                DataFactory.list("agents?page=" + ($scope.currentPage - 1), function(data) {
                     $scope.agents = data.list;
                     $scope.totalItems = data.totalItems;
                     $scope.currentPage = data.currentPage + 1;
@@ -13,10 +13,10 @@
             }
 
             $scope.pageChanged = function() {
-                ListAgents($scope.currentPage - 1);
+                ListAgents();
             };
 
-            ListAgents(0);
+            ListAgents();
 
             $scope.new = function() {
                 var modalInstance = $uibModal.open({

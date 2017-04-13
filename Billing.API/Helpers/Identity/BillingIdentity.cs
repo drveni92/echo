@@ -45,7 +45,7 @@ namespace Billing.API.Helpers.Identity
 
         public bool HasRole(string role)
         {
-            return Thread.CurrentPrincipal.IsInRole(role);
+            return CurrentUser.Roles.Contains(role);
         }
 
         public bool HasNotAccess(int id)

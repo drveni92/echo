@@ -10,8 +10,8 @@ angular
 
         $scope.maxPagination = BillingConfig.maxPagination
 
-        function ListTowns(page) {
-            DataFactory.list("towns?page=" + page, function(data) {
+        function ListTowns() {
+            DataFactory.list("towns?page=" + ($scope.currentPage - 1), function(data) {
                 $scope.towns = data.list;
                 $scope.totalItems = data.totalItems;
                 $scope.currentPage = data.currentPage + 1;
@@ -19,10 +19,10 @@ angular
         }
 
         $scope.pageChanged = function() {
-            ListTowns($scope.currentPage - 1);
+            ListTowns();
         };
 
-        ListTowns(0);
+        ListTowns();
       
         $scope.new = function() {
             DataFactory.list("towns", function(data) {

@@ -6,8 +6,8 @@
             $scope.maxPagination = BillingConfig.maxPagination;
             $scope.userId = credentials.currentUser.id;
 
-            function ListInvoices(page) {
-                DataFactory.list("invoices?page=" + page, function(data) {
+            function ListInvoices() {
+                DataFactory.list("invoices?page=" + ($scope.currentPage - 1), function(data) {
                     $scope.invoices = data.list;
                     $scope.totalItems = data.totalItems;
                     $scope.currentPage = data.currentPage + 1;
@@ -15,10 +15,10 @@
             };
 
             $scope.pageChanged = function() {
-                ListInvoices($scope.currentPage - 1);
+                ListInvoices();
             };
 
-            ListInvoices(0);
+            ListInvoices();
 
             $scope.show = function(invoice) {
                 var modalInstance = $uibModal.open({

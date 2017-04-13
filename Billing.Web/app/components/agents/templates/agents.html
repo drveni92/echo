@@ -1,42 +1,43 @@
-<div class="row">
-    <div class="col-sm-10">
-        <h3>Agents</h3>
+<div admin-access>
+    <div class="row">
+        <div class="col-sm-10">
+            <h3>Agents</h3>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary new-button" ng-click="new()">New agent</button>
+        </div>
     </div>
-    <div class="col-sm-2">
-        <button class="btn btn-primary new-button" ng-click="new()">New agent</button>
+    <hr>
+    <div class="row">
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Towns</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in agents">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td class="col-sm-5">
+                        <div class="town-wrapper" ng-repeat="town in item.towns">{{town.name}}</div>
+                    </td>
+                    <td class="col-md-2">
+                        <button ng-click="edit(item)" data-toggle="modal" class="btn btn-success">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        <button ng-click="delete(item)" class="btn btn-danger">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</div>
-<hr>
-
-<div class="row">
-    <table class="table table-hover table-striped table-bordered">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Towns</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="item in agents">
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td class="col-sm-5">
-                <div class="town-wrapper" ng-repeat="town in item.towns">{{town.name}}</div>
-            </td>
-            <td class="col-md-2">
-                <button ng-click="edit(item)"  data-toggle="modal" class="btn btn-success">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </button>
-                <button ng-click="delete(item)" class="btn btn-danger">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div class="row pagination-center">
-    <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
+    <div class="row pagination-center">
+        <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
+    </div>
 </div>

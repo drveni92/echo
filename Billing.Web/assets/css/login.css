@@ -1,5 +1,5 @@
-
 /*Bootstrap button outline override*/
+
 .btn-outline {
     background-color: transparent;
     color: inherit;
@@ -35,22 +35,7 @@
 }
 
 
-
-
-
 /*-- Index-Page-Styling --*/
-
-body {
-    background: url("../img/back.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    font-family: 'Roboto', sans-serif;
-}
 
 body a {
     transition: 0.5s all;
@@ -69,20 +54,20 @@ body a {
     -ms-transition: 0.5s all;
 }
 
-h1 {
+#logo h1 {
     font-size: 50px;
     font-weight: 700;
-
     letter-spacing: 2px;
     margin: 100px auto;
 }
 
-.w3layoutscontaineragileits {
+.content {
     width: 25%;
+    top: 50%;
     margin: 0 auto;
 }
 
-h2 {
+#logo h2 {
     font-size: 40px;
     font-weight: 100;
     margin-bottom: 30px;
@@ -154,7 +139,7 @@ ul.agileinfotickwthree li input[type="checkbox"]:checked+label span:first-child:
     height: 10px;
 }
 
-ul.agileinfotickwthree li{
+ul.agileinfotickwthree li {
     margin-left: 15px;
 }
 
@@ -224,23 +209,19 @@ ul.agileinfotickwthree li{
 .w3footeragile p a:hover {
     color: #FFEB3B;
 }
-.aitssendbuttonw3ls input{
+
+.aitssendbuttonw3ls input {
     margin-left: 97px;
 }
+
+
 /*-- Index-Page-Styling --*/
-
-
-
 
 
 /*--- Responsive Code ---*/
 
-
-
-
-
 @media screen and (max-width: 1440px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 30%;
     }
 }
@@ -255,7 +236,7 @@ ul.agileinfotickwthree li{
 }
 
 @media screen and (max-width: 1280px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 35%;
     }
 }
@@ -265,7 +246,7 @@ ul.agileinfotickwthree li{
         font-size: 45px;
         margin: 50px auto;
     }
-    .w3layoutscontaineragileits {
+    .content {
         width: 40%;
     }
     .w3footeragile {
@@ -274,25 +255,25 @@ ul.agileinfotickwthree li{
 }
 
 @media screen and (max-width: 900px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 42%;
     }
 }
 
 @media screen and (max-width: 853px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 45%;
     }
 }
 
 @media screen and (max-width: 800px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 48%;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 50%;
     }
 }
@@ -302,7 +283,7 @@ ul.agileinfotickwthree li{
         font-size: 40px;
         margin: 40px auto;
     }
-    .w3layoutscontaineragileits {
+    .content {
         width: 51%;
     }
     h2 {
@@ -316,7 +297,7 @@ ul.agileinfotickwthree li{
 }
 
 @media screen and (max-width: 667px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 52%;
     }
 }
@@ -325,19 +306,19 @@ ul.agileinfotickwthree li{
     h1 {
         margin: 35px auto;
     }
-    .w3layoutscontaineragileits {
+    .content {
         width: 55%;
     }
 }
 
 @media screen and (max-width: 603px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 56%;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 60%;
     }
 }
@@ -362,7 +343,6 @@ ul.agileinfotickwthree li{
         background: url("../img/mail.png") no-repeat 13px 8px;
         background-size: 20px;
     }
-
     .inputpass2 {
         background: url("../img/password.png") no-repeat 13px 7px;
         background-size: 20px;
@@ -390,7 +370,7 @@ ul.agileinfotickwthree li{
 }
 
 @media screen and (max-width: 480px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 65%;
     }
     .aitssendbuttonw3ls {
@@ -409,7 +389,7 @@ ul.agileinfotickwthree li{
 }
 
 @media screen and (max-width: 414px) {
-    .w3layoutscontaineragileits {
+    .content {
         width: 70%;
     }
     inputtextpass3 {
@@ -421,7 +401,7 @@ ul.agileinfotickwthree li{
     h1 {
         letter-spacing: 0;
     }
-    .w3layoutscontaineragileits {
+    .content {
         width: 75%;
     }
 }
@@ -434,17 +414,40 @@ ul.agileinfotickwthree li{
     h2 {
         font-size: 27px;
     }
-    .w3layoutscontaineragileits {
+    .content {
         width: 85%;
     }
 }
 
-.deletebutton{
+.deletebutton {
     margin-bottom: 20px;
     text-align: center;
 }
-.deletep
-{
+
+.deletep {
     text-align: center;
 }
+
+
 /*--- Responsive Code ---*/
+
+#login {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../img/back.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    font-family: 'Roboto', sans-serif;
+}
+
+#login {
+    color: white;
+}

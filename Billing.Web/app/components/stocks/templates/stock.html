@@ -7,7 +7,7 @@
 </div>
 
 <div class="row">
-    <table class="table table-hover">
+    <table class="table table-hover table-striped table-bordered">
         <thead>
         <tr>
             <th>ID</th>
@@ -19,11 +19,11 @@
         </thead>
         <tbody>
         <tr ng-repeat="item in stocks ">
-            <td class="col-md-2">{{ item.id }}</td>
-            <td class="col-md-4">{{ item.product.name }}</td>
-            <td class="col-md-2">{{ item.input }}</td>
-            <td class="col-md-2">{{ item.output }}</td>
-            <td class="col-md-2">{{ item.inventory }}</td>
+            <td>{{ item.id }}</td>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.input }}</td>
+            <td>{{ item.output }}</td>
+            <td>{{ item.inventory }}</td>
         </tr>
         </tbody>
     </table>

@@ -9,7 +9,7 @@
 <hr>
 
 <div class="row">
-    <table class="table table-hover">
+    <table class="table table-hover table-striped table-bordered">
         <thead>
         <tr>
             <th>ID</th>
@@ -21,11 +21,11 @@
         </thead>
         <tbody>
         <tr ng-repeat="item in towns">
-            <td class="col-md-2">{{ item.id }}</td>
-            <td class="col-md-2">{{ item.name }}</td>
-            <td class="col-md-2">{{ item.zip }}</td>
-            <td class="col-md-4">{{ item.region }}</td>
-            <td admin-access class="col-md-2">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.zip }}</td>
+            <td>{{ item.region }}</td>
+            <td admin-access >
                 <button ng-click="edit(item)" class="btn btn-success">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </button>

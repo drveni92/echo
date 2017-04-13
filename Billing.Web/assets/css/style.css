@@ -320,6 +320,12 @@
     margin-top: 20px;
 }
 
+.agent-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-top: 4px;
+}
 
 /* Display data */
 

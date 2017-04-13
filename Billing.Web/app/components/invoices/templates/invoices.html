@@ -28,7 +28,7 @@
                 <td>{{ item.agent.name }}</td>
                 <td class="col-md-3">{{ item.customer.name }}</td>
                 <td>
-                    <button ng-class="{'btn btn-danger': item.status == -1, 'btn btn-warning': (item.status < 2 && item.status > -1), 'btn btn-primary': (item.status < 4 && item.status > 1), 'btn btn-success': (item.status < 8 && item.status > 3)}" ng-click="nextState(item)">
+                    <button style="width: 100%;" ng-class="{'btn btn-danger': item.status == -1, 'btn btn-warning': (item.status < 2 && item.status > -1), 'btn btn-primary': (item.status < 4 && item.status > 1), 'btn btn-success': (item.status < 8 && item.status > 3)}" ng-click="nextState(item)">
                         {{ states[item.status + 1] }}
                     </button>
                 </td>
@@ -40,11 +40,11 @@
                     <a admin-access owner="item.agent.id" href="#/invoices/{{item.id}}" class="btn btn-default ">
                         <i class="fa fa-pencil-square-o " aria-hidden="true "></i>
                     </a>
-                    <button admin-access ng-click="delete(item) " class="btn btn-default ">
-                        <i class="fa fa-trash-o " aria-hidden="true "></i>
-                    </button>
                     <button ng-click="show_history(item)" class="btn btn-default ">
                         <i class="fa fa-file-text-o " aria-hidden="true "></i>
+                    </button>
+                    <button admin-access ng-click="delete(item) " class="btn btn-default ">
+                        <i class="fa fa-trash-o " aria-hidden="true "></i>
                     </button>
                 </td>
             </tr>

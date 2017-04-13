@@ -9,8 +9,8 @@
             return {
                 next: function(dataSet, callback) {
                     $http.get(source + dataSet)
-                        .then(function success(data) {
-                            return callback(data);
+                        .then(function success(response) {
+                            return callback(response.data);
                         }, function error(error) {
                             ToasterService.pop('error', "Error", error.data.message);
                         });

@@ -22,7 +22,9 @@
         <tr ng-repeat="item in agents">
             <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
-            <td><div  ng-repeat="town in item.towns"> {{town.name}}</div></td>
+            <td class="col-sm-5">
+                <div class="town-wrapper" ng-repeat="town in item.towns">{{town.name}}</div>
+            </td>
             <td class="col-md-2">
                 <button ng-click="edit(item)"  data-toggle="modal" class="btn btn-success">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

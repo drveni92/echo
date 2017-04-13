@@ -1,12 +1,25 @@
-<div class="modal-header">
-    <h3 class="modal-title" id="modal-title">Detele invoice and all items</h3>
-</div>
-<div class="modal-body" id="modal-body">
-    <div class="row" style="padding: 20px;">
+<div class="modal-header ">
+    <div class="ui icon header deletebutton">
+        <i class="trash icon"></i>
         Delete {{$modal.data.invoiceNo}} ?
     </div>
+    <div class="content">
+        <p class="deletep" >Do you really want to delete this invoice?</p>
+    </div>
+    <br><br>
+    <div >
+
+        <div class="col-xs-4"></div>
+        <div class="col-xs-2">
+            <button type="button" class="btn btn-success btn-outline btn-lg" ng-click="$modal.ok()">Yes</button>
+
+
+        </div>
+        <div class="col-xs-2">
+
+        <button type="button" class="btn btn-danger btn-outline btn-lg" ng-click="$modal.cancel()"> No</button>
+        </div>
+
+    </div>
 </div>
-<div class="modal-footer">
-    <button class="btn btn-danger" type="button" ng-click="$modal.ok()">Delete</button>
-    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
-</div>
+

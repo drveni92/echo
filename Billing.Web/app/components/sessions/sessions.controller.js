@@ -17,6 +17,8 @@
                             }
                         }).then(function(response) {
                             credentials = response.data;
+                            document.body.style.background = "#fff";
+
                             localStorageService.cookie.set("Billing", credentials.remember, BillingConfig.ExpirationDate);
                             $rootScope.currentUser = credentials.currentUser.name;
                             redirectTo = (redirectTo == "/logout") ? BillingConfig.DefaultRoute : redirectTo;
@@ -30,7 +32,6 @@
                 });
 
             $scope.login = function() {
-
                 $http.defaults.headers.common.Authorization = "Basic " + SessionService.encode($scope.user.name + ":" + $scope.user.pass);
                 var promise = $http({
                     method: "post",
@@ -45,6 +46,8 @@
                     function(response) {
                         credentials = response.data;
                         $rootScope.currentUser = credentials.currentUser.name;
+                        document.body.style.background = "#fff";
+
                         if ($scope.user.remember) {
                             localStorageService.cookie.set("Billing", credentials.remember, BillingConfig.ExpirationDate);
                         }

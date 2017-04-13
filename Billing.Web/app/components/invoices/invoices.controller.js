@@ -3,7 +3,7 @@
         .module("Billing")
         .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', function($scope, $uibModal, DataFactory, InvoicesService, ToasterService) {
             $scope.states = BillingConfig.states;
-            $scope.maxPagination = BillingConfig.maxPagination
+            $scope.maxPagination = BillingConfig.maxPagination;
             $scope.userId = credentials.currentUser.id;
 
             function ListInvoices(page) {

@@ -75,8 +75,32 @@
             };
 
             $scope.delete = function(agent) {
-                DataFactory.delete("agents", agent.id, function(data) { ListAgents(); });
-            };
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'app/components/agents/templates/delete.html',
+                    controller: 'ModalInstanceController',
+                    controllerAs: '$modal',
+                    resolve: {
+                        data: function() {
+                            return agent
+                        },
+                        options: function() {
+                            return []
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function(agent) {
+                    DataFactory.delete("agents", agent.id, function(data) {
+                        ToasterService.pop('success', "Success", "Agent deleted");
+                        ListAgents();
+                    });
+                }, function() {
+                    console.log('Modal dismissed at: ' + new Date());
+                });
+            }
 
         }]);
 }());

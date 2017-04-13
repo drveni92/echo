@@ -34,7 +34,7 @@
                     <div class="form-group" ng-class="{ 'has-error' : new_invoice.customer.$invalid && !new_invoice.customer.$pristine }">
                         <label class="control-label col-sm-3" for="customer">Customer:</label>
                         <div class="col-sm-5">
-                            <input name="customer" required type="text" ng-model="invoice.customer" placeholder="Search for customer" uib-typeahead="searchCustomer as searchCustomer.name for searchCustomer in getCustomers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                            <input name="customer" required type="text" ng-model="invoice.customer" placeholder="Search for customer" typeahead-wait-ms="1000" uib-typeahead="searchCustomer as searchCustomer.name for searchCustomer in getCustomers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
                             <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                         </div>
                         <div class="col-sm-4">
@@ -45,7 +45,7 @@
                     <div class="form-group" ng-class="{ 'has-error' : new_invoice.shipper.$invalid && !new_invoice.shipper.$pristine }">
                         <label class="control-label col-sm-3" for="shipper">Shipper:</label>
                         <div class="col-sm-5">
-                            <input type="text" name="shipper" ng-model="invoice.shipper" placeholder="Search for shipper" uib-typeahead="searchShipper as searchShipper.name for searchShipper in getShippers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResultsShippers">
+                            <input type="text" name="shipper" ng-model="invoice.shipper" placeholder="Search for shipper" uib-typeahead="searchShipper as searchShipper.name for searchShipper in getShippers($viewValue)" typeahead-wait-ms="1000" class="form-control" typeahead-min-length="2" typeahead-no-results="noResultsShippers">
                             <span ng-show="noResultsShippers" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                         </div>
                         <div class="col-sm-4">

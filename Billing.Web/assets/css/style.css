@@ -1,3 +1,5 @@
+html,body { height: 100%; margin: 0px; padding: 0px; }
+
 body a {
     transition: 0.5s all;
     -webkit-transition: 0.5s all;

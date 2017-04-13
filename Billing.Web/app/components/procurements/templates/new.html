@@ -28,7 +28,7 @@
             <div class="form-group" ng-class="{ 'has-error' : new_procurement.supplier.$invalid && !new_customer.supplier.$pristine }">
                 <label class="control-label col-sm-2" for="supplier">Supplier:</label>
                 <div class="col-sm-10">
-                    <input name="supplier" required type="text" ng-model="$modal.data.supplier" placeholder="Search for supplier" uib-typeahead="searchSupplier as searchSupplier.name for searchSupplier in $modal.getSuppliers($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                    <input name="supplier" required type="text" ng-model="$modal.data.supplier" placeholder="Search for supplier" uib-typeahead="searchSupplier as searchSupplier.name for searchSupplier in $modal.getSuppliers($viewValue)" class="form-control" typeahead-wait-ms="1000" typeahead-min-length="2" typeahead-no-results="noResults">
                     <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                     <p ng-show="new_procurement.supplier.$invalid && !new_procurement.supplier.$pristine" class="help-block">Procurement supplier is required.</p>
                 </div>
@@ -37,7 +37,7 @@
             <div class="form-group" ng-class="{ 'has-error' : new_procurement.product.$invalid && !new_customer.product.$pristine }">
                 <label class="control-label col-sm-2" for="product">Product:</label>
                 <div class="col-sm-10">
-                    <input name="product" required type="text" ng-model="$modal.data.product" placeholder="Search for product" uib-typeahead="searchProduct as searchProduct.name for searchProduct in $modal.getProducts($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                    <input name="product" required type="text" ng-model="$modal.data.product" placeholder="Search for product" uib-typeahead="searchProduct as searchProduct.name for searchProduct in $modal.getProducts($viewValue)" class="form-control" typeahead-wait-ms="1000" typeahead-min-length="2" typeahead-no-results="noResults">
                     <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
                     <p ng-show="new_procurement.product.$invalid && !new_procurement.product.$pristine" class="help-block">Procurement product is required.</p>
                 </div>

@@ -1,22 +1,23 @@
-
 <div id="login">
-    <h1>SLEEK LOGIN FORM</h1>
-    <h2>Log in to your Account</h2>
     <div class="content">
-        <form ng-submit="login()">
-            <input type="text" class="inputbuttonsumbit inputtextpassword inputext inputtextpassword2 inputtext2 inputtextpass3 " id="username" name="username" placeholder="Username" ng-model="user.name" ng-init="user.name='marlon'" value="marlon" required>
-            <input type="password" class="inputbuttonsumbit inputtextpassword inputpass inputtextpassword2 inputpass2 inputtextpass3" id="password" name="password" placeholder="Password" ng-model="user.pass" ng-init="user.pass='billing'" value="billing" required>
-            <ul class="agileinfotickwthree">
-                <li>
-                    <input type="checkbox" class="inputbuttonsumbit" type="checkbox" id="remember_me" name="remember" ng-model="user.remember" value="">
-                    <label for="remember_me"><span></span>Keep me logged in</label>
-                </li>
-            </ul>
-            <div class="aitssendbuttonw3ls">
-                <input class="inputbuttonsumbit inputsumbit inputsumbit2" ng-disabled="form.$invalid || vm.dataLoading" type="submit" value="LOGIN">
-                <div class="clear"></div>
-            </div>
-        </form>
+        <h1>SLEEK LOGIN FORM</h1>
+        <h2>Log in to your Account</h2>
+        <div class="login-form">
+            <form ng-submit="login()">
+                <input type="text" class="inputbuttonsumbit inputtextpassword inputext inputtextpassword2 inputtext2 inputtextpass3 " id="username" name="username" placeholder="Username" ng-model="user.name" ng-init="user.name='marlon'" value="marlon" required>
+                <input type="password" class="inputbuttonsumbit inputtextpassword inputpass inputtextpassword2 inputpass2 inputtextpass3" id="password" name="password" placeholder="Password" ng-model="user.pass" ng-init="user.pass='billing'" value="billing" required>
+                <ul class="agileinfotickwthree">
+                    <li>
+                        <input type="checkbox" class="inputbuttonsumbit" type="checkbox" id="remember_me" name="remember" ng-model="user.remember" value="">
+                        <label for="remember_me"><span></span>Keep me logged in</label>
+                    </li>
+                </ul>
+                <div class="aitssendbuttonw3ls">
+                    <input class="inputbuttonsumbit inputsumbit inputsumbit2" ng-disabled="form.$invalid || vm.dataLoading" type="submit" value="LOGIN">
+                    <div class="clear"></div>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="w3footeragile">
         <p> &copy; 2017 Gigi's school. All Rights Reserved | Design by team ECHO</p>

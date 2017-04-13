@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .controller('InvoicesNewController', ['$scope', '$uibModal', '$route', '$routeParams', 'DataFactory', 'ToasterService', function($scope, $uibModal, $route, $routeParams, DataFactory, ToasterService) {
+        .controller('InvoicesNewController', ['$scope', '$uibModal', '$route', '$routeParams', 'DataFactory', 'ToasterService', '$location', function($scope, $uibModal, $route, $routeParams, DataFactory, ToasterService, $location) {
             $scope.states = BillingConfig.states;
 
             $scope.active = 0;
@@ -143,6 +143,7 @@
                             $scope.invoice = data;
                             $scope.invoice.date = new Date(data.date);
                             ToasterService.pop('success', "Success", "Invoice added");
+                            $location.path ('/invoice/'+ data.id);
                         }
                     });
                 } else {
@@ -151,9 +152,11 @@
                             $scope.invoice = data;
                             $scope.invoice.date = new Date(data.date);
                             ToasterService.pop('success', "Success", "Invoice saved");
+                            $location.path ('/invoice/'+ data.id);
                         }
                     });
                 }
+
             };
         }])
 }());

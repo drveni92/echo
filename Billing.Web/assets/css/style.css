@@ -20,7 +20,7 @@ body a {
 }
 
 .success_status {
-    background-color: #337ab7;
+    background-color: #5cb85c;
     margin-left: 60px;
     margin-right: 60px;
     border-radius: 5px
@@ -34,7 +34,7 @@ body a {
 }
 
 .normal_status {
-    background-color: #5cb85c;
+    background-color: #337ab7;
     margin-left: 60px;
     margin-right: 60px;
     border-radius: 5px

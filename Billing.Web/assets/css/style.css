@@ -341,6 +341,16 @@ thead {
     color: white;
 }
 
+table tbody tr td {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+table thead tr th {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
 .loading {
     position: fixed;
     z-index: 999;

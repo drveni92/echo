@@ -15,7 +15,7 @@
     redirectTo = '/';
 
     function authenticated() {
-        if (credentials == null) return false;
+        if (credentials === null) return false;
         return (credentials.currentUser.id != 0);
     };
 

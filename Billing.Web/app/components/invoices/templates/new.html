@@ -78,7 +78,7 @@
         </uib-tab-heading>
         <div class="row">
             <div class="col-md-4">
-                <input type="text" ng-model="selectedItem" placeholder="Search for product" uib-typeahead="searchProduct as searchProduct.name for searchProduct in getProducts($viewValue)" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
+                <input type="text" ng-model="selectedItem" placeholder="Search for product" uib-typeahead="searchProduct as searchProduct.name for searchProduct in getProducts($viewValue)" typeahead-wait-ms="500" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults">
                 <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
             </div>
             <div class="col-md-8">
@@ -95,10 +95,10 @@
                         <div class="form-group" ng-class="{ 'has-error' : add_product.quantity.$invalid && !add_product.quantity.$pristine }">
                             <label class="control-label col-sm-2" for="quantity">Quantity:</label>
                             <div class="col-sm-6">
-                                <input type="number" name="quantity" ng-max="selectedItem.stock.inventory" min="1" ng-model="selectedItem.quantity" class="form-control">
+                                <input type="number" name="quantity" min="1" ng-model="selectedItem.quantity" class="form-control">
                             </div>
                             <div class="col-sm-4">
-                                <p ng-show="add_product.quantity.$invalid && !add_product.quantity.$pristine" class="help-block">Maximum quantity is {{ selectedItem.stock.inventory }}</p>
+                                <p ng-show="add_product.quantity.$invalid && !add_product.quantity.$pristine" class="help-block">Minimum quantity is 0</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' : add_product.price.$invalid && !add_product.price.$pristine }">

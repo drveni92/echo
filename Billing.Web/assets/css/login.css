@@ -45,7 +45,6 @@ body a {
     -ms-transition: 0.5s all;
     text-decoration: none;
 }
-
 .inputbuttonsumbit {
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
@@ -54,7 +53,9 @@ body a {
     -ms-transition: 0.5s all;
 }
 
+
 #logo h1 {
+
     font-size: 50px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -66,6 +67,7 @@ body a {
     top: 50%;
     margin: 0 auto;
 }
+
 
 #logo h2 {
     font-size: 40px;
@@ -227,7 +229,7 @@ ul.agileinfotickwthree li {
 }
 
 @media screen and (max-width: 1366px) {
-    h1 {
+    .h21ogin {
         margin: 75px auto;
     }
     .w3footeragile {
@@ -242,7 +244,7 @@ ul.agileinfotickwthree li {
 }
 
 @media screen and (max-width: 1024px) {
-    h1 {
+    .h11ogin {
         font-size: 45px;
         margin: 50px auto;
     }
@@ -279,14 +281,14 @@ ul.agileinfotickwthree li {
 }
 
 @media screen and (max-width: 736px) {
-    h1 {
+    .h11ogin {
         font-size: 40px;
         margin: 40px auto;
     }
     .content {
         width: 51%;
     }
-    h2 {
+    .h21ogin {
         font-size: 35px;
     }
     .aitssendbuttonw3ls p {
@@ -303,7 +305,7 @@ ul.agileinfotickwthree li {
 }
 
 @media screen and (max-width: 640px) {
-    h1 {
+    .h11ogin {
         margin: 35px auto;
     }
     .content {
@@ -324,11 +326,11 @@ ul.agileinfotickwthree li {
 }
 
 @media screen and (max-width: 568px) {
-    h1 {
+    .h11ogin {
         font-size: 35px;
         margin: 25px auto;
     }
-    h2 {
+    .h21ogin {
         font-size: 30px;
     }
     .inputtextpassword2 {
@@ -398,7 +400,7 @@ ul.agileinfotickwthree li {
 }
 
 @media screen and (max-width: 384px) {
-    h1 {
+    .h11ogin {
         letter-spacing: 0;
     }
     .content {
@@ -407,11 +409,11 @@ ul.agileinfotickwthree li {
 }
 
 @media screen and (max-width: 320px) {
-    h1 {
+    .h11ogin {
         font-size: 32px;
         font-weight: 500;
     }
-    h2 {
+    .h21ogin {
         font-size: 27px;
     }
     .content {
@@ -422,11 +424,51 @@ ul.agileinfotickwthree li {
 .deletebutton {
     margin-bottom: 20px;
     text-align: center;
+
 }
 
 .deletep {
     text-align: center;
 }
+
+
+.w3layoutscontaineragileits {
+    -webkit-animation: fadein 4s; /* Safari and Chrome */
+    -moz-animation: fadein 2.5s; /* Firefox */
+    -ms-animation: fadein 2.5s; /* Internet Explorer */
+    -o-animation: fadein 2.5s; /* Opera */
+    animation: fadein 2.5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}​
+
+/* Opera */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}​
+/*--- Responsive Code ---*/
 
 
 /*--- Responsive Code ---*/
@@ -451,3 +493,4 @@ ul.agileinfotickwthree li {
 #login {
     color: white;
 }
+

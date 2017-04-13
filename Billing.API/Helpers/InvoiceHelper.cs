@@ -90,7 +90,8 @@ namespace Billing.API.Helpers
                 if (Item.Product.Stock.Inventory < Item.Quantity)
                 {
                     Invoice.Status = Status.InvoiceOnHold;
-                    break;
+                    //break;
+                    throw new Exception("Not enough items in stock");
                 }
             }
         }
@@ -103,7 +104,8 @@ namespace Billing.API.Helpers
                 if (Item.Product.Stock.Inventory < Item.Quantity)
                 {
                     Invoice.Status = Status.InvoiceOnHold;
-                    break;
+                    //break;
+                    throw new Exception("Not enough items in stock");
                 }
             }
         }

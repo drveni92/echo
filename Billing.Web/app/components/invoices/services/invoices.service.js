@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .service('InvoicesService', ['$http', function($http) {
+        .service('InvoicesService', ['$http', 'ToasterService', function($http, ToasterService) {
             var source = BillingConfig.source;
             $http.defaults.headers.common.Token = credentials.token;
             $http.defaults.headers.common.ApiKey = BillingConfig.apiKey;
@@ -9,11 +9,10 @@
             return {
                 next: function(dataSet, callback) {
                     $http.get(source + dataSet)
-                        .success(function(data, status, headers) {
+                        .then(function success(data) {
                             return callback(data);
-                        })
-                        .error(function(error) {
-                            return callback(false);
+                        }, function error(error) {
+                            ToasterService.pop('error', "Error", error.data.message);
                         });
                 }
             };

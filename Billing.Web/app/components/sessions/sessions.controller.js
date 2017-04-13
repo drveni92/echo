@@ -31,7 +31,9 @@
                 }, function(reason) {
                     console.log(reason);
                 });
-
+            $( document ).ready(function() {
+                $( ".w3layoutscontaineragileits" ).hide().fadeIn( "slow" );
+            });
             $scope.login = function() {
                 $http.defaults.headers.common.Authorization = "Basic " + SessionService.encode($scope.user.name + ":" + $scope.user.pass);
                 var promise = $http({

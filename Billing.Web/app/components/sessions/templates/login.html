@@ -1,40 +1,26 @@
-<div class="container">
-    <div id="login-box">
-        <div class="logo">
-            <img id="logo" src="assets/img/logo.png" />
-            <h1 class="logo-caption"><span class="tweak">L</span>ogin</h1>
+<h1>SLEEK LOGIN FORM</h1>
+
+<h2>Log in to your Account</h2>
+<div class="w3layoutscontaineragileits">
+    <form ng-submit="login()">
+        <input type="text" class="inputbuttonsumbit inputtextpassword inputext inputtextpassword2 inputtext2 inputtextpass3 " id="username" name="username" placeholder="Username"  ng-model="user.name" ng-init="user.name='marlon'" value="marlon" required>
+
+        <input type="password" class="inputbuttonsumbit inputtextpassword inputpass inputtextpassword2 inputpass2 inputtextpass3" id="password" name="password" placeholder="Password" ng-model="user.pass" ng-init="user.pass='billing'" value="billing" required>
+
+
+        <ul class="agileinfotickwthree">
+            <li>
+                <input type="checkbox" class="inputbuttonsumbit" type="checkbox" id="remember_me" name="remember" ng-model="user.remember" value="">
+                <label for="remember_me"><span></span>Keep me logged in</label>
+            </li>
+        </ul>
+        <div class="aitssendbuttonw3ls">
+            <input class="inputbuttonsumbit inputsumbit inputsumbit2" ng-disabled="form.$invalid || vm.dataLoading" type="submit" value="LOGIN">
+            <div class="clear"></div>
         </div>
-        <!-- /.logo -->
-        <form class="controls" id="loginForm" name="form" ng-submit="form.$valid && login()">
-            <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-                <input type="text" id="username" name="username" placeholder="Username" class="form-control" ng-model="user.name" ng-init="user.name='marlon'" value="marlon" required>
-                <span ng-show="form.username.$dirty && form.username.$error.required" class="fa fa-info-circle errspan" data-toggle="tooltip" title="Enter your username"></span>
-            </div>
-            <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-                <input type="password" id="password" name="password" placeholder="Password" class="form-control" ng-model="user.pass" ng-init="user.pass='billing'" value="billing" required>
-                <span ng-show="form.password.$dirty && form.password.$error.required" class="fa fa-info-circle errspan" data-toggle="tooltip" title="Enter your password"></span>
-            </div>
-            <div class="form-group" style="text-align: center;">
-                <input type="checkbox" id="remember_me" name="remember" ng-model="user.remember">
-                <div class="btn-group">
-                    <label for="remember_me" class="btn btn-default">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <span> </span>
-                    </label>
-                    <label for="remember_me" class="btn btn-default active">
-                        Remember me ?
-                    </label>
-                </div>
-            </div>
-            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary btn-block btn-custom">Login</button>
-            <div ng-if="loginError != null" id="logError" class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{loginError}}
-            </div>
-        </form>
-        <!-- /.controls -->
-    </div>
-    <!-- /#login-box -->
+    </form>
 </div>
-<!-- /.container -->
-<div id="particles-js"></div>
-<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>-->
+
+<div class="w3footeragile">
+    <p> &copy; 2017 Gigi's school. All Rights Reserved | Design by team ECHO</p>
+</div>

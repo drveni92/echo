@@ -7,29 +7,33 @@ body a {
     text-decoration: none;
 }
 
+
 /* Login - end */
 
 .danger_status {
     background-color: #d9534f;
-    margin-left:60px;
+    margin-left: 60px;
     margin-right: 60px;
     border-radius: 5px
 }
+
 .success_status {
     background-color: #337ab7;
-    margin-left:60px;
+    margin-left: 60px;
     margin-right: 60px;
     border-radius: 5px
 }
+
 .warning_status {
-    background-color:#ec971f;
-    margin-left:60px;
+    background-color: #ec971f;
+    margin-left: 60px;
     margin-right: 60px;
     border-radius: 5px
 }
+
 .normal_status {
     background-color: #5cb85c;
-    margin-left:60px;
+    margin-left: 60px;
     margin-right: 60px;
     border-radius: 5px
 }
@@ -202,6 +206,7 @@ body a {
     margin-top: 4px;
 }
 
+
 /* Display data */
 
 .item-name {
@@ -270,28 +275,33 @@ body a {
     display: none;
 }
 
- ul { list-style-type: none; }
+ul {
+    list-style-type: none;
+}
 
- #addtowns{
-     padding-left: 10px;
- }
- .addtowns2{
-     width: 350px;
-     margin-right: 24px;
-     margin-bottom: 1px;
- }
- .addtowns3{
-     padding-left: 0px;
- }
- .addtownsbutton{
-     margin-top: 15px;
- }
+#addtowns {
+    padding-left: 10px;
+}
 
- #townaddlabel{
-     padding-top: 22px;
-     padding-right: 6px;
-     padding-top: 25px;
- }
+.addtowns2 {
+    width: 350px;
+    margin-right: 24px;
+    margin-bottom: 1px;
+}
+
+.addtowns3 {
+    padding-left: 0px;
+}
+
+.addtownsbutton {
+    margin-top: 15px;
+}
+
+#townaddlabel {
+    padding-top: 22px;
+    padding-right: 6px;
+    padding-top: 25px;
+}
 
 .dl-item-sm {
     float: left;
@@ -667,14 +677,14 @@ table thead tr th {
     opacity: 0;
 }
 
-
-.pagination-center{
+.pagination-center {
     text-align: center;
 }
 
 .bs-example {
     margin: 20px;
 }
+
 
 /*Bootstrap button outline override*/
 
@@ -710,4 +720,15 @@ table thead tr th {
 .btn-warning.btn-outline:hover,
 .btn-danger.btn-outline:hover {
     color: #fff;
+}
+
+.town-wrapper {
+    cursor: pointer;
+    background: #efefef;
+    border-color: #ebebeb;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #9E9E9E;
+    border-radius: 10px;
 }

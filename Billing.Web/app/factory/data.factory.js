@@ -17,7 +17,7 @@
                     .then(function success(response) {
                         return callback(response.data);
                     }, function error(error) {
-                        ToasterService.pop('error', "Error", error.statusText);
+                        ToasterService.pop('error', "Error", error.data.message);
                     });
 
             },
@@ -27,7 +27,7 @@
                     .then(function success(response) {
                         return callback(response.data);
                     }, function error(error) {
-                        ToasterService.pop('error', "Error", error.statusText);
+                        ToasterService.pop('error', "Error", error.data.message);
                     });
             },
 
@@ -36,7 +36,7 @@
                     .then(function success(response) {
                         return callback(response.data);
                     }, function error(error) {
-                        ToasterService.pop('error', "Error", error.statusText);
+                        ToasterService.pop('error', "Error", error.data.message);
                     });
             },
 
@@ -45,7 +45,7 @@
                     .then(function success(response) {
                         return callback(response.data);
                     }, function error(error) {
-                        ToasterService.pop('error', "Error", error.statusText);
+                        ToasterService.pop('error', "Error", error.data.message);
                     });
             },
 
@@ -54,7 +54,7 @@
                     .then(function success(response) {
                         return callback(response.data);
                     }, function error(error) {
-                        ToasterService.pop('error', "Error", error.statusText);
+                        ToasterService.pop('error', "Error", error.data.message);
                     });
             }
         };

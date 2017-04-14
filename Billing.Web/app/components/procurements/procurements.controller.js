@@ -54,8 +54,6 @@ angular
         };
 
         $scope.show = function(procurement) {
-            procurement.date = new Date(procurement.date);
-
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',

@@ -35,11 +35,7 @@
                 for (var i = $scope.invoice.items.length - 1; i >= 0; i--) {
                     if ($scope.invoice.items[i].product.name === item.name && $scope.invoice.items[i].price === item.price) {
                         exists = true;
-                        if ($scope.invoice.items[i].quantity + item.quantity > item.stock.inventory) {
-                            console.log(item.stock.inventory - $scope.invoice.items[i].quantity);
-                        } else {
-                            $scope.invoice.items[i].quantity += item.quantity;
-                        }
+                        $scope.invoice.items[i].quantity += item.quantity;
                     }
                 }
                 if (!exists) {
@@ -143,7 +139,7 @@
                             $scope.invoice = data;
                             $scope.invoice.date = new Date(data.date);
                             ToasterService.pop('success', "Success", "Invoice added");
-                            $location.path ('/invoice/'+ data.id);
+                            $location.path('/invoice/' + data.id);
                         }
                     });
                 } else {
@@ -152,7 +148,7 @@
                             $scope.invoice = data;
                             $scope.invoice.date = new Date(data.date);
                             ToasterService.pop('success', "Success", "Invoice saved");
-                            $location.path ('/invoice/'+ data.id);
+                            $location.path('/invoice/' + data.id);
                         }
                     });
                 }

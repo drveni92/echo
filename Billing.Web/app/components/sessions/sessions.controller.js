@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .controller('LoginController', ['$scope', '$rootScope', '$http', '$location', 'SessionService', 'localStorageService', function($scope, $rootScope, $http, $location, SessionService, localStorageService) {
+        .controller('LoginController', ['$scope', '$rootScope', '$http', '$location', 'SessionService', 'localStorageService', 'ToasterService', function($scope, $rootScope, $http, $location, SessionService, localStorageService, ToasterService) {
             $http.get("config.json")
                 .then(function(response) {
                     BillingConfig = response.data;
@@ -23,11 +23,11 @@
                             redirectTo = (redirectTo == "/logout") ? BillingConfig.DefaultRoute : redirectTo;
                             $location.path(redirectTo);
                         }, function(reason) {
-                            console.log(reason);
+                            ToasterService.pop('error', "Error", "Username or password is incorrect");
                         });
                     }
                 }, function(reason) {
-                    console.log(reason);
+                    ToasterService.pop('error', "Error", reason);
                 });
             $( document ).ready(function() {
 
@@ -61,8 +61,9 @@
                     function(reason) {
                         document.getElementById('username').style.border = "2px solid #f00";
                         document.getElementById('password').style.border = "2px solid #f00";
-
-                        $scope.loginError = "Username or password is incorrect";
+                        
+                        ToasterService.pop('error', "Error", "Username or password is incorrect");
+                        
                         credentials = null;
                     });
             };

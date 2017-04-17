@@ -1,24 +1,12 @@
 (function() {
     angular
         .module("Billing")
-        .controller('InvoicesNewController', ['$scope', '$uibModal', '$route', '$routeParams', 'DataFactory', 'ToasterService', '$location', function($scope, $uibModal, $route, $routeParams, DataFactory, ToasterService, $location) {
+        .controller('InvoicesNewController', ['$scope', '$uibModal', '$route', '$routeParams', 'DataFactory', 'ToasterService', '$location', 'InvoicesFactory', function($scope, $uibModal, $route, $routeParams, DataFactory, ToasterService, $location, InvoicesFactory) {
             $scope.states = BillingConfig.states;
 
             $scope.active = 0;
 
-            $scope.invoice = {
-                id: 0,
-                invoiceNo: '',
-                date: new Date(),
-                shipping: 0,
-                agent: { id: 0, name: '' },
-                shipper: { id: 0, name: '' },
-                customer: { id: 0, name: '', address: '', town: { id: 0, name: '' } },
-                items: [],
-                subTotal: 0,
-                vat: 17,
-                vatAmout: 0
-            };
+            $scope.invoice = InvoicesFactory.empty();
 
             var invoiceId = $routeParams.id;
 
@@ -39,17 +27,7 @@
                     }
                 }
                 if (!exists) {
-                    $scope.invoice.items.unshift({
-                        id: 0,
-                        product: {
-                            id: item.id,
-                            name: item.name,
-                            unit: item.unit,
-                        },
-                        quantity: item.quantity,
-                        price: item.price,
-                        subTotal: item.quantity * item.price
-                    });
+                    $scope.invoice.items.unshift(InvoicesFactory.item(item));
                 }
                 ToasterService.pop('info', "Info", "Item added");
             };
@@ -72,7 +50,7 @@
             };
 
             $scope.setActieveTab = function(index) {
-                if (index === 2) $scope.invoicePrepare();
+                if (index === 2) $scope.invoice = InvoicesFactory.invoice($scope.invoice);
                 $scope.active = index;
             };
 
@@ -100,44 +78,11 @@
                     });
             }
 
-            $scope.invoicePrepare = function() {
-                var invoice = $scope.invoice;
-                if ($scope.invoice.agent.id != 0) {
-                    invoice.agent.id = $scope.invoice.agent.id;
-                    invoice.agent.name = $scope.invoice.agent.name;
-                } else {
-                    invoice.agent.id = credentials.currentUser.id;
-                    invoice.agent.name = credentials.currentUser.name;
-                }
-                invoice.shipper = {
-                    id: $scope.invoice.shipper.id,
-                    name: $scope.invoice.shipper.name
-                };
-                invoice.customer = {
-                    id: $scope.invoice.customer.id,
-                    name: $scope.invoice.customer.name,
-                    address: $scope.invoice.customer.address,
-                    town: {
-                        name: $scope.invoice.customer.town.name
-                    }
-                };
-                invoice.status = 0;
-                invoice.vat = 17;
-                invoice.subTotal = 0;
-                for (var i = invoice.items.length - 1; i >= 0; i--) {
-                    invoice.subTotal += invoice.items[i].subTotal;
-                }
-                invoice.vatAmount = invoice.subTotal * invoice.vat / 100;
-                invoice.total = invoice.subTotal + invoice.vatAmount + invoice.shipping;
-                $scope.invoice = invoice;
-            };
-
             $scope.save = function() {
                 if (invoiceId == null) {
                     DataFactory.insert("invoices", $scope.invoice, function(data) {
                         if (data) {
-                            $scope.invoice = data;
-                            $scope.invoice.date = new Date(data.date);
+                            $scope.invoice = InvoicesFactory.invoice(data);
                             ToasterService.pop('success', "Success", "Invoice added");
                             $location.path('/invoice/' + data.id);
                         }
@@ -145,8 +90,7 @@
                 } else {
                     DataFactory.update("invoices", $scope.invoice.id, $scope.invoice, function(data) {
                         if (data) {
-                            $scope.invoice = data;
-                            $scope.invoice.date = new Date(data.date);
+                            $scope.invoice = InvoicesFactory.invoice(data);
                             ToasterService.pop('success', "Success", "Invoice saved");
                             $location.path('/invoice/' + data.id);
                         }

@@ -332,10 +332,8 @@ ul {
 }
 
 .btn-add-items {
-    left: 47%;
-    width: 26%;
-    position: relative;
-    transform: translate(-50%);
+    float: right;
+    width: 20%;
 }
 
 .center-x {

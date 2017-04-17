@@ -11,46 +11,44 @@
 <hr>
 </div>
 <div class="row">
-    <div class="table-responsive">
-        <table class="table table-hover table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th> # </th>
-                    <th>Document</th>
-                    <th>Date</th>
-                    <th>Supplier</th>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                    <th admin-access>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in procurements">
-                    <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
-                    <td>{{ item.document }}</td>
-                    <td>{{ item.date | date:'yyyy-MM-dd' }}</td>
-                    <td class="col-md-2">{{ item.supplier.name }}</td>
-                    <td>{{ item.product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.price | currency }}</td>
-                    <td>{{ item.total | currency }}</td>
-                    <td admin-access>
-                        <a ng-click="show(item)" class="btn btn-info">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                        </a>
-                        <button ng-click="edit(item)" class="btn btn-success">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </button>
-                        <button ng-click="delete(item)" class="btn btn-danger">
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr>
+                <th> # </th>
+                <th>Document</th>
+                <th>Date</th>
+                <th>Supplier</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th admin-access>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in procurements">
+                <td>{{ $index + ((currentPage - 1) * 10) + 1 }}</td>
+                <td>{{ item.document }}</td>
+                <td>{{ item.date | date:'yyyy-MM-dd' }}</td>
+                <td class="col-md-2">{{ item.supplier.name }}</td>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price | currency }}</td>
+                <td>{{ item.total | currency }}</td>
+                <td admin-access>
+                    <a ng-click="show(item)" class="btn btn-info">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <button ng-click="edit(item)" class="btn btn-success">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                    <button ng-click="delete(item)" class="btn btn-danger">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div class="row pagination-center">
     <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>

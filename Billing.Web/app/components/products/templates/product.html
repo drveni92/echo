@@ -9,9 +9,8 @@
 <hr>
 </div>
 <div class="row">
-    <div class="table-responsive">
-        <table class="table table-hover table-striped table-bordered">
-            <thead>
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
             <tr>
                 <th> # </th>
                 <th>Name</th>
@@ -21,10 +20,10 @@
                 <th>Stock inventory</th>
                 <th admin-access>Action</th>
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             <tr ng-repeat="item in products">
-                <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
+                <td>{{ $index + ((currentPage - 1) * 10) + 1 }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.unit }}</td>
                 <td>{{ item.price | currency }}</td>
@@ -42,9 +41,8 @@
                     </button>
                 </td>
             </tr>
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
 </div>
 <div class="row pagination-center">
     <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>

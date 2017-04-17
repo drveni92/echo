@@ -34,8 +34,8 @@
                     <td class="col-md-2">{{ item.supplier.name }}</td>
                     <td>{{ item.product.name }}</td>
                     <td>{{ item.quantity }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>{{ item.total }}</td>
+                    <td>{{ item.price | currency }}</td>
+                    <td>{{ item.total | currency }}</td>
                     <td admin-access>
                         <a ng-click="show(item)" class="btn btn-info">
                             <i class="fa fa-eye" aria-hidden="true"></i>

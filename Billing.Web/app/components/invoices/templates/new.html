@@ -139,8 +139,8 @@
                         <td>{{ itemModel.product.name }}</td>
                         <td>{{ itemModel.product.unit }}</td>
                         <td>{{ itemModel.quantity }}</td>
-                        <td>{{ itemModel.price }}</td>
-                        <td>{{ itemModel.subTotal }}</td>
+                        <td>{{ itemModel.price | currency }}</td>
+                        <td>{{ itemModel.subTotal | currency }}</td>
                         <td>
                             <button ng-click="deleteItem(itemModel)" class="btn btn-danger">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -223,8 +223,8 @@
                         <td>{{ itemModel.product.name }}</td>
                         <td>{{ itemModel.product.unit }}</td>
                         <td>{{ itemModel.quantity }}</td>
-                        <td>{{ itemModel.price }}</td>
-                        <td>{{ itemModel.subTotal }}</td>
+                        <td>{{ itemModel.price | currency }}</td>
+                        <td>{{ itemModel.subTotal | currency }}</td>
                     </tr>
                 </tbody>
             </table>

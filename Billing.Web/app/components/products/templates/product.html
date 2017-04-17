@@ -27,7 +27,7 @@
                 <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.unit }}</td>
-                <td>{{ item.price }}</td>
+                <td>{{ item.price | currency }}</td>
                 <td>{{ item.category.name }}</td>
                 <td>{{ item.stock.inventory }}</td>
                 <td admin-access>

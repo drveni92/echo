@@ -99,6 +99,7 @@ namespace Billing.API.Controllers
         {
             try
             {
+                if (UnitOfWork.Categories.Get(id).Products.Count > 0) return BadRequest("Category contains products.");
                 UnitOfWork.Categories.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

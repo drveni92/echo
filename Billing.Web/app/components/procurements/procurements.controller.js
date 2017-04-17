@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('ProcurementsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
+    .controller('ProcurementsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'ProcurementsFactory', function($scope, $http, $uibModal, DataFactory, ToasterService, ProcurementsFactory) {
 
         $scope.maxPagination = BillingConfig.maxPagination
 
@@ -19,7 +19,6 @@ angular
         ListProcurements();
 
         $scope.new = function() {
-
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -29,21 +28,13 @@ angular
                 controllerAs: '$modal',
                 resolve: {
                     data: function() {
-                        return {
-                            id: 0,
-                            document: '',
-                            date: new Date(),
-                            product: { id: null, name: '' },
-                            supplier: { id: null, name: '' },
-                            quantity: null,
-                            price: null
-                        }
+                        return ProcurementsFactory.empty();
                     }
                 }
             });
 
             modalInstance.result.then(function(procurement) {
-                DataFactory.insert("procurements", procurement, function(data) {
+                DataFactory.insert("procurements", ProcurementsFactory.procurement(procurement), function(data) {
                     ToasterService.pop('success', "Success", "Procurement added");
                     ListProcurements();
                 });
@@ -73,9 +64,7 @@ angular
         };
 
         $scope.edit = function(procurement) {
-
             procurement.date = new Date(procurement.date);
-
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -91,7 +80,7 @@ angular
             });
 
             modalInstance.result.then(function(procurement) {
-                DataFactory.update("procurements", procurement.id, procurement, function(data) {
+                DataFactory.update("procurements", procurement.id, ProcurementsFactory.procurement(procurement), function(data) {
                     ToasterService.pop('success', "Success", "Procurement saved");
                     ListProcurements();
                 });

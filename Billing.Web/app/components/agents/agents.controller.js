@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .controller('AgentsController', ['$scope', '$http', '$uibModal', 'DataFactory', function($scope, $http, $uibModal, DataFactory) {
+        .controller('AgentsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'AgentsFactory', function($scope, $http, $uibModal, DataFactory, AgentsFactory) {
             $scope.maxPagination = BillingConfig.maxPagination
 
             function ListAgents() {
@@ -29,17 +29,12 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function() {
-                            return { id: 0, name: '', towns: [] }
+                            return AgentsFactory.empty();
                         }
                     }
                 });
                 modalInstance.result.then(function(agent) {
-                    var tempTowns = [];
-                    for (var i = agent.towns.length - 1; i >= 0; i--) {
-                        tempTowns.push({id: agent.towns[i].id, name: agent.towns[i].name});
-                    }
-                    agent.towns = tempTowns;
-                    DataFactory.insert("agents", agent, function(data) { ListAgents(); });
+                    DataFactory.insert("agents", AgentsFactory.agent(agent), function(data) { ListAgents(); });
                 }, function() {
                     console.log('Modal dismissed at: ' + new Date());
                 });
@@ -61,12 +56,7 @@
                     }
                 });
                 modalInstance.result.then(function(agent) {
-                    var tempTowns = [];
-                    for (var i = agent.towns.length - 1; i >= 0; i--) {
-                        tempTowns.push({id: agent.towns[i].id, name: agent.towns[i].name});
-                    }
-                    agent.towns = tempTowns;
-                    DataFactory.update("agents", agent.id, agent, function(data) {
+                    DataFactory.update("agents", agent.id, AgentsFactory.agent(agent), function(data) {
                         ListAgents();
                     });
                 }, function() {

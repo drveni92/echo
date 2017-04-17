@@ -207,7 +207,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Name</th>
                         <th>Unit</th>
                         <th>Quantity</th>
@@ -217,7 +216,6 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="itemModel in invoice.items">
-                        <td>{{ itemModel.id }}</td>
                         <td>{{ itemModel.product.name }}</td>
                         <td>{{ itemModel.product.unit }}</td>
                         <td>{{ itemModel.quantity }}</td>

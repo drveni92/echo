@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('ShippersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
+    .controller('ShippersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'ShippersFactory', function($scope, $http, $uibModal, DataFactory, ToasterService, ShippersFactory) {
 
         $scope.maxPagination = BillingConfig.maxPagination;
 
@@ -30,13 +30,13 @@ angular
                     controllerAs: '$modal',
                     resolve: {
                         data: function() {
-                            return { id: 0, name: '', address: '', town: { id: null, name: '' } }
+                            return ShippersFactory.empty();
                         }
                     }
                 });
 
                 modalInstance.result.then(function(shipper) {
-                    DataFactory.insert("shippers", shipper, function(data) { 
+                    DataFactory.insert("shippers", ShippersFactory.shipper(shipper), function(data) { 
                         ToasterService.pop('success', "Success", "Shipper added");
                         ListShippers(); });
                 }, function() {
@@ -83,7 +83,7 @@ angular
                 });
 
                 modalInstance.result.then(function(shipper) {
-                    DataFactory.update("shippers", shipper.id, shipper, function(data) {
+                    DataFactory.update("shippers", shipper.id, ShippersFactory.shipper(shipper), function(data) {
                         ToasterService.pop('success', "Success", "Shipper saved");
                         ListShippers();
                     });

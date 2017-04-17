@@ -12,7 +12,7 @@
         <table class="table table-hover table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th> # </th>
                     <th>Name</th>
                     <th>Towns</th>
                     <th>Action</th>
@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in agents">
-                    <td>{{ item.id }}</td>
+                    <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
                     <td>{{ item.name }}</td>
                     <td class="col-sm-5">
                         <div class="town-wrapper" ng-repeat="town in item.towns">{{town.name}}</div>

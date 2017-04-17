@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('SuppliersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
+    .controller('SuppliersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'SuppliersFactory', function($scope, $http, $uibModal, DataFactory, ToasterService, SuppliersFactory) {
 
         $scope.maxPagination = BillingConfig.maxPagination;
 
@@ -30,12 +30,12 @@ angular
                 controllerAs: '$modal',
                 resolve: {
                     data: function() {
-                        return { id: 0, name: '', address: '', town: { id: null, name: '' } }
+                        return SuppliersFactory.empty();
                     }
                 }
             });
             modalInstance.result.then(function(supplier) {
-                DataFactory.insert("suppliers", supplier, function(data) {
+                DataFactory.insert("suppliers", SuppliersFactory.supplier(supplier), function(data) {
                     ToasterService.pop('success', "Success", "Supplier added");
                     ListSuppliers();
                 });
@@ -75,11 +75,12 @@ angular
                 resolve: {
                     data: function() {
                         return $.extend(true, {}, supplier)
-                    }                }
+                    }
+                }
             });
 
             modalInstance.result.then(function(supplier) {
-                DataFactory.update("suppliers", supplier.id, supplier, function(data) {
+                DataFactory.update("suppliers", supplier.id, SuppliersFactory.supplier(supplier), function(data) {
                     ToasterService.pop('success', "Success", "Supplier saved");
                     ListSuppliers();
                 });

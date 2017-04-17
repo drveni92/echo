@@ -10,7 +10,7 @@
     <table class="table table-hover table-striped table-bordered">
         <thead>
         <tr>
-            <th>ID</th>
+            <th> # </th>
             <th>Name</th>
             <th>Input</th>
             <th>Output</th>
@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="item in stocks ">
-            <td>{{ item.id }}</td>
+            <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
             <td>{{ item.product.name }}</td>
             <td>{{ item.input }}</td>
             <td>{{ item.output }}</td>

@@ -5,6 +5,10 @@
             $scope.states = BillingConfig.states;
 
             $scope.active = 0;
+            $scope.step2 = true;
+            $scope.step3 = true;
+            document.getElementById('step2').style.pointerEvents = 'none';
+            document.getElementById('step3').style.pointerEvents = 'none';
 
             $scope.invoice = InvoicesFactory.empty();
 
@@ -98,5 +102,67 @@
                 }
 
             };
+
+
+            var navListItems = $('div.setup-panel div a'),
+                allWells = $('.setup-content'),
+                allNextBtn = $('.nextBtn');
+
+            allWells.hide();
+
+            navListItems.click(function (e) {
+                e.preventDefault();
+                var $target = $($(this).attr('href')),
+                    $item = $(this);
+
+                if (!$item.hasClass('disabled')) {
+                    navListItems.removeClass('btn-primary').addClass('btn-default');
+                    $item.addClass('btn-primary');
+                    allWells.hide();
+                    $target.show();
+                    $target.find('input:eq(0)').focus();
+                }
+            });
+
+            allNextBtn.click(function(){
+                var curStep = $(this).closest(".setup-content"),
+                    curStepBtn = curStep.attr("id"),
+                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                    curInputs = curStep.find("input[type='text'],input[type='url']"),
+                    isValid = true;
+                $(".form-group").removeClass("has-error");
+                for(var i=0; i<curInputs.length; i++){
+                    if (!curInputs[i].validity.valid){
+                        isValid = false;
+                        $(curInputs[i]).closest(".form-group").addClass("has-error");
+                    }
+                }
+
+                if (isValid && curStepBtn === 'step-1'){
+                    nextStepWizard.removeAttr('disabled').trigger('click');
+                $scope.step2 = false;
+                document.getElementById('step2').style.pointerEvents = 'auto';
+                    $scope.step3 = false;
+                    document.getElementById('step3').style.pointerEvents = 'auto';
+                    $scope.invoice = InvoicesFactory.invoice($scope.invoice);
+                }
+                $scope.invoice = InvoicesFactory.invoice($scope.invoice);
+
+                if (curStepBtn === 'step-2' ){
+                    nextStepWizard.removeAttr('disabled').trigger('click');
+
+                }
+
+              /* if (isValid && curStepBtn === 'step-2' && $scope.invoice.items.length > 0 ){
+                    nextStepWizard.removeAttr('disabled').trigger('click');
+                    $scope.step3 = false;
+                    document.getElementById('step3').style.pointerEvents = 'auto';
+                    $scope.invoice = InvoicesFactory.invoice($scope.invoice);
+                }*/
+
+            });
+
+            $('div.setup-panel div a.btn-primary').trigger('click');
+
         }])
 }());

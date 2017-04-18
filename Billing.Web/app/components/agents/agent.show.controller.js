@@ -1,12 +1,12 @@
 (function() {
     angular
         .module("Billing")
-        .controller('AgentShowController', ['$scope','$route', '$routeParams', '$uibModal', 'DataFactory', function($scope, $route, $routeParams,$uibModal, DataFactory) {
+        .controller('AgentShowController', ['$scope','$route', '$routeParams', '$uibModal', 'DataFactory', 'AgentsFactory', 'ToasterService', function($scope, $route, $routeParams,$uibModal, DataFactory, AgentsFactory, ToasterService) {
             var agentId = $routeParams.id;
 
             if(agentId) {
                 DataFactory.read("agents", agentId, function(data) {
-                    $scope.agent = data;
+                    $scope.agent = AgentsFactory.fullagent(data);
                 });
             }
             $('#profile-image1').on('click', function() {
@@ -29,10 +29,11 @@
                     }
                 });
                 modalInstance.result.then(function(agent) {
-
-                    DataFactory.update("agents", agent.id, agent, function(data) {
+                    DataFactory.update("agents/changepassword", agent.id, agent, function(data) {
+                        ToasterService.pop('success', "Success", data);
                     });
-                }, function() {
+                }, function(error) {
+                    ToasterService.pop('error', "Error", error);
                 });
             };
 

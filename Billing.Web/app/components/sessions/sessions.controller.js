@@ -20,6 +20,7 @@
                             localStorageService.cookie.set("Billing", credentials.remember, BillingConfig.ExpirationDate);
                             $rootScope.currentUser = credentials.currentUser.name;
                             $rootScope.currentUsername = credentials.currentUser.username;
+                            $rootScope.currentUserId = credentials.currentUser.id;
                             redirectTo = (redirectTo == "/logout") ? BillingConfig.DefaultRoute : redirectTo;
                             $location.path(redirectTo);
                         }, function(reason) {
@@ -52,6 +53,8 @@
                         credentials = response.data;
                         $rootScope.currentUser = credentials.currentUser.name;
                         $rootScope.currentUsername = credentials.currentUser.username;
+                        $rootScope.currentUserId = credentials.currentUser.id;
+
                         if ($scope.user.remember) {
                             localStorageService.cookie.set("Billing", credentials.remember, BillingConfig.ExpirationDate);
                         }

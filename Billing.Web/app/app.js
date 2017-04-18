@@ -34,6 +34,10 @@
                 templateUrl: "app/components/agents/templates/agents.html",
                 controller: "AgentsController"
             })
+            .when("/agents/:id", {
+                templateUrl: "app/components/agents/templates/show.html",
+                controller: "AgentShowController"
+            })
             .when("/products", {
                 templateUrl: "app/components/products/templates/product.html",
                 controller: "ProductsController"

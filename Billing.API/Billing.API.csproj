@@ -180,6 +180,7 @@
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\Pagination.cs" />
     <Compile Include="Models\AgentModel.cs" />
+    <Compile Include="Models\AgentPasswordModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CurrentUserModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />

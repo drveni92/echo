@@ -20,6 +20,21 @@
                         name: agent.name,
                         towns: tempTowns
                     }
+                },
+                fullagent: function(agent) {
+                    var tempTowns = [];
+                    for (var i = agent.towns.length - 1; i >= 0; i--) {
+                        tempTowns.push({id: agent.towns[i].id, name: agent.towns[i].name});
+                    }
+                    return {
+                        id: agent.id,
+                        name: agent.name,
+                        username: agent.username,
+                        towns: tempTowns,
+                        oldPassword: '',
+                        newPassword: '',
+                        newPasswordAgain: ''
+                    };
                 }
             };
         })

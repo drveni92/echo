@@ -126,6 +126,24 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
+        [Route("changepassword/{id}")]
+        public IHttpActionResult Put([FromUri]int id, [FromBody]AgentPasswordModel model)
+        {
+            try
+            {
+                if (model.NewPassword != model.NewPasswordAgain) return BadRequest("New password does not match");
+                if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
+                if (WebSecurity.ChangePassword(model.Username, model.OldPassword, model.NewPassword)) return Ok("Password changed");
+                return BadRequest("Password does not match");
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
+        }
+
         [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)

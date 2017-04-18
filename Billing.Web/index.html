@@ -66,8 +66,8 @@
         <div id="sidebar-wrapper" ng-show="authenticated()">
             <div class="menu-toggle-wrapper">
                 <a id="menu-toggle" href="#">
-                    <i id="menu-right" ng-click="isReplyFormOpen = true" class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i>
-                    <i id="menu-left" ng-click="isReplyFormOpen = false" class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
+                    <i id="menu-right" ng-click="isMenuOpened = true" class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i>
+                    <i id="menu-left" ng-click="isMenuOpened = false" class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="clear"></div>
                 <hr>
@@ -83,11 +83,11 @@
 
                     <li  data-toggle="collapse" data-target="#reports" class="collapsed active">
 
-                        <a href="#/invoices">
+                        <a href="#/reports">
                             <i class="fa fa-area-chart" aria-hidden="true"></i>
                             <span class="list-item">Reports</span>
                         </a>
-                        <ul style="font-size:10px;" class="sub-menu collapse" id="reports" ng-show="isReplyFormOpen" >
+                        <ul class="sub-menu collapse" id="reports" ng-show="isMenuOpened" >
                             <li><a href="#" ><i class="fa fa-pie-chart" aria-hidden="true"></i>Category report</a></li>
                             <li><a href="#" ><i class="fa fa-globe" aria-hidden="true"></i>Region report</a></li>
                             <li><a href="#" ><i class="fa fa-bar-chart" aria-hidden="true"></i>Customer report</a></li>

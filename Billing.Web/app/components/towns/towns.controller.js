@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('TownsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
+    .controller('TownsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'TownsFactory', function($scope, $http, $uibModal, DataFactory, ToasterService, TownsFactory) {
 
         $scope.regions = BillingConfig.regions;
 
@@ -23,77 +23,53 @@ angular
         };
 
         ListTowns();
-      
+
         $scope.new = function() {
-            DataFactory.list("towns", function(data) {
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/towns/templates/new.html',
-                    controller: 'ModalInstanceController',
-                    controllerAs: '$modal',
-                    resolve: {
-                        data: function() {
-                            return {
-                                id: 0,
-                                name: '',
-                                zip: '',
-                                region: null
-                            }
-                        },
-                        options: function() {
-
-                            return []
-
-                        }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/towns/templates/new.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return TownsFactory.empty();
                     }
+                }
+            });
+            modalInstance.result.then(function(town) {
+                DataFactory.insert("towns", TownsFactory.town(town), function(data) {
+                    ToasterService.pop('success', "Success", "Town added");
+                    ListTowns();
                 });
-
-                modalInstance.result.then(function(town) {
-                    DataFactory.insert("towns", town, function(data) {
-                        ToasterService.pop('success', "Success", "Town added");
-                        ListTowns();
-                    });
-                }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
-                });
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
             });
         };
 
         $scope.edit = function(item) {
-            DataFactory.list("towns", function(data) {
-
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/towns/templates/edit.html',
-                    controller: 'ModalInstanceController',
-                    controllerAs: '$modal',
-                    resolve: {
-                        data: function() {
-                            return {
-                                id: item.id,
-                                name: item.name,
-                                zip: item.zip,
-                                region: item.region
-                            }
-                        },
-                        options: function() {
-                            return []
-                        }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/components/towns/templates/edit.html',
+                controller: 'ModalInstanceController',
+                controllerAs: '$modal',
+                resolve: {
+                    data: function() {
+                        return TownsFactory.town(item)
                     }
-                });
+                }
+            });
 
-                modalInstance.result.then(function(town) {
-                    DataFactory.update("towns", town.id, town, function(data) {
-                        ToasterService.pop('success', "Success", "Town saved");
-                        ListTowns();
-                    });
-                }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
+            modalInstance.result.then(function(town) {
+                DataFactory.update("towns", town.id, TownsFactory.town(town), function(data) {
+                    ToasterService.pop('success', "Success", "Town saved");
+                    ListTowns();
                 });
+            }, function() {
+                console.log('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -108,9 +84,6 @@ angular
                 resolve: {
                     data: function() {
                         return town
-                    },
-                    options: function() {
-                        return []
                     }
                 }
             });

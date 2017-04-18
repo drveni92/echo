@@ -1,6 +1,6 @@
 angular
     .module("Billing")
-    .controller('ProductsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, ToasterService) {
+    .controller('ProductsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'ProductsFactory', function($scope, $http, $uibModal, DataFactory, ToasterService, ProductsFactory) {
 
         $scope.maxPagination = BillingConfig.maxPagination;
 
@@ -20,7 +20,6 @@ angular
         ListProducts();
 
         $scope.new = function() {
-
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -30,13 +29,7 @@ angular
                 controllerAs: '$modal',
                 resolve: {
                     data: function() {
-                        return {
-                            id: 0,
-                            name: '',
-                            unit: '',
-                            price: null,
-                            category: { id: null, name: '' }
-                        }
+                        return ProductsFactory.empty();
                     },
                     options: function() {
                         return ["categories"]
@@ -45,7 +38,7 @@ angular
             });
 
             modalInstance.result.then(function(product) {
-                DataFactory.insert("products", product, function(data) {
+                DataFactory.insert("products", ProductsFactory.product(product), function(data) {
                     ToasterService.pop('success', "Success", "Product added");
                     ListProducts();
                 });
@@ -56,7 +49,6 @@ angular
         };
 
         $scope.show = function(product) {
-
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -79,7 +71,6 @@ angular
         };
 
         $scope.edit = function(product) {
-
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -93,9 +84,8 @@ angular
                     }
                 }
             });
-
             modalInstance.result.then(function(product) {
-                DataFactory.update("products", product.id, product, function(data) {
+                DataFactory.update("products", product.id, ProductsFactory.product(product), function(data) {
                     ToasterService.pop('success', "Success", "Product saved");
                     ListProducts();
                 });

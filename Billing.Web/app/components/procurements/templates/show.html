@@ -22,11 +22,11 @@
             </div>
             <div class="dl-item">
                 <dt>Price:</dt>
-                <dd>{{ $modal.data.price }}</dd>
+                <dd>{{ $modal.data.price | currency }}</dd>
             </div>
             <hr>
             <dt>Total</dt>
-            <dd>{{ $modal.data.total }}</dd>
+            <dd>{{ $modal.data.total | currency }}</dd>
         </dl>
     </div>
 </div>

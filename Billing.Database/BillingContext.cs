@@ -80,6 +80,7 @@ namespace Billing.Database
             foreach(var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted))
             {
                 SoftDelete(entry);
+                entry.State = EntityState.Modified;
             }
             return base.SaveChanges();
         }

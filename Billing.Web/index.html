@@ -15,6 +15,7 @@
     <script src="app/components/products/products.controller.js"></script>
     <script src="app/components/products/factory/products.factory.js"></script>
     <script src="app/components/agents/agents.controller.js"></script>
+    <script src="app/components/agents/agent.show.controller.js"></script>
     <script src="app/components/agents/factory/agents.factory.js"></script>
     <script src="app/components/customers/customers.controller.js"></script>
     <script src="app/components/customers/factory/customers.factory.js"></script>
@@ -155,11 +156,22 @@
                                 <img class="agent-picture" ng-src="assets/img/{{ currentUsername }}.jpg" />
                             </li>
                             <li>
-                                <a href="#">
+                                <a  class="dropdown-toggle" data-toggle="dropdown">
                                     <span style="margin-right:10px;">
                                         {{ currentUser }}
                                     </span>
                                     <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <div class="navbar-content">
+                                                <div class="divider">
+                                                </div>
+                                                <a href="#/agents/{{ currentUserId }}" class="view btn btn-info btn-sm active viewprofile">View Profile</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
                                 </a>
                             </li>
                             <li>
@@ -187,6 +199,8 @@
         trigger: 'hover'
     });
     </script>
+
+
 </body>
 
 </html>

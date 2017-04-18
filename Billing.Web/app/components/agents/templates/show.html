@@ -1,0 +1,74 @@
+<h2> Agent </h2>
+<div class="container agentscontainer">
+    <div class="row">
+
+        <div class="col-md-7 ">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">  <h4 >User Profile</h4></div>
+                <div class="panel-body">
+
+                    <div class="box box-info">
+
+                        <div class="box-body">
+                            <div class="col-sm-6">
+                                <div  align="center"> <img alt="User Pic" src="assets/img/{{agent.username}}.jpg" id="profile-image1" class="img-circle img-responsive">
+
+                                    <input id="profile-image-upload" class="hidden" type="file">
+                                    <div style="color:#999;" >click here to change profile image</div>
+                                    <!--Upload Image Js And Css-->
+                                </div>
+
+                                <br>
+
+                                <!-- /input-group -->
+                            </div>
+                            <div class="col-sm-6">
+
+
+                                <div class="col-sm-5 col-xs-6 tital " >Name:</div><div class="col-sm-7 col-xs-6 ">  {{ agent.name }}
+                            </div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-5 col-xs-6 tital " >Username:</div><div class="col-sm-7"> {{ agent.username }}</div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+
+                                <div class="col-sm-5 col-xs-6 tital " >Towns:</div><div class="col-sm-7" ng-repeat="town in agent.towns">
+                                {{ town.name }}</div>
+
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+                                <br><br>
+                                <button type="button" class="btn btn-info" ng-click="edit(agent)">Change password</button>
+
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <hr style="margin:5px 0 5px 0;">
+
+
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>

@@ -108,6 +108,7 @@ namespace Billing.API.Controllers
                 Procurement procurement = Factory.Create(model);
                 UnitOfWork.Procurements.Update(procurement, id);
                 UnitOfWork.Commit();
+                Update(procurement.Product.Id);
                 return Ok(Factory.Create(procurement));
             }
             catch (Exception ex)

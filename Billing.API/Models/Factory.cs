@@ -462,6 +462,14 @@ namespace Billing.API.Models
             };
         }
 
+        public AutomaticStates Create(int InvoiceId)
+        {
+            return new AutomaticStates()
+            {
+                Invoice = _unitOfWork.Invoices.Get(InvoiceId)
+            };
+        }
+
         // Remember token
         public string Create()  
         {

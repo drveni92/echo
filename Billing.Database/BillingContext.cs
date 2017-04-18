@@ -29,6 +29,7 @@ namespace Billing.Database
         public DbSet<ApiUser> ApiUsers { get; set; }
         public DbSet<AuthToken> AuthTokens { get; set; }
         public DbSet<Event> History { get; set; }
+        public DbSet<AutomaticStates> AutomaticStates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

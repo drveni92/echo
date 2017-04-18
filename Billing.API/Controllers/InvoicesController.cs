@@ -119,6 +119,25 @@ namespace Billing.API.Controllers
             }
         }
 
+        [TokenAuthorization("user")]
+        [HttpGet]
+        [Route("automatic/{id}")]
+        public IHttpActionResult AutomaticallyChangeState(int id)
+        {
+            try
+            {
+                if (UnitOfWork.AutomaticStates.Get().Where(x => x.Invoice.Id == id).ToList().Count != 0) return Ok("Invoice is already in list");
+                UnitOfWork.AutomaticStates.Insert(Factory.Create(id));
+                UnitOfWork.Commit();
+                return Ok("Invoice added to list");
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
+        }
+
         [TokenAuthorization("user,admin")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri]int id, [FromBody]InvoiceModel model)

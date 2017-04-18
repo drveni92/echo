@@ -7,12 +7,12 @@
             $http.defaults.headers.common.ApiKey = BillingConfig.apiKey;
 
             return {
-                next: function(dataSet, callback) {
+                next: function(dataSet, callback, failed) {
                     $http.get(source + dataSet)
                         .then(function success(response) {
                             return callback(response.data);
-                        }, function error(error) {
-                            ToasterService.pop('error', "Error", error.data.message);
+                        }, function error(reason) {
+                            return failed(reason);
                         });
                 }
             };

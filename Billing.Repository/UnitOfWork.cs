@@ -26,6 +26,7 @@ namespace Billing.Repository
         private IBillingRepository<Supplier> _suppliers;
         private IBillingRepository<Town> _towns;
         private IBillingRepository<Event> _histories;
+        private IBillingRepository<AutomaticStates> _automaticStates;
 
         public BillingContext Context { get { return _context; } }
 
@@ -43,6 +44,8 @@ namespace Billing.Repository
         public IBillingRepository<Supplier> Suppliers { get { return _suppliers ?? (_suppliers = new SuppliersRepository(_context)); } }
         public IBillingRepository<Town> Towns { get { return _towns ?? (_towns = new BillingRepository<Town>(_context)); } }
         public IBillingRepository<Event> Histories { get { return _histories ?? (_histories = new BillingRepository<Event>(_context)); } }
+        public IBillingRepository<AutomaticStates> AutomaticStates { get { return _automaticStates ?? (_automaticStates = new BillingRepository<AutomaticStates>(_context)); } }
+
         public void Dispose()
         {
             _context.Dispose();

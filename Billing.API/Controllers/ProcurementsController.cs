@@ -89,6 +89,7 @@ namespace Billing.API.Controllers
                 Procurement procurement = Factory.Create(model);
                 UnitOfWork.Procurements.Insert(procurement);
                 UnitOfWork.Commit();
+                Update(procurement.Product.Id);
                 return Ok(Factory.Create(procurement));
             }
             catch (Exception ex)
@@ -132,5 +133,29 @@ namespace Billing.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        private List<string> Update(int productId)
+        {
+            InvoiceHelper states = new InvoiceHelper();
+            List<string> invoices = new List<string>();
+            var items = UnitOfWork.AutomaticStates.Get().Where(x => (x.Completed == false)).ToList()
+                                                  .Where(x => x.Invoice.Items.Where(y => productId == y.Product.Id).ToList().Count > 0)
+                                                  .ToList();
+            foreach (var item in items)
+            {
+                try
+                {
+                    while(item.Invoice.Status != Status.InvoiceShipped)
+                        states.NextStep(UnitOfWork, item.Invoice.Id, false);
+                }
+                catch(Exception ex)
+                {
+                    Logger.Log(ex.Message, "INFO");
+                }
+            }
+            return invoices;
+        }
+
     }
 }

@@ -66,6 +66,29 @@
                 InvoicesService.next(url, function(data) {
                     ToasterService.pop('info', "Invoice " + invoice.invoiceNo, "New state of the invoice is " + $scope.states[data.status + 1]);
                     ListInvoices();
+                }, function(error) {
+                    ToasterService.pop('error', "Error", error.data.message);
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'app/components/invoices/templates/automatic.html',
+                        controller: 'ModalInstanceController',
+                        controllerAs: '$modal',
+                        resolve: {
+                            data: function() {
+                                return invoice
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function(invoice) {
+                        DataFactory.read("invoices/automatic", invoice.id, function(data) {
+                            ToasterService.pop('success', "Success", data);
+                        });
+                    }, function() {
+                        console.log('Modal dismissed at: ' + new Date());
+                    });
                 });
             }
 

@@ -52,6 +52,7 @@
     <Compile Include="Agent.cs" />
     <Compile Include="ApiUser.cs" />
     <Compile Include="AuthToken.cs" />
+    <Compile Include="AutomaticStates.cs" />
     <Compile Include="Basic.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Customer.cs" />

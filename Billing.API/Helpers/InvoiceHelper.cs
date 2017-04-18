@@ -9,10 +9,12 @@ namespace Billing.API.Helpers
 {
     public class InvoiceHelper
     {
+        private UnitOfWork _unitOfWork;
         Invoice Invoice = new Invoice();
 
         public Invoice NextStep(UnitOfWork unitOfWork, int id, bool Cancel)
         {
+            _unitOfWork = unitOfWork;
             Invoice = unitOfWork.Invoices.Get(id);
             if (Invoice != null)
             {
@@ -114,6 +116,13 @@ namespace Billing.API.Helpers
         {
             Invoice.Status = Status.InvoiceShipped;
             Invoice.ShippedOn = DateTime.Today;
+            var state = _unitOfWork.AutomaticStates.Get().Where(x => x.Invoice.Id == Invoice.Id).ToList().First();
+            if (state != null)
+            {
+                state.Completed = true;
+                _unitOfWork.AutomaticStates.Update(state, state.Id);
+                _unitOfWork.Commit();
+            }
         }
     }
 }

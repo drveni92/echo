@@ -66,6 +66,8 @@ body a {
     background-color: #2c3E50;
 }
 
+
+
 ::-webkit-scrollbar {
     width: 0px;
     /* remove scrollbar space */
@@ -816,4 +818,8 @@ table thead tr th {
 .invoicetab{
     width: 90%;
     left: 5%;
+}
+
+#reports{
+    font-size:10px;
 }

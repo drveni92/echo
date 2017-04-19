@@ -38,6 +38,7 @@ namespace Billing.API.Helpers.Identity
                 {
                     Id = agent.Id,
                     Name = agent.Name,
+                    Username = agent.Username,
                     Roles = Roles.GetRolesForUser(username).ToList()
                 };
             }

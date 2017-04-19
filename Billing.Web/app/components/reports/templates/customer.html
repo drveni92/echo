@@ -1,1 +1,36 @@
-<nvd3 options="options" data="data"></nvd3>
+<div class="row">
+    <div class="col-md-5">
+        <p class="input-group">
+            <div class="col-md-4" style="padding-top: 5px;"><strong>Start date:</strong></div>
+            <div class="col-md-8 input-group">
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.startDate" is-open="startDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="createGraph()" />
+                <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+            </div>
+        </p>
+    </div>
+    <div class="col-md-5">
+        <p class="input-group">
+            <div class="col-md-4" style="padding-top: 5px;"><strong>End date:</strong></div>
+            <div class="col-md-8 input-group">
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.endDate" is-open="endDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="createGraph()" />
+                <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+            </div>
+        </p>
+    </div>
+    <div class="col-md-2" style="padding-top: 10px">
+        <select class="form-control" name="singleSelect" ng-model="selectedOption" ng-change="updateGraph()">
+            <option value="0">Turnover</option>
+            <option value="1">Percent</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <hr>
+</div>
+<div class="row">
+    <nvd3 options="options" data="data"></nvd3>
+</div>

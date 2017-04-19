@@ -5,6 +5,7 @@ using System.Web;
 using Billing.Repository;
 using Billing.API.Models.Reports;
 using Billing.Database;
+using Billing.API.Helpers;
 
 namespace Billing.API.Reports
 {
@@ -25,14 +26,14 @@ namespace Billing.API.Reports
                                                .GroupBy(x => new
                                                {
                                                    AgentName = x.Agent.Name,
-                                                   RegionName = x.Customer.Town.Region.ToString()
+                                                   RegionName = Helper.FirstLetterLow(x.Customer.Town.Region.ToString())
                                                })
                                                .Select(x => new InputCross { Row = x.Key.AgentName, Column = x.Key.RegionName, Value = x.Sum(y => y.Total) })
                                                .OrderByDescending(x => x.Value)
                                                .ToList();
 
-            result.Agents = _factory.Create(AgentsByRegions, Agents, Helpers.Helper.Regions);
-            result.Regions = _factory.CreateReverse(AgentsByRegions, Helpers.Helper.Regions);
+            result.Agents = _factory.Create(AgentsByRegions, Agents, Helper.Regions);
+            result.Regions = _factory.CreateReverse(AgentsByRegions, Helper.Regions);
             result.GrandTotal = result.Agents.Sum(x => x.Turnover);
 
             return result;

@@ -1,3 +1,4 @@
+using Billing.API.Helpers;
 using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.API.Models.Reports;
@@ -72,7 +73,7 @@ namespace Billing.API.Reports
             {
                 result.Add(new SalesRegionModel()
                 {
-                    Region = region.ToString(),
+                    Region = Helper.FirstLetterLow(region.ToString()),
                     Total = 0
                 });
             }

@@ -70,8 +70,8 @@
         <div id="sidebar-wrapper" ng-show="authenticated()">
             <div class="menu-toggle-wrapper">
                 <a id="menu-toggle" href="#">
-                    <i id="menu-right" class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i>
-                    <i id="menu-left" class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
+                    <i id="menu-right" ng-click="isMenuOpened = true" class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i>
+                    <i id="menu-left" ng-click="isMenuOpened = false" class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="clear"></div>
                 <hr>
@@ -203,6 +203,7 @@
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("menu-displayed");
+
     });
     $('[data-toggle="tooltip"]').tooltip({
         trigger: 'hover'

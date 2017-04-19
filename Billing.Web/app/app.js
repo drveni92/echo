@@ -20,6 +20,7 @@
     };
 
     var app = angular.module("Billing", ["ngRoute", "ui.bootstrap", "LocalStorageModule", 'oi.select', 'nvd3']);
+
     app.config(function($routeProvider) {
         $routeProvider
             .when("/login", {

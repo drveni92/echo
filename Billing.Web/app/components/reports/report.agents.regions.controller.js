@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .controller('ReportCustomersController', ['$scope', 'DataFactory', 'ToasterService', function($scope, DataFactory, ToasterService) {
+        .controller('ReportAgentsRegionsController', ['$scope', 'DataFactory', 'ToasterService', function($scope, DataFactory, ToasterService) {
 
             var response = null;
 
@@ -31,7 +31,7 @@
 
             $scope.options = {
                 chart: {
-                    type: 'discreteBarChart',
+                    type: 'multiBarChart',
                     height: 650,
                     margin: {
                         top: 20,
@@ -39,19 +39,12 @@
                         bottom: 250,
                         left: 100
                     },
-                    useInteractiveGuideline: true,
-                    x: function(d) {
-                        return d.label;
-                    },
-                    y: function(d) {
-                        if ($scope.selectedOption === "0") return d.value.turnover + (1e-10);
-                        else return d.value.percent;
-                    },
-                    showValues: true,
                     valueFormat: function(d) {
-                        return d3.format(',.2f')(d);
+                        return d3.format('$,.2f')(d);
                     },
+                    clipEdge: true,
                     duration: 500,
+                    stacked: false,
                     xAxis: {
                         rotateLabels: 30
                     },
@@ -61,19 +54,25 @@
                 }
             };
 
+            $scope.data = [];
+
             $scope.createGraph = function() {
-                DataFactory.insert('salesbycustomer', $scope.dates, function(result) {
+                DataFactory.insert('salesbyagentsregions', $scope.dates, function(result) {
                     response = result;
                     setGraph(result);
                 });
             };
 
             var setGraph = function(data) {
-                tempData = [];
-                for (var i = data.customers.length - 1; i >= 0; i--) {
-                    tempData.push({ label: data.customers[i].name, value: { turnover: data.customers[i].turnover, percent: data.customers[i].percent } })
+                $scope.data = [];
+                for (var i = data.agents.length - 1; i >= 0; i--) {
+                    var temp = { key: data.agents[i].name, values: [] };
+                    for (var j = data.regions.length - 1; j >= 0; j--) {
+                        var reg = String(data.regions[j].region).split(/(?=[A-Z])/).join(" ").toLowerCase();
+                        temp.values.push({ x: reg, y: data.agents[i].sales[reg] });
+                    }
+                    $scope.data.push(temp);
                 }
-                $scope.data = [{ key: "Sales by Customer", values: tempData }];
             }
 
             $scope.updateGraph = function() {

@@ -39,6 +39,9 @@
                         bottom: 250,
                         left: 100
                     },
+                    x: function(d) {
+                        return d.x.split(/(?=[A-Z])/).join(" ").toLowerCase();
+                    },
                     valueFormat: function(d) {
                         return d3.format('$,.2f')(d);
                     },
@@ -68,7 +71,7 @@
                 for (var i = data.agents.length - 1; i >= 0; i--) {
                     var temp = { key: data.agents[i].name, values: [] };
                     for (var j = data.regions.length - 1; j >= 0; j--) {
-                        var reg = String(data.regions[j].region).split(/(?=[A-Z])/).join(" ").toLowerCase();
+                        var reg = String(data.regions[j].region);
                         temp.values.push({ x: reg, y: data.agents[i].sales[reg] });
                     }
                     $scope.data.push(temp);

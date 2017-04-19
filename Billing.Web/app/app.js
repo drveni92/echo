@@ -54,6 +54,9 @@
             .when("/report/categories", {
                 templateUrl: "app/components/reports/templates/category.html",
                 controller: "ReportCategoriesController"
+            .when("/report/agents/regions", {
+                templateUrl: "app/components/reports/templates/agentsregions.html",
+                controller: "ReportAgentsRegionsController"
             })
             .when("/towns", {
                 templateUrl: "app/components/towns/templates/town.html",

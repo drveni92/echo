@@ -238,5 +238,15 @@ namespace Billing.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [TokenAuthorization("user")]
+        [HttpPost]
+        [Route("mail")]
+        public IHttpActionResult SendMail([FromBody]MailRequest model)
+        {
+            Invoice invoice = UnitOfWork.Invoices.Get(model.InvoiceId);
+            Helper.SendEmail(invoice, Identity.CurrentUser.Username, model.MailTo);
+            return Ok("Email sent");
+        }
     }
 }

@@ -185,6 +185,7 @@
     <Compile Include="Models\CurrentUserModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\HistoryModel.cs" />
+    <Compile Include="Models\MailRequest.cs" />
     <Compile Include="Models\Reports\DashboardModel.cs" />
     <Compile Include="Models\Factory.cs" />
     <Compile Include="Models\ProcurementModel.cs" />

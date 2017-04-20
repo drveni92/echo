@@ -1,0 +1,62 @@
+
+   <h2> Sales by region</h2>
+<br><br><br>
+   <div class="col-md-5">
+       <p class="input-group">
+       <div class="col-md-4" style="padding-top: 5px;"><strong>Start date:</strong></div>
+       <div class="col-md-8 input-group">
+           <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.startDate" is-open="startDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  />
+           <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+       </div>
+       </p>
+   </div>
+   <div class="col-md-5">
+       <p class="input-group">
+       <div class="col-md-4" style="padding-top: 5px;"><strong>End date:</strong></div>
+       <div class="col-md-8 input-group">
+           <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.endDate" is-open="endDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  />
+           <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+       </div>
+       </p>
+   </div>
+
+   <br><br><br>
+   <div class="row" ng-repeat="sale in salesbyregion.sales">
+       <h3> {{sale.name}}</h3>
+       <table class="table table-hover table-striped table-bordered" >
+           <thead>
+           <tr>
+               <th>Agent </th>
+               <th>Total Sales</th>
+               <th>Percent of Region</th>
+               <th>Percent of Total</th>
+               <th>Action</th>
+           </tr>
+           </thead>
+           <tbody>
+           <tr ng-repeat="item in sale.agents">
+               <td>{{ item.name }}</td>
+               <td class="col-md-4">{{ item.total }}</td>
+               <td>{{ item.regionPercent }}</td>
+               <td>{{ item.totalPercent }}</td>
+               <td>
+                   <a ng-click="show(item)" class="btn btn-info">
+                       <i class="fa fa-eye" aria-hidden="true"></i>
+                   </a>
+               </td>
+           </tr>
+           <tr style="background-color: rgb(75, 239, 178);">
+               <td>{{ sale.name }}</td>
+               <td class="col-md-4">{{ sale.total }}</td>
+               <td></td>
+               <td>{{ sale.percent }}</td>
+               <td>
+               </td>
+           </tr>
+           </tbody>
+       </table>
+   </div>

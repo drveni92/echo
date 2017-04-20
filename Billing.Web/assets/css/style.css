@@ -803,6 +803,7 @@ table thead tr th {
     display: table-cell;
     text-align: center;
     position: relative;
+    width: 33%;
 }
 
 .btn-circle {
@@ -822,4 +823,14 @@ table thead tr th {
 
 #reports{
     font-size:10px;
+}
+
+.dateinput{
+    width: 100px;
+}
+
+.totaltable{
+
+    background-color: rgb(75, 239, 178);
+
 }

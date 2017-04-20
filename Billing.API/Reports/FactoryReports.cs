@@ -117,9 +117,9 @@ namespace Billing.API.Reports
                            {
                                Id = x.Key.id,
                                Name = x.Key.name,
-                               Total = x.Sum(y => y.Total),
-                               RegionPercent = 100 * x.Sum(y => y.Total) / Sales,
-                               TotalPercent = 100 * x.Sum(y => y.Total) / GrandTotal
+                               Total = Math.Round(x.Sum(y => y.Total),2),
+                               RegionPercent = Math.Round(100 * x.Sum(y => y.Total) / Sales,2),
+                               TotalPercent = Math.Round(100 * x.Sum(y => y.Total) / GrandTotal,2)
                            })
                            .ToList();
             return region;

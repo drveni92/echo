@@ -100,6 +100,10 @@
                 templateUrl: "app/components/invoices/templates/show_invoice.html",
                 controller: "InvoiceShowController"
             })
+            .when("/salesbyregion", {
+                templateUrl: "app/components/salesbyregion/templates/salesbyregion.html",
+                controller: "SalesByRegionController"
+            })
             .otherwise({ redirectTo: "/invoices" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {

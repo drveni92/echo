@@ -25,6 +25,7 @@ namespace Billing.API.Reports
             result.Customers = Invoices.GroupBy(x => new { Id = x.Customer.Id, Name = x.Customer.Name })
                                        .Select(x => _factory.Create(x.Key.Id, x.Key.Name, x.Sum(y => y.Items.Sum(z => z.Price * z.Quantity)), result.GrandTotal))
                                        .OrderByDescending(x => x.Turnover)
+                                       .Take(15)
                                        .ToList();
             return result;
         }

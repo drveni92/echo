@@ -36,7 +36,31 @@
                     }
                 });
 
-                modalInstance.result.then(function() {}, function() {});
+                modalInstance.result.then(function(invoice) {
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'app/components/invoices/templates/mail.html',
+                        controller: 'ModalInstanceController',
+                        controllerAs: '$modal',
+                        resolve: {
+                            data: function() {
+                                return null;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function(mail) {
+                        console.log(invoice);
+                        mail.InvoiceId = invoice.id;
+                        DataFactory.insert("invoices/mail", mail, function(data) {
+                            ToasterService.pop('success', "Success", data);
+                        })
+                    }, function() {
+                        console.log('Modal dismissed at: ' + new Date());
+                    });
+                }, function() {});
             }
 
             $scope.show_history = function(invoice) {

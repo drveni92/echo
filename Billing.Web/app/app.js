@@ -19,9 +19,8 @@
         return (credentials.currentUser.id != 0);
     };
 
+    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap", "LocalStorageModule", 'oi.select', 'nvd3']);
 
-
-    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap", "LocalStorageModule", 'oi.select']);
     app.config(function($routeProvider) {
         $routeProvider
             .when("/login", {
@@ -47,6 +46,18 @@
             .when("/customers", {
                 templateUrl: "app/components/customers/templates/customer.html",
                 controller: "CustomersController"
+            })
+            .when("/report/customers", {
+                templateUrl: "app/components/reports/templates/customer.html",
+                controller: "ReportCustomersController"
+            })
+            .when("/report/categories", {
+                templateUrl: "app/components/reports/templates/category.html",
+                controller: "ReportCategoriesController"
+            })
+            .when("/report/agents/regions", {
+                templateUrl: "app/components/reports/templates/agentsregions.html",
+                controller: "ReportAgentsRegionsController"
             })
             .when("/towns", {
                 templateUrl: "app/components/towns/templates/town.html",

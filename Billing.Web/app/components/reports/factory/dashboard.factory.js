@@ -6,6 +6,48 @@
             var months = BillingConfig.months;
 
             return {
+                regionsYear: function(result) {
+                    data = [];
+                    for (var i = result.length - 1; i >= 0; i--) {
+                        var temp = { key: result[i].label, values: [] };
+                        for (var j = 0; j < result[i].sales.length; j++) {
+                            var reg = months[j];
+                            temp.values.push({ x: reg, y: result[i].sales[j] });
+                        }
+                        data.push(temp);
+                    }
+                    return {
+                        data: data,
+                        options: {
+                            chart: {
+                                type: 'multiBarChart',
+                                height: 650,
+                                margin: {
+                                    top: 20,
+                                    right: 100,
+                                    bottom: 100,
+                                    left: 100
+                                },
+                                x: function(d) {
+                                    return d.x;
+                                },
+                                valueFormat: function(d) {
+                                    return d3.format('$,.2f')(d);
+                                },
+                                clipEdge: true,
+                                duration: 500,
+                                stacked: false,
+                                xAxis: {
+                                    rotateLabels: 45
+                                }
+                            },
+                            title: {
+                                enable: true,
+                                text: 'Region Sales Year'
+                            }
+                        }
+                    };
+                },
                 products: function(result) {
                     var data = [];
                     for (var i = result.length - 1; i >= 0; i--) {

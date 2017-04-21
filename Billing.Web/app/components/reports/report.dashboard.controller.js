@@ -14,7 +14,16 @@
                 setCustomers(data);
                 setInvoices(data);
                 setProducts(data);
+                setRegionsYear(data);
             });
+
+            function setRegionsYear(data) {
+                result = DashboardFactory.regionsYear(data.regionsYear);
+                $scope.regionsyear = {
+                    data: result.data,
+                    options: result.options
+                };
+            };
 
             function setProducts(data) {
                 result = DashboardFactory.products(data.top5Products);

@@ -834,3 +834,11 @@ table thead tr th {
     background-color: rgb(75, 239, 178);
 
 }
+
+text {
+    opacity: 1 !important;
+}
+
+.panel.shadow {
+    box-shadow: 10px 10px 5px #888888;
+}

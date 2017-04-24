@@ -6,6 +6,40 @@
             var months = BillingConfig.months;
 
             return {
+
+                monthSale: function(result) {
+                    var data = [];
+                    for (var i = result.length - 1; i >= 0; i--) {
+                        data.push({ key: result[i].label, value: result[i].sales });
+                    }
+                    return {
+                        data: data,
+                        options: {
+                            chart: {
+                                type: 'pieChart',
+                                height: 650,
+                                x: function(d) {
+                                    return d.key;
+                                },
+                                y: function(d) {
+                                    return d.value;
+                                },
+                                showLabels: true,
+                                duration: 500,
+                                labelThreshold: 0.01,
+                                labelSunbeamLayout: true,
+                                legend: {
+                                    margin: {
+                                        top: 5,
+                                        right: 35,
+                                        bottom: 5,
+                                        left: 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 regionsYear: function(result) {
                     data = [];
                     for (var i = result.length - 1; i >= 0; i--) {
@@ -40,10 +74,6 @@
                                 xAxis: {
                                     rotateLabels: 45
                                 }
-                            },
-                            title: {
-                                enable: true,
-                                text: 'Region Sales Year'
                             }
                         }
                     };
@@ -85,10 +115,6 @@
                                         left: 0
                                     }
                                 }
-                            },
-                            title: {
-                                enable: true,
-                                text: 'Top 5 Products'
                             }
                         }
                     }
@@ -125,10 +151,6 @@
                                         left: 0
                                     }
                                 }
-                            },
-                            title: {
-                                enable: true,
-                                text: 'Invoices Status'
                             }
                         }
                     }
@@ -171,10 +193,6 @@
                                         left: 0
                                     }
                                 }
-                            },
-                            title: {
-                                enable: true,
-                                text: 'Top Customers'
                             }
                         }
                     }
@@ -213,10 +231,6 @@
                                 xAxis: {
                                     rotateLabels: 45
                                 }
-                            },
-                            title: {
-                                enable: true,
-                                text: 'Category Sales Year'
                             }
                         }
                     };
@@ -259,10 +273,6 @@
                                         left: 0
                                     }
                                 }
-                            },
-                            title: {
-                                enable: true,
-                                text: 'Burning Items'
                             }
                         }
                     }
@@ -283,7 +293,6 @@
                             chart: {
                                 type: 'multiBarChart',
                                 height: 650,
-                                width: 600,
                                 margin: {
                                     top: 20,
                                     right: 100,
@@ -305,10 +314,6 @@
                                 yAxis: {
                                     axisLabelDistance: 50
                                 }
-                            },
-                            title: {
-                                enable: true,
-                                text: 'Agents Sales'
                             }
                         }
                     };

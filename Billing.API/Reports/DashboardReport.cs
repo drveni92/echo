@@ -24,9 +24,7 @@ namespace Billing.API.Reports
             result.Title = "Dashboard for " + _identity.CurrentUser.Name;
 
             var tmp = _unitOfWork.Invoices.Get()
-                     .Where(x => x.Date.Month == currentMonth &&
-                     x.Agent.Id == _identity.CurrentUser.Id
-                     ).ToList();
+                     .Where(x => x.Date.Month == currentMonth && x.Agent.Id == _identity.CurrentUser.Id).ToList();
 
             if (_identity.HasRole("admin"))
             {
@@ -38,6 +36,7 @@ namespace Billing.API.Reports
                      .GroupBy(x => x.Customer.Town.Region)
                      .OrderBy(x => x.Key)
                      .Select(x => _factory.Create(x.Key, x.Sum(y => y.SubTotal))).ToList();
+
 
             List<InputItem> query;
 
@@ -63,7 +62,13 @@ namespace Billing.API.Reports
                 .GroupBy(x => new { x.Product.Category.Name, x.Invoice.Date.Month })
                 .Select(x => new InputItem { Label = x.Key.Name, Index = x.Key.Month, Value = x.Sum(y => y.SubTotal) })
                 .ToList();
+
             result.CategoriesYear = _factory.Create(query);
+
+            result.CategoriesMonth = tmp3.Where(x => x.Invoice.Date.Month == currentMonth).ToList()
+                                         .OrderBy(x => x.Product.Id)
+                                         .GroupBy(x => x.Product.Category.Name)
+                                         .Select(x => new MonthlySales { Label = x.Key, Sales = x.Sum(y => y.SubTotal) }).ToList();
 
             var tmp4 = _unitOfWork.Invoices.Get().Where(x => x.Agent.Id == _identity.CurrentUser.Id);
             if (_identity.HasRole("admin"))

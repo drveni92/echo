@@ -33,25 +33,29 @@
 
             $scope.options = {
                 chart: {
-                    type: 'pieChart',
-                    height: 500,
-                    x: function(d){
-                        return d.key;
-                    },
-                    y: function(d){
-                        return d.y;
-                    },
-                    showLabels: true,
+                    type: 'multiBarHorizontalChart',
+                    height: 440,
+                    x: function(d){return d.label1;},
+                    y: function(d){return d.value;},
+                    showControls: true,
+                    showValues: true,
                     duration: 500,
-                    labelThreshold: 0.01,
-                    labelSunbeamLayout: true,
-                    legend: {
-                        margin: {
-                            top: 5,
-                            right: 35,
-                            bottom: 5,
-                            left: 0
+                    xAxis: {
+                        showMaxMin: false
+                    },
+                    yAxis: {
+                        axisLabel: 'Turnover',
+                        tickFormat: function(d) {
+                            return d3.format(',.2f')(d);
                         }
+                    },
+                    callback: function(chart) {
+                        chart.multibar.dispatch.on('elementClick', function(e){
+                            console.log('elementClick in callback', e.data);
+                            var Id = e.data.label2;
+                            console.log(Id);
+
+                        });
                     }
                 }
             };
@@ -60,15 +64,16 @@
                 DataFactory.insert('salesbycategory', $scope.dates, function(result) {
                     response = result;
                     setGraph(result);
+                    console.log(result);
                 });
             };
 
             var setGraph = function(data) {
                 var tempData = [];
                 for (var i = data.sales.length - 1; i >= 0; i--) {
-                    tempData.push({ key: data.sales[i].name, y: data.sales[i].total })
+                    tempData.push({ label1: data.sales[i].name,label2: data.sales[i].id , value: data.sales[i].total })
                 }
-                $scope.data = tempData;
+                $scope.data = [{ key: "Turnover" , color: "#d9534f" , values: tempData }];
             }
 
             $scope.updateGraph = function() {

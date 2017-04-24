@@ -823,3 +823,20 @@ table thead tr th {
 #reports{
     font-size:10px;
 }
+
+.vertical-text {
+    transform: rotate(90deg);
+    transform-origin: left top 0;
+}
+.box-custom {
+    padding: 3px;
+    display: inline-block;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    margin-left: 40px;
+    font-size: 20px;
+    border: solid 1px ;
+    border-color: rgba(0, 0, 0, 0.21);
+    background-color: #ffffff
+}

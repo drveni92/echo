@@ -23,6 +23,10 @@
 
     app.config(function($routeProvider) {
         $routeProvider
+            .when("/dashboard", {
+                templateUrl: "app/components/reports/templates/dashboard.html",
+                controller: "ReportDashboardController"
+            })
             .when("/login", {
                 templateUrl: "app/components/sessions/templates/login.html",
                 controller: "LoginController"
@@ -104,7 +108,11 @@
                 templateUrl: "app/components/invoices/templates/show_invoice.html",
                 controller: "InvoiceShowController"
             })
-            .otherwise({ redirectTo: "/invoices" });
+            .when("/salesbyregion", {
+                templateUrl: "app/components/salesbyregion/templates/salesbyregion.html",
+                controller: "SalesByRegionController"
+            })
+            .otherwise({ redirectTo: "/dashboard" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
             if (!authenticated()) {

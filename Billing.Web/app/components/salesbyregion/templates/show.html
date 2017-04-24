@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Agent: {{ SalesByAgents.agentName }}</h3>
+</div>
+<br><br><br>
+
+
+<div class="col-md-5">
+    <p class="input-group">
+    <div class="col-md-4" style="padding-top: 5px;"><strong>Start date:</strong></div>
+    <div class="col-md-8 input-group">
+        <input type="text" class="form-control" uib-datepicker-popup ng-model="SalesByAgents.startDate" ng-change="openStartDateModal()" is-open="open.datepicker1"  show-button-bar="false" close-text="Close"/>
+        <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="open.datepicker1 = true"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+    </div>
+    </p>
+</div>
+<div class="col-md-5">
+    <p class="input-group">
+    <div class="col-md-4" style="padding-top: 5px;"><strong>End date:</strong></div>
+    <div class="col-md-8 input-group">
+        <input type="text" class="form-control" uib-datepicker-popup ng-change="openStartDateModal()" ng-model="SalesByAgents.endDate" is-open="open.datepicker2"  show-button-bar="false" close-text="Close"/>
+        <span class="input-group-btn">
+            			<button type="button" class="btn btn-default"   ng-click="open.datepicker2 = true;"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+    </div>
+    </p>
+</div>
+
+<br><br><br>
+<div class="row modal-row">
+    <table class="table table-hover table-striped table-bordered" >
+        <thead>
+        <tr>
+            <th>Town </th>
+            <th>Total Sales</th>
+            <th>Percent of Region</th>
+            <th>Percent of Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in SalesByAgents.sales">
+            <td>{{ item.regionName }}</td>
+            <td class="col-md-4">{{ item.regionTotal }}</td>
+            <td>{{ item.regionPercent }}</td>
+            <td>{{ item.totalPercent }}</td>
+
+        </tr>
+        <tr class="totaltable" >
+            <td>{{ SalesByAgents.name }} Total</td>
+            <td class="col-md-4">{{ SalesByAgents.agentTotal }}</td>
+            <td></td>
+            <td>{{ SalesByAgents.percentTotal }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
+</div>

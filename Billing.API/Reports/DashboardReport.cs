@@ -24,20 +24,19 @@ namespace Billing.API.Reports
             result.Title = "Dashboard for " + _identity.CurrentUser.Name;
 
             var tmp = _unitOfWork.Invoices.Get()
-                     .Where(x => x.Date.Month == currentMonth &&
-                     x.Agent.Id == _identity.CurrentUser.Id
-                     ).ToList();
+                     .Where(x => x.Date.Month == currentMonth && x.Agent.Id == _identity.CurrentUser.Id).ToList();
 
             if (_identity.HasRole("admin"))
             {
-                 tmp = _unitOfWork.Invoices.Get()
-                      .Where(x => x.Date.Month == currentMonth).ToList();
+                tmp = _unitOfWork.Invoices.Get()
+                     .Where(x => x.Date.Month == currentMonth).ToList();
             }
-      
-             result.RegionsMonth = tmp
-                      .GroupBy(x => x.Customer.Town.Region)
-                      .OrderBy(x => x.Key)
-                      .Select(x => _factory.Create(x.Key, x.Sum(y => y.SubTotal))).ToList();
+
+            result.RegionsMonth = tmp
+                     .GroupBy(x => x.Customer.Town.Region)
+                     .OrderBy(x => x.Key)
+                     .Select(x => _factory.Create(x.Key, x.Sum(y => y.SubTotal))).ToList();
+
 
             List<InputItem> query;
 
@@ -46,7 +45,7 @@ namespace Billing.API.Reports
             {
                 tmp2 = _unitOfWork.Invoices.Get();
             }
-            
+
             query = tmp2.OrderBy(x => x.Customer.Town.Region).ToList()
                                                .GroupBy(x => new { x.Customer.Town.Region, x.Date.Month })
                                                .Select(x => new InputItem { Label = x.Key.Region.ToString(), Index = x.Key.Month, Value = x.Sum(y => y.SubTotal) })
@@ -58,26 +57,32 @@ namespace Billing.API.Reports
             {
                 tmp3 = _unitOfWork.Items.Get();
             }
-          
-                query = tmp3.OrderBy(x => x.Product.Category.Id).ToList()
-                    .GroupBy(x => new { x.Product.Category.Name, x.Invoice.Date.Month })
-                    .Select(x => new InputItem { Label = x.Key.Name, Index = x.Key.Month, Value = x.Sum(y => y.SubTotal) })
-                    .ToList();
-                result.CategoriesYear = _factory.Create(query);
+
+            query = tmp3.OrderBy(x => x.Product.Category.Id).ToList()
+                .GroupBy(x => new { x.Product.Category.Name, x.Invoice.Date.Month })
+                .Select(x => new InputItem { Label = x.Key.Name, Index = x.Key.Month, Value = x.Sum(y => y.SubTotal) })
+                .ToList();
+
+            result.CategoriesYear = _factory.Create(query);
+
+            result.CategoriesMonth = tmp3.Where(x => x.Invoice.Date.Month == currentMonth).ToList()
+                                         .OrderBy(x => x.Product.Id)
+                                         .GroupBy(x => x.Product.Category.Name)
+                                         .Select(x => new MonthlySales { Label = x.Key, Sales = x.Sum(y => y.SubTotal) }).ToList();
 
             var tmp4 = _unitOfWork.Invoices.Get().Where(x => x.Agent.Id == _identity.CurrentUser.Id);
             if (_identity.HasRole("admin"))
             {
                 tmp4 = _unitOfWork.Invoices.Get();
             }
-          
-                query = tmp4.OrderBy(x => x.Agent.Id).ToList()
-                   .GroupBy(x => new { agent = x.Agent.Name, region = x.Customer.Town.Region })
-                   .Select(x => new InputItem { Label = x.Key.agent, Index = (int)x.Key.region, Value = x.Sum(y => (y.Total)) })
-                   .ToList();
-                result.AgentsSales = _factory.Create(query, Helper.Regions.Count);
 
-            
+            query = tmp4.OrderBy(x => x.Agent.Id).ToList()
+               .GroupBy(x => new { agent = x.Agent.Name, region = x.Customer.Town.Region })
+               .Select(x => new InputItem { Label = x.Key.agent, Index = (int)x.Key.region, Value = x.Sum(y => (y.Total)) })
+               .ToList();
+            result.AgentsSales = _factory.Create(query, Helper.Regions.Count);
+
+
 
             result.Top5Products = _unitOfWork.Items.Get().OrderBy(x => x.Product.Id).ToList()
                                   .GroupBy(x => x.Product.Name)
@@ -100,11 +105,12 @@ namespace Billing.API.Reports
                                           Value = x.Sum(y => y.Total)
                                       })
                                       .ToList();
-            result.Customers = _factory.Customers(custList);
+            result.Customers = _factory.Customers(custList).Take(5).ToList();
 
             result.BurningItems = _unitOfWork.Products.Get().ToList()
                                   .Select(x => new BurningModel() { Id = x.Id, Name = x.Name, Stock = (int)x.Stock.Inventory, Sold = (int)x.Stock.Output })
-                                  //.OrderByDescending(x => x.Sold).Take(5)
+                                  .OrderByDescending(x => x.Sold)
+                                  .Take(5)
                                   .ToList();
             return result;
         }

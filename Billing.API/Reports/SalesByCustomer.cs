@@ -15,8 +15,8 @@ namespace Billing.API.Reports
         {
         }
 
-    
-        public SalesByCustomerModel Report(DateTime start, DateTime end,int page = 0)
+
+        public SalesByCustomerModel Report(DateTime start, DateTime end, int page = 0)
         {
             var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
 
@@ -29,9 +29,6 @@ namespace Billing.API.Reports
                                        .Select(x => _factory.Create(x.Key.Id, x.Key.Name, x.Sum(y => y.Items.Sum(z => z.Price * z.Quantity)), result.GrandTotal))
                                        .OrderByDescending(x => x.Turnover)
                                        .ToList();
-            var list = result.Customers.Skip(Pagination.PageSize * page)
-                                    .Take(Pagination.PageSize)
-                                    .ToList();
 
             return result;
         }

@@ -491,5 +491,15 @@ namespace Billing.API.Models
                 List = query
             };
         }
+
+        public ReturnObject<T> Create<T>(int page, int total, T data)
+        {
+            return new ReturnObject<T>()
+            {
+                CurrentPage = page,
+                TotalItems = total,
+                Data = data
+            };
+        }
     }
 }

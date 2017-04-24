@@ -10,5 +10,6 @@ namespace Billing.API.Models
         public int CurrentPage { get; set; }
         public int TotalItems { get; set; }
         public List<T> List { get; set; }
+        public T Data { get; set; }
     }
 }

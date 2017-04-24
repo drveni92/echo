@@ -283,6 +283,7 @@
                             chart: {
                                 type: 'multiBarChart',
                                 height: 650,
+                                width: 600,
                                 margin: {
                                     top: 20,
                                     right: 100,

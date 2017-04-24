@@ -27,7 +27,7 @@
                 endDate: new Date(),
                 startDate: new Date()
             };
-            $scope.dates.startDate.setMonth($scope.dates.startDate.getMonth() - 1);
+            $scope.dates.startDate.setMonth($scope.dates.startDate.getMonth() - 7);
 
             $scope.options = {
                 chart: {
@@ -75,8 +75,10 @@
                         temp.values.push({ x: reg, y: data.agents[i].sales[reg] });
                     }
                     $scope.data.push(temp);
+                    console.log(temp);
                 }
             }
+
 
             $scope.updateGraph = function() {
                 setGraph(response);

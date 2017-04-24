@@ -7,6 +7,7 @@ namespace Billing.API.Models.Reports
 {
     public class CategorySalesModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public double Total { get; set; }
         public double Percent { get; set; }

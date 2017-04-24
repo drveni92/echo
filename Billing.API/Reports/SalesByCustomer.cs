@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Billing.Repository;
 using Billing.API.Models.Reports;
+using Billing.API.Helpers;
+using Billing.API.Models;
 
 namespace Billing.API.Reports
 {
@@ -13,7 +15,8 @@ namespace Billing.API.Reports
         {
         }
 
-        public SalesByCustomerModel Report(DateTime start, DateTime end)
+    
+        public SalesByCustomerModel Report(DateTime start, DateTime end,int page = 0)
         {
             var Invoices = _unitOfWork.Invoices.Get().Where(x => (x.Date >= start && x.Date <= end)).ToList();
 
@@ -25,8 +28,11 @@ namespace Billing.API.Reports
             result.Customers = Invoices.GroupBy(x => new { Id = x.Customer.Id, Name = x.Customer.Name })
                                        .Select(x => _factory.Create(x.Key.Id, x.Key.Name, x.Sum(y => y.Items.Sum(z => z.Price * z.Quantity)), result.GrandTotal))
                                        .OrderByDescending(x => x.Turnover)
-                                       .Take(15)
                                        .ToList();
+            var list = result.Customers.Skip(Pagination.PageSize * page)
+                                    .Take(Pagination.PageSize)
+                                    .ToList();
+
             return result;
         }
     }

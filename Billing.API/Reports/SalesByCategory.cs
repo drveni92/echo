@@ -30,6 +30,7 @@ namespace Billing.API.Reports
             {
                 CategorySalesModel category = new CategorySalesModel()
                 {
+                    Id = item.CategoryId.Id,
                     Name = item.CategoryId.Name,
                     Total = item.CategoryTotal,
                     Percent = Math.Round(item.CategoryTotal / result.GrandTotal * 100, 2),

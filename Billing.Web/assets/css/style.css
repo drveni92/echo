@@ -824,6 +824,18 @@ table thead tr th {
     left: 5%;
 }
 
+.box-custom {
+    padding: 3px;
+    display: inline-block;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    margin-left: 40px;
+    font-size: 20px;
+    border: solid 1px ;
+    border-color: rgba(0, 0, 0, 0.21);
+    background-color: #ffffff
+      
 #reports {
     font-size: 12px;
     padding-left: 0px;

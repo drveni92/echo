@@ -63,6 +63,10 @@
                 templateUrl: "app/components/reports/templates/agentsregions.html",
                 controller: "ReportAgentsRegionsController"
             })
+            .when("/report/customers/categories", {
+                templateUrl: "app/components/reports/templates/customerscategories.html",
+                controller: "ReportCustomersCategoriesController"
+            })
             .when("/towns", {
                 templateUrl: "app/components/towns/templates/town.html",
                 controller: "TownsController"

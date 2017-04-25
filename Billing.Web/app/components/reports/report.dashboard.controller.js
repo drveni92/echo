@@ -1,21 +1,35 @@
-(function() {
+(function () {
     angular
         .module("Billing")
-        .controller('ReportDashboardController', ['$scope', 'DataFactory', 'ToasterService', 'DashboardFactory', function($scope, DataFactory, ToasterService, DashboardFactory) {
-            
+        .controller('ReportDashboardController', ['$scope', 'DataFactory', 'ToasterService', 'DashboardFactory', '$timeout', function ($scope, DataFactory, ToasterService, DashboardFactory, $timeout) {
+
             $scope.title = '';
-            
-            DataFactory.list('dashboard', function(data) {
+            var results = null;
+
+            $scope.$watch('isMenuOpened', function () {
+                if (results != null) {
+                    $timeout(function () {
+                        setReports();
+                    }, 800);
+                }
+            });
+
+            function setReports() {
+                setAgentsSales(results.agentsSales);
+                setBurningItems(results.burningItems);
+                setCategoriesYear(results.categoriesYear);
+                setCategoriesMonth(results.categoriesMonth);
+                setCustomers(results.customers);
+                setInvoices(results.invoices);
+                setProducts(results.top5Products);
+                setRegionsYear(results.regionsYear);
+                setRegionsMonth(results.regionsMonth);
+            };
+
+            DataFactory.list('dashboard', function (data) {
                 $scope.title = data.title;
-                setAgentsSales(data.agentsSales);
-                setBurningItems(data.burningItems);
-                setCategoriesYear(data.categoriesYear);
-                setCategoriesMonth(data.categoriesMonth);
-                setCustomers(data.customers);
-                setInvoices(data.invoices);
-                setProducts(data.top5Products);
-                setRegionsYear(data.regionsYear);
-                setRegionsMonth(data.regionsMonth);
+                results = data;
+                setReports();
             });
 
             function setCategoriesMonth(data) {

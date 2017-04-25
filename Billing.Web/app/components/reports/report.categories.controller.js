@@ -1,9 +1,17 @@
 (function () {
     angular
         .module("Billing")
-        .controller('ReportCategoriesController', ['$scope', 'DataFactory', 'ToasterService', '$uibModal', function ($scope, DataFactory, ToasterService, $uibModal) {
+        .controller('ReportCategoriesController', ['$scope', 'DataFactory', 'ToasterService', '$uibModal', '$timeout', function ($scope, DataFactory, ToasterService, $uibModal, $timeout) {
 
             var response = null;
+
+            $scope.$watch('isMenuOpened', function () {
+                if (response != null) {
+                    $timeout(function () {
+                        setGraph(response);
+                    }, 800);
+                }
+            });
 
             $scope.dateOptions = {
                 maxDate: new Date(),

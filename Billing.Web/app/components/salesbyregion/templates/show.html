@@ -41,16 +41,16 @@
         <tbody>
         <tr ng-repeat="item in SalesByAgents.sales">
             <td>{{ item.regionName }}</td>
-            <td class="col-md-4">{{ item.regionTotal }}</td>
-            <td>{{ item.regionPercent }}</td>
-            <td>{{ item.totalPercent }}</td>
+            <td class="col-md-4">{{ item.regionTotal | currency:undefined:0 }}</td>
+            <td>{{ item.regionPercent }} % </td>
+            <td>{{ item.totalPercent }} % </td>
 
         </tr>
         <tr class="totaltable" >
             <td>{{ SalesByAgents.name }} Total</td>
-            <td class="col-md-4">{{ SalesByAgents.agentTotal }}</td>
+            <td class="col-md-4">{{ SalesByAgents.agentTotal | currency:undefined:0 }}</td>
             <td></td>
-            <td>{{ SalesByAgents.percentTotal }}</td>
+            <td>{{ SalesByAgents.percentTotal }} % </td>
         </tr>
         </tbody>
     </table>

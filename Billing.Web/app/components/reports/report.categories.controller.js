@@ -63,6 +63,7 @@
                             return d3.format('$,.2f')(d);
                         }
                     },
+                    staggerLabels: true,
                     callback: function (chart) {
                         chart.discretebar.dispatch.on('elementClick', function (e) {
                             $scope.dates.id = e.data.label2;

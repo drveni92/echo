@@ -12,6 +12,7 @@
         <tr>
             <th> # </th>
             <th>Name</th>
+            <th>Unit</th>
             <th>Input</th>
             <th>Output</th>
             <th>Inventory</th>
@@ -21,6 +22,7 @@
         <tr ng-repeat="item in stocks ">
             <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
             <td>{{ item.product.name }}</td>
+            <td>{{ item.product.unit }}</td>
             <td>{{ item.input }}</td>
             <td>{{ item.output }}</td>
             <td>{{ item.inventory }}</td>

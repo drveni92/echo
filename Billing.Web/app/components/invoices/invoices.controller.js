@@ -4,6 +4,7 @@
         .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', function ($scope, $uibModal, DataFactory, InvoicesService, ToasterService) {
             $scope.states = BillingConfig.states;
             $scope.maxPagination = BillingConfig.maxPagination;
+            $scope.showPerPage = BillingConfig.showPerPage;
             $scope.userId = credentials.currentUser.id;
             $scope.currentPage = 1;
             $scope.searchInvoiceNo = "";
@@ -12,6 +13,7 @@
                 var url = "invoices";
                 url += "?invoiceno=" + (($scope.searchInvoiceNo !== undefined) ? $scope.searchInvoiceNo.toString() : "");
                 url += "&page=" + (($scope.currentPage !== undefined) ? ($scope.currentPage - 1) : 0);
+                url += "&show=" + $scope.showPerPage;
                 DataFactory.list(url, function (data) {
                     $scope.invoices = data.list;
                     $scope.totalItems = data.totalItems;
@@ -20,11 +22,15 @@
             };
 
             $scope.search = function search() {
-                if($scope.searchInvoiceNo.toString().length > 2) ListInvoices();
+                if($scope.searchInvoiceNo.toString().length > 2 || $scope.searchInvoiceNo.toString().length == 0) ListInvoices();
+            };
+
+            $scope.showItems = function showItems() {
+                ListInvoices();
             };
 
             $scope.pageChanged = function () {
-                $scope.listInvoices();
+                ListInvoices();
             };
 
             ListInvoices();

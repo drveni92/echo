@@ -13,6 +13,19 @@
     <div class="col-md-4">
         <input type="text" class="form-control" placeholder="Search invoice" ng-model="searchInvoiceNo" ng-change="search()">
     </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="form-inline pull-right">
+            <div class="form-group">
+                <label>Items per page:</label>
+                <select class="form-control" ng-model="showPerPage" ng-change="showItems()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row">
     <hr>
@@ -62,6 +75,6 @@
     </table>
 </div>
 <div class="row pagination-center">
-    <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination"
+    <ul uib-pagination total-items="totalItems" items-per-page="showPerPage" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination"
         boundary-links="true" force-ellipses="true"></ul>
 </div>

@@ -21,13 +21,13 @@ namespace Billing.API.Controllers
     {
         [TokenAuthorization("user")]
         [Route("{invoiceno?}")]
-        public IHttpActionResult Get(string invoiceno = "", int page = 0)
+        public IHttpActionResult Get(string invoiceno = "", int page = 0, int show = 10)
         {
             try
             {
                 var query = (invoiceno == null) ? UnitOfWork.Invoices.Get().ToList() : UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Contains(invoiceno)).ToList();
-                var list = query.Skip(Pagination.PageSize * page)
-                                .Take(Pagination.PageSize)
+                var list = query.Skip(show * page)
+                                .Take(show)
                                 .Select(x => Factory.Create(x)).ToList();
                 return Ok(Factory.Create<InvoiceModel>(page, query.Count, list));
             }

@@ -25,7 +25,6 @@ namespace Billing.API.Models
         public AgentModel Create(Agent agent)
         {
             List<AgentModel.AgentTown> towns = new List<AgentModel.AgentTown>();
-            int i = 0;
             foreach (var town in agent.Towns)
             {
                 Town tmp = _unitOfWork.Towns.Get().FirstOrDefault(x => x.Id == town.Id);

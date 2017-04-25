@@ -8,24 +8,51 @@
             $scope.userId = credentials.currentUser.id;
             $scope.currentPage = 1;
             $scope.searchInvoiceNo = "";
+            $scope.showAdvancedSearch = false;
+            $scope.searchParams = {
+                agent: '',
+                customer: '',
+                status: ''
+            };
 
             function ListInvoices() {
                 var url = "invoices";
+                if($scope.showAdvancedSearch) url += "/search";
+                
                 url += "?invoiceno=" + (($scope.searchInvoiceNo !== undefined) ? $scope.searchInvoiceNo.toString() : "");
                 url += "&page=" + (($scope.currentPage !== undefined) ? ($scope.currentPage - 1) : 0);
                 url += "&show=" + $scope.showPerPage;
-                DataFactory.list(url, function (data) {
-                    $scope.invoices = data.list;
-                    $scope.totalItems = data.totalItems;
-                    $scope.currentPage = data.currentPage + 1;
-                });
+                if ($scope.showAdvancedSearch) {
+                    console.log($scope.searchParams);
+                    DataFactory.insert(url, $scope.searchParams, function (data) {
+                        $scope.invoices = data.list;
+                        $scope.totalItems = data.totalItems;
+                        $scope.currentPage = data.currentPage + 1;
+                    });
+                }
+                else {
+                    DataFactory.list(url, function (data) {
+                        $scope.invoices = data.list;
+                        $scope.totalItems = data.totalItems;
+                        $scope.currentPage = data.currentPage + 1;
+                    });
+                }
             };
 
-            $scope.search = function search() {
-                if($scope.searchInvoiceNo.toString().length > 2 || $scope.searchInvoiceNo.toString().length == 0) ListInvoices();
+            $scope.advancedSearch = function () {
+                $scope.showAdvancedSearch = !$scope.showAdvancedSearch
+                if ($scope.showAdvancedSearch == false) ListInvoices();
             };
 
-            $scope.showItems = function showItems() {
+            $scope.advancedSearchSubmit = function () {
+                ListInvoices();
+            }
+
+            $scope.search = function () {
+                if ($scope.searchInvoiceNo.toString().length > 2 || $scope.searchInvoiceNo.toString().length == 0) ListInvoices();
+            };
+
+            $scope.showItems = function () {
                 ListInvoices();
             };
 

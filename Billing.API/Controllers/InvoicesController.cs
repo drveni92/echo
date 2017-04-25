@@ -39,6 +39,13 @@ namespace Billing.API.Controllers
         }
 
         [TokenAuthorization("user")]
+        [Route("search")]
+        public IHttpActionResult PostSearch([FromBody]SearchInvoice search, [FromUri]string invoiceno = "", [FromUri]int page = 0, [FromUri]int show = 10)
+        {
+            return Ok();
+        }
+
+        [TokenAuthorization("user")]
         [Route("customer/{id}")]
         public IHttpActionResult GetByInvoicesByCustomerId(int id)
         {

@@ -20,33 +20,16 @@ namespace Billing.API.Controllers
     public class InvoicesController : BaseController
     {
         [TokenAuthorization("user")]
-        [Route("")]
-        public IHttpActionResult Get(int page = 0)
+        [Route("{invoiceno?}")]
+        public IHttpActionResult Get(string invoiceno = "", int page = 0, int show = 10)
         {
             try
             {
-                var query = UnitOfWork.Invoices.Get().ToList();
-                var list = query.Skip(Pagination.PageSize * page)
-                                .Take(Pagination.PageSize)
+                var query = (invoiceno == null) ? UnitOfWork.Invoices.Get().ToList() : UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Contains(invoiceno)).ToList();
+                var list = query.Skip(show * page)
+                                .Take(show)
                                 .Select(x => Factory.Create(x)).ToList();
                 return Ok(Factory.Create<InvoiceModel>(page, query.Count, list));
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex.Message, "ERROR");
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [TokenAuthorization("user")]
-        [Route("invoiceno/{invoiceno}")]
-        public IHttpActionResult GetByInvoiceNo(string invoiceno)
-        {
-            try
-            {
-                var invoices = UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Equals(invoiceno)).ToList().Select(x => Factory.Create(x)).ToList();
-                if (invoices.Count != 0) return Ok(invoices);
-                return NotFound();
             }
             catch (Exception ex)
             {

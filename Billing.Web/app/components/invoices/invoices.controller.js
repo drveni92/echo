@@ -1,20 +1,35 @@
-(function() {
+(function () {
     angular
         .module("Billing")
-        .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', function($scope, $uibModal, DataFactory, InvoicesService, ToasterService) {
+        .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', function ($scope, $uibModal, DataFactory, InvoicesService, ToasterService) {
             $scope.states = BillingConfig.states;
             $scope.maxPagination = BillingConfig.maxPagination;
+            $scope.showPerPage = BillingConfig.showPerPage;
             $scope.userId = credentials.currentUser.id;
+            $scope.currentPage = 1;
+            $scope.searchInvoiceNo = "";
 
             function ListInvoices() {
-                DataFactory.list("invoices?page=" + ($scope.currentPage - 1), function(data) {
+                var url = "invoices";
+                url += "?invoiceno=" + (($scope.searchInvoiceNo !== undefined) ? $scope.searchInvoiceNo.toString() : "");
+                url += "&page=" + (($scope.currentPage !== undefined) ? ($scope.currentPage - 1) : 0);
+                url += "&show=" + $scope.showPerPage;
+                DataFactory.list(url, function (data) {
                     $scope.invoices = data.list;
                     $scope.totalItems = data.totalItems;
                     $scope.currentPage = data.currentPage + 1;
                 });
             };
 
-            $scope.pageChanged = function() {
+            $scope.search = function search() {
+                if($scope.searchInvoiceNo.toString().length > 2 || $scope.searchInvoiceNo.toString().length == 0) ListInvoices();
+            };
+
+            $scope.showItems = function showItems() {
+                ListInvoices();
+            };
+
+            $scope.pageChanged = function () {
                 ListInvoices();
             };
 
@@ -24,7 +39,7 @@
                 InvoicesService.download(id);
             };
 
-            $scope.show = function(invoice) {
+            $scope.show = function (invoice) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -35,13 +50,13 @@
                     scope: $scope,
                     size: 'lg',
                     resolve: {
-                        data: function() {
+                        data: function () {
                             return invoice
                         }
                     }
                 });
 
-                modalInstance.result.then(function(invoice) {
+                modalInstance.result.then(function (invoice) {
                     var modalInstance = $uibModal.open({
                         animation: true,
                         ariaLabelledBy: 'modal-title',
@@ -50,25 +65,25 @@
                         controller: 'ModalInstanceController',
                         controllerAs: '$modal',
                         resolve: {
-                            data: function() {
+                            data: function () {
                                 return null;
                             }
                         }
                     });
 
-                    modalInstance.result.then(function(mail) {
+                    modalInstance.result.then(function (mail) {
                         console.log(invoice);
                         mail.InvoiceId = invoice.id;
-                        DataFactory.insert("invoices/mail", mail, function(data) {
+                        DataFactory.insert("invoices/mail", mail, function (data) {
                             ToasterService.pop('success', "Success", data);
                         })
-                    }, function() {
+                    }, function () {
                         console.log('Modal dismissed at: ' + new Date());
                     });
-                }, function() {});
+                }, function () { });
             }
 
-            $scope.show_history = function(invoice) {
+            $scope.show_history = function (invoice) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -79,23 +94,23 @@
                     scope: $scope,
                     size: 'lg',
                     resolve: {
-                        data: function() {
+                        data: function () {
                             return invoice
                         }
                     }
                 });
 
-                modalInstance.result.then(function() {}, function() {});
+                modalInstance.result.then(function () { }, function () { });
             }
 
 
 
-            $scope.nextState = function(invoice, cancel = false) {
+            $scope.nextState = function (invoice, cancel = false) {
                 var url = "invoices/" + invoice.id + "/next/" + cancel;
-                InvoicesService.next(url, function(data) {
+                InvoicesService.next(url, function (data) {
                     ToasterService.pop('info', "Invoice " + invoice.invoiceNo, "New state of the invoice is " + $scope.states[data.status + 1]);
                     ListInvoices();
-                }, function(error) {
+                }, function (error) {
                     ToasterService.pop('error', "Error", error.data.message);
                     var modalInstance = $uibModal.open({
                         animation: true,
@@ -105,24 +120,24 @@
                         controller: 'ModalInstanceController',
                         controllerAs: '$modal',
                         resolve: {
-                            data: function() {
+                            data: function () {
                                 return invoice
                             }
                         }
                     });
 
-                    modalInstance.result.then(function(invoice) {
-                        DataFactory.read("invoices/automatic", invoice.id, function(data) {
+                    modalInstance.result.then(function (invoice) {
+                        DataFactory.read("invoices/automatic", invoice.id, function (data) {
                             ToasterService.pop('success', "Success", data);
                         });
-                    }, function() {
+                    }, function () {
                         console.log('Modal dismissed at: ' + new Date());
                     });
                 });
             }
 
 
-            $scope.delete = function(invoice) {
+            $scope.delete = function (invoice) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -131,18 +146,18 @@
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
-                        data: function() {
+                        data: function () {
                             return invoice
                         }
                     }
                 });
 
-                modalInstance.result.then(function(invoice) {
-                    DataFactory.delete("invoices", invoice.id, function(data) {
+                modalInstance.result.then(function (invoice) {
+                    DataFactory.delete("invoices", invoice.id, function (data) {
                         ToasterService.pop('success', "Success", "Invoice deleted");
                         ListInvoices();
                     });
-                }, function() {
+                }, function () {
                     console.log('Modal dismissed at: ' + new Date());
                 });
             };

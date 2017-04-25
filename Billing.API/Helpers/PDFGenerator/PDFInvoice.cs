@@ -75,7 +75,7 @@ namespace Billing.API.Helpers.PDFGenerator
             row.TopPadding = 2;
             row.Cells[0].AddParagraph("Shipper:");
             row.Cells[0].Format.Font.Bold = true;
-            row.Cells[1].AddParagraph(invoice.Shipper.Name);
+            if(invoice.Shipper != null) row.Cells[1].AddParagraph(invoice.Shipper.Name);
             row.Cells[2].AddParagraph("Address:");
             row.Cells[2].Format.Font.Bold = true;
             row.Cells[3].AddParagraph(invoice.Customer.Address);

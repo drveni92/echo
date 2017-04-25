@@ -198,3 +198,5 @@ FakesAssemblies/
 *.db
 #test
 NoPush.txt
+
+.vscode

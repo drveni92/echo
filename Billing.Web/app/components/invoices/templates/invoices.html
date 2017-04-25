@@ -6,7 +6,16 @@
         <a href="#/invoices/new" class="btn btn-primary new-button">New invoice</a>
     </div>
 </div>
-<hr>
+<div class="row">
+    <hr>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Search invoice" ng-model="searchInvoiceNo" ng-change="search()">
+    </div>
+</div>
+<div class="row">
+    <hr>
 </div>
 <div class="row">
     <table class="table table-hover table-striped table-bordered">
@@ -28,7 +37,8 @@
                 <td>{{ item.agent.name }}</td>
                 <td class="col-md-3">{{ item.customer.name }}</td>
                 <td>
-                    <button style="width: 100%;" ng-class="{'btn btn-danger': item.status == -1, 'btn btn-warning': (item.status < 2 && item.status > -1), 'btn btn-primary': (item.status < 4 && item.status > 1), 'btn btn-success': (item.status < 8 && item.status > 3)}" ng-click="nextState(item)">
+                    <button style="width: 100%;" ng-class="{'btn btn-danger': item.status == -1, 'btn btn-warning': (item.status < 2 && item.status > -1), 'btn btn-primary': (item.status < 4 && item.status > 1), 'btn btn-success': (item.status < 8 && item.status > 3)}"
+                        ng-click="nextState(item)">
                         {{ states[item.status + 1] }}
                     </button>
                 </td>
@@ -52,5 +62,6 @@
     </table>
 </div>
 <div class="row pagination-center">
-    <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
+    <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination"
+        boundary-links="true" force-ellipses="true"></ul>
 </div>

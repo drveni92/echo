@@ -40,9 +40,9 @@
            <tbody>
            <tr ng-repeat="item in sale.agents">
                <td>{{ item.name }}</td>
-               <td class="col-md-4">{{ item.total }}</td>
-               <td>{{ item.regionPercent }}</td>
-               <td>{{ item.totalPercent }}</td>
+               <td class="col-md-4">{{ item.total | currency:undefined:0 }}</td>
+               <td>{{ item.regionPercent }} % </td>
+               <td>{{ item.totalPercent }} % </td>
                <td>
                    <a ng-click="show(item)" class="btn btn-info">
                        <i class="fa fa-eye" aria-hidden="true"></i>
@@ -51,9 +51,9 @@
            </tr>
            <tr style="background-color: rgb(75, 239, 178);">
                <td>{{ sale.name }}</td>
-               <td class="col-md-4">{{ sale.total }}</td>
+               <td class="col-md-4">{{ sale.total | currency:undefined:0 }}</td>
                <td></td>
-               <td>{{ sale.percent }}</td>
+               <td>{{ sale.percent }} % </td>
                <td>
                </td>
            </tr>

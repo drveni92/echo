@@ -231,7 +231,7 @@ namespace Billing.API.Models
                 Id = stock.Id,
                 Input = stock.Input,
                 Output = stock.Output,
-                Product = new StockModel.StockProduct() { Id = stock.Product.Id, Name = stock.Product.Name }
+                Product = new StockModel.StockProduct() { Id = stock.Product.Id, Name = stock.Product.Name, Unit = stock.Product.Unit }
             };
         }
 

@@ -11,6 +11,7 @@ namespace Billing.API.Models
         {
             public int Id;
             public string Name;
+            public string Unit;
         }
         public int Id { get; set; }
         public double Input { get; set; }

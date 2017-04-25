@@ -43,24 +43,16 @@
         <tr>
             <th> # </th>
             <th> Customer Name</th>
-            <th> Telephones </th>
-            <th> Laptops </th>
-            <th> Computers </th>
-            <th> Periferals </th>
-            <th> Data Storage </th>
-            <th> Data Storage Mini </th>
-            <th> Media </th>
-            <th> Monitors </th>
-            <th> Projectors </th>
-            <th> Networking </th>
-            <th> Printers/Scanners </th>
-            <th> Total </th>
+            <th ng-repeat="item in salesbycustomerscategories.categories">
+                {{ item.category }}
+            </th>
+            <th>Total</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="item in salesbycustomerscategories.customers ">
             <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
-            <td>{{ item.name }}</td>
+            <td>{{ item.name}}</td>
             <td>{{ item.sales["telephones"] }}</td>
             <td>{{ item.sales["laptops"] }}</td>
             <td>{{ item.sales["computers"] }}</td>

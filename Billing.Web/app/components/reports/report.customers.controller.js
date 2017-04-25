@@ -27,7 +27,6 @@
                     endDate: $scope.dates.endDate,
                     page: $scope.currentPage - 1
                 }, function(result) {
-                    console.log(result);
                     $scope.salesbycustomer = result.data;
                     $scope.totalItems = result.totalItems;
                     $scope.currentPage = result.currentPage + 1;

@@ -1,12 +1,16 @@
 ﻿using Billing.API.Helpers;
 using Billing.API.Helpers.Identity;
+using Billing.API.Helpers.PDFGenerator;
 using Billing.API.Models;
 using Billing.Database;
+using MigraDoc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace Billing.API.Controllers
@@ -247,6 +251,31 @@ namespace Billing.API.Controllers
             Invoice invoice = UnitOfWork.Invoices.Get(model.InvoiceId);
             Helper.SendEmail(invoice, Identity.CurrentUser.Username, model.MailTo);
             return Ok("Email sent");
+        }
+
+        [TokenAuthorization("user")]
+        [Route("download/{id}")]
+        public IHttpActionResult GetDownload(int id)
+        {
+            /* Get Invoice PDF */
+            Invoice invoice = UnitOfWork.Invoices.Get(id);
+            PDFInvoice pdf = new PDFInvoice(invoice);
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false);
+            pdfRenderer.Document = pdf.CreateDocument();
+            pdfRenderer.RenderDocument();
+            MemoryStream stream = new MemoryStream();
+            pdfRenderer.Save(stream, false);
+
+            /* Send PDF file */
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StreamContent(stream)
+            };
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+
+            var response = ResponseMessage(result);
+
+            return response;
         }
     }
 }

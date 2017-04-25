@@ -20,6 +20,10 @@
 
             ListInvoices();
 
+            $scope.download = function (id) {
+                InvoicesService.download(id);
+            };
+
             $scope.show = function(invoice) {
                 var modalInstance = $uibModal.open({
                     animation: true,
@@ -28,6 +32,7 @@
                     templateUrl: 'app/components/invoices/templates/show.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
+                    scope: $scope,
                     size: 'lg',
                     resolve: {
                         data: function() {

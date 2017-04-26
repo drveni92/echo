@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Linq.Dynamic;
 
 namespace Billing.API.Controllers
 {
@@ -21,13 +22,35 @@ namespace Billing.API.Controllers
     {
         [TokenAuthorization("user")]
         [Route("{invoiceno?}")]
-        public IHttpActionResult Get(string invoiceno = "", int page = 0, int show = 10)
+        public IHttpActionResult Get(string invoiceno = "", int page = 0, int showPerPage = 10, string sortType = "", bool sortReverse = false)
         {
             try
             {
                 var query = (invoiceno == null) ? UnitOfWork.Invoices.Get().ToList() : UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Contains(invoiceno)).ToList();
-                var list = query.Skip(show * page)
-                                .Take(show)
+                var list = query.OrderBy(sortType + (sortReverse ? " descending" : ""))
+                                .Skip(showPerPage * page)
+                                .Take(showPerPage)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<InvoiceModel>(page, query.Count, list));
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [TokenAuthorization("user")]
+        [Route("search")]
+        public IHttpActionResult PostSearch([FromBody]SearchInvoice search, [FromUri]string invoiceno = "", [FromUri]int page = 0, [FromUri]int showPerPage = 10, string sortType = "", bool sortReverse = false)
+        {
+            try
+            {
+                var q = (invoiceno == null) ? UnitOfWork.Invoices.Get().ToList() : UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Contains(invoiceno)).ToList();
+                var query = q.Where(x => (x.Agent.Name.ToLower().Contains(search.Agent.ToLower()) && x.Customer.Name.ToLower().Contains(search.Customer.ToLower()) && x.Status.ToString().ToLower().Contains(search.Status.ToLower()))).ToList();
+                var list = query.OrderBy(sortType + (sortReverse ? " descending" : ""))
+                                .Skip(showPerPage * page)
+                                .Take(showPerPage)
                                 .Select(x => Factory.Create(x)).ToList();
                 return Ok(Factory.Create<InvoiceModel>(page, query.Count, list));
             }

@@ -74,27 +74,6 @@ namespace Billing.Test
             Assert.IsNotNull(response.Content);
         }
 
-        [TestMethod]
-        public void GetInoviceByInvoiceNo()
-        {
-           
-            GetReady();
-            var actRes = controller.GetByInvoiceNo("AG4E21");
-            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
-
-            Assert.IsNotNull(response.Content);
-        }
-
-        [TestMethod]
-        public void GetInoviceByWrongInvoiceNo()
-        {
-         
-            GetReady();
-            var actRes = controller.GetByInvoiceNo("12345");
-            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
-
-            Assert.IsFalse(response.IsSuccessStatusCode);
-        }
 
         [TestMethod]
         public void GetInvoiceById()

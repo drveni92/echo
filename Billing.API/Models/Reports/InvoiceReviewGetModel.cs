@@ -12,6 +12,7 @@ namespace Billing.API.Models.Reports
         public int Quantity { get; set; }
         public double Price { get; set; }
         public double Subtotal { get; set; }
+        public string Unit { get; set; }
     }
 
     public class InvoiceReviewGetModel
@@ -23,7 +24,7 @@ namespace Billing.API.Models.Reports
         public string InvoiceNo { get; set; }
         public string CustomerName { get; set; }
         public DateTime InvoiceDate { get; set; }
-        public string InvoiceStatus { get; set; }
+        public int InvoiceStatus { get; set; }
         public double Subtotal { get; set; }
         public double VatAmount { get; set; }
         public double Shipping { get; set; }

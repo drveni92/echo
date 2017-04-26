@@ -108,9 +108,13 @@
                 templateUrl: "app/components/invoices/templates/show_invoice.html",
                 controller: "InvoiceShowController"
             })
-            .when("/salesbyregion", {
-                templateUrl: "app/components/salesbyregion/templates/salesbyregion.html",
+            .when("/report/regions", {
+                templateUrl: "app/components/reports/templates/salesbyregion.html",
                 controller: "SalesByRegionController"
+            })
+            .when("/invoicesreview", {
+                templateUrl : "app/components/reports/templates/invoicesreview.html",
+                controller: "InvoicesReviewController"
             })
             .otherwise({ redirectTo: "/dashboard" });
     }).run(function($rootScope, $location) {

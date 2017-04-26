@@ -13,7 +13,7 @@ namespace Billing.API.Models.Reports
         public DateTime InvoiceDate { get; set; }
         public DateTime? ShippedOn { get; set; }
         public double InvoiceTotal { get; set; }
-        public string InvoiceStatus { get; set; }
+        public int InvoiceStatus { get; set; }
     }
 
     public class InvoiceReviewCustomerModel

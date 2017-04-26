@@ -1,11 +1,12 @@
 angular
     .module("Billing")
-    .controller('SalesByRegionController', ['$scope','$rootScope', '$http', '$uibModal', 'DataFactory','$filter', function($scope, $rootScope, $http, $uibModal, DataFactory,$filter ) {
+    .controller('SalesByRegionController', ['$scope', '$http', '$uibModal', 'DataFactory','$filter', function($scope, $http, $uibModal, DataFactory,$filter ) {
 
         function ListSales() {
             DataFactory.insert("salesbyregion", { startDate : $scope.dates.startDate,
                 endDate : $scope.dates.endDate }, function(data) {
-                $scope.salesbyregion = data;}
+                $scope.salesbyregion = data;
+            }
 
         )};
         $scope.dates = {
@@ -15,12 +16,12 @@ angular
         var idAgent;
 
 
-        $rootScope.openStartDateModal = function() {
-            DataFactory.insert("salesbyagent/"+idAgent, { startDate : $rootScope.SalesByAgents.startDate,
-                endDate :  $rootScope.SalesByAgents.endDate , id : idAgent}, function(data) {
-                $rootScope.SalesByAgents=data;
-                $rootScope.SalesByAgents.startDate =  new Date ($rootScope.SalesByAgents.startDate);
-                $rootScope.SalesByAgents.endDate = new Date ($rootScope.SalesByAgents.endDate);
+        $scope.openStartDateModal = function() {
+            DataFactory.insert("salesbyagent/"+idAgent, { startDate : $scope.SalesByAgents.startDate,
+                endDate :  $scope.SalesByAgents.endDate , id : idAgent}, function(data) {
+                $scope.SalesByAgents=data;
+                $scope.SalesByAgents.startDate =  new Date ($scope.SalesByAgents.startDate);
+                $scope.SalesByAgents.endDate = new Date ($scope.SalesByAgents.endDate);
             })
         };
 
@@ -63,17 +64,18 @@ angular
             DataFactory.insert("salesbyagent/"+salesbyagent.id, { startDate : $scope.dates.startDate,
                 endDate : $scope.dates.endDate , id : salesbyagent.id}, function(data) {
                 idAgent=salesbyagent.id;
-                $rootScope.SalesByAgents = data;
-                $rootScope.SalesByAgents.startDate = new Date($scope.dates.startDate);
-                $rootScope.SalesByAgents.endDate = new Date($scope.dates.endDate);
+                $scope.SalesByAgents = data;
+                $scope.SalesByAgents.startDate = new Date($scope.dates.startDate);
+                $scope.SalesByAgents.endDate = new Date($scope.dates.endDate);
 
                 var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'app/components/salesbyregion/templates/show.html',
+                templateUrl: 'app/components/reports/templates/salesbyregionshow.html',
                 controller: 'ModalInstanceController',
                 controllerAs: '$modal',
+                    scope: $scope,
                     size: 'lg',
                 resolve: {
                     data: function() {

@@ -762,9 +762,12 @@ table thead tr th {
     margin: 5px 0 5px 0
 }
 
-.agentscontainer {
-    margin-left: 0px;
-    padding-left: 0px;
+.profile-container {
+    width: 80%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%);
 }
 
 .viewprofile {

@@ -36,7 +36,6 @@
                         ToasterService.pop('success', "Success", data);
                     })
                 }, function () {
-                    console.log('Modal dismissed at: ' + new Date());
                 });
             };
 

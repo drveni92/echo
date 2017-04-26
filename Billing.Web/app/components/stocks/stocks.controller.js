@@ -8,7 +8,6 @@
           function ListStocks() {
               DataFactory.list("stocks?page=" + ($scope.currentPage - 1), function(data) {
                   $scope.stocks = data.list;
-                  console.log(data.list);
                   $scope.totalItems = data.totalItems;
                   $scope.currentPage = data.currentPage + 1;
               });

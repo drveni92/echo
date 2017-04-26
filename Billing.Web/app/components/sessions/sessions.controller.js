@@ -83,7 +83,6 @@
                     return true;
                 },
                 function(reason) {
-                    console.log(reason);
                     return false;
                 });
 

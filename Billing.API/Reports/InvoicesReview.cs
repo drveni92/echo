@@ -30,7 +30,7 @@ namespace Billing.API.Reports
                     InvoiceNo = x.InvoiceNo,
                     Date = x.Date,
                     ShippedOn = x.ShippedOn,
-                    Status = x.Status,
+                    Status =(int)x.Status,
                     Vat = x.Vat,
                     Name = x.Customer.Name
                 })
@@ -55,7 +55,7 @@ namespace Billing.API.Reports
                     InvoiceId = item.Id,
                     InvoiceNo = item.InvoiceNo,
                     InvoiceTotal = Math.Round((item.Total) / (1 + item.Vat / 100), 2),
-                    InvoiceStatus = item.Status.ToString(),
+                    InvoiceStatus = item.Status,
                     InvoiceDate = item.Date,
                     ShippedOn = item.ShippedOn
                 });
@@ -76,11 +76,11 @@ namespace Billing.API.Reports
             {
                 result.InvoiceNo = invoice.InvoiceNo;
                 result.InvoiceDate = invoice.Date;
-                result.InvoiceStatus = invoice.Status.ToString();
-                result.Subtotal = invoice.SubTotal;
-                result.VatAmount = Math.Round(invoice.VatAmount,2);
+                result.InvoiceStatus = (int)invoice.Status;
+                result.VatAmount = Math.Round(invoice.VatAmount, 2);
+                result.Subtotal = invoice.SubTotal + result.VatAmount;
                 result.Shipping = invoice.Shipping;
-                result.Shipper = invoice.Shipper.Name;
+                result.Shipper = (invoice.Shipper == null) ? null : invoice.Shipper.Name;
                 result.ShippedOn = invoice.ShippedOn;
 
             }
@@ -92,6 +92,7 @@ namespace Billing.API.Reports
                 ProductName = x.Product.Name,
                 Quantity = x.Quantity,
                 Price = x.Price,
+                Unit = x.Product.Unit,
                 Subtotal = x.SubTotal
             })
                           .Select(x => new
@@ -100,6 +101,7 @@ namespace Billing.API.Reports
                               ProductName = x.Key.ProductName,
                               Quantity = x.Key.Quantity,
                               Price = x.Key.Price,
+                              Unit = x.Key.Unit,
                               Subtotal = x.Key.Subtotal,
                               Total = x.Sum(y => y.SubTotal)
                           }).ToList();
@@ -114,6 +116,7 @@ namespace Billing.API.Reports
                     ProductName = item.ProductName,
                     Quantity = item.Quantity,
                     Price = item.Price,
+                    Unit = item.Unit,
                     Subtotal = item.Subtotal
                 });
             }

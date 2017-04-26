@@ -18,7 +18,8 @@
     <script src="app/components/agents/agent.show.controller.js"></script>
     <script src="app/components/agents/factory/agents.factory.js"></script>
     <script src="app/components/customers/customers.controller.js"></script>
-    <script src="app/components/salesbyregion/salesbyregion.controller.js"></script>
+    <script src="app/components/reports/salesbyregion.controller.js"></script>
+    <script src="app/components/reports/report.invoice.review.controller.js"></script>
     <script src="app/components/customers/factory/customers.factory.js"></script>
     <script src="app/components/categories/categories.controller.js"></script>
     <script src="app/components/categories/factory/categories.factory.js"></script>
@@ -103,11 +104,12 @@
                             <span class="list-item">Reports</span>
                         </a>
                         <ul class="sub-menu collapse" id="reports" ng-show="isMenuOpened">
-                            <li><a href="#/salesbyregion">Sales by region</a></li>
+                            <li><a href="#/report/regions">Sales by region</a></li>
                             <li><a href="#/report/categories">Category report</a></li>
                             <li><a href="#/report/customers">Customer report</a></li>
+                            <li><a href="#/report/agents/regions">Agents Regions report</a></li>
+                            <li><a href="#/invoicesreview">Invoices Review</a></li>
                             <li><a href="#/report/customers/categories">Customer-categories report</a></li>
-                            <li><a href="#/report/agents/regions">Agents-regions report</a></li>
                             <li><a href="#/stocks">Stock level</a></li>
                         </ul>
                     </li>

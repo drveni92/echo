@@ -40,7 +40,6 @@ angular
                         ToasterService.pop('success', "Success", "Shipper added");
                         ListShippers(); });
                 }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
                 });
         };
 
@@ -88,7 +87,6 @@ angular
                         ListShippers();
                     });
                 }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
                 });
         }
 
@@ -114,7 +112,6 @@ angular
                     ListShippers();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         }
 

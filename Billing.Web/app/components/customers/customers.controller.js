@@ -39,7 +39,6 @@ angular
                     ListCustomers();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -109,8 +108,7 @@ angular
                     ToasterService.pop('success', "Success", "Customer deleted");
                     ListCustomers();
                 });
-            }, function() {
-                console.log('Modal dismissed at: ' + new Date());
+            }, function() 
             });
         }
 

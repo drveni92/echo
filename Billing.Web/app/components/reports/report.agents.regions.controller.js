@@ -75,7 +75,6 @@
                         temp.values.push({ x: reg, y: data.agents[i].sales[reg] });
                     }
                     $scope.data.push(temp);
-                    console.log(temp);
                 }
             }
 

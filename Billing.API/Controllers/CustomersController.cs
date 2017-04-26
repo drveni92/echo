@@ -41,6 +41,23 @@ namespace Billing.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+ 
+
+        [Route("all")]
+        public IHttpActionResult GeAll()
+        {
+            try
+            {
+                List<Customer> customers;
+                customers = UnitOfWork.Customers.Get().ToList();
+                return Ok(UnitOfWork.Customers.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
+        }
 
         [Route("town/{id}")]
         public IHttpActionResult GetByTown(int id)

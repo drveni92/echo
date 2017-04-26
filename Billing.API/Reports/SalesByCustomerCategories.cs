@@ -14,7 +14,7 @@ namespace Billing.API.Reports
         {
         }
 
-        public SalesCustomersCategoriesModel Report(DateTime start, DateTime end)
+        public SalesCustomersCategoriesModel Report(DateTime start, DateTime end, int page = 0)
         {
             SalesCustomersCategoriesModel result = new SalesCustomersCategoriesModel(start, end);
 

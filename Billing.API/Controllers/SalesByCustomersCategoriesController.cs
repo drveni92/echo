@@ -17,7 +17,11 @@ namespace Billing.API.Controllers
         {
             try
             {
-                return Ok(Reports.SalesByCustomersCategories.Report(request.StartDate, request.EndDate));
+                if (request.Page < 0) request.Page = 0;
+                var data = Reports.SalesByCustomersCategories.Report(request.StartDate, request.EndDate);
+                var customersCount = data.Customers.Count;
+                data.Customers = data.Customers.Skip(Pagination.PageSize * request.Page).Take(Pagination.PageSize).ToList();
+                return Ok(Factory.Create<SalesCustomersCategoriesModel>(request.Page, customersCount, data));
             }
             catch (Exception ex)
             {

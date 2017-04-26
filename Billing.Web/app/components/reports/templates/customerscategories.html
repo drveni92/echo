@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12">
-        <h3> Sales report for customers </h3>
+        <h3> Sales: Customers by categories </h3>
     </div>
 </div>
 <hr>
@@ -17,7 +17,7 @@
         </p>
     </div>
     <div class="col-md-6">
-        <h5 style="padding: 10px; margin-left: 60px;"> <strong> Total in certain period:  </strong> <span style="margin-left: 40px;font-size: 20px;">  {{ salesbycustomerscategories.grandTotal | number : fractionSize }} </span></h5>
+        <h5 style="padding: 10px; margin-left: 60px;"> <strong> Total in certain period:  </strong> <span class="box-custom">  {{ salesbycustomerscategories.grandTotal | currency:undefined:0 }} </span></h5>
     </div>
 </div>
 <div class="row">
@@ -33,7 +33,7 @@
         </p>
     </div>
     <div class="col-md-6">
-        <h5 style="padding: 10px; margin-left: 60px;"> <strong> Number of customers:  </strong> <span style="margin-left: 40px;font-size: 20px;">  {{ salesbycustomerscategories.customers.length}} </span></h5>
+        <h5 style="padding: 10px; margin-left: 60px;"> <strong> Number of customers:  </strong> <span class="box-custom">  {{ totalItems}}  </span></h5>
     </div>
 </div>
 <hr>
@@ -43,36 +43,28 @@
         <tr>
             <th> # </th>
             <th> Customer Name</th>
-            <th> Telephones </th>
-            <th> Laptops </th>
-            <th> Computers </th>
-            <th> Periferals </th>
-            <th> Data Storage </th>
-            <th> Data Storage Mini </th>
-            <th> Media </th>
-            <th> Monitors </th>
-            <th> Projectors </th>
-            <th> Networking </th>
-            <th> Printers/Scanners </th>
-            <th> Total </th>
+            <th ng-repeat="item in salesbycustomerscategories.categories">
+                {{ item.category }}
+            </th>
+            <th>Total</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="item in salesbycustomerscategories.customers ">
-            <td>{{ $index + 1 }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.sales["telephones"] }}</td>
-            <td>{{ item.sales["laptops"] }}</td>
-            <td>{{ item.sales["computers"] }}</td>
-            <td>{{ item.sales["periferals"] }}</td>
-            <td>{{ item.sales["data Storage"] }}</td>
-            <td>{{ item.sales["data Storage Mini"] }}</td>
-            <td>{{ item.sales["media"] }}</td>
-            <td>{{ item.sales["monitors"] }}</td>
-            <td>{{ item.sales["projectors"] }}</td>
-            <td>{{ item.sales["networking"] }}</td>
-            <td>{{ item.sales["printers/Scanners"] }}</td>
-            <td> <strong>{{ item.turnover }}</strong></td>
+            <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
+            <td>{{ item.name}}</td>
+            <td>{{ item.sales["telephones"] | currency:undefined:0 }}</td>
+            <td>{{ item.sales["laptops"] | currency:undefined:0}}</td>
+            <td>{{ item.sales["computers"] | currency:undefined:0}}</td>
+            <td>{{ item.sales["periferals"] | currency:undefined:0}}</td>
+            <td>{{ item.sales["data Storage"] | currency:undefined:0}}</td>
+            <td>{{ item.sales["data Storage Mini"] | currency:undefined:0}}</td>
+            <td>{{ item.sales["media"] | currency:undefined:0}}</td>
+            <td>{{ item.sales["monitors"] | currency:undefined:0}}</td>
+            <td>{{ item.sales["projectors"] | currency:undefined:0}}</td>
+            <td>{{ item.sales["networking"] | currency:undefined:0}}</td>
+            <td>{{ item.sales["printers/Scanners"] | currency:undefined:0}}</td>
+            <td> <strong>{{ item.turnover | currency:undefined:0}}</strong></td>
         </tr>
         </tbody>
     </table>

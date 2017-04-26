@@ -1,13 +1,13 @@
-(function() {
+(function () {
     angular
         .module("Billing")
-        .factory('DashboardFactory', function() {
+        .factory('DashboardFactory', function () {
             var regions = BillingConfig.regions;
             var months = BillingConfig.months;
 
             return {
 
-                monthSale: function(result) {
+                monthSale: function (result) {
                     var data = [];
                     for (var i = result.length - 1; i >= 0; i--) {
                         data.push({ key: result[i].label, value: result[i].sales });
@@ -18,29 +18,21 @@
                             chart: {
                                 type: 'pieChart',
                                 height: 650,
-                                x: function(d) {
+                                x: function (d) {
                                     return d.key;
                                 },
-                                y: function(d) {
+                                y: function (d) {
                                     return d.value;
                                 },
                                 showLabels: true,
                                 duration: 500,
                                 labelThreshold: 0.01,
-                                labelSunbeamLayout: true,
-                                legend: {
-                                    margin: {
-                                        top: 5,
-                                        right: 35,
-                                        bottom: 5,
-                                        left: 0
-                                    }
-                                }
+                                labelSunbeamLayout: true
                             }
                         }
                     }
                 },
-                regionsYear: function(result) {
+                regionsYear: function (result) {
                     data = [];
                     for (var i = result.length - 1; i >= 0; i--) {
                         var temp = { key: result[i].label, values: [] };
@@ -62,10 +54,10 @@
                                     bottom: 100,
                                     left: 100
                                 },
-                                x: function(d) {
+                                x: function (d) {
                                     return d.x;
                                 },
-                                valueFormat: function(d) {
+                                valueFormat: function (d) {
                                     return d3.format('$,.2f')(d);
                                 },
                                 clipEdge: true,
@@ -78,7 +70,7 @@
                         }
                     };
                 },
-                products: function(result) {
+                products: function (result) {
                     var data = [];
                     for (var i = result.length - 1; i >= 0; i--) {
                         data.push({ key: result[i].product, value: result[i] });
@@ -89,14 +81,14 @@
                             chart: {
                                 type: 'pieChart',
                                 height: 650,
-                                x: function(d) {
+                                x: function (d) {
                                     return d.key;
                                 },
-                                y: function(d) {
+                                y: function (d) {
                                     return d.value.revenue;
                                 },
                                 tooltip: {
-                                    contentGenerator: function(e) {
+                                    contentGenerator: function (e) {
                                         var obj = e.data.value;
                                         var content = "<p><strong>Debit: </strong>" + d3.format('$,.2f')(obj.revenue.toFixed(2)) + "</strong></p>";
                                         content += "<p><strong>Quantity: </strong>" + (obj.quantity) + "</strong></p>";
@@ -106,20 +98,12 @@
                                 showLabels: true,
                                 duration: 500,
                                 labelThreshold: 0.01,
-                                labelSunbeamLayout: true,
-                                legend: {
-                                    margin: {
-                                        top: 5,
-                                        right: 35,
-                                        bottom: 5,
-                                        left: 0
-                                    }
-                                }
+                                labelSunbeamLayout: true
                             }
                         }
                     }
                 },
-                invoices: function(result) {
+                invoices: function (result) {
                     var data = [];
                     for (var i = result.length - 1; i >= 0; i--) {
                         data.push({ key: result[i].status.split(/(?=[A-Z])/).join(" "), value: result[i].count });
@@ -130,33 +114,25 @@
                             chart: {
                                 type: 'pieChart',
                                 height: 650,
-                                x: function(d) {
+                                x: function (d) {
                                     return d.key;
                                 },
-                                y: function(d) {
+                                y: function (d) {
                                     return d.value;
                                 },
-                                valueFormat: function(d) {
+                                valueFormat: function (d) {
                                     return Math.floor(d);
                                 },
                                 showLabels: true,
                                 duration: 500,
                                 labelThreshold: 0.01,
-                                labelSunbeamLayout: true,
-                                legend: {
-                                    margin: {
-                                        top: 5,
-                                        right: 35,
-                                        bottom: 5,
-                                        left: 0
-                                    }
-                                }
+                                labelSunbeamLayout: true
                             }
                         }
                     }
                 },
 
-                customers: function(result) {
+                customers: function (result) {
                     var data = [];
                     for (var i = result.length - 1; i >= 0; i--) {
                         data.push({ key: result[i].name, y: result[i] });
@@ -167,14 +143,14 @@
                             chart: {
                                 type: 'pieChart',
                                 height: 650,
-                                x: function(d) {
+                                x: function (d) {
                                     return d.key;
                                 },
-                                y: function(d) {
+                                y: function (d) {
                                     return d.y.debit;
                                 },
                                 tooltip: {
-                                    contentGenerator: function(e) {
+                                    contentGenerator: function (e) {
                                         var obj = e.data.y;
                                         var content = "<p><strong>Credit: </strong>" + d3.format('$,.2f')(obj.credit.toFixed(2)) + "</strong></p>";
                                         content += "<p><strong>Debit: </strong>" + d3.format('$,.2f')(obj.debit.toFixed(2)) + "</strong></p>";
@@ -184,20 +160,12 @@
                                 showLabels: true,
                                 duration: 500,
                                 labelThreshold: 0.01,
-                                labelSunbeamLayout: true,
-                                legend: {
-                                    margin: {
-                                        top: 5,
-                                        right: 35,
-                                        bottom: 5,
-                                        left: 0
-                                    }
-                                }
+                                labelSunbeamLayout: true
                             }
                         }
                     }
                 },
-                categoriesyear: function(result) {
+                categoriesyear: function (result) {
                     data = [];
                     for (var i = result.length - 1; i >= 0; i--) {
                         var temp = { key: result[i].label, values: [] };
@@ -219,10 +187,10 @@
                                     bottom: 100,
                                     left: 100
                                 },
-                                x: function(d) {
+                                x: function (d) {
                                     return d.x;
                                 },
-                                valueFormat: function(d) {
+                                valueFormat: function (d) {
                                     return d3.format('$,.2f')(d);
                                 },
                                 clipEdge: true,
@@ -235,7 +203,7 @@
                         }
                     };
                 },
-                burningitems: function(result) {
+                burningitems: function (result) {
                     var data = [];
                     for (var i = result.length - 1; i >= 0; i--) {
                         data.push({ key: result[i].name, y: result[i] });
@@ -246,14 +214,14 @@
                             chart: {
                                 type: 'pieChart',
                                 height: 650,
-                                x: function(d) {
+                                x: function (d) {
                                     return d.key;
                                 },
-                                y: function(d) {
+                                y: function (d) {
                                     return d.y.sold;
                                 },
                                 tooltip: {
-                                    contentGenerator: function(e) {
+                                    contentGenerator: function (e) {
                                         var obj = e.data.y;
                                         var content = "<p><strong>Ordered: </strong>" + obj.ordered + "</strong></p>";
                                         content += "<p><strong>Sold: </strong>" + obj.sold + "</strong></p>";
@@ -264,20 +232,12 @@
                                 showLabels: true,
                                 duration: 500,
                                 labelThreshold: 0.01,
-                                labelSunbeamLayout: true,
-                                legend: {
-                                    margin: {
-                                        top: 5,
-                                        right: 35,
-                                        bottom: 5,
-                                        left: 0
-                                    }
-                                }
+                                labelSunbeamLayout: true
                             }
                         }
                     }
                 },
-                agentsales: function(result) {
+                agentsales: function (result) {
                     data = [];
                     for (var i = result.length - 1; i >= 0; i--) {
                         var temp = { key: result[i].label, values: [] };
@@ -299,10 +259,10 @@
                                     bottom: 100,
                                     left: 100
                                 },
-                                x: function(d) {
+                                x: function (d) {
                                     return d.x;
                                 },
-                                valueFormat: function(d) {
+                                valueFormat: function (d) {
                                     return d3.format('$,.2f')(d);
                                 },
                                 clipEdge: true,

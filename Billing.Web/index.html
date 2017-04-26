@@ -67,6 +67,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.5/angular-nvd3.min.js"></script>
+    <script src="assets/js/FileSaver.min.js"></script>
 </head>
 
 <body>
@@ -103,15 +104,13 @@
                             <span class="list-item">Reports</span>
                         </a>
                         <ul class="sub-menu collapse" id="reports" ng-show="isMenuOpened">
-                            <li><a href="#">Category report</a></li>
                             <li><a href="#/report/regions">Sales by region</a></li>
-                            <li><a href="#">Customer report</a></li>
                             <li><a href="#/report/categories">Category report</a></li>
-                            <li><a href="#">Region report</a></li>
                             <li><a href="#/report/customers">Customer report</a></li>
                             <li><a href="#/report/agents/regions">Agents Regions report</a></li>
                             <li><a href="#/invoicesreview">Invoices Review</a></li>
-
+                            <li><a href="#/report/customers/categories">Customer-categories report</a></li>
+                            <li><a href="#/stocks">Stock level</a></li>
                         </ul>
                     </li>
                     <li>
@@ -154,12 +153,6 @@
                         <a href="#/categories" data-toggle="tooltip" data-placement="right" title="Categories">
                             <i class="fa fa-list-ol" aria-hidden="true"></i>
                             <span class="list-item">Categories</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#/stocks" data-toggle="tooltip" data-placement="right" title="Stocks">
-                            <i class="fa fa-cubes" aria-hidden="true"></i>
-                            <span class="list-item">Stocks</span>
                         </a>
                     </li>
                     <li>

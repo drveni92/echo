@@ -15,12 +15,23 @@
                 startingDay: 1
             };
 
+            $scope.pageChanged = function() {
+                ListSalesCustomersCategories();
+            };
+
 
             function ListSalesCustomersCategories() {
-                DataFactory.insert("salesbycustomerscategories", { startDate : $scope.dates.startDate,
-                    endDate : $scope.dates.endDate }, function(data) {
-                    $scope.salesbycustomerscategories = data;}
-                )}
+                DataFactory.insert("salesbycustomerscategories", {
+                    startDate : $scope.dates.startDate,
+                    endDate : $scope.dates.endDate,
+                    page: $scope.currentPage -1
+                }, function(result) {
+                    console.log(result);
+                    $scope.salesbycustomerscategories = result.data;
+                    $scope.totalItems = result.totalItems;
+                    $scope.currentPage = result.currentPage + 1;
+                })
+            }
 
             $scope.dates.startDate.setMonth($scope.dates.startDate.getMonth() - 12);
 

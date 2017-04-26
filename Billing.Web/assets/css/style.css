@@ -866,3 +866,16 @@ text {
 .sub-menu li a {
     padding-left: 90px !important;
 }
+
+.box-custom {
+    padding: 5px;
+    display: inline-block;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    margin-left: 40px;
+    font-size: 18px;
+    border: solid 1px ;
+    border-color: rgba(0, 0, 0, 0.21);
+    background-color: #ffffff
+}

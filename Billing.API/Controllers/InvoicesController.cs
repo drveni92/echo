@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Linq.Dynamic;
+using System.Threading;
 
 namespace Billing.API.Controllers
 {
@@ -146,6 +147,40 @@ namespace Billing.API.Controllers
                 Logger.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
+        }
+
+
+        [TokenAuthorization("user")]
+        [HttpGet]
+        [Route("automatic/nocheck")]
+        public IHttpActionResult GetNoChecked()
+        {
+            try
+            {
+                var id = Identity.CurrentUser.Id;
+                var states = UnitOfWork.AutomaticStates.Get().Where(x => (x.CreatedBy == id && x.Checked == false && x.Completed == true)).ToList();
+                return Ok(states.Count);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Error fethcing data");
+            }
+        }
+
+        [TokenAuthorization("user")]
+        [HttpGet]
+        [Route("automatic/check")]
+        public IHttpActionResult GetUnChecked()
+        {
+            var states = UnitOfWork.AutomaticStates.Get().Where(x => (x.CreatedBy == Identity.CurrentUser.Id && x.Checked == false && x.Completed == true)).ToList();
+            foreach (var item in states)
+            {
+                item.Checked = true;
+                UnitOfWork.AutomaticStates.Update(item, item.Id);
+            }
+            UnitOfWork.AutomaticStates.Commit();
+            var results = states.Select(x => Factory.Create(x)).ToList();
+            return Ok(results);
         }
 
         [TokenAuthorization("user,admin")]

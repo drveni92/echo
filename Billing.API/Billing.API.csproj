@@ -207,6 +207,7 @@
     <Compile Include="Helpers\PDFGenerator\PDFInvoice.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\AgentPasswordModel.cs" />
+    <Compile Include="Models\AutomaticStatesModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CurrentUserModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />

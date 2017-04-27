@@ -1,7 +1,7 @@
 (function () {
     angular
         .module("Billing")
-        .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', function ($scope, $uibModal, DataFactory, InvoicesService, ToasterService) {
+        .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', '$rootScope', function ($scope, $uibModal, DataFactory, InvoicesService, ToasterService, $rootScope) {
             $scope.states = BillingConfig.states;
             $scope.userId = credentials.currentUser.id;
             $scope.maxPagination = BillingConfig.maxPagination;
@@ -21,7 +21,7 @@
             };
 
             function ListInvoices() {
-                $scope.pageParams.page = $scope.pageParams.page - 1; 
+                $scope.pageParams.page = $scope.pageParams.page - 1;
                 if ($scope.showAdvancedSearch) {
                     DataFactory.insert("invoices/search", $scope.searchParams, function (data) {
                         $scope.invoices = data.list;
@@ -43,10 +43,10 @@
                 if ($scope.showAdvancedSearch == false) ListInvoices();
             };
 
-            $scope.sort = function(column) {
-                if($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
+            $scope.sort = function (column) {
+                if ($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
                 $scope.pageParams.sortType = column;
-                ListInvoices(); 
+                ListInvoices();
             };
 
             $scope.advancedSearchSubmit = function () {
@@ -69,6 +69,29 @@
 
             $scope.download = function (id) {
                 InvoicesService.download(id);
+            };
+
+            $scope.checkUpdates = function () {
+                DataFactory.list("invoices/automatic/check", function (result) {
+                    $rootScope.invoicesCount = 0;
+                    console.log(result);
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'app/components/invoices/templates/updated.html',
+                        controller: 'ModalInstanceController',
+                        controllerAs: '$modal',
+                        size: 'lg',
+                        resolve: {
+                            data: function () {
+                                return result
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function () { }, function () { });
+                });
             };
 
             $scope.show = function (invoice) {

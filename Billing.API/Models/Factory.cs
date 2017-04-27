@@ -6,6 +6,7 @@ using Billing.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Security;
 
@@ -267,6 +268,15 @@ namespace Billing.API.Models
 
         }
 
+        public AutomaticStatesModel Create(AutomaticStates states)
+        {
+            return new AutomaticStatesModel()
+            {
+                Id = states.Id,
+                Invoice = Create(states.Invoice),
+            };
+        }
+
 
         //Model To Entity
 
@@ -463,7 +473,7 @@ namespace Billing.API.Models
 
         public AutomaticStates Create(int InvoiceId)
         {
-            return new AutomaticStates()
+            return new AutomaticStates(_unitOfWork.Agents.Get().ToList().First(x => x.Username == Thread.CurrentPrincipal.Identity.Name).Id)
             {
                 Invoice = _unitOfWork.Invoices.Get(InvoiceId)
             };

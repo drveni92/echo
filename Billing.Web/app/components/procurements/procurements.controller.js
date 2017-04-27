@@ -7,8 +7,8 @@ angular
         $scope.pageParams = {
             page: 1,
             showPerPage: BillingConfig.showPerPage,
-            sortType: 'total',
-            sortReverse: false,
+            sortType: 'date',
+            sortReverse: true,
             totalItems: 0
         };
 

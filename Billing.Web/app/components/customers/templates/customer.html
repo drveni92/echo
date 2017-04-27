@@ -43,7 +43,13 @@
                     </a>
                 </th>
                 <th>Address</th>
-                <th>Town</th>
+                <th>
+                    <a href="" style="color: white;" ng-click="sort('town.name');">
+                        Town
+                        <span ng-show="pageParams.sortType == 'town.name' && !pageParams.sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="pageParams.sortType == 'town.name' && pageParams.sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
                 <th>Action</th>
             </tr>
         </thead>

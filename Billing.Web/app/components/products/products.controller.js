@@ -7,7 +7,7 @@ angular
         $scope.pageParams = {
             page: 1,
             showPerPage: BillingConfig.showPerPage,
-            sortType: 'price',
+            sortType: 'name',
             sortReverse: false,
             totalItems: 0
         };

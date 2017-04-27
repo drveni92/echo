@@ -4,18 +4,43 @@ angular
 
         $scope.maxPagination = BillingConfig.maxPagination;
 
-        function ListShippers(page) {
-            DataFactory.list("shippers?page=" + ($scope.currentPage - 1), function(data) { 
+        $scope.pageParams = {
+            page: 1,
+            showPerPage: BillingConfig.showPerPage,
+            sortType: 'name',
+            sortReverse: false,
+            totalItems: 0
+        };
+
+        function ListShippers() {
+            $scope.pageParams.page = $scope.pageParams.page - 1;
+
+            DataFactory.list("shippers", function (data) {
                 $scope.shippers = data.list;
-                $scope.totalItems = data.totalItems;
-                $scope.currentPage = data.currentPage + 1;
-            });
+                $scope.pageParams.totalItems = data.totalItems;
+                $scope.pageParams.page = data.currentPage + 1;
+            }, $scope.pageParams);
+        };
+
+
+
+        $scope.sort = function(column) {
+            if($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
+            $scope.pageParams.sortType = column;
+            ListShippers();
+        };
+
+        $scope.search = function () {
+            if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListShippers();
+        };
+
+        $scope.showItems = function () {
+            ListShippers();
         };
 
         $scope.pageChanged = function() {
             ListShippers();
         };
-
 
         ListShippers();
 

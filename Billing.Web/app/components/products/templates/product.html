@@ -35,7 +35,13 @@
         <thead>
             <tr>
                 <th> # </th>
-                <th>Name</th>
+                <th>
+                    <a href="" style="color: white;" ng-click="sort('name');">
+                        Name
+                        <span ng-show="pageParams.sortType == 'name' && !pageParams.sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="pageParams.sortType == 'name' && pageParams.sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
                 <th>Unit</th>
                 <th>
                     <a href="" style="color: white;" ng-click="sort('price');">
@@ -44,7 +50,13 @@
                         <span ng-show="pageParams.sortType == 'price' && pageParams.sortReverse" class="fa fa-caret-up"></span>
                     </a>
                 </th>
-                <th>Category</th>
+                <th>
+                    <a href="" style="color: white;" ng-click="sort('category.name');">
+                        Category
+                        <span ng-show="pageParams.sortType == 'category.name' && !pageParams.sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="pageParams.sortType == 'category.name' && pageParams.sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
                 <th>
                     <a href="" style="color: white;" ng-click="sort('stock.inventory');">
                         Stock inventory

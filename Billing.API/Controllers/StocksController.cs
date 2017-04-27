@@ -17,7 +17,7 @@ namespace Billing.API.Controllers
     public class StocksController : BaseController
     {
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "", bool sortReverse = false)
+        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "product.name", bool sortReverse = false)
         {
             try
             {

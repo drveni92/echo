@@ -87,7 +87,6 @@
                         $timeout(getCountInvoices, 10000);
                     },
                     function (reason) {
-                        console.log(reason);
                     }
                 );
             }

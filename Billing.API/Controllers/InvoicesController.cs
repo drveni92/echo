@@ -23,7 +23,7 @@ namespace Billing.API.Controllers
     {
         [TokenAuthorization("user")]
         [Route("{invoiceno?}")]
-        public IHttpActionResult Get(string invoiceno = "", int page = 0, int showPerPage = 10, string sortType = "", bool sortReverse = false)
+        public IHttpActionResult Get(string invoiceno = "", int page = 0, int showPerPage = 10, string sortType = "total", bool sortReverse = false)
         {
             try
             {

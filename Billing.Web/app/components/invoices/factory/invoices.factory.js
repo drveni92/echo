@@ -1,9 +1,9 @@
-(function() {
+(function () {
     angular
         .module("Billing")
-        .factory('InvoicesFactory', function() {
+        .factory('InvoicesFactory', function () {
             return {
-                invoice: function(invoice) {
+                invoice: function (invoice) {
                     var temp_subTotal = 0;
                     var temp_vat = 17;
                     for (var i = invoice.items.length - 1; i >= 0; i--) {
@@ -30,7 +30,7 @@
                             address: invoice.customer.address,
                             town: { name: invoice.customer.town.name }
                         },
-                        status: 0,
+                        status: invoice.status,
                         shipping: invoice.shipping,
                         vat: temp_vat,
                         subTotal: temp_subTotal,
@@ -39,7 +39,7 @@
                     }
                 },
 
-                empty: function() {
+                empty: function () {
                     return {
                         id: 0,
                         invoiceNo: '',
@@ -55,7 +55,7 @@
                     }
                 },
 
-                item: function(item) {
+                item: function (item) {
                     return {
                         id: 0,
                         product: {

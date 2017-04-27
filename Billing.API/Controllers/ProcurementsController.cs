@@ -17,7 +17,7 @@ namespace Billing.API.Controllers
     public class ProcurementsController : BaseController
     {
         [Route("{product?}")]
-        public IHttpActionResult Get(string product = "",int page = 0, int showPerPage = 10, string sortType = "", bool sortReverse = false)
+        public IHttpActionResult Get(string product = "", int page = 0, int showPerPage = 10, string sortType = "date", bool sortReverse = false)
         {
             try
             {
@@ -34,7 +34,6 @@ namespace Billing.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
 
         [Route("{id:int}")]
         public IHttpActionResult GetById(int id)

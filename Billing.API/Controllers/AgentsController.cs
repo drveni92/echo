@@ -20,7 +20,7 @@ namespace Billing.API.Controllers
     {
         [TokenAuthorization("admin")]
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "", bool sortReverse = false)
+        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "name", bool sortReverse = false)
         {
             try
             {

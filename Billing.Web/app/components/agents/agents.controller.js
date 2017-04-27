@@ -62,7 +62,6 @@
                 modalInstance.result.then(function(agent) {
                     DataFactory.insert("agents", AgentsFactory.agent(agent), function(data) { ListAgents(); });
                 }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
                 });
             };
 
@@ -114,7 +113,6 @@
                         ListAgents();
                     });
                 }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
                 });
             }
 

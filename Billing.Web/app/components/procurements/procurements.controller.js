@@ -65,7 +65,6 @@ angular
                     ListProcurements();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
 
         };
@@ -137,7 +136,6 @@ angular
                     ListProcurements();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         };
 

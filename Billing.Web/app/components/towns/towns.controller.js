@@ -70,7 +70,6 @@ angular
                     ListTowns();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -95,7 +94,6 @@ angular
                     ListTowns();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -120,7 +118,6 @@ angular
                     ListTowns();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
 
         }

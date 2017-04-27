@@ -104,13 +104,11 @@
                     });
 
                     modalInstance.result.then(function (mail) {
-                        console.log(invoice);
                         mail.InvoiceId = invoice.id;
                         DataFactory.insert("invoices/mail", mail, function (data) {
                             ToasterService.pop('success', "Success", data);
                         })
                     }, function () {
-                        console.log('Modal dismissed at: ' + new Date());
                     });
                 }, function () { });
             }
@@ -163,7 +161,6 @@
                             ToasterService.pop('success', "Success", data);
                         });
                     }, function () {
-                        console.log('Modal dismissed at: ' + new Date());
                     });
                 });
             }
@@ -190,7 +187,6 @@
                         ListInvoices();
                     });
                 }, function () {
-                    console.log('Modal dismissed at: ' + new Date());
                 });
             };
         }])

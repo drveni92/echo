@@ -107,9 +107,9 @@
                             <li><a href="#/report/regions">Sales by region</a></li>
                             <li><a href="#/report/categories">Category report</a></li>
                             <li><a href="#/report/customers">Customer report</a></li>
-                            <li><a href="#/report/agents/regions">Agents Regions report</a></li>
+                            <li><a href="#/report/agents/regions">Agents Regions</a></li>
                             <li><a href="#/invoicesreview">Invoices Review</a></li>
-                            <li><a href="#/report/customers/categories">Customer-categories report</a></li>
+                            <li><a href="#/report/customers/categories">Customer Categories</a></li>
                             <li><a href="#/stocks">Stock level</a></li>
                         </ul>
                     </li>
@@ -182,20 +182,11 @@
                                 <img class="agent-picture" ng-src="assets/img/{{ currentUsername }}.jpg" />
                             </li>
                             <li>
-                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="#/agents/{{ currentUserId }}">
                                     <span style="margin-right:10px;">
                                         {{ currentUser }}
                                     </span>
                                     <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="navbar-content">
-                                                <div class="divider">
-                                                </div>
-                                                <a href="#/agents/{{ currentUserId }}" class="view btn btn-info btn-sm active viewprofile">View Profile</a>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </a>
                             </li>
                             <li>

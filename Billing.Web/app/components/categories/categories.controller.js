@@ -71,7 +71,6 @@ angular
                     ListCategories();
                 });
             }, function () {
-                console.log('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -127,7 +126,6 @@ angular
                     ListCategories();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         }
     }]);

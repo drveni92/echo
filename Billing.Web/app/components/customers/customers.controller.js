@@ -3,14 +3,40 @@ angular
     .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'CustomersFactory', function($scope, $http, $uibModal, DataFactory, ToasterService, CustomersFactory) {
 
         $scope.maxPagination = BillingConfig.maxPagination
-        
+
+        $scope.pageParams = {
+            page: 1,
+            showPerPage: BillingConfig.showPerPage,
+            sortType: 'name',
+            sortReverse: false,
+            totalItems: 0
+        };
+
         function ListCustomers() {
-            DataFactory.list("customers?page=" + ($scope.currentPage - 1), function(data) {
+            $scope.pageParams.page = $scope.pageParams.page - 1;
+
+            DataFactory.list("customers", function (data) {
                 $scope.customers = data.list;
-                $scope.totalItems = data.totalItems;
-                $scope.currentPage = data.currentPage + 1;
-            });
-        }
+                $scope.pageParams.totalItems = data.totalItems;
+                $scope.pageParams.page = data.currentPage + 1;
+            }, $scope.pageParams);
+        };
+
+
+
+        $scope.sort = function(column) {
+            if($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
+            $scope.pageParams.sortType = column;
+            ListCustomers();
+        };
+
+        $scope.search = function () {
+            if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListCustomers();
+        };
+
+        $scope.showItems = function () {
+            ListCustomers();
+        };
 
         $scope.pageChanged = function() {
             ListCustomers();

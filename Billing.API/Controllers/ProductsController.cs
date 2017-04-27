@@ -7,6 +7,7 @@ using Billing.Database;
 using Billing.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq.Dynamic;
 using System.Linq;
 using System.Web.Http;
 
@@ -17,21 +18,16 @@ namespace Billing.Api.Controllers
     public class ProductsController : BaseController
     {
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null, int page = 0)
+        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "", bool sortReverse = false)
         {
             try
             {
-                List<Product> products;
-                if (name != null)
-                {
-                    products = UnitOfWork.Products.Get().Where(x => x.Name.Contains(name)).ToList();
-                    if (products.Count == 0) return NotFound();
-                }
-                else products = UnitOfWork.Products.Get().ToList();
-                var list = products.Skip(Pagination.PageSize * page)
-                                    .Take(Pagination.PageSize)
-                                    .Select(x => Factory.Create(x)).ToList();
-                return Ok(Factory.Create<ProductModel>(page, products.Count, list));
+                var query = (name == null) ? UnitOfWork.Products.Get().ToList() : UnitOfWork.Products.Get().Where(x => x.Name.Contains(name)).ToList();
+                var list = query.OrderBy(sortType + (sortReverse ? " descending" : ""))
+                                .Skip(showPerPage * page)
+                                .Take(showPerPage)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<ProductModel>(page, query.Count, list));
             }
             catch (Exception ex)
             {

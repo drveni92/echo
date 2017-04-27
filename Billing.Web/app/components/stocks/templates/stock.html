@@ -3,7 +3,29 @@
         <h3>Stock</h3>
     </div>
 </div>
+<div>
 <hr>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Enter product name" ng-model="pageParams.name" ng-change="search()">
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="form-inline pull-right">
+            <div class="form-group">
+                <label>Items per page:</label>
+                <select class="form-control" ng-model="pageParams.showPerPage" ng-change="showItems()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <hr>
 </div>
 
 <div class="row">
@@ -11,16 +33,40 @@
         <thead>
         <tr>
             <th> # </th>
-            <th>Name</th>
+            <th>
+                <a href="" style="color: white;" ng-click="sort('product.name');">
+                     Product Name
+                    <span ng-show="pageParams.sortType == 'product.name' && !pageParams.sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="pageParams.sortType == 'product.name' && pageParams.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </th>
             <th>Unit</th>
-            <th>Input</th>
-            <th>Output</th>
-            <th>Inventory</th>
+            <th>
+                <a href="" style="color: white;" ng-click="sort('input');">
+                    Input
+                    <span ng-show="pageParams.sortType == 'input' && !pageParams.sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="pageParams.sortType == 'input' && pageParams.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </th>
+            <th>
+                <a href="" style="color: white;" ng-click="sort('output');">
+                    Output
+                    <span ng-show="pageParams.sortType == 'output' && !pageParams.sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="pageParams.sortType == 'output' && pageParams.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </th>
+            <th>
+                <a href="" style="color: white;" ng-click="sort('inventory');">
+                    Inventory
+                    <span ng-show="pageParams.sortType == 'inventory' && !pageParams.sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="pageParams.sortType == 'inventory' && pageParams.sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="item in stocks ">
-            <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
+            <td>{{ $index + 1 +((pageParams.page - 1 )* pageParams.showPerPage) }}</td>
             <td>{{ item.product.name }}</td>
             <td>{{ item.product.unit }}</td>
             <td>{{ item.input }}</td>
@@ -31,5 +77,6 @@
     </table>
 </div>
 <div class="row pagination-center">
-    <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
+    <ul uib-pagination total-items="pageParams.totalItems" items-per-page="pageParams.showPerPage" max-size="maxPagination" ng-model="pageParams.page"
+        ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
 </div>

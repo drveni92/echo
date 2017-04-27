@@ -6,6 +6,7 @@ using Billing.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -18,22 +19,17 @@ namespace Billing.API.Controllers
     
         [TokenAuthorization("user")]
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null, int page = 0)
+        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "", bool sortReverse = false)
         {
             try
             {
-                List<Town> towns;
-                if (name != null)
-                {
-                    towns = UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList();
-                    if (towns.Count == 0) return NotFound();
-                }
-                else towns = UnitOfWork.Towns.Get().ToList();
-                var list = towns.Skip(Pagination.PageSize * page)
-                                .Take(Pagination.PageSize)
-                                .Select(x => Factory.Create(x)).ToList();
-                return Ok(Factory.Create<TownModel>(page, towns.Count, list));
 
+                var query = (name == null) ? UnitOfWork.Towns.Get().ToList() : UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList();
+                var list = query.OrderBy(sortType + (sortReverse ? " descending" : ""))
+                                .Skip(showPerPage * page)
+                                .Take(showPerPage)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<TownModel>(page, query.Count, list));
             }
             catch (Exception ex)
             {

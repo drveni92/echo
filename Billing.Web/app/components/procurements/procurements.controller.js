@@ -2,15 +2,41 @@ angular
     .module("Billing")
     .controller('ProcurementsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'ProcurementsFactory', function($scope, $http, $uibModal, DataFactory, ToasterService, ProcurementsFactory) {
 
-        $scope.maxPagination = BillingConfig.maxPagination
+        $scope.maxPagination = BillingConfig.maxPagination;
+
+        $scope.pageParams = {
+            page: 1,
+            showPerPage: BillingConfig.showPerPage,
+            sortType: 'date',
+            sortReverse: true,
+            totalItems: 0
+        };
 
         function ListProcurements() {
-            DataFactory.list("procurements?page=" + ($scope.currentPage - 1), function(data) {
-                $scope.procurements = data.list;
-                $scope.totalItems = data.totalItems;
-                $scope.currentPage = data.currentPage + 1;
-            });
-        }
+            $scope.pageParams.page = $scope.pageParams.page - 1;
+
+                DataFactory.list("procurements", function (data) {
+                    $scope.procurements = data.list;
+                    $scope.pageParams.totalItems = data.totalItems;
+                    $scope.pageParams.page = data.currentPage + 1;
+                }, $scope.pageParams);
+            };
+
+
+
+        $scope.sort = function(column) {
+            if($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
+            $scope.pageParams.sortType = column;
+            ListProcurements();
+        };
+
+        $scope.search = function () {
+            if ($scope.pageParams.product.toString().length > 2 || $scope.pageParams.product.toString().length == 0) ListProcurements();
+        };
+
+        $scope.showItems = function () {
+            ListProcurements();
+        };
 
         $scope.pageChanged = function() {
             ListProcurements();

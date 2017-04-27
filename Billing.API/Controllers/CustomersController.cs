@@ -6,6 +6,7 @@ using Billing.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -18,22 +19,17 @@ namespace Billing.API.Controllers
     {
 
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null, int page = 0)
+        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "", bool sortReverse = false)
         {
             try
             {
 
-                List<Customer> customers;
-                if (name != null)
-                {
-                    customers = UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList();
-                    if (customers.Count == 0) return NotFound();
-                }
-                else customers = UnitOfWork.Customers.Get().ToList();
-                var list = customers.Skip(Pagination.PageSize * page)
-                                    .Take(Pagination.PageSize)
-                                    .Select(x => Factory.Create(x)).ToList();
-                return Ok(Factory.Create<CustomerModel>(page, customers.Count, list));
+                var query = (name == null) ? UnitOfWork.Customers.Get().ToList() : UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList();
+                var list = query.OrderBy(sortType + (sortReverse ? " descending" : ""))
+                                .Skip(showPerPage * page)
+                                .Take(showPerPage)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<CustomerModel>(page, query.Count, list));
             }
             catch (Exception ex)
             {

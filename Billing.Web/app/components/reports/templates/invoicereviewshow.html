@@ -18,15 +18,15 @@
             <td>{{ itemModel.productName }}</td>
             <td>{{ itemModel.quantity }}</td>
             <td>{{ itemModel.unit }}</td>
-            <td>{{ itemModel.price }}</td>
-            <td>{{ itemModel.subtotal }}</td>
+            <td>{{ itemModel.price | currency}} </td>
+            <td>{{ itemModel.subtotal | currency}} </td>
         </tr>
         </tbody>
     </table>
 </div>
 <div class="row modal-row" style="margin-top: -50px;">
     <hr>
-    <div style="float:right; width: 30%;">
+    <div style="float:left; width: 30%;">
         <dl class="dl-horizontal">
             <div class="dl-item-sm">
                 <dt>Shipper:</dt>
@@ -34,23 +34,27 @@
             </div>
             <div class="dl-item-sm">
                 <dt>Shipped on:</dt>
-                <dd>{{ InvoiceCustomer.shippedOn }} </dd>
-            </div>
-            <div class="dl-item-sm">
-                <dt>Shipping:</dt>
-                <dd>{{ InvoiceCustomer.shipping }} </dd>
-            </div>
-
-            <div class="dl-item-sm">
-                <dt>Vat amount:</dt>
-                <dd>{{ InvoiceCustomer.vatAmount | currency }} </dd>
-            </div>
-            <div class="dl-item-sm">
-                <dt>Total:</dt>
-                <dd>{{ InvoiceCustomer.subtotal | currency }} </dd>
+                <dd>{{ InvoiceCustomer.shippedOn  | date:'yyyy-MM-dd'  }} </dd>
             </div>
         </dl>
+
     </div>
+    <div style="float:right; width: 30%;">
+        <div class="dl-item-sm">
+            <dt>Shipping:</dt>
+            <dd>{{ InvoiceCustomer.shipping }} </dd>
+        </div>
+
+        <div class="dl-item-sm">
+            <dt>Vat amount:</dt>
+            <dd>{{ InvoiceCustomer.vatAmount | currency }} </dd>
+        </div>
+        <div class="dl-item-sm">
+            <dt>Total:</dt>
+            <dd>{{ InvoiceCustomer.subtotal | currency }} </dd>
+        </div>
+    </div>
+
 </div>
     </div>
 

@@ -19,7 +19,7 @@
         return (credentials.currentUser.id != 0);
     };
 
-    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap", "LocalStorageModule", 'oi.select', 'nvd3']);
+    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap","ngIdle","ngAnimate", "LocalStorageModule", 'oi.select', 'nvd3']);
 
     app.config(function($routeProvider) {
         $routeProvider

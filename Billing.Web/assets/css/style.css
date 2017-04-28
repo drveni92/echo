@@ -879,3 +879,13 @@ text {
     border-color: rgba(0, 0, 0, 0.21);
     background-color: #ffffff
 }
+
+.countdownProgress{
+    font-size: xx-large;
+    height: 40px;
+}
+
+.stripeddiv{
+    font-size: 30px;
+    padding-top: 10px;
+}

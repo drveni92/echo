@@ -87,13 +87,13 @@
             <div id="sidebar-menu">
                 <ul class="sidebar-nav">
                     <li>
-                        <a href="#/dashboard" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                        <a ng-class="getClass('/dashboard')" href="#/dashboard" data-toggle="tooltip" data-placement="right" title="Dashboard">
                             <i class="fa fa-tachometer" aria-hidden="true"></i>
                             <span class="list-item">Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#/invoices" data-toggle="tooltip" data-placement="right" title="Invoices">
+                        <a ng-class="getClass('/invoices')" href="#/invoices" data-toggle="tooltip" data-placement="right" title="Invoices">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
                             <span class="list-item">Invoices <span class="badge">{{ invoicesCount }}</span></span>
                         </a>
@@ -104,59 +104,59 @@
                             <span class="list-item">Reports</span>
                         </a>
                         <ul class="sub-menu collapse" id="reports" ng-show="isMenuOpened">
-                            <li><a href="#/report/regions">Sales by region</a></li>
-                            <li><a href="#/report/categories">Category report</a></li>
-                            <li><a href="#/report/customers">Customer report</a></li>
-                            <li><a href="#/report/agents/regions">Agents Regions</a></li>
-                            <li><a href="#/invoicesreview">Invoices Review</a></li>
-                            <li><a href="#/report/customers/categories">Customer Categories</a></li>
-                            <li><a href="#/stocks">Stock level</a></li>
+                            <li><a ng-class="getClass('/report/regions')" href="#/report/regions">Sales by region</a></li>
+                            <li><a ng-class="getClass('/report/categories')" href="#/report/categories">Category report</a></li>
+                            <li><a ng-class="getClass('/report/customers')" href="#/report/customers">Customer report</a></li>
+                            <li><a ng-class="getClass('/report/agents/regions')" href="#/report/agents/regions">Agents Regions</a></li>
+                            <li><a ng-class="getClass('/invoicesreview')" href="#/invoicesreview">Invoices Review</a></li>
+                            <li><a ng-class="getClass('/report/customers/categories')" href="#/report/customers/categories">Customer Categories</a></li>
+                            <li><a ng-class="getClass('/stocks')" href="#/stocks">Stock level</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#/procurements" data-toggle="tooltip" data-placement="right" title="Procurements">
+                        <a ng-class="getClass('/procurements')" href="#/procurements" data-toggle="tooltip" data-placement="right" title="Procurements">
                             <i class="fa fa-bars" aria-hidden="true"></i>
                             <span class="list-item">Procurements</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#/products" data-toggle="tooltip" data-placement="right" title="Products">
+                        <a ng-class="getClass('/products')" href="#/products" data-toggle="tooltip" data-placement="right" title="Products">
                             <i class="fa fa-laptop" aria-hidden="true"></i>
                             <span class="list-item">Products</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#/customers" data-toggle="tooltip" data-placement="right" title="Customers">
+                        <a ng-class="getClass('/customers')" href="#/customers" data-toggle="tooltip" data-placement="right" title="Customers">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             <span class="list-item">Customers</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#/suppliers" data-toggle="tooltip" data-placement="right" title="Suppliers">
+                        <a ng-class="getClass('/suppliers')" href="#/suppliers" data-toggle="tooltip" data-placement="right" title="Suppliers">
                             <i class="fa fa-truck" aria-hidden="true"></i>
                             <span class="list-item">Suppliers</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#/shippers" data-toggle="tooltip" data-placement="right" title="Shippers">
+                        <a ng-class="getClass('/shippers')" href="#/shippers" data-toggle="tooltip" data-placement="right" title="Shippers">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                             <span class="list-item">Shippers</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#/agents" data-toggle="tooltip" data-placement="right" title="Agents">
+                        <a ng-class="getClass('/agents')" href="#/agents" data-toggle="tooltip" data-placement="right" title="Agents">
                             <i class="fa fa-user" aria-hidden="true"></i>
                             <span class="list-item">Agents</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#/categories" data-toggle="tooltip" data-placement="right" title="Categories">
+                        <a ng-class="getClass('/categories')" href="#/categories" data-toggle="tooltip" data-placement="right" title="Categories">
                             <i class="fa fa-list-ol" aria-hidden="true"></i>
                             <span class="list-item">Categories</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#/towns" data-toggle="tooltip" data-placement="right" title="Towns">
+                        <a ng-class="getClass('/towns')" href="#/towns" data-toggle="tooltip" data-placement="right" title="Towns">
                             <i class="fa fa-building" aria-hidden="true"></i>
                             <span class="list-item">Towns</span>
                         </a>

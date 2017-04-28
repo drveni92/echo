@@ -2,7 +2,7 @@
 <html ng-app="Billing">
 
 <head>
-    <title>Billling</title>
+    <title idle-disabled="true">Billling</title>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -102,12 +102,15 @@
                             <span class="list-item">Invoices <span class="badge">{{ invoicesCount }}</span></span>
                         </a>
                     </li>
+
                     <li data-toggle="collapse" data-target="#reports">
-                        <a data-toggle="tooltip" data-placement="right" title="Reports">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#reports2" class="" aria-expanded="true"   data-placement="left" title="Reports">
+
                             <i class="fa fa-area-chart" aria-hidden="true"></i>
                             <span class="list-item">Reports</span>
                         </a>
-                        <ul class="sub-menu collapse" id="reports" ng-show="isMenuOpened">
+
+                        <ul class="sub-menu collapse" ng-show="isMenuOpened" id="reports2"  aria-expanded="false">
                             <li><a ng-class="getClass('/report/regions')" href="#/report/regions">Sales by region</a></li>
                             <li><a ng-class="getClass('/report/categories')" href="#/report/categories">Category report</a></li>
                             <li><a ng-class="getClass('/report/customers')" href="#/report/customers">Customer report</a></li>
@@ -215,6 +218,14 @@
         $("#wrapper").toggleClass("menu-displayed");
 
     });
+
+    $(".sidebar-nav li a span").click(function() {
+       if ($(this).text() != 'Reports')
+       {
+           $( ".sidebar-nav li ul" ).removeClass( "in" )
+       }
+    });
+
     $('[data-toggle="tooltip"]').tooltip({
         trigger: 'hover'
     });

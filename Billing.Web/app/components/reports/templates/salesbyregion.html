@@ -8,12 +8,12 @@
                <br>
                <p class="input-group">
                <div class="col-md-12 ">
-                   <h4 class="col-md-3">Town:</h4>
+                   <h4 class="col-md-3">Region:</h4>
                    <div  class="col-md-7  ">
 
                        <select name="repeatSelect" class="form-control  " id="repeatSelect" ng-model="selectedOption" ng-change="update()"
                          ng-options="option.name group by option.id for option in sales">
-                           <option value="" disabled selected>Select town</option>
+                           <option value="" disabled selected>Select region</option>
                            <option value="{{option.id}}">{{option.name}}</option>
                        </select>
                    </div>

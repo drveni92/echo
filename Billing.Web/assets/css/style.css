@@ -967,3 +967,12 @@ text {
     font-size: 18px;
 }
 
+
+#reports2 {
+    font-size: 12px;
+    padding-left: 0px;
+}
+
+.box-custom{
+    background: rgb(249, 247, 247);
+}

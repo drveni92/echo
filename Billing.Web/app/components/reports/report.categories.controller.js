@@ -63,7 +63,7 @@
                             return d3.format('$,.2f')(d);
                         }
                     },
-                    forceY: 400000,
+                    forceY: 200000,
                     staggerLabels: true,
                     callback: function (chart) {
                         chart.discretebar.dispatch.on('elementClick', function (e) {

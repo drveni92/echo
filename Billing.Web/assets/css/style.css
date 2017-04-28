@@ -741,7 +741,7 @@ table thead tr th {
 }
 
 .town-wrapper {
-    background: #efefef;
+    background: #ffffff;
     border-color: #b95151;
     display: inline-block;
     padding: 5px;
@@ -975,4 +975,9 @@ text {
 
 .box-custom{
     background: rgb(249, 247, 247);
+}
+
+.tablembottom
+{
+    margin-bottom: 5px;padding-bottom: 15px;
 }

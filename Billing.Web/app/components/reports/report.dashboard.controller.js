@@ -28,6 +28,10 @@
 
             DataFactory.list('dashboard', function (data) {
                 $scope.title = data.title;
+                $scope.noinvoices = data.numberOfInvoices;
+                $scope.totalMonth = data.monthTotal;
+                $scope.shipped = data.shippedInvoices;
+                $scope.nocustomers = data.activeCustomers;
                 results = data;
                 setReports();
             });

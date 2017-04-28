@@ -12,8 +12,8 @@
                 return $http.get(source + dataSet);
             },
 
-            list: function(dataSet, callback) {
-                $http.get(source + dataSet)
+            list: function(dataSet, callback, params) {
+                $http.get(source + dataSet, { params: params })
                     .then(function success(response) {
                         return callback(response.data);
                     }, function error(error) {
@@ -31,8 +31,8 @@
                     });
             },
 
-            insert: function(dataSet, data, callback) {
-                $http({ method: "post", url: source + dataSet, data: data })
+            insert: function(dataSet, data, callback, params) {
+                $http({ method: "post", url: source + dataSet, data: data, params: params })
                     .then(function success(response) {
                         return callback(response.data);
                     }, function error(error) {

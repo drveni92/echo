@@ -4,13 +4,39 @@
         .controller('AgentsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'AgentsFactory', function($scope, $http, $uibModal, DataFactory, AgentsFactory) {
             $scope.maxPagination = BillingConfig.maxPagination
 
+            $scope.pageParams = {
+                page: 1,
+                showPerPage: BillingConfig.showPerPage,
+                sortType: 'name',
+                sortReverse: false,
+                totalItems: 0
+            };
+
             function ListAgents() {
-                DataFactory.list("agents?page=" + ($scope.currentPage - 1), function(data) {
+                $scope.pageParams.page = $scope.pageParams.page - 1;
+
+                DataFactory.list("agents", function (data) {
                     $scope.agents = data.list;
-                    $scope.totalItems = data.totalItems;
-                    $scope.currentPage = data.currentPage + 1;
-                });
-            }
+                    $scope.pageParams.totalItems = data.totalItems;
+                    $scope.pageParams.page = data.currentPage + 1;
+                }, $scope.pageParams);
+            };
+
+
+
+            $scope.sort = function(column) {
+                if($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
+                $scope.pageParams.sortType = column;
+                ListAgents();
+            };
+
+            $scope.search = function () {
+                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListAgents();
+            };
+
+            $scope.showItems = function () {
+                ListAgents();
+            };
 
             $scope.pageChanged = function() {
                 ListAgents();
@@ -36,7 +62,6 @@
                 modalInstance.result.then(function(agent) {
                     DataFactory.insert("agents", AgentsFactory.agent(agent), function(data) { ListAgents(); });
                 }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
                 });
             };
 
@@ -88,7 +113,6 @@
                         ListAgents();
                     });
                 }, function() {
-                    console.log('Modal dismissed at: ' + new Date());
                 });
             }
 

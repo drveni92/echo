@@ -5,6 +5,7 @@ using Billing.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -16,22 +17,16 @@ namespace Billing.API.Controllers
     {
         [TokenAuthorization("user")]
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null, int page = 0)
+        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "name", bool sortReverse = false)
         {
             try
             {
-                List<Category> categories;
-
-                if (name != null)
-                {
-                    categories = UnitOfWork.Categories.Get().Where(x => x.Name.Contains(name)).ToList();
-                    if (categories.Count == 0) return NotFound();
-                }
-                else categories = UnitOfWork.Categories.Get().ToList();
-                var list = categories.Skip(Pagination.PageSize * page)
-                                    .Take(Pagination.PageSize)
-                                    .Select(x => Factory.Create(x)).ToList();
-                return Ok(Factory.Create<CategoryModel>(page, categories.Count, list));
+                var query = (name == null) ? UnitOfWork.Categories.Get().ToList() : UnitOfWork.Categories.Get().Where(x => x.Name.Contains(name)).ToList();
+                var list = query.OrderBy(sortType + (sortReverse ? " descending" : ""))
+                                .Skip(showPerPage * page)
+                                .Take(showPerPage)
+                                .Select(x => Factory.Create(x)).ToList();
+                return Ok(Factory.Create<CategoryModel>(page, query.Count, list));
             }
             catch (Exception ex)
             {

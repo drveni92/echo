@@ -88,6 +88,10 @@
       <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\PdfSharp.Charting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
@@ -203,6 +207,7 @@
     <Compile Include="Helpers\PDFGenerator\PDFInvoice.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\AgentPasswordModel.cs" />
+    <Compile Include="Models\AutomaticStatesModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CurrentUserModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
@@ -219,6 +224,7 @@
     <Compile Include="Models\Reports\SalesCustomersCategoriesModel.cs" />
     <Compile Include="Models\Reports\StockLevelModel.cs" />
     <Compile Include="Models\ReturnObject.cs" />
+    <Compile Include="Models\SearchInvoice.cs" />
     <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

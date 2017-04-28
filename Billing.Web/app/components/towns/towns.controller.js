@@ -10,13 +10,39 @@ angular
 
         $scope.maxPagination = BillingConfig.maxPagination
 
+        $scope.pageParams = {
+            page: 1,
+            showPerPage: BillingConfig.showPerPage,
+            sortType: 'name',
+            sortReverse: false,
+            totalItems: 0
+        };
+
         function ListTowns() {
-            DataFactory.list("towns?page=" + ($scope.currentPage - 1), function(data) {
+            $scope.pageParams.page = $scope.pageParams.page - 1;
+
+            DataFactory.list("towns", function (data) {
                 $scope.towns = data.list;
-                $scope.totalItems = data.totalItems;
-                $scope.currentPage = data.currentPage + 1;
-            });
-        }
+                $scope.pageParams.totalItems = data.totalItems;
+                $scope.pageParams.page = data.currentPage + 1;
+            }, $scope.pageParams);
+        };
+
+
+
+        $scope.sort = function(column) {
+            if($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
+            $scope.pageParams.sortType = column;
+            ListTowns();
+        };
+
+        $scope.search = function () {
+            if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListTowns();
+        };
+
+        $scope.showItems = function () {
+            ListTowns();
+        };
 
         $scope.pageChanged = function() {
             ListTowns();
@@ -44,7 +70,6 @@ angular
                     ListTowns();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -69,7 +94,6 @@ angular
                     ListTowns();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -94,7 +118,6 @@ angular
                     ListTowns();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
 
         }

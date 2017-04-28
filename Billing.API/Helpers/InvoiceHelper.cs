@@ -116,9 +116,10 @@ namespace Billing.API.Helpers
         {
             Invoice.Status = Status.InvoiceShipped;
             Invoice.ShippedOn = DateTime.Today;
-            var state = _unitOfWork.AutomaticStates.Get().Where(x => x.Invoice.Id == Invoice.Id).ToList().First();
-            if (state != null)
+            var states = _unitOfWork.AutomaticStates.Get().Where(x => x.Invoice.Id == Invoice.Id).ToList();
+            if (states.Count != 0)
             {
+                var state = states.First();
                 state.Completed = true;
                 _unitOfWork.AutomaticStates.Update(state, state.Id);
                 _unitOfWork.Commit();

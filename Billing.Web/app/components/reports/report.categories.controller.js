@@ -63,12 +63,12 @@
                             return d3.format('$,.2f')(d);
                         }
                     },
+                    forceY: 400000,
                     staggerLabels: true,
                     callback: function (chart) {
                         chart.discretebar.dispatch.on('elementClick', function (e) {
                             $scope.dates.id = e.data.label2;
                             DataFactory.insert('salesbyproduct', $scope.dates, function (result) {
-                                console.log(result);
                                 var modalInstance = $uibModal.open({
                                     animation: true,
                                     ariaLabelledBy: 'modal-title',
@@ -86,7 +86,7 @@
 
                                 modalInstance.result.then(function () {
                                 }, function () {
-                                    console.log('Modal dismissed at: ' + new Date());
+
                                 });
                             });
                         });

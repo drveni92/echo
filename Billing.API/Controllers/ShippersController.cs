@@ -6,6 +6,7 @@ using Billing.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -17,21 +18,17 @@ namespace Billing.API.Controllers
     public class ShippersController : BaseController
     {
         [Route("{name?}")]
-        public IHttpActionResult Get(string name = null, int page = 0)
+        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "name", bool sortReverse = false)
         {
             try
             {
-                List<Shipper> shippers;
-                if (name != null)
-                {
-                    shippers = UnitOfWork.Shippers.Get().Where(x => x.Name.Contains(name)).ToList();
-                    if (shippers.Count == 0) return NotFound();
-                }
-                else shippers = UnitOfWork.Shippers.Get().ToList();
-                var list = shippers.Skip(Pagination.PageSize * page)
-                                .Take(Pagination.PageSize)
+
+                var query = (name == null) ? UnitOfWork.Shippers.Get().ToList() : UnitOfWork.Shippers.Get().Where(x => x.Name.Contains(name)).ToList();
+                var list = query.OrderBy(sortType + (sortReverse ? " descending" : ""))
+                                .Skip(showPerPage * page)
+                                .Take(showPerPage)
                                 .Select(x => Factory.Create(x)).ToList();
-                return Ok(Factory.Create<ShipperModel>(page, shippers.Count, list));
+                return Ok(Factory.Create<ShipperModel>(page, query.Count, list));
             }
             catch (Exception ex)
             {
@@ -39,7 +36,6 @@ namespace Billing.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [Route("town/{id}")]
         public IHttpActionResult GetShippersByTown(int id)
         {

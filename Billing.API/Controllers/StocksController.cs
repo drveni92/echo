@@ -5,6 +5,7 @@ using Billing.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -15,17 +16,18 @@ namespace Billing.API.Controllers
     [RoutePrefix("api/stocks")]
     public class StocksController : BaseController
     {
-        [Route("")]
-        public IHttpActionResult Get(int page = 0)
+        [Route("{name?}")]
+        public IHttpActionResult Get(string name = "", int page = 0, int showPerPage = 10, string sortType = "product.name", bool sortReverse = false)
         {
             try
             {
-                var query = UnitOfWork.Stocks.Get().ToList();
-                var list = query.Skip(Pagination.PageSize * page)
-                                .Take(Pagination.PageSize)
+
+                var query = (name == null) ? UnitOfWork.Stocks.Get().ToList() : UnitOfWork.Stocks.Get().Where(x => x.Product.Name.Contains(name)).ToList();
+                var list = query.OrderBy(sortType + (sortReverse ? " descending" : ""))
+                                .Skip(showPerPage * page)
+                                .Take(showPerPage)
                                 .Select(x => Factory.Create(x)).ToList();
                 return Ok(Factory.Create<StockModel>(page, query.Count, list));
-
             }
             catch (Exception ex)
             {

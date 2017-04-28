@@ -84,5 +84,10 @@ namespace Billing.API.Models.Reports
         public List<InvoiceStatus> Invoices { get; set; }
         public List<BurningModel> BurningItems { get; set; }
         public List<CustomerStatus> Customers { get; set; }
+
+        public int NumberOfInvoices { get; set; }
+        public double MonthTotal { get; set; }
+        public int ShippedInvoices { get; set; }
+        public int ActiveCustomers { get; set; }
     }
 }

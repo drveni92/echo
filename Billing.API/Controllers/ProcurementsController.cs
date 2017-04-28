@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Linq.Dynamic;
 using System.Web.Http;
 
 namespace Billing.API.Controllers
@@ -15,14 +16,15 @@ namespace Billing.API.Controllers
     [RoutePrefix("api/procurements")]
     public class ProcurementsController : BaseController
     {
-        [Route("")]
-        public IHttpActionResult Get(int page = 0)
+        [Route("{product?}")]
+        public IHttpActionResult Get(string product = "", int page = 0, int showPerPage = 10, string sortType = "date", bool sortReverse = false)
         {
             try
             {
-                var query = UnitOfWork.Procurements.Get().ToList();
-                var list = query.Skip(Pagination.PageSize * page)
-                                .Take(Pagination.PageSize)
+                var query = (product == null) ? UnitOfWork.Procurements.Get().ToList() : UnitOfWork.Procurements.Get().Where(x => x.Product.Name.Contains(product)).ToList();
+                var list = query.OrderBy(sortType + (sortReverse ? " descending" : ""))
+                                .Skip(showPerPage * page)
+                                .Take(showPerPage)
                                 .Select(x => Factory.Create(x)).ToList();
                 return Ok(Factory.Create<ProcurementModel>(page, query.Count, list));
             }

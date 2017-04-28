@@ -3,6 +3,8 @@
         .module("Billing")
         .factory('httpInterceptor', function($q, $rootScope) {
 
+            var skip = "invoices/automatic/nocheck";
+
             var numLoadings = 0;
 
             return {
@@ -10,12 +12,13 @@
 
                     numLoadings++;
 
-                    // Show loader
-                    $rootScope.$broadcast("loader_show");
+                    if(config.url.indexOf(skip) === -1) $rootScope.$broadcast("loader_show");
                     return config || $q.when(config)
 
                 },
                 response: function(response) {
+
+                    //console.log(response);
 
                     if ((--numLoadings) === 0) {
                         // Hide loader

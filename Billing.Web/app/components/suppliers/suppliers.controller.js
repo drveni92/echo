@@ -4,21 +4,46 @@ angular
 
         $scope.maxPagination = BillingConfig.maxPagination;
 
-        function ListSuppliers() {
-            DataFactory.list("suppliers?page=" + ($scope.currentPage - 1), function(data) {
-                $scope.totalItems = data.totalItems;
-                $scope.currentPage = data.currentPage + 1;
-                $scope.suppliers = data.list;
-            });
+        $scope.pageParams = {
+            page: 1,
+            showPerPage: BillingConfig.showPerPage,
+            sortType: 'name',
+            sortReverse: false,
+            totalItems: 0
+        };
 
-        }
+        function ListSuppliers() {
+            $scope.pageParams.page = $scope.pageParams.page - 1;
+
+            DataFactory.list("suppliers", function (data) {
+                $scope.suppliers = data.list;
+                $scope.pageParams.totalItems = data.totalItems;
+                $scope.pageParams.page = data.currentPage + 1;
+            }, $scope.pageParams);
+        };
+
+
+
+        $scope.sort = function(column) {
+            if($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
+            $scope.pageParams.sortType = column;
+            ListSuppliers();
+        };
+
+        $scope.search = function () {
+            if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListSuppliers();
+        };
+
+        $scope.showItems = function () {
+            ListSuppliers();
+        };
 
         $scope.pageChanged = function() {
             ListSuppliers();
         };
 
-
         ListSuppliers();
+
 
         $scope.new = function() {
             var modalInstance = $uibModal.open({
@@ -40,7 +65,6 @@ angular
                     ListSuppliers();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         };
 
@@ -110,7 +134,6 @@ angular
                     ListSuppliers();
                 });
             }, function() {
-                console.log('Modal dismissed at: ' + new Date());
             });
         }
 

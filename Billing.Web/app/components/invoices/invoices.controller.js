@@ -1,31 +1,63 @@
 (function () {
     angular
         .module("Billing")
-        .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', function ($scope, $uibModal, DataFactory, InvoicesService, ToasterService) {
+        .controller('InvoicesController', ['$scope', '$uibModal', 'DataFactory', 'InvoicesService', 'ToasterService', '$rootScope', function ($scope, $uibModal, DataFactory, InvoicesService, ToasterService, $rootScope) {
             $scope.states = BillingConfig.states;
-            $scope.maxPagination = BillingConfig.maxPagination;
-            $scope.showPerPage = BillingConfig.showPerPage;
             $scope.userId = credentials.currentUser.id;
-            $scope.currentPage = 1;
-            $scope.searchInvoiceNo = "";
+            $scope.maxPagination = BillingConfig.maxPagination;
+            $scope.showAdvancedSearch = false;
+            $scope.searchParams = {
+                agent: '',
+                customer: '',
+                status: ''
+            };
+            $scope.pageParams = {
+                invoiceno: '',
+                page: 1,
+                showPerPage: BillingConfig.showPerPage,
+                sortType: 'total',
+                sortReverse: false,
+                totalItems: 0
+            };
 
             function ListInvoices() {
-                var url = "invoices";
-                url += "?invoiceno=" + (($scope.searchInvoiceNo !== undefined) ? $scope.searchInvoiceNo.toString() : "");
-                url += "&page=" + (($scope.currentPage !== undefined) ? ($scope.currentPage - 1) : 0);
-                url += "&show=" + $scope.showPerPage;
-                DataFactory.list(url, function (data) {
-                    $scope.invoices = data.list;
-                    $scope.totalItems = data.totalItems;
-                    $scope.currentPage = data.currentPage + 1;
-                });
+                $scope.pageParams.page = $scope.pageParams.page - 1;
+                if ($scope.showAdvancedSearch) {
+                    DataFactory.insert("invoices/search", $scope.searchParams, function (data) {
+                        $scope.invoices = data.list;
+                        $scope.pageParams.totalItems = data.totalItems;
+                        $scope.pageParams.page = data.currentPage + 1;
+                    }, $scope.pageParams);
+                }
+                else {
+                    DataFactory.list("invoices", function (data) {
+                        $scope.invoices = data.list;
+                        $scope.pageParams.totalItems = data.totalItems;
+                        $scope.pageParams.page = data.currentPage + 1;
+                    }, $scope.pageParams);
+                }
             };
 
-            $scope.search = function search() {
-                if($scope.searchInvoiceNo.toString().length > 2 || $scope.searchInvoiceNo.toString().length == 0) ListInvoices();
+            $scope.advancedSearch = function () {
+                $scope.showAdvancedSearch = !$scope.showAdvancedSearch
+                if ($scope.showAdvancedSearch == false) ListInvoices();
             };
 
-            $scope.showItems = function showItems() {
+            $scope.sort = function (column) {
+                if ($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
+                $scope.pageParams.sortType = column;
+                ListInvoices();
+            };
+
+            $scope.advancedSearchSubmit = function () {
+                ListInvoices();
+            }
+
+            $scope.search = function () {
+                if ($scope.pageParams.invoiceno.toString().length > 2 || $scope.pageParams.invoiceno.toString().length == 0) ListInvoices();
+            };
+
+            $scope.showItems = function () {
                 ListInvoices();
             };
 
@@ -37,6 +69,29 @@
 
             $scope.download = function (id) {
                 InvoicesService.download(id);
+            };
+
+            $scope.checkUpdates = function () {
+                DataFactory.list("invoices/automatic/check", function (result) {
+                    $rootScope.invoicesCount = 0;
+                    console.log(result);
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        templateUrl: 'app/components/invoices/templates/updated.html',
+                        controller: 'ModalInstanceController',
+                        controllerAs: '$modal',
+                        size: 'lg',
+                        resolve: {
+                            data: function () {
+                                return result
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function () { }, function () { });
+                });
             };
 
             $scope.show = function (invoice) {
@@ -72,13 +127,11 @@
                     });
 
                     modalInstance.result.then(function (mail) {
-                        console.log(invoice);
                         mail.InvoiceId = invoice.id;
                         DataFactory.insert("invoices/mail", mail, function (data) {
                             ToasterService.pop('success', "Success", data);
                         })
                     }, function () {
-                        console.log('Modal dismissed at: ' + new Date());
                     });
                 }, function () { });
             }
@@ -131,7 +184,6 @@
                             ToasterService.pop('success', "Success", data);
                         });
                     }, function () {
-                        console.log('Modal dismissed at: ' + new Date());
                     });
                 });
             }
@@ -158,7 +210,6 @@
                         ListInvoices();
                     });
                 }, function () {
-                    console.log('Modal dismissed at: ' + new Date());
                 });
             };
         }])

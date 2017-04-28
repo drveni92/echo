@@ -112,6 +112,14 @@ namespace Billing.API.Reports
                                   .OrderByDescending(x => x.Sold)
                                   .Take(5)
                                   .ToList();
+
+            var month_invoices = _unitOfWork.Invoices.Get().Where(x => x.Date.Month == currentMonth).ToList();
+
+            result.NumberOfInvoices = month_invoices.Count;
+            result.MonthTotal = month_invoices.Sum(x => x.Total);
+            result.ShippedInvoices = month_invoices.Where(x => x.Status == Status.InvoiceShipped).ToList().Count;
+            result.ActiveCustomers = month_invoices.Select(x => x.Customer.Name).Distinct().ToList().Count;
+
             return result;
         }
     }

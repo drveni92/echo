@@ -8,6 +8,7 @@
 
             $modal.data = data;
             $modal.regions = BillingConfig.regions;
+            $modal.states = BillingConfig.states;
 
             $modal.ok = function() {
                 $uibModalInstance.close($modal.data);

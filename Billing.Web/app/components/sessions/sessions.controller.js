@@ -89,7 +89,12 @@
                     function (reason) {
                     }
                 );
-            }
+            };
+
+            $rootScope.getClass = function (path) {
+                return ($location.path() === path) ? 'active-menu' : '';
+            };
+            
         }])
         .controller('LogoutController', ['$http', 'localStorageService', function ($http, localStorageService) {
             $http({

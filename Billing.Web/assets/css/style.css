@@ -167,6 +167,10 @@ body a {
     background-color: #16A085;
 }
 
+.active-menu {
+    background-color: #16A085;
+}
+
 .sidebar-nav li i {
     font-size: 24px;
     margin-top: 7px;
@@ -953,7 +957,6 @@ text {
     text-transform: uppercase;
     display: block;
     font-size: 14px;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }

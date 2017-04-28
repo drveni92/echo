@@ -1,10 +1,31 @@
 
    <h2> Sales by region</h2>
-<br><br><br>
-   <div class="col-md-5">
+<br><br>
+
+   <div class ="col-md-12">
+
+       <div class="col-md-4 ">
+               <br>
+               <p class="input-group">
+               <div class="col-md-12 ">
+                   <h4 class="col-md-3">Town:</h4>
+                   <div  class="col-md-7  ">
+
+                       <select name="repeatSelect" class="form-control  " id="repeatSelect" ng-model="selectedOption" ng-change="update()"
+                         ng-options="option.name group by option.id for option in sales">
+                           <option value="" disabled selected>Select town</option>
+                           <option value="{{option.id}}">{{option.name}}</option>
+                       </select>
+                   </div>
+               </p>
+       </div>
+   </div>
+
+   <div class="col-md-4">
+       <br>
        <p class="input-group">
-       <div class="col-md-4" style="padding-top: 5px;"><strong>Start date:</strong></div>
-       <div class="col-md-8 input-group">
+       <h5 class="col-md-4">Start date:</h5>
+       <div class="col-md-6 input-group">
            <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.startDate" is-open="startDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  />
            <span class="input-group-btn">
             			<button type="button" class="btn btn-default" ng-click="openStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -12,21 +33,27 @@
        </div>
        </p>
    </div>
-   <div class="col-md-5">
+   <div class="col-md-4">
+       <br>
        <p class="input-group">
-       <div class="col-md-4" style="padding-top: 5px;"><strong>End date:</strong></div>
-       <div class="col-md-8 input-group">
+       <h5 class="col-md-4">End date:</h5>
+       <div class="col-md-6 input-group">
            <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.endDate" is-open="endDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  />
            <span class="input-group-btn">
             			<button type="button" class="btn btn-default" ng-click="openEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
           			</span>
        </div>
        </p>
+       <br><br>
+   </div>
    </div>
 
+
+
+
    <br><br><br>
-   <div class="row" ng-repeat="sale in salesbyregion.sales">
-       <h3> {{sale.name}}</h3>
+   <div class="row" ">
+       <h3> {{ townname}}</h3>
        <table class="table table-hover table-striped table-bordered" >
            <thead>
            <tr>
@@ -40,7 +67,7 @@
            <tbody>
            <tr ng-repeat="item in sale.agents">
                <td>{{ item.name }}</td>
-               <td class="col-md-4">{{ item.total | currency:undefined:0 }}</td>
+               <td class="col-md-4">{{ item.total | currency }} </td>
                <td>{{ item.regionPercent }} % </td>
                <td>{{ item.totalPercent }} % </td>
                <td>
@@ -49,11 +76,21 @@
                    </a>
                </td>
            </tr>
-           <tr style="background-color: rgb(75, 239, 178);">
-               <td>{{ sale.name }}</td>
-               <td class="col-md-4">{{ sale.total | currency:undefined:0 }}</td>
+           <tr style="background-color: rgb(19, 86, 119);">
+               <td>
+                   <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;">  {{ sale.name }} </p>
+
+                  </td>
+               <td class="col-md-4">
+                   <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;">  {{ sale.total | currency }} </p>
+
+                  </td>
                <td></td>
-               <td>{{ sale.percent }} % </td>
+               <td>
+                   <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;">  {{ sale.percent }} %</p>
+
+                   </td>
+
                <td>
                </td>
            </tr>

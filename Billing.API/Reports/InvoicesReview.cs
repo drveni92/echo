@@ -30,7 +30,7 @@ namespace Billing.API.Reports
                     InvoiceNo = x.InvoiceNo,
                     Date = x.Date,
                     ShippedOn = x.ShippedOn,
-                    Status =(int)x.Status,
+                    Status = (int)x.Status,
                     Vat = x.Vat,
                     Name = x.Customer.Name
                 })
@@ -49,12 +49,12 @@ namespace Billing.API.Reports
             double total = 0;
             foreach (var item in query2)
             {
-                total += Math.Round((item.Total) / (1 + item.Vat / 100), 2);
+                total += Math.Round(item.Total, 2);
                 result.Invoices.Add(new InvoiceReviewModel()
                 {
                     InvoiceId = item.Id,
                     InvoiceNo = item.InvoiceNo,
-                    InvoiceTotal = Math.Round((item.Total) / (1 + item.Vat / 100), 2),
+                    InvoiceTotal = Math.Round((item.Total), 2),
                     InvoiceStatus = item.Status,
                     InvoiceDate = item.Date,
                     ShippedOn = item.ShippedOn
@@ -78,8 +78,8 @@ namespace Billing.API.Reports
                 result.InvoiceDate = invoice.Date;
                 result.InvoiceStatus = (int)invoice.Status;
                 result.VatAmount = Math.Round(invoice.VatAmount, 2);
-                result.Subtotal = invoice.SubTotal + result.VatAmount;
                 result.Shipping = invoice.Shipping;
+                result.Subtotal = invoice.SubTotal + result.VatAmount + result.Shipping;
                 result.Shipper = (invoice.Shipper == null) ? null : invoice.Shipper.Name;
                 result.ShippedOn = invoice.ShippedOn;
 

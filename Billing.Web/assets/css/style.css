@@ -884,6 +884,17 @@ text {
 }
 
 
+.countdownProgress{
+    font-size: xx-large;
+    height: 40px;
+}
+
+.stripeddiv{
+    font-size: 30px;
+    padding-top: 10px;
+}
+
+
 
 /* dashboard boxes */
 
@@ -952,3 +963,4 @@ text {
     font-weight: bold;
     font-size: 18px;
 }
+

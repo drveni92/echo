@@ -47,11 +47,20 @@
             <td>{{ item.totalPercent }} % </td>
 
         </tr>
-        <tr class="totaltable" >
-            <td>{{ SalesByAgents.name }} Total</td>
-            <td class="col-md-4">{{ SalesByAgents.agentTotal | currency:undefined:0 }}</td>
+        <tr style="background-color: rgb(19, 86, 119);">
+            <td>
+                <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;"> {{ SalesByAgents.name }} Total </p>
+
+            </td>
+            <td class="col-md-4">
+                <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;"> {{ SalesByAgents.agentTotal | currency}} </p>
+
+            </td>
             <td></td>
-            <td>{{ SalesByAgents.percentTotal }} % </td>
+            <td>
+                <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;">  {{ SalesByAgents.percentTotal }} % </p>
+
+            </td>
         </tr>
         </tbody>
     </table>

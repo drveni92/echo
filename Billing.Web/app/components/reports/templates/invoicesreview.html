@@ -7,98 +7,103 @@
     <hr>
 </div>
 
-<div class ="col-md-12">
+<div class="row">
+    <div class="col-md-12">
 
-    <div class="col-md-6 ">
-        <div class="pull-left ">
-        <br>
-    <p class="input-group">
-    <div class="col-md-12 " style="margin-left: -12%;">
-        <h4 class="col-md-3">Customer:</h4>
-        <div  class="col-md-9  ">
+        <div class="col-md-6 ">
+            <div class="pull-left ">
+                <br>
+                <p class="input-group">
+                    <div class="col-md-12 " style="margin-left: -12%;">
+                        <h4 class="col-md-3">Customer:</h4>
+                        <div class="col-md-9  ">
 
-            <select name="repeatSelect" class="form-control  " id="repeatSelect" ng-model="CustomerId" ng-change="update()">
+                            <select name="repeatSelect" class="form-control  " id="repeatSelect" ng-model="CustomerId" ng-change="update()">
                 <option value="" disabled selected>Select customer</option>
                 <option ng-repeat="option in Customers" value="{{option.id}}">{{option.name}}</option>
             </select>
+                        </div>
+                </p>
+                </div>
+            </div>
         </div>
-    </p>
-    </div>
-    </div>
-</div>
 
-<div class="col-md-3">
-    <br>
-    <p class="input-group">
-    <h5 class="col-md-4">Start date:</h5>
-    <div class="col-md-8 input-group">
-        <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.startDate" is-open="startDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  />
-        <span class="input-group-btn">
+        <div class="col-md-3">
+            <br>
+            <p class="input-group">
+                <h5 class="col-md-4">Start date:</h5>
+                <div class="col-md-8 input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.startDate" is-open="startDateOpened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
             			<button type="button" class="btn btn-default" ng-click="openStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
           			</span>
-    </div>
-    </p>
-</div>
-<div class="col-md-3">
-    <br>
-    <p class="input-group">
-    <h5 class="col-md-4">End date:</h5>
-    <div class="col-md-8 input-group">
-        <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.endDate" is-open="endDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"  />
-        <span class="input-group-btn">
+                </div>
+            </p>
+        </div>
+        <div class="col-md-3">
+            <br>
+            <p class="input-group">
+                <h5 class="col-md-4">End date:</h5>
+                <div class="col-md-8 input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.endDate" is-open="endDateOpened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
             			<button type="button" class="btn btn-default" ng-click="openEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
           			</span>
+                </div>
+            </p>
+        </div>
     </div>
-    </p>
-    <br><br>
 </div>
-</div>
-
 
 <div class="row">
     <hr>
 </div>
 <div class="row">
 
-    <table class="table table-hover table-striped table-bordered" >
-        <br><thead>
-        <tr>
-            <th>InvoiceNo </th>
-            <th>Date</th>
-            <th>Shipped On</th>
-            <th>Status</th>
-            <th>Total</th>
-            <th>Action</th>
+    <table class="table table-hover table-striped table-bordered">
+        <br>
+        <thead>
+            <tr>
+                <th>InvoiceNo </th>
+                <th>Date</th>
+                <th>Shipped On</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Action</th>
 
-        </tr>
+            </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in invoicereview.invoices">
-            <td>{{ item.invoiceNo }}</td>
-            <td class="col-md-4">{{ item.invoiceDate  | date:'yyyy-MM-dd'  }}</td>
-            <td>{{ item.shippedOn | date:'yyyy-MM-dd'  }}</td>
-            <td style="text-align: center; color: white;">
-                <div style="padding: 3px;" ng-class="{'danger_status': (item.invoiceStatus == -1),'warning_status': (item.invoiceStatus < 2 && item.invoiceStatus > -1), 'normal_status': (item.invoiceStatus < 4 && item.invoiceStatus > 1), 'success_status': (item.invoiceStatus < 8 && item.invoiceStatus > 3)}">{{ $parent.states[item.invoiceStatus + 1] }}</div>
-            </td>
+            <tr ng-repeat="item in invoicereview.invoices">
+                <td>{{ item.invoiceNo }}</td>
+                <td class="col-md-4">{{ item.invoiceDate | date:'yyyy-MM-dd' }}</td>
+                <td>{{ item.shippedOn | date:'yyyy-MM-dd' }}</td>
+                <td style="text-align: center; color: white;">
+                    <div style="padding: 3px;" ng-class="{'danger_status': (item.invoiceStatus == -1),'warning_status': (item.invoiceStatus < 2 && item.invoiceStatus > -1), 'normal_status': (item.invoiceStatus < 4 && item.invoiceStatus > 1), 'success_status': (item.invoiceStatus < 8 && item.invoiceStatus > 3)}">{{ $parent.states[item.invoiceStatus + 1] }}</div>
+                </td>
 
 
-            <td>{{ item.invoiceTotal | currency }} </td>
-            <td>
-                <a ng-click="show(item.invoiceId)" class="btn btn-info">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-        <tr style="background-color: rgb(19, 86, 119);">
-            <th>   <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;"> Total </p> </th>
-            <td class="col-md-4"></td>
-            <td></td>
-            <td></td>
-            <th>
-                <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;"> {{ invoicereview.grandTotal | currency }} </p>
-            </th>
-            <td></td>
-        </tr>
+                <td>{{ item.invoiceTotal | currency }} </td>
+                <td>
+                    <a ng-click="show(item.invoiceId)" class="btn btn-info">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr style="background-color: rgb(19, 86, 119);">
+                <th>
+                    <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;"> Total </p>
+                </th>
+                <td class="col-md-4"></td>
+                <td></td>
+                <td></td>
+                <th>
+                    <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;"> {{ invoicereview.grandTotal | currency }} </p>
+                </th>
+                <td></td>
+            </tr>
         </tbody>
     </table>
 </div>

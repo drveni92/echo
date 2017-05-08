@@ -1,4 +1,5 @@
-﻿using Billing.API.Helpers.Identity;
+﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.Database;
 using System;
@@ -23,24 +24,32 @@ namespace Billing.API.Controllers
         [HttpPost]
         public IHttpActionResult Login([FromBody]TokenRequestModel request)
         {
-            ApiUser apiUser = UnitOfWork.ApiUsers.Get().FirstOrDefault(x => x.AppId == request.ApiKey);
-            if (apiUser == null) return NotFound();
-
-            if (Signature.Generate(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
-
-            var rawTokenInfo = apiUser.AppId + DateTime.UtcNow.ToString("s");
-            var authToken = new AuthToken()
+            try
             {
-                Token = rawTokenInfo,
-                Expiration = DateTime.Now.AddMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["TokenTime"])),
-                ApiUser = apiUser,
-                Remember = (request.Remember != null) ? Factory.Create() : null,
-                Agent = UnitOfWork.Agents.Get().FirstOrDefault(x => x.Username == Thread.CurrentPrincipal.Identity.Name)
-            };
-            UnitOfWork.Tokens.Insert(authToken);
-            UnitOfWork.Commit();
+                ApiUser apiUser = UnitOfWork.ApiUsers.Get().FirstOrDefault(x => x.AppId == request.ApiKey);
+                if (apiUser == null) return NotFound();
 
-            return Ok(Factory.Create(authToken));
+                if (Signature.Generate(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
+
+                var rawTokenInfo = apiUser.AppId + DateTime.UtcNow.ToString("s");
+                var authToken = new AuthToken()
+                {
+                    Token = rawTokenInfo,
+                    Expiration = DateTime.Now.AddMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["TokenTime"])),
+                    ApiUser = apiUser,
+                    Remember = (request.Remember != null) ? Factory.Create() : null,
+                    Agent = UnitOfWork.Agents.Get().FirstOrDefault(x => x.Username == Thread.CurrentPrincipal.Identity.Name)
+                };
+                UnitOfWork.Tokens.Insert(authToken);
+                UnitOfWork.Commit();
+
+                return Ok(Factory.Create(authToken));
+            }
+            catch(Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("api/remember")]

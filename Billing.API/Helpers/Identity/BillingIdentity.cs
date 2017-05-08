@@ -26,13 +26,15 @@ namespace Billing.API.Helpers.Identity
         {
             get
             {
-
                 string username = Thread.CurrentPrincipal.Identity.Name;
+                Logger.Log("Generating current user : " + username, "INFO");
                 if (string.IsNullOrEmpty(username)) return null;
                 Agent agent = _unitOfWork.Agents.Get().FirstOrDefault(x => x.Username == username);
                 if (agent == null) return null;
 
                 if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
+
+                Logger.Log("User generated : " + agent.ToString(), "INFO");
 
                 return new CurrentUserModel()
                 {

@@ -41,8 +41,8 @@
 
         .config(['IdleProvider', 'KeepaliveProvider', function (IdleProvider, KeepaliveProvider) {
 
-            IdleProvider.idle(5);
-            IdleProvider.timeout(20);
+            IdleProvider.idle(60 * 60);
+            IdleProvider.timeout(60);
             KeepaliveProvider.interval(20);
         }]);
 

@@ -12,7 +12,7 @@ namespace Billing.Database
 {
     public class BillingContext : DbContext
     {
-        public BillingContext() : base("name=Billing.Database.Production") { }
+        public BillingContext() : base("name=Billing.Database") { }
 
         
         public DbSet<Agent> Agents { get; set; }

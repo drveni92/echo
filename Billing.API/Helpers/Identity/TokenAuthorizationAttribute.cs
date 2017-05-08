@@ -41,8 +41,12 @@ namespace Billing.API.Helpers.Identity
 
                     Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(authToken.Agent.Username), Roles.GetRolesForUser(authToken.Agent.Username));
 
+                    Logger.Log("Current Principal created : " + authToken.Agent.Username, "INFO");
+
+                    Logger.Log("Current Principal Token Condition: " + (authToken.ApiUser.AppId == ApiKey.First()).ToString() + (authToken.Expiration > DateTime.Now).ToString(), "INFO");
+
                     if (authToken != null)
-                        if (authToken.ApiUser.AppId == ApiKey.First() && authToken.Expiration > DateTime.UtcNow)
+                        if (authToken.ApiUser.AppId == ApiKey.First() && authToken.Expiration > DateTime.Now)
                             foreach (string role in _role)
                                 if (Identity.CurrentUser.Roles.Contains(role)) return;
                 }

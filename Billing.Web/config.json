@@ -1,5 +1,5 @@
 {
-	"source": "http://localhost:9000/api/",
+	"source": "http://api-echo.gigischool.com/api/",
 	"signature": "rxNzHu3jm6ubUy5sSHiHoyYo3I3Jt9rsRXQFsmTCNIM=",
 	"apiKey": "RWNoby1CaWxsaW5n",
 	"ExpirationDate": 30,

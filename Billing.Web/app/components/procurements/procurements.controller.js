@@ -1,10 +1,8 @@
-(function () {
+(function() {
     angular
         .module("Billing")
         .controller('ProcurementsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'ProcurementsFactory', function ($scope, $http, $uibModal, DataFactory, ToasterService, ProcurementsFactory) {
-
             $scope.maxPagination = BillingConfig.maxPagination;
-
             $scope.pageParams = {
                 page: 1,
                 showPerPage: BillingConfig.showPerPage,
@@ -140,5 +138,5 @@
                 });
             };
 
-        }]);
-})
+        }])
+}());

@@ -16,6 +16,8 @@ namespace Billing.Database
         }
 
         public int Id { get; set; }
+        [Required]
+        [MinLength(3)]
         public string Name { get; set; }
 
         public virtual List<Product> Products { get; set; }

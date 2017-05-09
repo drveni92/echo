@@ -1,4 +1,6 @@
-(function() {
+(function () {
+
+    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap", "ngIdle", "ngAnimate", "LocalStorageModule", 'oi.select', 'nvd3']);
 
     REGIONS = ["Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica"];
 
@@ -19,9 +21,7 @@
         return (credentials.currentUser.id != 0);
     };
 
-    var app = angular.module("Billing", ["ngRoute", "ui.bootstrap","ngIdle","ngAnimate", "LocalStorageModule", 'oi.select', 'nvd3']);
-
-    app.config(function($routeProvider) {
+    app.config(function ($routeProvider) {
         $routeProvider
             .when("/dashboard", {
                 templateUrl: "app/components/reports/templates/dashboard.html",
@@ -113,12 +113,12 @@
                 controller: "SalesByRegionController"
             })
             .when("/invoicesreview", {
-                templateUrl : "app/components/reports/templates/invoicesreview.html",
+                templateUrl: "app/components/reports/templates/invoicesreview.html",
                 controller: "InvoicesReviewController"
             })
             .otherwise({ redirectTo: "/dashboard" });
-    }).run(function($rootScope, $location) {
-        $rootScope.$on("$routeChangeStart", function(event, next, current) {
+    }).run(function ($rootScope, $location) {
+        $rootScope.$on("$routeChangeStart", function (event, next, current) {
             if (!authenticated()) {
                 if (next.templateUrl != "app/components/sessions/templates/login.html") {
                     redirectTo = $location.path();
@@ -129,11 +129,11 @@
         $rootScope.authenticated = authenticated;
     });
 
-    app.directive('adminAccess', function() {
+    app.directive('adminAccess', function () {
         return {
             scope: { owner: '=' },
             restrict: 'A',
-            link: function(scope, element, attr) {
+            link: function (scope, element, attr) {
                 var access = (credentials.currentUser.roles.indexOf("admin") > -1);
                 if (!access) {
                     var user = credentials.currentUser.id;

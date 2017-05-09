@@ -14,7 +14,7 @@ namespace Billing.Database
     {
         public BillingContext() : base("name=Billing.Database") { }
 
-        
+
         public DbSet<Agent> Agents { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -78,10 +78,11 @@ namespace Billing.Database
 
         public override int SaveChanges()
         {
-            foreach(var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted))
+
+            foreach (var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted))
             {
                 SoftDelete(entry);
-                entry.State = EntityState.Modified;
+                entry.State = EntityState.Detached;
             }
             return base.SaveChanges();
         }
@@ -97,8 +98,6 @@ namespace Billing.Database
             string deleteQuery = string.Format("UPDATE {0} SET Deleted = 1 WHERE {1} = @id", tableName, primaryKeyName);
 
             Database.ExecuteSqlCommand(deleteQuery, new SqlParameter("@id", entry.OriginalValues[primaryKeyName]));
-
-            //entry.State = EntityState.Detached;
         }
 
         private static Dictionary<Type, EntitySetBase> _mappingCache = new Dictionary<Type, EntitySetBase>();

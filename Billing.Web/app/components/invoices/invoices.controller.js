@@ -51,7 +51,7 @@
 
             $scope.advancedSearchSubmit = function () {
                 ListInvoices();
-            }
+            };
 
             $scope.search = function () {
                 if ($scope.pageParams.invoiceno.toString().length > 2 || $scope.pageParams.invoiceno.toString().length == 0) ListInvoices();
@@ -74,7 +74,6 @@
             $scope.checkUpdates = function () {
                 DataFactory.list("invoices/automatic/check", function (result) {
                     $rootScope.invoicesCount = 0;
-                    console.log(result);
                     var modalInstance = $uibModal.open({
                         animation: true,
                         ariaLabelledBy: 'modal-title',
@@ -134,7 +133,7 @@
                     }, function () {
                     });
                 }, function () { });
-            }
+            };
 
             $scope.show_history = function (invoice) {
                 var modalInstance = $uibModal.open({
@@ -154,11 +153,10 @@
                 });
 
                 modalInstance.result.then(function () { }, function () { });
-            }
+            };
 
-
-
-            $scope.nextState = function (invoice, cancel = false) {
+            $scope.nextState = function (invoice, cancel) {
+                if(cancel == null) cancel = false;
                 var url = "invoices/" + invoice.id + "/next/" + cancel;
                 InvoicesService.next(url, function (data) {
                     ToasterService.pop('info', "Invoice " + invoice.invoiceNo, "New state of the invoice is " + $scope.states[data.status + 1]);
@@ -186,7 +184,7 @@
                     }, function () {
                     });
                 });
-            }
+            };
 
 
             $scope.delete = function (invoice) {

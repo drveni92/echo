@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .factory('httpInterceptor', function($q, $rootScope) {
+        .factory('httpInterceptor', ['$q', '$rootScope', function($q, $rootScope) {
 
             var skip = "invoices/automatic/nocheck";
 
@@ -38,7 +38,7 @@
                     return $q.reject(response);
                 }
             };
-        })
+        }])
         .config(function($httpProvider) {
             $httpProvider.interceptors.push('httpInterceptor');
         });

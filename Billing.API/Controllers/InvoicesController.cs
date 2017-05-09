@@ -14,6 +14,7 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Linq.Dynamic;
 using System.Threading;
+using System.Data.Entity.Validation;
 
 namespace Billing.API.Controllers
 {
@@ -123,6 +124,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(invoice));
             }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex.Message, "ERROR");
@@ -196,6 +202,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Invoices.Update(invoice, id);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(invoice));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
             }
             catch (Exception ex)
             {

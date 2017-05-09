@@ -4,6 +4,7 @@ using Billing.API.Models;
 using Billing.Database;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Net;
@@ -63,6 +64,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(category));
             }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex.Message, "ERROR");
@@ -80,6 +86,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Categories.Update(category,id);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(category));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
             }
             catch (Exception ex)
             {

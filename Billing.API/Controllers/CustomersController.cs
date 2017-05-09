@@ -5,6 +5,7 @@ using Billing.Database;
 using Billing.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Net;
@@ -38,7 +39,6 @@ namespace Billing.API.Controllers
             }
         }
  
-
         [Route("all")]
         public IHttpActionResult GeAll()
         {
@@ -86,7 +86,6 @@ namespace Billing.API.Controllers
             }
         }
 
-
         [Route("")]
         public IHttpActionResult Post([FromBody]CustomerModel model)
         {
@@ -97,6 +96,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Customers.Insert(customer);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(customer));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
             }
             catch (Exception ex)
             {
@@ -114,6 +118,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Customers.Update(customer, id);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(customer));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
             }
             catch (Exception ex)
             {

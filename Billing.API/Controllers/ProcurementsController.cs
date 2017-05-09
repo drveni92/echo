@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Linq.Dynamic;
 using System.Web.Http;
+using System.Data.Entity.Validation;
 
 namespace Billing.API.Controllers
 {
@@ -94,6 +95,11 @@ namespace Billing.API.Controllers
                 Update(procurement.Product.Id);
                 return Ok(Factory.Create(procurement));
             }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex.Message, "ERROR");
@@ -112,6 +118,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Commit();
                 Update(procurement.Product.Id);
                 return Ok(Factory.Create(procurement));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
             }
             catch (Exception ex)
             {

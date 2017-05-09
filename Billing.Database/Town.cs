@@ -15,8 +15,14 @@ namespace Billing.Database
         }
 
         public int Id { get; set; }
+        [Required]
+        [MaxLength(10)]
+        [Index(IsUnique = true)]
         public string Zip { get; set; }
+        [Required]
+        [MinLength(3)]
         public string Name { get; set; }
+        [Required]
         public Region Region { get; set; }
 
         public virtual List<Supplier> Suppliers { get; set; }

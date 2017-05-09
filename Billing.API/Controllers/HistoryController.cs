@@ -4,6 +4,7 @@ using Billing.API.Models;
 using Billing.Database;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -53,6 +54,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(history));
             }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex.Message, "ERROR");
@@ -69,6 +75,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Histories.Update(history,id);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(history));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
             }
             catch (Exception ex)
             {

@@ -5,6 +5,8 @@ namespace Billing.Database
     public class Partner : Basic
     {
         public int Id { get; set; }
+        [Required]
+        [MinLength(3)]
         public string Name { get; set; }
         public string Address { get; set; }
         [Required]

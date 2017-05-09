@@ -11,7 +11,9 @@ namespace Billing.Database
     public class Stock : Basic
     {
         public int Id { get; set; }
+        [Range(0, Double.MaxValue)]
         public double Input { get; set; }
+        [Range(0, Double.MaxValue)]
         public double Output { get; set; }
         [NotMapped]
         public double Inventory { get { return (Input - Output); } }

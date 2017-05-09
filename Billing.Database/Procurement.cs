@@ -8,8 +8,13 @@ namespace Billing.Database
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        [Required]
         public string Document { get; set; }
+        [Required]
+        [Range(0, Int32.MaxValue)]
         public int Quantity { get; set; }
+        [Required]
+        [Range(0, Double.MaxValue)]
         public double Price { get; set; }
         [NotMapped]
         public double Total { get { return Math.Round(Quantity * Price, 2); } }

@@ -17,6 +17,9 @@ namespace Billing.Database
 
         public int Id { get; set; }
         public string Name { get; set; }
+
+        [Required]
+        [MinLength(4)]
         public string Username { get; set; }
 
         public virtual List<Town> Towns { get; set; }

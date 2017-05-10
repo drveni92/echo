@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Billing.API.Helpers
@@ -10,16 +11,15 @@ namespace Billing.API.Helpers
     {
         public static string Generate(DbEntityValidationException exception)
         {
-            string result = "";
+            StringBuilder std = new StringBuilder();
             foreach (var errors in exception.EntityValidationErrors)
             {
                 foreach (var validation in errors.ValidationErrors)
                 {
-                    result += validation.ErrorMessage;
-                    result += Environment.NewLine;
+                    std.Append(validation.ErrorMessage).AppendLine();
                 }
             }
-            return result;
+            return std.ToString();
         }
     }
 }

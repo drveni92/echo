@@ -52,19 +52,5 @@ namespace Billing.API.Controllers
             }
         }
 
-        [Route("{id}")]
-        public IHttpActionResult Delete(int id)
-        {
-            try
-            {
-                UnitOfWork.Stocks.Delete(id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex.Message, "ERROR");
-                return BadRequest(ex.Message);
-            }
-        }
     }
 }

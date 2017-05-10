@@ -160,6 +160,7 @@ namespace Billing.API.Controllers
         {
             try
             {
+                if (UnitOfWork.Agents.Get(id).Invoices.Count > 0) return BadRequest("Agent contains invoices.");
                 UnitOfWork.Agents.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

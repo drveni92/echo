@@ -122,6 +122,7 @@ namespace Billing.API.Controllers
         {
             try
             {
+                if (UnitOfWork.Suppliers.Get(id).Procurements.Count > 0) return BadRequest("Supplier contains procurements.");
                 UnitOfWork.Suppliers.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

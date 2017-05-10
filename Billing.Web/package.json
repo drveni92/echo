@@ -11,6 +11,7 @@
     "gulp-jshint-file-reporter": "0.0.2",
     "gulp-jsxhint": "0.0.1",
     "gulp-minify": "^0.0.15",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.8",

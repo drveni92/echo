@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Billing.Database.Helpers;
+using System;
 
 namespace Billing.Database
 {
+    [SoftDelete]
     public abstract class Basic
     {
         public Basic()

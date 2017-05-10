@@ -137,6 +137,7 @@ namespace Billing.API.Controllers
         {
             try
             {
+                if (UnitOfWork.Customers.Get(id).Invoices.Count > 0) return BadRequest("Customer contains invoices.");
                 UnitOfWork.Customers.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

@@ -122,6 +122,18 @@ namespace Billing.API.Controllers
         {
             try
             {
+                if (UnitOfWork.Shippers.Get(id).Invoices.Count > 0)
+                {
+                    var invoices = UnitOfWork.Shippers.Get(id).Invoices;
+                    foreach ( var invoice in invoices  )
+                    {
+                        if((int)invoice.Status < 7)
+                            return BadRequest("Shipper contains not shipped invoices.");           
+                    }
+
+                }
+                Shipper shipper = UnitOfWork.Shippers.Get(id);
+                shipper.Town = null;
                 UnitOfWork.Shippers.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

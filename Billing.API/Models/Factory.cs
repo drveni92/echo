@@ -96,13 +96,28 @@ namespace Billing.API.Models
 
         public TownModel Create(Town town)
         {
+            List<TownModel.TownCustomer> customers = new List<TownModel.TownCustomer>();
+            foreach (var customer in town.Customers)
+            {
+                Customer tmp = _unitOfWork.Customers.Get().FirstOrDefault(x => x.Id == customer.Id);
+                if (tmp != null)
+                {
+                    TownModel.TownCustomer a = new TownModel.TownCustomer();
+                    a.Id = tmp.Id;
+                    a.Name = tmp.Name;
+                    a.Adress = tmp.Address;
+                    customers.Add(a);
+                }
+                else throw new Exception("Customer not found");
+            };
 
             return new TownModel()
             {
                 Id = town.Id,
                 Name = town.Name,
                 Region = string.Concat(town.Region.ToString().Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' '),
-                Zip = town.Zip
+                Zip = town.Zip,
+                Customers = customers
             };
         }
 

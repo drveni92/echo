@@ -5,26 +5,29 @@
     <div class="row" style="padding: 20px;">
         <form name="new_product" class="form-horizontal" novalidate>
             <!-- Name -->
-            <div class="form-group" ng-class="{ 'has-error' : new_product.name.$invalid && !new_product.name.$pristine }">
+            <div class="form-group" ng-class="{ 'has-error' : new_product.name.$invalid && !new_product.name.$pristine && new_product.name.$error}">
                 <label class="control-label col-sm-2" for="name">Name:</label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="$modal.data.name" placeholder="Name" required>
-                    <p ng-show="new_product.name.$invalid && !new_product.name.$pristine" class="help-block">Product name is required.</p>
+                    <input type="text" name="name" class="form-control" ng-model="$modal.data.name" ng-minlength="3" placeholder="Name" required>
+                    <p ng-show="new_product.name.$error.minlength" class="help-block">Product name is too short.</p>
+                    <p ng-show="new_product.name.$dirty && new_product.name.$error.required" class="help-block">Product name is required.</p>
                 </div>
             </div>
             <!-- Unit -->
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="unit">Unit:</label>
+            <div class="form-group" ng-class="{ 'has-error' : new_product.unit.$invalid && !new_product.unit.$pristine }">
+                <label class="control-label col-sm-2" for="name">Unit:</label>
                 <div class="col-sm-10">
-                    <input type="name" class="form-control" ng-model="$modal.data.unit" id="unit" placeholder="Unit">
+                    <input type="name" name="unit" class="form-control" ng-model="$modal.data.unit" id="unit" placeholder="Unit" required>
+                    <p ng-show="new_product.unit.$invalid && !new_product.unit.$pristine" class="help-block">Product unit is required.</p>
                 </div>
             </div>
             <!-- Price -->
-            <div class="form-group" ng-class="{ 'has-error' : new_product.price.$invalid && !new_product.price.$pristine }">
+            <div class="form-group" ng-class="{ 'has-error' : new_product.price.$invalid && !new_product.price.$pristine && new_product.name.$error}">
                 <label class="control-label col-sm-2" for="name">Price:</label>
                 <div class="col-sm-10">
-                    <input type="number" min=1 name="price" class="form-control" ng-model="$modal.data.price" placeholder="Price" required>
-                    <p ng-show="new_product.price.$invalid && !new_product.price.$pristine" class="help-block">Product price is required.</p>
+                    <input type="number" min="1" name="price" class="form-control" ng-model="$modal.data.price" placeholder="Price" required>
+                    <p ng-show="new_product.price.$error.number" class="help-block">Product price should be positive.</p>
+                    <p ng-show="new_product.price.$dirty && new_product.price.$error.required" class="help-block">Product price is required.</p>
                 </div>
             </div>
             <!-- Category -->

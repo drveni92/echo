@@ -1,14 +1,15 @@
 <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">New customer</h3>
+    <h3 class="modal-title" id="modal-title">New shipper</h3>
 </div>
 <div class="modal-body" id="modal-body">
     <div class="row" style="padding: 20px;">
         <form name="new_shipper" class="form-horizontal" novalidate>
-            <div class="form-group" ng-class="{ 'has-error' : new_shipper.name.$invalid && !new_shipper.name.$pristine }">
+            <div class="form-group" ng-class="{ 'has-error' : new_shipper.name.$invalid && !new_shipper.name.$pristine && new_shipper.name.$error  }">
                 <label class="control-label col-sm-2" for="name">Name:</label>
                 <div class="col-sm-10">
-                    <input type="name" name="name" class="form-control" ng-model="$modal.data.name" placeholder="Name" required>
-                    <p ng-show="new_shipper.name.$invalid && !new_shipper.name.$pristine" class="help-block">Shipper name is required.</p>
+                    <input type="name" name="name" class="form-control" ng-model="$modal.data.name" ng-minlength="3" placeholder="Name" required>
+                    <p ng-show="new_shipper.name.$error.minlength" class="help-block">Shipper name is too short.</p>
+                    <p ng-show="new_shipper.name.$dirty && new_shipper.name.$error.required" class="help-block">Shipper name is required.</p>
                 </div>
             </div>
             <div class="form-group">

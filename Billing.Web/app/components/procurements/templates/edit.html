@@ -43,19 +43,21 @@
                 </div>
             </div>
             <!-- Quantity -->
-            <div class="form-group" ng-class="{ 'has-error' : new_procurement.quantity.$invalid && !new_procurement.quantity.$pristine }">
+            <div class="form-group" ng-class="{ 'has-error' : new_procurement.quantity.$invalid && !new_procurement.quantity.$pristine && new_procurement.quantity.$error}">
                 <label class="control-label col-sm-2" for="name">Quantity:</label>
                 <div class="col-sm-10">
-                    <input type="number" min=1 step=1 name="quantity" class="form-control" ng-model="$modal.data.quantity" placeholder="Quantity" required>
-                    <p ng-show="new_procurement.quantity.$invalid && !new_procurement.quantity.$pristine" class="help-block">Procurement quantity is required.</p>
+                    <input type="number" min="1" step=1 name="quantity" class="form-control" ng-model="$modal.data.quantity" placeholder="Quantity" required>
+                    <p ng-show="new_procurement.quantity.$error.number" class="help-block">Procurement quantity should be positive.</p>
+                    <p ng-show="new_procurement.quantity.$dirty && new_procurement.quantity.$error.required" class="help-block">Procurement quantity is required.</p>
                 </div>
             </div>
             <!-- Price -->
-            <div class="form-group" ng-class="{ 'has-error' : new_procurement.price.$invalid && !new_procurement.price.$pristine }">
+            <div class="form-group" ng-class="{ 'has-error' : new_procurement.price.$invalid && !new_procurement.price.$pristine && new_procurement.quantity.$error }">
                 <label class="control-label col-sm-2" for="name">Price:</label>
                 <div class="col-sm-10">
-                    <input type="number" min=1 name="price" class="form-control" ng-model="$modal.data.price" placeholder="Price" required>
-                    <p ng-show="new_procurement.price.$invalid && !new_procurement.price.$pristine" class="help-block">Procurement price is required.</p>
+                    <input type="number" min="1" name="price" class="form-control" ng-model="$modal.data.price" placeholder="Price" required>
+                    <p ng-show="new_procurement.price.$error.number" class="help-block">Procurement price should be positive.</p>
+                    <p ng-show="new_procurement.price.$dirty && new_procurement.price.$error.required" class="help-block">Procurement price is required.</p>
                 </div>
             </div>
         </form>

@@ -80,10 +80,10 @@
                     .then(function (response) {
                         return response.data.list;
                     });
-            }
+            };
 
             $scope.save = function () {
-                if (invoiceId == null) {
+                if (invoiceId === null) {
                     DataFactory.insert("invoices", $scope.invoice, function (data) {
                         if (data) {
                             $scope.invoice = InvoicesFactory.invoice(data);
@@ -164,5 +164,5 @@
 
             $('div.setup-panel div a.btn-primary').trigger('click');
 
-        }])
+        }]);
 }());

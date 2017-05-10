@@ -10,7 +10,7 @@
                     $scope.warning.close();
                     $scope.warning = null;
                 }
-            };
+            }
 
             $scope.$on('IdleStart', function () {
                 if ($location.path() !== "/login") {

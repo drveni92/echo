@@ -18,8 +18,8 @@
 
     function authenticated() {
         if (credentials === null) return false;
-        return (credentials.currentUser.id != 0);
-    };
+        return (credentials.currentUser.id !== 0);
+    }
 
     app.config(function ($routeProvider) {
         $routeProvider

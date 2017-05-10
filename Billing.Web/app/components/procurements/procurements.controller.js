@@ -19,7 +19,7 @@
                     $scope.pageParams.totalItems = data.totalItems;
                     $scope.pageParams.page = data.currentPage + 1;
                 }, $scope.pageParams);
-            };
+            }
 
 
 
@@ -30,7 +30,7 @@
             };
 
             $scope.search = function () {
-                if ($scope.pageParams.product.toString().length > 2 || $scope.pageParams.product.toString().length == 0) ListProcurements();
+                if ($scope.pageParams.product.toString().length > 2 || $scope.pageParams.product.toString().length === 0) ListProcurements();
             };
 
             $scope.showItems = function () {
@@ -78,7 +78,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return procurement
+                            return procurement;
                         }
                     }
                 });
@@ -98,7 +98,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return $.extend(true, {}, procurement)
+                            return $.extend(true, {}, procurement);
                         }
                     }
                 });
@@ -124,7 +124,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return procurement
+                            return procurement;
                         }
                     }
                 });
@@ -138,5 +138,5 @@
                 });
             };
 
-        }])
+        }]);
 }());

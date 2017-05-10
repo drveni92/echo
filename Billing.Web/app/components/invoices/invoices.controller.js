@@ -36,11 +36,11 @@
                         $scope.pageParams.page = data.currentPage + 1;
                     }, $scope.pageParams);
                 }
-            };
+            }
 
             $scope.advancedSearch = function () {
-                $scope.showAdvancedSearch = !$scope.showAdvancedSearch
-                if ($scope.showAdvancedSearch == false) ListInvoices();
+                $scope.showAdvancedSearch = !$scope.showAdvancedSearch;
+                if ($scope.showAdvancedSearch === false) ListInvoices();
             };
 
             $scope.sort = function (column) {
@@ -54,7 +54,7 @@
             };
 
             $scope.search = function () {
-                if ($scope.pageParams.invoiceno.toString().length > 2 || $scope.pageParams.invoiceno.toString().length == 0) ListInvoices();
+                if ($scope.pageParams.invoiceno.toString().length > 2 || $scope.pageParams.invoiceno.toString().length === 0) ListInvoices();
             };
 
             $scope.showItems = function () {
@@ -84,7 +84,7 @@
                         size: 'lg',
                         resolve: {
                             data: function () {
-                                return result
+                                return result;
                             }
                         }
                     });
@@ -105,7 +105,7 @@
                     size: 'lg',
                     resolve: {
                         data: function () {
-                            return invoice
+                            return invoice;
                         }
                     }
                 });
@@ -129,7 +129,7 @@
                         mail.InvoiceId = invoice.id;
                         DataFactory.insert("invoices/mail", mail, function (data) {
                             ToasterService.pop('success', "Success", data);
-                        })
+                        });
                     }, function () {
                     });
                 }, function () { });
@@ -147,7 +147,7 @@
                     size: 'lg',
                     resolve: {
                         data: function () {
-                            return invoice
+                            return invoice;
                         }
                     }
                 });
@@ -156,7 +156,7 @@
             };
 
             $scope.nextState = function (invoice, cancel) {
-                if(cancel == null) cancel = false;
+                if(cancel === null) cancel = false;
                 var url = "invoices/" + invoice.id + "/next/" + cancel;
                 InvoicesService.next(url, function (data) {
                     ToasterService.pop('info', "Invoice " + invoice.invoiceNo, "New state of the invoice is " + $scope.states[data.status + 1]);
@@ -172,7 +172,7 @@
                         controllerAs: '$modal',
                         resolve: {
                             data: function () {
-                                return invoice
+                                return invoice;
                             }
                         }
                     });
@@ -197,7 +197,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return invoice
+                            return invoice;
                         }
                     }
                 });
@@ -210,5 +210,5 @@
                 }, function () {
                 });
             };
-        }])
+        }]);
 }());

@@ -13,7 +13,7 @@
                     numLoadings++;
 
                     if(config.url.indexOf(skip) === -1) $rootScope.$broadcast("loader_show");
-                    return config || $q.when(config)
+                    return (config || $q.when(config));
 
                 },
                 response: function(response) {

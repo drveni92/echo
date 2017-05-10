@@ -21,7 +21,7 @@
                     $scope.pageParams.totalItems = data.totalItems;
                     $scope.pageParams.page = data.currentPage + 1;
                 }, $scope.pageParams);
-            };
+            }
 
 
 
@@ -32,7 +32,7 @@
             };
 
             $scope.search = function () {
-                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListProducts();
+                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length === 0) ListProducts();
             };
 
             $scope.showItems = function () {
@@ -56,9 +56,6 @@
                     resolve: {
                         data: function () {
                             return ProductsFactory.empty();
-                        },
-                        options: function () {
-                            return ["categories"]
                         }
                     }
                 });
@@ -83,10 +80,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return product
-                        },
-                        options: function () {
-                            return []
+                            return product;
                         }
                     }
                 });
@@ -105,7 +99,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return $.extend(true, {}, product)
+                            return $.extend(true, {}, product);
                         }
                     }
                 });
@@ -130,10 +124,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return product
-                        },
-                        options: function () {
-                            return []
+                            return product;
                         }
                     }
                 });

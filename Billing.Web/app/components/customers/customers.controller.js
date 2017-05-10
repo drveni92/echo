@@ -3,7 +3,7 @@
         .module("Billing")
         .controller('CustomersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'CustomersFactory', function ($scope, $http, $uibModal, DataFactory, ToasterService, CustomersFactory) {
 
-            $scope.maxPagination = BillingConfig.maxPagination
+            $scope.maxPagination = BillingConfig.maxPagination;
 
             $scope.pageParams = {
                 page: 1,
@@ -21,7 +21,7 @@
                     $scope.pageParams.totalItems = data.totalItems;
                     $scope.pageParams.page = data.currentPage + 1;
                 }, $scope.pageParams);
-            };
+            }
 
 
 
@@ -32,7 +32,7 @@
             };
 
             $scope.search = function () {
-                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListCustomers();
+                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length === 0) ListCustomers();
             };
 
             $scope.showItems = function () {
@@ -80,7 +80,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return customer
+                            return customer;
                         }
                     }
                 });
@@ -99,7 +99,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return $.extend(true, {}, customer)
+                            return $.extend(true, {}, customer);
                         }
                     }
                 });
@@ -112,7 +112,7 @@
                 }, function () {
                     ListCustomers();
                 });
-            }
+            };
 
 
             $scope.delete = function (customer) {
@@ -125,7 +125,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return customer
+                            return customer;
                         }
                     }
                 });
@@ -137,7 +137,7 @@
                     });
                 }, function () {
                 });
-            }
+            };
 
         }]);
 }());

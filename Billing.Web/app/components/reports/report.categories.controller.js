@@ -6,7 +6,7 @@
             var response = null;
 
             $scope.$watch('isMenuOpened', function () {
-                if (response != null) {
+                if (response !== null) {
                     $timeout(function () {
                         setGraph(response);
                     }, 800);
@@ -108,10 +108,10 @@
             var setGraph = function (data) {
                 var tempData = [];
                 for (var i = data.sales.length - 1; i >= 0; i--) {
-                    tempData.push({ label1: data.sales[i].name, label2: data.sales[i].id, value: data.sales[i].total })
+                    tempData.push({ label1: data.sales[i].name, label2: data.sales[i].id, value: data.sales[i].total });
                 }
                 $scope.data = [{ key: "Sales By Cateogry", values: tempData }];
-            }
+            };
 
             $scope.updateGraph = function () {
                 setGraph(response);

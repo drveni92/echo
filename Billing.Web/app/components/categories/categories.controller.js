@@ -7,7 +7,7 @@
                 $scope.showCategory = true;
             };
 
-            $scope.maxPagination = BillingConfig.maxPagination
+            $scope.maxPagination = BillingConfig.maxPagination;
 
             $scope.pageParams = {
                 page: 1,
@@ -25,7 +25,7 @@
                     $scope.pageParams.totalItems = data.totalItems;
                     $scope.pageParams.page = data.currentPage + 1;
                 }, $scope.pageParams);
-            };
+            }
 
 
 
@@ -36,7 +36,7 @@
             };
 
             $scope.search = function () {
-                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListCategories();
+                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length === 0) ListCategories();
             };
 
             $scope.showItems = function () {
@@ -60,9 +60,6 @@
                     resolve: {
                         data: function () {
                             return CategoriesFactory.empty();
-                        },
-                        options: function () {
-                            return []
                         }
                     }
                 });
@@ -85,10 +82,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return $.extend(true, {}, category)
-                        },
-                        options: function () {
-                            return []
+                            return $.extend(true, {}, category);
                         }
                     }
                 });
@@ -101,7 +95,7 @@
                 }, function () {
                     ListCategories();
                 });
-            }
+            };
 
             $scope.delete = function (category) {
                 var modalInstance = $uibModal.open({
@@ -113,10 +107,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return category
-                        },
-                        options: function () {
-                            return []
+                            return category;
                         }
                     }
                 });
@@ -128,7 +119,7 @@
                     });
                 }, function () {
                 });
-            }
+            };
         }]);
 
 }());

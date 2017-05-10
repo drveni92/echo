@@ -76,7 +76,7 @@
                     }
                     $scope.data.push(temp);
                 }
-            }
+            };
 
 
             $scope.updateGraph = function() {

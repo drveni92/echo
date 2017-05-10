@@ -57,6 +57,6 @@
                             ToasterService.pop('error', "Error", error.data.message);
                         });
                 }
-            }
-        }])
+            };
+        }]);
 }());

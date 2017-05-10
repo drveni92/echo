@@ -36,11 +36,11 @@
                         $scope.pageParams.page = data.currentPage + 1;
                     }, $scope.pageParams);
                 }
-            };
+            }
 
             $scope.advancedSearch = function () {
-                $scope.showAdvancedSearch = !$scope.showAdvancedSearch
-                if ($scope.showAdvancedSearch == false) ListInvoices();
+                $scope.showAdvancedSearch = !$scope.showAdvancedSearch;
+                if ($scope.showAdvancedSearch === false) ListInvoices();
             };
 
             $scope.sort = function (column) {
@@ -51,10 +51,10 @@
 
             $scope.advancedSearchSubmit = function () {
                 ListInvoices();
-            }
+            };
 
             $scope.search = function () {
-                if ($scope.pageParams.invoiceno.toString().length > 2 || $scope.pageParams.invoiceno.toString().length == 0) ListInvoices();
+                if ($scope.pageParams.invoiceno.toString().length > 2 || $scope.pageParams.invoiceno.toString().length === 0) ListInvoices();
             };
 
             $scope.showItems = function () {
@@ -74,7 +74,6 @@
             $scope.checkUpdates = function () {
                 DataFactory.list("invoices/automatic/check", function (result) {
                     $rootScope.invoicesCount = 0;
-                    console.log(result);
                     var modalInstance = $uibModal.open({
                         animation: true,
                         ariaLabelledBy: 'modal-title',
@@ -85,7 +84,7 @@
                         size: 'lg',
                         resolve: {
                             data: function () {
-                                return result
+                                return result;
                             }
                         }
                     });
@@ -106,7 +105,7 @@
                     size: 'lg',
                     resolve: {
                         data: function () {
-                            return invoice
+                            return invoice;
                         }
                     }
                 });
@@ -130,11 +129,11 @@
                         mail.InvoiceId = invoice.id;
                         DataFactory.insert("invoices/mail", mail, function (data) {
                             ToasterService.pop('success', "Success", data);
-                        })
+                        });
                     }, function () {
                     });
                 }, function () { });
-            }
+            };
 
             $scope.show_history = function (invoice) {
                 var modalInstance = $uibModal.open({
@@ -148,17 +147,16 @@
                     size: 'lg',
                     resolve: {
                         data: function () {
-                            return invoice
+                            return invoice;
                         }
                     }
                 });
 
                 modalInstance.result.then(function () { }, function () { });
-            }
+            };
 
-
-
-            $scope.nextState = function (invoice, cancel = false) {
+            $scope.nextState = function (invoice, cancel) {
+                if(cancel === null) cancel = false;
                 var url = "invoices/" + invoice.id + "/next/" + cancel;
                 InvoicesService.next(url, function (data) {
                     ToasterService.pop('info', "Invoice " + invoice.invoiceNo, "New state of the invoice is " + $scope.states[data.status + 1]);
@@ -174,7 +172,7 @@
                         controllerAs: '$modal',
                         resolve: {
                             data: function () {
-                                return invoice
+                                return invoice;
                             }
                         }
                     });
@@ -186,7 +184,7 @@
                     }, function () {
                     });
                 });
-            }
+            };
 
 
             $scope.delete = function (invoice) {
@@ -199,7 +197,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function () {
-                            return invoice
+                            return invoice;
                         }
                     }
                 });
@@ -212,5 +210,5 @@
                 }, function () {
                 });
             };
-        }])
+        }]);
 }());

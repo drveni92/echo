@@ -200,3 +200,5 @@ FakesAssemblies/
 NoPush.txt
 
 .vscode
+
+node_modules/

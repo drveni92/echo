@@ -1,6 +1,6 @@
 (function () {
     angular.module("Billing")
-        .controller("Echo", ['$scope', 'Idle', '$uibModal', '$location', function ($scope, Idle, $uibModal, $location) {
+        .controller("EchoController", ['$scope', 'Idle', '$uibModal', '$location', function ($scope, Idle, $uibModal, $location) {
 
             Idle.watch();
             $scope.started = true;
@@ -10,7 +10,7 @@
                     $scope.warning.close();
                     $scope.warning = null;
                 }
-            };
+            }
 
             $scope.$on('IdleStart', function () {
                 if ($location.path() !== "/login") {
@@ -41,8 +41,8 @@
 
         .config(['IdleProvider', 'KeepaliveProvider', function (IdleProvider, KeepaliveProvider) {
 
-            IdleProvider.idle(60 * 60);
-            IdleProvider.timeout(60);
+            IdleProvider.idle(60*60*60);
+            IdleProvider.timeout(20);
             KeepaliveProvider.interval(20);
         }]);
 

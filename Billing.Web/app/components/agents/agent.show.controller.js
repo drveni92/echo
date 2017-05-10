@@ -24,7 +24,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function() {
-                            return $.extend(true, {}, agent)
+                            return $.extend(true, {}, agent);
                         }
                     }
                 });

@@ -10,5 +10,5 @@
                 };
                 $rootScope.$broadcast('toaster-newToast');
             };
-        })
+        });
 }());

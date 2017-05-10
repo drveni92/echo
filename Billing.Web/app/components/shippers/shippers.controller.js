@@ -1,50 +1,51 @@
-angular
-    .module("Billing")
-    .controller('ShippersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'ShippersFactory', function($scope, $http, $uibModal, DataFactory, ToasterService, ShippersFactory) {
+(function () {
+    angular
+        .module("Billing")
+        .controller('ShippersController', ['$scope', '$http', '$uibModal', 'DataFactory', 'ToasterService', 'ShippersFactory', function ($scope, $http, $uibModal, DataFactory, ToasterService, ShippersFactory) {
 
-        $scope.maxPagination = BillingConfig.maxPagination;
+            $scope.maxPagination = BillingConfig.maxPagination;
 
-        $scope.pageParams = {
-            page: 1,
-            showPerPage: BillingConfig.showPerPage,
-            sortType: 'name',
-            sortReverse: false,
-            totalItems: 0
-        };
+            $scope.pageParams = {
+                page: 1,
+                showPerPage: BillingConfig.showPerPage,
+                sortType: 'name',
+                sortReverse: false,
+                totalItems: 0
+            };
 
-        function ListShippers() {
-            $scope.pageParams.page = $scope.pageParams.page - 1;
+            function ListShippers() {
+                $scope.pageParams.page = $scope.pageParams.page - 1;
 
-            DataFactory.list("shippers", function (data) {
-                $scope.shippers = data.list;
-                $scope.pageParams.totalItems = data.totalItems;
-                $scope.pageParams.page = data.currentPage + 1;
-            }, $scope.pageParams);
-        };
+                DataFactory.list("shippers", function (data) {
+                    $scope.shippers = data.list;
+                    $scope.pageParams.totalItems = data.totalItems;
+                    $scope.pageParams.page = data.currentPage + 1;
+                }, $scope.pageParams);
+            };
 
 
 
-        $scope.sort = function(column) {
-            if($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
-            $scope.pageParams.sortType = column;
+            $scope.sort = function (column) {
+                if ($scope.pageParams.sortType === column) $scope.pageParams.sortReverse = !$scope.pageParams.sortReverse;
+                $scope.pageParams.sortType = column;
+                ListShippers();
+            };
+
+            $scope.search = function () {
+                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListShippers();
+            };
+
+            $scope.showItems = function () {
+                ListShippers();
+            };
+
+            $scope.pageChanged = function () {
+                ListShippers();
+            };
+
             ListShippers();
-        };
 
-        $scope.search = function () {
-            if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListShippers();
-        };
-
-        $scope.showItems = function () {
-            ListShippers();
-        };
-
-        $scope.pageChanged = function() {
-            ListShippers();
-        };
-
-        ListShippers();
-
-        $scope.new = function() {
+            $scope.new = function () {
 
                 var modalInstance = $uibModal.open({
                     animation: true,
@@ -54,44 +55,45 @@ angular
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
-                        data: function() {
+                        data: function () {
                             return ShippersFactory.empty();
                         }
                     }
                 });
 
-                modalInstance.result.then(function(shipper) {
-                    DataFactory.insert("shippers", ShippersFactory.shipper(shipper), function(data) { 
+                modalInstance.result.then(function (shipper) {
+                    DataFactory.insert("shippers", ShippersFactory.shipper(shipper), function (data) {
                         ToasterService.pop('success', "Success", "Shipper added");
-                        ListShippers(); });
-                }, function() {
+                        ListShippers();
+                    });
+                }, function () {
                 });
-        };
+            };
 
-        $scope.show = function(shipper) {
+            $scope.show = function (shipper) {
 
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'app/components/shippers/templates/show.html',
-                controller: 'ModalInstanceController',
-                controllerAs: '$modal',
-                resolve: {
-                    data: function() {
-                        return shipper
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'app/components/shippers/templates/show.html',
+                    controller: 'ModalInstanceController',
+                    controllerAs: '$modal',
+                    resolve: {
+                        data: function () {
+                            return shipper
+                        }
                     }
-                }
-            });
+                });
 
-            modalInstance.result.then(function() {
-            }, function() {
-            });
+                modalInstance.result.then(function () {
+                }, function () {
+                });
 
-        };
+            };
 
 
-        $scope.edit = function(shipper) {
+            $scope.edit = function (shipper) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
@@ -100,44 +102,45 @@ angular
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
-                        data: function() {
+                        data: function () {
                             return $.extend(true, {}, shipper)
                         }
                     }
                 });
 
-                modalInstance.result.then(function(shipper) {
-                    DataFactory.update("shippers", shipper.id, ShippersFactory.shipper(shipper), function(data) {
+                modalInstance.result.then(function (shipper) {
+                    DataFactory.update("shippers", shipper.id, ShippersFactory.shipper(shipper), function (data) {
                         ToasterService.pop('success', "Success", "Shipper saved");
                         ListShippers();
                     });
-                }, function() {
+                }, function () {
                 });
-        }
+            }
 
 
-        $scope.delete = function(shipper) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'app/components/shippers/templates/delete.html',
-                controller: 'ModalInstanceController',
-                controllerAs: '$modal',
-                resolve: {
-                    data: function() {
-                        return shipper
+            $scope.delete = function (shipper) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'app/components/shippers/templates/delete.html',
+                    controller: 'ModalInstanceController',
+                    controllerAs: '$modal',
+                    resolve: {
+                        data: function () {
+                            return shipper
+                        }
                     }
-                }
-            });
-
-            modalInstance.result.then(function(shipper) {
-                DataFactory.delete("shippers", shipper.id, function(data) {
-                    ToasterService.pop('success', "Success", "Shipper deleted");
-                    ListShippers();
                 });
-            }, function() {
-            });
-        }
 
-    }]);
+                modalInstance.result.then(function (shipper) {
+                    DataFactory.delete("shippers", shipper.id, function (data) {
+                        ToasterService.pop('success', "Success", "Shipper deleted");
+                        ListShippers();
+                    });
+                }, function () {
+                });
+            }
+
+        }]);
+}());

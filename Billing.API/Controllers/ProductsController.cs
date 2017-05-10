@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq.Dynamic;
 using System.Linq;
 using System.Web.Http;
+using System.Data.Entity.Validation;
 
 namespace Billing.Api.Controllers
 {
@@ -63,6 +64,11 @@ namespace Billing.Api.Controllers
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(product));
             }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex.Message, "ERROR");
@@ -80,6 +86,11 @@ namespace Billing.Api.Controllers
                 UnitOfWork.Products.Update(product, id);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(product));
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
             }
             catch (Exception ex)
             {

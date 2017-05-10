@@ -2,7 +2,7 @@
     angular
         .module("Billing")
         .controller('AgentsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'AgentsFactory', function($scope, $http, $uibModal, DataFactory, AgentsFactory) {
-            $scope.maxPagination = BillingConfig.maxPagination
+            $scope.maxPagination = BillingConfig.maxPagination;
 
             $scope.pageParams = {
                 page: 1,
@@ -20,7 +20,7 @@
                     $scope.pageParams.totalItems = data.totalItems;
                     $scope.pageParams.page = data.currentPage + 1;
                 }, $scope.pageParams);
-            };
+            }
 
 
 
@@ -31,7 +31,7 @@
             };
 
             $scope.search = function () {
-                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length == 0) ListAgents();
+                if ($scope.pageParams.name.toString().length > 2 || $scope.pageParams.name.toString().length === 0) ListAgents();
             };
 
             $scope.showItems = function () {
@@ -76,7 +76,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function() {
-                            return $.extend(true, {}, agent)
+                            return $.extend(true, {}, agent);
                         }
                     }
                 });
@@ -99,10 +99,7 @@
                     controllerAs: '$modal',
                     resolve: {
                         data: function() {
-                            return agent
-                        },
-                        options: function() {
-                            return []
+                            return agent;
                         }
                     }
                 });
@@ -114,7 +111,7 @@
                     });
                 }, function() {
                 });
-            }
+            };
 
         }]);
 }());

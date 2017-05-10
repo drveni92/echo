@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Billing.API.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,9 @@ namespace Billing.Database
         }
 
         public int Id { get; set; }
+        [Required]
+        [MinLength(3)]
+        [StringValidation]
         public string Name { get; set; }
 
         public virtual List<Product> Products { get; set; }

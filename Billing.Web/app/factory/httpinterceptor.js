@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .factory('httpInterceptor', function($q, $rootScope) {
+        .factory('httpInterceptor', ['$q', '$rootScope', function($q, $rootScope) {
 
             var skip = "invoices/automatic/nocheck";
 
@@ -13,7 +13,7 @@
                     numLoadings++;
 
                     if(config.url.indexOf(skip) === -1) $rootScope.$broadcast("loader_show");
-                    return config || $q.when(config)
+                    return (config || $q.when(config));
 
                 },
                 response: function(response) {
@@ -38,7 +38,7 @@
                     return $q.reject(response);
                 }
             };
-        })
+        }])
         .config(function($httpProvider) {
             $httpProvider.interceptors.push('httpInterceptor');
         });

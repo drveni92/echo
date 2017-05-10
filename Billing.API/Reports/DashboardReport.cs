@@ -117,7 +117,7 @@ namespace Billing.API.Reports
 
             result.NumberOfInvoices = month_invoices.Count;
             result.MonthTotal = month_invoices.Sum(x => x.Total);
-            result.ShippedInvoices = month_invoices.Where(x => x.Status == Status.InvoiceShipped).ToList().Count;
+            result.ShippedInvoices = _unitOfWork.Invoices.Get().Where(x => (x.ShippedOn.Value.Month == currentMonth && x.Status == Status.InvoiceShipped)).ToList().Count;
             result.ActiveCustomers = month_invoices.Select(x => x.Customer.Name).Distinct().ToList().Count;
 
             return result;

@@ -5,6 +5,7 @@ using Billing.Database;
 using Billing.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Net;
@@ -94,6 +95,11 @@ namespace Billing.API.Controllers
                 Roles.AddUserToRole(agent.Username, "user");
                 return Ok(Factory.Create(agent));
             }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex.Message, "ERROR");
@@ -113,6 +119,11 @@ namespace Billing.API.Controllers
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(agent));
             }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex.Message, "ERROR");
@@ -130,6 +141,11 @@ namespace Billing.API.Controllers
                 if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing.Database", "Agents", "Id", "Username", autoCreateTables: true);
                 if (WebSecurity.ChangePassword(model.Username, model.OldPassword, model.NewPassword)) return Ok("Password changed");
                 return BadRequest("Password does not match");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest(ErrorGeneratorMessage.Generate(ex));
             }
             catch (Exception ex)
             {

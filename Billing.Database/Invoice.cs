@@ -15,10 +15,15 @@ namespace Billing.Database
         }
 
         public int Id { get; set; }
+        [Required]
+        [MinLength(2)]
         public string InvoiceNo { get; set; }
+        [Required]
         public DateTime Date { get; set; }
         public DateTime? ShippedOn { get; set; }
+        [Required]
         public Status Status { get; set; }
+        [Required]
         public double Vat { get; set; }
         public double Shipping { get; set; }
 
@@ -29,7 +34,9 @@ namespace Billing.Database
         [NotMapped]
         public double Total { get { return Math.Round(SubTotal + VatAmount + Shipping, 2); } }
 
+        [Required]
         public virtual Agent Agent { get; set; }
+        [Required]
         public virtual Customer Customer { get; set; }
         public virtual Shipper Shipper { get; set; }
 

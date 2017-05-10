@@ -26,7 +26,7 @@
                         function addToast(toast) {
                             toast.type = types[toast.type];
                             if (!toast.type)
-                                toast.type = 'toast-info'
+                                toast.type = 'toast-info';
 
                             id++;
                             angular.extend(toast, { id: id });
@@ -56,7 +56,7 @@
                             toast.timeout = $timeout(function() {
                                 $scope.removeToast(toast.id);
                             }, 5000);
-                        }
+                        };
 
                         $scope.removeToast = function(id) {
                             var i = 0;

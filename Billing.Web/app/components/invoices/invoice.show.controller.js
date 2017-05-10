@@ -34,7 +34,7 @@
                     mail.InvoiceId = invoiceId;
                     DataFactory.insert("invoices/mail", mail, function (data) {
                         ToasterService.pop('success', "Success", data);
-                    })
+                    });
                 }, function () {
                 });
             };

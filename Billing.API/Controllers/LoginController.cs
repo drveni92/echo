@@ -1,4 +1,5 @@
-﻿using Billing.API.Helpers.Identity;
+﻿using Billing.API.Helpers;
+using Billing.API.Helpers.Identity;
 using Billing.API.Models;
 using Billing.Database;
 using System;
@@ -47,32 +48,40 @@ namespace Billing.API.Controllers
         [HttpPost]
         public IHttpActionResult Remember(TokenRequestModel request)
         {
-            AuthToken token = UnitOfWork.Tokens.Get().FirstOrDefault(x => x.Remember == request.Remember);
-            if (token == null) return NotFound();
-
-            if (token.ApiUser.AppId != request.ApiKey) return NotFound();
-
-            ApiUser apiUser = UnitOfWork.ApiUsers.Get().FirstOrDefault(x => x.AppId == request.ApiKey);
-            if (apiUser == null) return NotFound();
-            if (Signature.Generate(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
-
-            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(token.Agent.Username), Roles.GetRolesForUser(token.Agent.Username));
-
-            string rawTokenInfo = DateTime.Now.Ticks.ToString() + apiUser.AppId;
-            byte[] rawTokenByte = Encoding.UTF8.GetBytes(rawTokenInfo);
-            var authToken = new AuthToken()
+            try
             {
-                Token = Convert.ToBase64String(rawTokenByte),
-                Expiration = DateTime.Now.AddMinutes(20),
-                Remember = Factory.Create(),
-                ApiUser = apiUser,
-                Agent = token.Agent
-            };
+                AuthToken token = UnitOfWork.Tokens.Get().FirstOrDefault(x => x.Remember == request.Remember);
+                if (token == null) return NotFound();
 
-            UnitOfWork.Tokens.Delete(token.Id);
-            UnitOfWork.Tokens.Insert(authToken);
-            UnitOfWork.Commit();
-            return Ok(Factory.Create(authToken));
+                if (token.ApiUser.AppId != request.ApiKey) return NotFound();
+
+                ApiUser apiUser = UnitOfWork.ApiUsers.Get().FirstOrDefault(x => x.AppId == request.ApiKey);
+                if (apiUser == null) return NotFound();
+                if (Signature.Generate(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
+
+                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(token.Agent.Username), Roles.GetRolesForUser(token.Agent.Username));
+
+                string rawTokenInfo = DateTime.Now.Ticks.ToString() + apiUser.AppId;
+                byte[] rawTokenByte = Encoding.UTF8.GetBytes(rawTokenInfo);
+                var authToken = new AuthToken()
+                {
+                    Token = Convert.ToBase64String(rawTokenByte),
+                    Expiration = DateTime.Now.AddMinutes(20),
+                    Remember = Factory.Create(),
+                    ApiUser = apiUser,
+                    Agent = token.Agent
+                };
+
+                UnitOfWork.Tokens.Insert(authToken);
+                UnitOfWork.Tokens.Delete(token.Id);
+                UnitOfWork.Commit();
+                return Ok(Factory.Create(authToken));
+            }
+            catch(Exception ex)
+            {
+                Logger.Log(ex.Message, "ERROR");
+                return BadRequest("Error remember me");
+            }
         }
 
         [TokenAuthorization("user")]

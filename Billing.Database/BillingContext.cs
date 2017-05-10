@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Billing.Database.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
@@ -14,7 +15,7 @@ namespace Billing.Database
     {
         public BillingContext() : base("name=Billing.Database") { }
 
-        
+
         public DbSet<Agent> Agents { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -37,101 +38,13 @@ namespace Billing.Database
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
             modelBuilder.Ignore<Basic>();
+           
+            var conv = new AttributeToTableAnnotationConvention<SoftDeleteAttribute, string>(
+               "SoftDeleteColumnName",
+               (type, attributes) => attributes.Single().ColumnName);
 
-            modelBuilder.Entity<Agent>()
-                        .Map<Agent>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Category>()
-                        .Map<Category>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Customer>()
-                        .Map<Customer>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Invoice>()
-                        .Map<Invoice>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Item>()
-                        .Map<Item>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Procurement>()
-                        .Map<Procurement>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Product>()
-                        .Map<Product>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Shipper>()
-                        .Map<Shipper>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Stock>()
-                        .Map<Stock>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Supplier>()
-                        .Map<Supplier>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Town>()
-                        .Map<Town>(x => x.Requires("Deleted").HasValue(false))
-                        .Ignore(x => x.Deleted);
-            modelBuilder.Entity<Event>()
-                       .Map<Event>(x => x.Requires("Deleted").HasValue(false))
-                       .Ignore(x => x.Deleted);
-        }
+            modelBuilder.Conventions.Add(conv);
 
-        public override int SaveChanges()
-        {
-            foreach(var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted))
-            {
-                SoftDelete(entry);
-                entry.State = EntityState.Modified;
-            }
-            return base.SaveChanges();
-        }
-
-        //entry predstavlja record koji se brise
-        private void SoftDelete(DbEntityEntry entry)
-        {
-            Type entryEntityType = entry.Entity.GetType();
-
-            string tableName = GetTableName(entryEntityType);
-            string primaryKeyName = GetPrimaryKeyName(entryEntityType);
-
-            string deleteQuery = string.Format("UPDATE {0} SET Deleted = 1 WHERE {1} = @id", tableName, primaryKeyName);
-
-            Database.ExecuteSqlCommand(deleteQuery, new SqlParameter("@id", entry.OriginalValues[primaryKeyName]));
-
-            //entry.State = EntityState.Detached;
-        }
-
-        private static Dictionary<Type, EntitySetBase> _mappingCache = new Dictionary<Type, EntitySetBase>();
-
-        private EntitySetBase GetEntitySet(Type type)
-        {
-            if (!_mappingCache.ContainsKey(type))
-            {
-                ObjectContext octx = ((IObjectContextAdapter)this).ObjectContext;
-
-                string typeName = ObjectContext.GetObjectType(type).Name;
-
-                var es = octx.MetadataWorkspace.GetItemCollection(DataSpace.SSpace)
-                    .GetItems<EntityContainer>()
-                    .SelectMany(c => c.BaseEntitySets.Where(e => e.Name == typeName))
-                    .FirstOrDefault();
-
-                if (es == null) throw new ArgumentException("Entity type not found in GetTableName");
-                _mappingCache.Add(type, es);
-            }
-            return _mappingCache[type];
-        }
-
-        private string GetPrimaryKeyName(Type entryEntityType)
-        {
-            EntitySetBase es = GetEntitySet(entryEntityType);
-            return es.ElementType.KeyMembers[0].Name;
-        }
-
-        private string GetTableName(Type entryEntityType)
-        {
-            EntitySetBase es = GetEntitySet(entryEntityType);
-            return string.Format("[{0}].[{1}]", es.MetadataProperties["Schema"].Value, es.MetadataProperties["Table"].Value);
         }
     }
 }

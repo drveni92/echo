@@ -54,10 +54,15 @@
     <Compile Include="AuthToken.cs" />
     <Compile Include="AutomaticStates.cs" />
     <Compile Include="Basic.cs" />
+    <Compile Include="BillingConfiguration.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="BillingContext.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="Helpers\SoftDeleteAttribute.cs" />
+    <Compile Include="Helpers\SoftDeleteInterceptor.cs" />
+    <Compile Include="Helpers\SoftDeleteQueryVisitor.cs" />
+    <Compile Include="Helpers\StringValidationAttribute.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Migrations\Configuration.cs" />

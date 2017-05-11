@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Billing.API.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Billing.Database
 {
@@ -7,6 +8,7 @@ namespace Billing.Database
         public int Id { get; set; }
         [Required]
         [MinLength(3)]
+        [StringValidation]
         public string Name { get; set; }
         public string Address { get; set; }
         [Required]

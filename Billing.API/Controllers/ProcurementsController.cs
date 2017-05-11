@@ -137,6 +137,8 @@ namespace Billing.API.Controllers
         {
             try
             {
+                UnitOfWork.Procurements.Get(id).Supplier = null;
+                UnitOfWork.Procurements.Get(id).Product = null;        
                 UnitOfWork.Procurements.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

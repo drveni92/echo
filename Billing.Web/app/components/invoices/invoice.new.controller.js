@@ -12,7 +12,7 @@
 
             $scope.invoice = InvoicesFactory.empty();
 
-            var invoiceId = $routeParams.id;
+            var invoiceId = $routeParams.id ? $routeParams.id : null;
 
             if (invoiceId) {
                 DataFactory.read("invoices", invoiceId, function (data) {
@@ -84,6 +84,7 @@
 
             $scope.save = function () {
                 if (invoiceId === null) {
+
                     DataFactory.insert("invoices", $scope.invoice, function (data) {
                         if (data) {
                             $scope.invoice = InvoicesFactory.invoice(data);

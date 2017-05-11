@@ -26,13 +26,14 @@
                             <h3> New invoice</h3>   <br><br>
                             <form name="new_invoice" class="form-horizontal" novalidate>
                                 <!-- invoiceNo -->
-                                <div class="form-group" ng-class="{ 'has-error' : new_invoice.invoiceNo.$invalid && !new_invoice.invoiceNo.$pristine }">
-                                    <label class="control-label col-sm-3" for="invoiceNo">Invoice No:</label>
+                                <div class="form-group" ng-class="{ 'has-error' : new_invoice.invoiceNo.$invalid && !new_invoice.invoiceNo.$pristine && new_invoice.invoiceNo.$error }">
+                                    <label class="control-label col-sm-3" for="name">Invoice No:</label>
                                     <div class="col-sm-5">
-                                        <input type="text" name="invoiceNo" class="form-control" ng-model="invoice.invoiceNo" placeholder="Invoice No" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p ng-show="new_invoice.invoiceNo.$invalid && !new_invoice.invoiceNo.$pristine" class="help-block">Invoice No is required.</p>
+                                        <input type="text" name="invoiceNo" ng-minlength="3" class="form-control" ng-model="invoice.invoiceNo"   placeholder="Invoice No" required>
+                                    </div>n
+                                    <div class="col-sm-5">
+                                        <p ng-show="new_invoice.invoiceNo.$error.minlength" class="help-block">Invoice number is too short.</p>
+                                        <p ng-show="new_invoice.invoiceNo.$dirty && new_invoice.invoiceNo.$error.required" class="help-block">Invoice number is required.</p>
                                     </div>
                                 </div>
                                 <!-- Date -->
@@ -115,23 +116,24 @@
                                     <label class="control-label col-sm-2">Unit: </label>
                                     <span class="col-sm-10">{{ selectedItem.unit }}</span>
                                 </div>
-                                <div class="form-group" ng-class="{ 'has-error' : add_product.quantity.$invalid && !add_product.quantity.$pristine }">
+                                <div class="form-group" ng-class="{ 'has-error' : add_product.quantity.$invalid && !add_product.quantity.$pristine && add_product.quantity.$error }">
                                     <label class="control-label col-sm-2" for="quantity">Quantity:</label>
                                     <div class="col-sm-6">
-                                        <input type="number" name="quantity" min="1" ng-model="selectedItem.quantity" class="form-control">
+                                        <input type="number" name="quantity" min="1" ng-model="selectedItem.quantity" class="form-control" required >
                                     </div>
                                     <div class="col-sm-4">
-                                        <p ng-show="add_product.quantity.$invalid && !add_product.quantity.$pristine" class="help-block">Minimum quantity is 0</p>
+                                        <p ng-show="add_product.quantity.$error.number" class="help-block">Quantity should be positive.</p>
+                                        <p ng-show="add_product.quantity.$dirty && add_product.quantity.$error.required" class="help-block">Quantity is required.</p>
                                     </div>
                                 </div>
-                                <div class="form-group" ng-class="{ 'has-error' : add_product.price.$invalid && !add_product.price.$pristine }">
+                                <div class="form-group" ng-class="{ 'has-error' : add_product.price.$invalid && !add_product.price.$pristine && add_product.price.$error}">
                                     <label class="control-label col-sm-2" for="price">Price:</label>
                                     <div class="col-sm-6">
-                                        <input type="number" name="price" ng-model="selectedItem.price" min="0" class="form-control">
+                                        <input type="number" name="price"  min="1" ng-model="selectedItem.price" min="0" class="form-control" required>
                                     </div>
                                     <div class="col-sm-4">
-                                        <p ng-show="add_product.price.$invalid && !add_product.price.$pristine" class="help-block">Price can not be 0</p>
-                                    </div>
+                                        <p ng-show="add_product.price.$error.number" class="help-block">Price should be positive.</p>
+                                        <p ng-show="add_product.price.$dirty && add_product.price.$error.required" class="help-block">Price is required.</p>                                    </div>
                                 </div>
                                 <div class="form-group text-center">
                                     <button class="btn btn-primary" style="width: 30%;" ng-disabled="add_product.$invalid" type="button" ng-click="add_new_item(selectedItem)">Add</button>

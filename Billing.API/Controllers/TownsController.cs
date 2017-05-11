@@ -108,6 +108,10 @@ namespace Billing.API.Controllers
         {
             try
             {
+                if (UnitOfWork.Towns.Get(id).Shippers.Count > 0) return BadRequest("Town contains Shippers.");
+                if (UnitOfWork.Towns.Get(id).Customers.Count > 0) return BadRequest("Town contains customers.");
+                if (UnitOfWork.Towns.Get(id).Suppliers.Count > 0) return BadRequest("Town contains suppliers.");
+
                 UnitOfWork.Towns.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

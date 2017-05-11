@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Billing.API.Helpers;
+using Billing.Database.Helpers;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,6 +23,7 @@ namespace Billing.Database
         public string Zip { get; set; }
         [Required]
         [MinLength(3)]
+        [StringValidation]
         public string Name { get; set; }
         [Required]
         public Region Region { get; set; }

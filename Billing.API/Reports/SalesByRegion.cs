@@ -19,7 +19,7 @@ namespace Billing.API.Reports
         {
             List<Invoice> Invoices = _unitOfWork.Invoices.Get().Where(x => x.Date >= start && x.Date <= end).ToList();
             SalesByRegionModel result = new SalesByRegionModel(start, end)
-            { 
+            {
                 GrandTotal = Invoices.Sum(x => x.SubTotal)
             };
 
@@ -70,6 +70,24 @@ namespace Billing.API.Reports
                 result.Sales.Add(region);
 
             }
+
+            return result;
+        }
+
+        public SalesByTowns Report(string name)
+        {
+            SalesByTowns result = new SalesByTowns();
+            Town town = _unitOfWork.Towns.Get().Where(x => x.Name.Equals(name)).FirstOrDefault();
+            if (town == null) town = _unitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).FirstOrDefault();
+            if (town == null) town = _unitOfWork.Towns.Get().Where(x => name.Contains(x.Name)).FirstOrDefault();
+            if (town == null) throw new Exception("Town not found.");
+            
+            var invoices = _unitOfWork.Invoices.Get().ToList().Where(x => x.Customer.Town.Name == town.Name).ToList();
+
+            result.Region = town.Region.ToString();
+            result.Town = town.Name;
+
+            result.Agents = invoices.GroupBy(x => x.Agent).Select(x => new AgentSalesModel { Id = x.Key.Id, Name = x.Key.Name, Total = x.Sum(y => y.Total) }).ToList();
 
             return result;
         }

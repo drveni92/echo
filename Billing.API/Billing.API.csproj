@@ -186,6 +186,7 @@
     <Compile Include="Controllers\SalesByCustomersCategoriesController.cs" />
     <Compile Include="Controllers\SalesByProductController.cs" />
     <Compile Include="Controllers\SalesByRegionController.cs" />
+    <Compile Include="Controllers\SalesByTown.cs" />
     <Compile Include="Controllers\SignatureController.cs" />
     <Compile Include="Controllers\StockLevelController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
@@ -222,11 +223,13 @@
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\Reports\InputCross.cs" />
     <Compile Include="Models\Reports\InvoiceReportModel.cs" />
+    <Compile Include="Models\Reports\SalesByTowns.cs" />
     <Compile Include="Models\Reports\SalesCustomersCategoriesModel.cs" />
     <Compile Include="Models\Reports\StockLevelModel.cs" />
     <Compile Include="Models\ReturnObject.cs" />
     <Compile Include="Models\SearchInvoice.cs" />
     <Compile Include="Models\TokenRequestModel.cs" />
+    <Compile Include="Models\TownRequest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

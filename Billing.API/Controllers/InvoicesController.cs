@@ -307,9 +307,18 @@ namespace Billing.API.Controllers
         [Route("mail")]
         public IHttpActionResult SendMail([FromBody]MailRequest model)
         {
-            Invoice invoice = UnitOfWork.Invoices.Get(model.InvoiceId);
-            Helper.SendEmail(invoice, Identity.CurrentUser.Username, model.MailTo);
-            return Ok("Email sent");
+            try
+            {
+                Logger.Log("Sendgin mail", "INFO");
+                Invoice invoice = UnitOfWork.Invoices.Get(model.InvoiceId);
+                Helper.SendEmail(invoice, Identity.CurrentUser.Username, model.MailTo);
+                return Ok("Email sent");
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message);
+                return BadRequest("Something went wrong");
+            }
         }
 
         [TokenAuthorization("user")]

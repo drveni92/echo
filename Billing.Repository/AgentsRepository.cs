@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-  
+
     public class AgentsRepository : BillingRepository<Agent>
     {
         public AgentsRepository(BillingContext _context) : base(_context) { }

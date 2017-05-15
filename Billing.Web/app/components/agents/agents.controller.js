@@ -1,7 +1,7 @@
 (function() {
     angular
         .module("Billing")
-        .controller('AgentsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'AgentsFactory', function($scope, $http, $uibModal, DataFactory, AgentsFactory) {
+        .controller('AgentsController', ['$scope', '$http', '$uibModal', 'DataFactory', 'AgentsFactory', 'ToasterService', function($scope, $http, $uibModal, DataFactory, AgentsFactory, ToasterService) {
             $scope.maxPagination = BillingConfig.maxPagination;
 
             $scope.pageParams = {

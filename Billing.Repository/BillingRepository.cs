@@ -21,7 +21,7 @@ namespace Billing.Repository
             return (context.SaveChanges() > 0);
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             Entity entity = Get(id);
             if (entity == null) throw new ArgumentException("Entity not found");

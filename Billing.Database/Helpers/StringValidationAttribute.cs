@@ -15,7 +15,7 @@ namespace Billing.API.Helpers
 
         public StringValidationAttribute()
         {
-            pattern = @"^[a-zA-Z0-9,. ]*$";
+            pattern = @"^[a-zA-Z0-9,. ČĆŽŠĐčćžšđ]*$";
             regex = new Regex(pattern, RegexOptions.IgnoreCase);
         }
 

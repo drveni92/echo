@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-  
+
     public class AgentsRepository : BillingRepository<Agent>
     {
         public AgentsRepository(BillingContext _context) : base(_context) { }
@@ -32,6 +32,15 @@ namespace Repository
                 entity.Towns.ForEach(x => context.Entry(x).State = EntityState.Unchanged);
                 context.SaveChanges();
             }
+        }
+
+        public override void Delete(int id)
+        {
+            Agent entity = Get(id);
+            if (entity == null) throw new ArgumentException("Entity not found");
+            entity.Towns.Clear();
+            context.SaveChanges();
+            dbSet.Remove(entity);
         }
     }
 }

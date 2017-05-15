@@ -1,12 +1,10 @@
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-6">
         <h3>Invoices</h3>
     </div>
-    <div class="col-md-2">
-        <button type="button" class="btn btn-info new-button" ng-click="checkUpdates()">Updated invoices <span class="badge">{{ invoicesCount }}</span></button>
-    </div>
-    <div class="col-md-2">
-        <a href="#/invoices/new" class="btn btn-primary new-button">New invoice</a>
+    <div class="col-md-6 invoices-btn-header">
+        <button type="button" class="btn btn-info" ng-click="checkUpdates()">Updated invoices <span class="badge">{{ invoicesCount }}</span></button>
+        <a href="#/invoices/new" class="btn btn-primary">New invoice</a>
     </div>
 </div>
 <div class="row">
@@ -37,7 +35,7 @@
 </div>
 <div ng-if="showAdvancedSearch" class="row">
     <div class="form-inline" style="text-align: center;">
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-3" style="padding: 0px;">
             <label>Agent:</label>
             <input type="text" class="form-control" placeholder="Enter agent name" ng-model="searchParams.agent">
         </div>

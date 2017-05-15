@@ -215,6 +215,11 @@ body a {
     width: 100%;
 }
 
+.invoices-btn-header {
+    text-align: right;
+    margin-top: 20px;
+}
+
 .agent-picture {
     width: 40px;
     height: 40px;

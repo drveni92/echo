@@ -33,5 +33,14 @@ namespace Repository
                 context.SaveChanges();
             }
         }
+
+        public override void Delete(int id)
+        {
+            Agent entity = Get(id);
+            if (entity == null) throw new ArgumentException("Entity not found");
+            entity.Towns.Clear();
+            context.SaveChanges();
+            dbSet.Remove(entity);
+        }
     }
 }

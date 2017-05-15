@@ -155,7 +155,6 @@ namespace Billing.API.Controllers
             }
         }
 
-
         [TokenAuthorization("user")]
         [HttpGet]
         [Route("automatic/nocheck")]

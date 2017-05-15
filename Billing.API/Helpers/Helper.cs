@@ -25,38 +25,46 @@ namespace Billing.API.Helpers
 
         public static void SendEmail(Invoice invoice, string from, string emailTo)
         {
-            string subject = "Invoice - " + invoice.InvoiceNo;
-            string body = "Hi," + Environment.NewLine + "Invoice file in attachment.";
-            string FromMail =  from + "@billing.com";
-            MailMessage mail = new MailMessage();
-            mail.From = new MailAddress(FromMail);
-            mail.To.Add(emailTo);
-            mail.Subject = subject;
-            mail.Body = body;
+            try
+            {
+                string subject = "Invoice - " + invoice.InvoiceNo;
+                string body = "Hi," + Environment.NewLine + "Invoice file in attachment.";
+                string FromMail = from + "@billing.com";
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(FromMail);
+                mail.To.Add(emailTo);
+                mail.Subject = subject;
+                mail.Body = body;
 
-            PDFInvoice pdf = new PDFInvoice(invoice);
+                PDFInvoice pdf = new PDFInvoice(invoice);
 
-            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false);
+                PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false);
 
-            pdfRenderer.Document = pdf.CreateDocument();
+                pdfRenderer.Document = pdf.CreateDocument();
 
-            pdfRenderer.RenderDocument();
-
-
-            MemoryStream stream = new MemoryStream();
-
-            pdfRenderer.Save(stream, false);
+                pdfRenderer.RenderDocument();
 
 
+                MemoryStream stream = new MemoryStream();
 
-            mail.Attachments.Add(new Attachment(stream, "Invoice-" + DateTime.UtcNow.ToShortDateString() + ".pdf", MediaTypeNames.Application.Pdf));
+                pdfRenderer.Save(stream, false);
 
 
-            SmtpClient SmtpServer = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"]);
-            SmtpServer.Port = 25;
-            SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Email"], ConfigurationManager.AppSettings["EmailPassword"]);
-            SmtpServer.EnableSsl = true;
-            SmtpServer.Send(mail);
+
+                mail.Attachments.Add(new Attachment(stream, "Invoice-" + DateTime.UtcNow.ToShortDateString() + ".pdf", MediaTypeNames.Application.Pdf));
+
+
+                SmtpClient SmtpServer = new SmtpClient(ConfigurationManager.AppSettings["SmtpClient"]);
+                SmtpServer.Port = 25;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Email"], ConfigurationManager.AppSettings["EmailPassword"]);
+                SmtpServer.EnableSsl = true;
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message);
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

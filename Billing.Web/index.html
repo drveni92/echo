@@ -71,9 +71,10 @@
     <script src="app/directives/toaster/toaster.directive.js"></script>
     <script src="app/directives/toaster/toaster.service.js"></script>
     <script src="app/components/modals/modal.instance.controller.js"></script>
+    <link href="assets/css/agency.css" rel="stylesheet">
 </head>
 
-<body ng-controller="EchoController">
+<body ng-controller="EchoController" >
     <div class="loading" spinner></div>
     <toaster-container></toaster-container>
     <div id="wrapper">
@@ -209,7 +210,7 @@
         </div>
         <!-- Content -->
         <div id="page-content-wrapper">
-            <div id="main-content" ng-view></div>
+            <div id="main-content" ng-view ></div>
         </div>
     </div>
     <!-- Menu Toggle -->
@@ -230,6 +231,10 @@
             trigger: 'hover'
         });
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script>
+    <script src="assets/js/jqBootstrapValidation.js"></script>
+
 </body>
 
 </html>

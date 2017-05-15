@@ -50,7 +50,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in agents">
-                    <td>{{ $index + 1 +((pageParams.page - 1 )* pageParams.showPerPage) }}</td>
+                    <td>{{ $index + 1 +(((pageParams.page < 1) ? 0 : pageParams.page - 1)* pageParams.showPerPage) }}</td>
                     <td>{{ item.name }}</td>
                     <td class="col-sm-5">
                         <div class="town-wrapper" ng-repeat="town in item.towns">{{town.name}}</div>

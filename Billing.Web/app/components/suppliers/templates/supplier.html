@@ -55,7 +55,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="item in suppliers">
-            <td>{{ $index  + 1 +((pageParams.page - 1 )* pageParams.showPerPage)}}</td>
+            <td>{{ $index  + 1 +(((pageParams.page < 1) ? 0 : pageParams.page - 1)* pageParams.showPerPage)}}</td>
             <td class="col-md-4">{{ item.name }}</td>
             <td class="col-md-3">{{ item.address }}</td>
             <td class="col-md-2">{{ item.town.name }}</td>

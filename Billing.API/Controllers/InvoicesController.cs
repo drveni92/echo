@@ -178,15 +178,22 @@ namespace Billing.API.Controllers
         [Route("automatic/check")]
         public IHttpActionResult GetUnChecked()
         {
-            var states = UnitOfWork.AutomaticStates.Get().Where(x => (x.CreatedBy == Identity.CurrentUser.Id && x.Checked == false && x.Completed == true)).ToList();
-            foreach (var item in states)
+            try
             {
-                item.Checked = true;
-                UnitOfWork.AutomaticStates.Update(item, item.Id);
+                var states = UnitOfWork.AutomaticStates.Get().Where(x => (x.CreatedBy == Identity.CurrentUser.Id && x.Checked == false && x.Completed == true)).ToList();
+                foreach (var item in states)
+                {
+                    item.Checked = true;
+                    UnitOfWork.AutomaticStates.Update(item, item.Id);
+                }
+                UnitOfWork.Commit();
+                var results = states.Select(x => Factory.Create(x)).ToList();
+                return Ok(results);
             }
-            UnitOfWork.AutomaticStates.Commit();
-            var results = states.Select(x => Factory.Create(x)).ToList();
-            return Ok(results);
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong");
+            }
         }
 
         [TokenAuthorization("user,admin")]

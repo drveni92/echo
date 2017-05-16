@@ -1027,7 +1027,7 @@ text {
   display: none;
 }
 
-div.tooltip {
+ div .tooltip1  {
     color: #222;
     background-color: #fff;
     padding: .5em;

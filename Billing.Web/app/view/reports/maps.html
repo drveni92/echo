@@ -11,7 +11,7 @@
             <div class="panel-heading">
                 <input type="text" ng-model="selectedItem" placeholder="Search for town" uib-typeahead="searchTown as searchTown.name for searchTown in getTowns($viewValue)"
                     typeahead-wait-ms="500" class="form-control" typeahead-min-length="2" typeahead-no-results="noResults" typeahead-on-select="updateMap(null)">
-                <span ng-show="noResults" class="fa fa-info-circle errspan" data-toggle="tooltip" title="No Results Found"></span>
+                <span ng-show="noResults" class="fa fa-info-circle errspan " data-toggle="tooltip1" title="No Results Found"></span>
             </div>
             <div class="panel-body" ng-if="currentTown">
                 <dl class="dl-horizontal">

@@ -24,7 +24,7 @@
 
                 var path;
 
-                var tooltip = d3.select('#map').append('div').attr('class', 'popup_hidden tooltip');
+                var tooltip = d3.select('#map').append('div').attr('class', 'popup_hidden tooltip1');
 
                 svg = d3.select("#map").append("svg")
                     .attr("width", width)

@@ -33,7 +33,9 @@ gulp.task('js', function() {
 gulp.task('css', function() {
     return gulp.src(style)
         .pipe(concat('app.css'))
-        .pipe(clean('app.css'))
+        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
+        .pipe(clean({compatibility: 'ie8'}))
+        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         .pipe(rename('style.min.css'))
         .pipe(gulp.dest('build/assets/css'))
 });

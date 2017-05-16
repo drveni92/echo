@@ -3,10 +3,8 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
-body {
-  overflow-x: hidden;
-  font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+
+
 .text-muted {
   color: #777777;
 }
@@ -36,16 +34,38 @@ a:active,
 a.active {
   color: #fec503;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+
+.lclass h1{
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
 }
+.lclass h1{
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+}.lclass h2{
+   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+   text-transform: uppercase;
+   font-weight: 700;
+ }.lclass h3{
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+  }.lclass h4{
+     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+     text-transform: uppercase;
+     font-weight: 700;
+   }.lclass h5{
+      font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+      font-weight: 700;
+    }.lclass h6{
+       font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+       text-transform: uppercase;
+       font-weight: 700;
+     }
+
 .img-centered {
   margin: 0 auto;
 }
@@ -55,7 +75,7 @@ h6 {
 .bg-darkest-gray {
   background-color: #222222;
 }
-.btn-primary {
+.lclass .btn-primary {
   color: white;
   background-color: #fed136;
   border-color: #fed136;
@@ -63,18 +83,45 @@ h6 {
   text-transform: uppercase;
   font-weight: 700;
 }
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
+.lclass .btn-primary:hover{
   color: white;
   background-color: #fec503;
   border-color: #f6bf01;
 }
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
+.lclass .btn-primary:focus
+{
+  color: white;
+  background-color: #fec503;
+  border-color: #f6bf01;
+}
+.lclass .btn-primary:active
+{
+  color: white;
+  background-color: #fec503;
+  border-color: #f6bf01;
+}
+.lclass .btn-primary.active
+{
+  color: white;
+  background-color: #fec503;
+  border-color: #f6bf01;
+}
+.lclass .open .dropdown-toggle.btn-primary
+{
+  color: white;
+  background-color: #fec503;
+  border-color: #f6bf01;
+}
+
+
+
+.lclass .btn-primary:active{
+  background-image: none;
+}
+.lclass .btn-primary.active{
+  background-image: none;
+}
+.lclass .open .dropdown-toggle.btn-primary {
   background-image: none;
 }
 .btn-primary.disabled,

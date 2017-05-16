@@ -20,7 +20,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/invoices/templates/mail.html',
+                    templateUrl: 'app/view/invoices/mail.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {

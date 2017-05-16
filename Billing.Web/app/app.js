@@ -28,7 +28,7 @@
                 controller: "ReportDashboardController"
             })
             .when("/login", {
-                templateUrl: "app/components/sessions/templates/login.html",
+                templateUrl: "app/view/sessions/login.html",
                 controller: "LoginController"
             })
             .when("/logout", {
@@ -124,7 +124,7 @@
     }).run(function ($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             if (!authenticated()) {
-                if (next.templateUrl != "app/components/sessions/templates/login.html") {
+                if (next.templateUrl != "app/view/sessions/login.html") {
                     redirectTo = $location.path();
                     $location.path("/login");
                 }

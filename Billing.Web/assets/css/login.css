@@ -5,7 +5,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: url("../img/back.jpeg");
+    /*---  background: url("../img/back.jpeg");---*/
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -91,9 +91,14 @@ ul.agileinfotickwthree {
     width: 100%;
     margin-bottom: 30px;
     text-align: left;
-    padding-left: 10px;
+    padding-left: 0px;
 }
 
+.agileinfotickwthree li {
+
+    margin-left: 0px;
+
+}
 ul.agileinfotickwthree li input[type="checkbox"] {
     display: none;
 }
@@ -270,16 +275,29 @@ ul li label span{
 
 
 
+#loginform form input
+{
+    background-color: rgba(0, 0, 0, 0.9);
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    font-size: 18px;
+}
+#loginform form ul li label
+{
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
 /*--- Responsive Code ---*/
 
 @media screen and (max-width: 1440px) {
-    #login .content {
+    #loginform {
         width: 40%;
     }
 }
 
 @media screen and (max-width: 1280px) {
-    #login .content {
+    #loginform {
         width: 45%;
     }
 }
@@ -290,7 +308,7 @@ ul li label span{
         font-size: 45px;
         margin: 50px auto;
     }
-    #login .content {
+    #loginform {
         width: 50%;
 
     }
@@ -303,7 +321,7 @@ ul li label span{
 }
 
 @media screen and (max-width: 880px) {
-    #login .content {
+    #loginform {
         width: 60%;
     }
 }
@@ -314,7 +332,7 @@ ul li label span{
         font-size: 40px;
         margin: 40px auto;
     }
-    #login .content {
+    #loginform {
         width: 70%;
 
     }
@@ -330,7 +348,7 @@ ul li label span{
 
 
 @media screen and (max-width: 600px) {
-    #login .content {
+    #loginform {
         width: 80%;
     }
 }
@@ -385,22 +403,38 @@ ul li label span{
     #login .content .centerclass p{
         font-size: 11px;
     }
-    #login .content {
+    #loginform {
         width: 100%;
 
     }
     #countdown {
         font-size: 14px;
     }
+
+    .container .intro-text{
+        font-size: 16px;
+        width: 81%;
+        padding-top: 450px;
+        padding-bottom: 128px;
+        margin-left: 31px;
+    }
 }
 
 @media screen and (max-width: 280px) {
-    #login .content {
+    #loginform {
         width: 100%;
     }
+    .container .intro-text{
+        font-size: 16px;
+
+        width: 81%;
+        padding-top: 450px;
+        padding-bottom: 128px;
+        margin-left: 31px;
+    }
 }
-#login .content {
-   -webkit-animation: fadein 4s; /* Safari and Chrome */
+#loginform {
+   -webkit-animation: fadein 2.5s; /* Safari and Chrome */
   -moz-animation: fadein 2.5s; /* Firefox */
    -ms-animation: fadein 2.5s; /* Internet Explorer */
    -o-animation: fadein 2.5s; /* Opera */

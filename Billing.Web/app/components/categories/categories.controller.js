@@ -54,7 +54,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/categories/templates/new.html',
+                    templateUrl: 'app/view/categories/new.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
@@ -77,7 +77,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/categories/templates/edit.html',
+                    templateUrl: 'app/view/categories/edit.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
@@ -102,7 +102,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/categories/templates/delete.html',
+                    templateUrl: 'app/view/categories/delete.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {

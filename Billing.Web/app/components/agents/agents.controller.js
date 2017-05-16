@@ -50,7 +50,7 @@
                     focus: false,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/agents/templates/new.html',
+                    templateUrl: 'app/view/agents/new.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
@@ -71,7 +71,7 @@
                     focus: false,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/agents/templates/edit.html',
+                    templateUrl: 'app/view/agents/edit.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
@@ -94,7 +94,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/agents/templates/delete.html',
+                    templateUrl: 'app/view/agents/delete.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {

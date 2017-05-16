@@ -50,7 +50,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/customers/templates/new.html',
+                    templateUrl: 'app/view/customers/new.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
@@ -75,7 +75,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/customers/templates/show.html',
+                    templateUrl: 'app/view/customers/show.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
@@ -94,7 +94,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/customers/templates/edit.html',
+                    templateUrl: 'app/view/customers/edit.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {
@@ -120,7 +120,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/customers/templates/delete.html',
+                    templateUrl: 'app/view/customers/delete.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {

@@ -19,7 +19,7 @@
                     focus: false,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'app/components/agents/templates/changepassword.html',
+                    templateUrl: 'app/view/agents/changepassword.html',
                     controller: 'ModalInstanceController',
                     controllerAs: '$modal',
                     resolve: {

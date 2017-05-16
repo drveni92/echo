@@ -73,7 +73,7 @@
                                     animation: true,
                                     ariaLabelledBy: 'modal-title',
                                     ariaDescribedBy: 'modal-body',
-                                    templateUrl: 'app/components/reports/templates/salesbyproduct.html',
+                                    templateUrl: 'app/view/reports/salesbyproduct.html',
                                     controller: 'ModalInstanceController',
                                     controllerAs: '$modal',
                                     size: 'lg',

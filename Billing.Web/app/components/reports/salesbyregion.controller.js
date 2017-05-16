@@ -104,7 +104,7 @@
                         animation: true,
                         ariaLabelledBy: 'modal-title',
                         ariaDescribedBy: 'modal-body',
-                        templateUrl: 'app/components/reports/templates/salesbyregionshow.html',
+                        templateUrl: 'app/view/reports/salesbyregionshow.html',
                         controller: 'ModalInstanceController',
                         controllerAs: '$modal',
                         scope: $scope,

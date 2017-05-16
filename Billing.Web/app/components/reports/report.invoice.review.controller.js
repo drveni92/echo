@@ -72,7 +72,7 @@
                             animation: true,
                             ariaLabelledBy: 'modal-title',
                             ariaDescribedBy: 'modal-body',
-                            templateUrl: 'app/components/reports/templates/invoicereviewshow.html',
+                            templateUrl: 'app/view/reports/invoicereviewshow.html',
                             controller: 'ModalInstanceController',
                             controllerAs: '$modal',
                             scope: $scope,

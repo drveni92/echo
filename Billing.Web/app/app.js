@@ -24,7 +24,7 @@
     app.config(function ($routeProvider) {
         $routeProvider
             .when("/dashboard", {
-                templateUrl: "app/components/reports/templates/dashboard.html",
+                templateUrl: "app/view/reports/dashboard.html",
                 controller: "ReportDashboardController"
             })
             .when("/login", {
@@ -44,7 +44,7 @@
                 controller: "AgentShowController"
             })
             .when("/products", {
-                templateUrl: "app/components/products/templates/product.html",
+                templateUrl: "app/view/products/product.html",
                 controller: "ProductsController"
             })
             .when("/customers", {
@@ -52,23 +52,23 @@
                 controller: "CustomersController"
             })
             .when("/report/customers", {
-                templateUrl: "app/components/reports/templates/customer.html",
+                templateUrl: "app/view/reports/customer.html",
                 controller: "ReportCustomersController"
             })
             .when("/report/categories", {
-                templateUrl: "app/components/reports/templates/category.html",
+                templateUrl: "app/view/reports/category.html",
                 controller: "ReportCategoriesController"
             })
             .when("/report/agents/regions", {
-                templateUrl: "app/components/reports/templates/agentsregions.html",
+                templateUrl: "app/view/reports/agentsregions.html",
                 controller: "ReportAgentsRegionsController"
             })
             .when("/report/customers/categories", {
-                templateUrl: "app/components/reports/templates/customerscategories.html",
+                templateUrl: "app/view/reports/customerscategories.html",
                 controller: "ReportCustomersCategoriesController"
             })
             .when("/report/maps", {
-                templateUrl: "app/components/reports/templates/maps.html",
+                templateUrl: "app/view/reports/maps.html",
                 controller: "ReportsMapController"
             })
             .when("/towns", {
@@ -93,7 +93,7 @@
                 controller: "ShippersController"
             })
             .when("/procurements", {
-                templateUrl: "app/components/procurements/templates/procurements.html",
+                templateUrl: "app/view/procurements/procurements.html",
                 controller: "ProcurementsController"
             })
             .when("/invoices", {
@@ -113,11 +113,11 @@
                 controller: "InvoiceShowController"
             })
             .when("/report/regions", {
-                templateUrl: "app/components/reports/templates/salesbyregion.html",
+                templateUrl: "app/view/reports/salesbyregion.html",
                 controller: "SalesByRegionController"
             })
             .when("/invoicesreview", {
-                templateUrl: "app/components/reports/templates/invoicesreview.html",
+                templateUrl: "app/view/reports/invoicesreview.html",
                 controller: "InvoicesReviewController"
             })
             .otherwise({ redirectTo: "/dashboard" });

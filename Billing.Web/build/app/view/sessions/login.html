@@ -1,0 +1,619 @@
+<div id="flogin">
+    <section id="echo1">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container">
+
+
+        <div class="navbar-header page-scroll lclass">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#echo1" style="font-size: 22px;"><i class="fa fa-home" aria-hidden="true"></i>
+                 Home</a>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#services">Services</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#portfolio">Gigi's school</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#about">Project</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#team">Team</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#contact">Contact</a>
+                </li>
+                <li>
+                    <a target="_blank" style="color: #00c2ff;" href="https://github.com/SulePostar/echo"> &emsp;&emsp;&emsp;<i class="fa fa-github" aria-hidden="true"></i>
+                        GitHub</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</nav>
+    </section>
+<!-- I'm happy :) -->
+<header>
+    <div class="container">
+        <div class="intro-text" style=" padding-top: 450px;padding-bottom: 128px;">
+
+            <div class="login-form" id="loginform">
+                <form ng-submit="login()">
+                    <input type="text" class="inputbuttonsumbit inputtextpassword inputext inputtextpassword2 inputtext2 inputtextpass3 " id="username" name="username" placeholder="Username" ng-model="user.name" ng-init="user.name='marlon'" value="marlon" required>
+                    <input type="password" class="inputbuttonsumbit inputtextpassword inputpass inputtextpassword2 inputpass2 inputtextpass3" id="password" name="password" placeholder="Password" ng-model="user.pass" ng-init="user.pass='billing'" value="billing" required>
+                    <ul class="agileinfotickwthree">
+                        <li style="margin-left: 0px;display: table;margin: 0 auto;">
+                            <input type="checkbox" class="inputbuttonsumbit" type="checkbox" id="remember_me" name="remember" ng-model="user.remember" value="">
+                            <label for="remember_me"><span style="top: 2px;"></span>Keep me logged in</label>
+                        </li>
+                    </ul>
+                    <div class="aitssendbuttonw3ls centerclass" >
+                        <input class="inputbuttonsumbit inputsumbit inputsumbit2" style="background-color: #47ad04;" id="loginbutton" ng-disabled="form.$invalid || vm.dataLoading" type="submit" value="LOGIN">
+                        <div class="clear"></div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- Services Section -->
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Services</h2>
+                <h3 class="section-subheading text-muted">Bringing solutions to LIFE.</h3>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 lclass">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-line-chart fa-stack-1x fa-inverse"></i>
+                    </span>
+                <h4 class="service-heading">Web applications</h4>
+                <p class="text-muted">We're skilled in creating anything from small widgets to large, enterprise-class web applications.</p>
+            </div>
+            <div class="col-md-4 lclass">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+                <h4 class="service-heading">Responsive Design</h4>
+                <p class="text-muted">We give your products a shiny new coat of paint and great UX, following well-established usability principles.</p>
+            </div>
+            <div class="col-md-4 lclass">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+                    </span>
+                <h4 class="service-heading">Web Security</h4>
+                <p class="text-muted">Complete security is a suite of products that enables protection of your websites, data and applications.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Grid Section -->
+<section id="portfolio" class="bg-light-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center lclass">
+                <h2 class="section-heading">Gigi's school</h2>
+                <h3 class="section-subheading text-muted">Gigi's school projects</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="assets/img/portfolio/alpha.png" class="img-responsive" alt="">
+                </a>
+                <div class="portfolio-caption lclass">
+                    <h4>Team Alpha</h4>
+                    <p class="text-muted">Management System</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="assets/img/portfolio/bravo.png" class="img-responsive" alt="">
+                </a>
+                <div class="portfolio-caption lclass">
+                    <h4>Team Bravo</h4>
+                    <p class="text-muted">Management System</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="assets/img/portfolio/charlie.png" class="img-responsive" alt="">
+                </a>
+                <div class="portfolio-caption lclass">
+                    <h4>Team Charlie</h4>
+                    <p class="text-muted">Management System</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="assets/img/portfolio/delta.png" class="img-responsive" alt="">
+                </a>
+                <div class="portfolio-caption lclass">
+                    <h4>Team Delta</h4>
+                    <p class="text-muted">Management System</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="assets/img/portfolio/echo.png" class="img-responsive" alt="">
+                </a>
+                <div class="portfolio-caption lclass">
+                    <h4>Team Echo</h4>
+                    <p class="text-muted">Management System</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="assets/img/portfolio/foxtrot.png" class="img-responsive" alt="">
+                </a>
+                <div class="portfolio-caption lclass">
+                    <h4>Team Foxtrot</h4>
+                    <p class="text-muted">Management System</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center lclass">
+                <h2 class="section-heading">Project</h2>
+                <h3 class="section-subheading text-muted">Our project through sprints</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" src="assets/img/about/1.jpg" alt="">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading lclass">
+                                <h4 class="subheading">Sprint #1</h4>
+                                <h4>February - March</h4>
+
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">In Spint #1 our focus was on creating database, Web-API on backend: basic CRUD operations, unit tests for entities and some simple mockups.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" src="assets/img/about/2.jpg" alt="">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading lclass">
+                                <h4 class="subheading">Sprint #2</h4>
+                                <h4>March</h4>
+
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">Sprint #2 ended up with implementing basic & token authentication, and creating reports on backend.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" src="assets/img/about/3.jpg" alt="">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading lclass">
+                                <h4 class="subheading">Sprint #3</h4>
+                                <h4>March-April</h4>
+
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">In Sprint #3 we started with frontend, AngularJS, and created Login with CRUD operations based on API entities.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" src="assets/img/about/4.jpg" alt="">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading lclass">
+                                <h4 class="subheading">Sprint #4</h4>
+                                <h4>April</h4>
+
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">Sprint #4 consisted of fixing bugs, creating reports on frontend, improving design and getting ready for our last Sprint. </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image lclass">
+                            <h4>Be Part
+                                <br>Of Our
+                                <br>Story!</h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section id="team" class="bg-light-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center lclass">
+                <h2 class="section-heading">Team Echo</h2>
+                <h3 class="section-subheading text-muted">"Coming together is a beginning. Keeping together is progress. Working together is success." - Henry Ford</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="team-member lclass">
+                    <img src="assets/img/team/1.jpg" class="img-responsive img-circle" alt="">
+                    <h4>Amar Basic</h4>
+                    <p class="text-muted">Project manager</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" href="https://twitter.com/abasic4"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" href="https://www.facebook.com/abasic4"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a target="_blank" href="https://www.instagram.com/abasic4/"><i class="fa fa-instagram "></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member">
+                    <img src="assets/img/team/2.jpg" class="img-responsive img-circle lclass" alt="">
+                    <h4>Amer Ratkovic</h4>
+                    <p class="text-muted">Designer</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" href="https://twitter.com/amer1x"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" href="https://www.facebook.com/rema1x"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a target="_blank" href="https://www.instagram.com/amer1xx/"><i class="fa fa-instagram "></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="team-member">
+                    <img src="assets/img/team/3.jpg" class="img-responsive img-circle lclass" alt="">
+                    <h4>Dejan Drvendzija</h4>
+                    <p class="text-muted">Developer</p>
+                    <ul class="list-inline social-buttons">
+                        <li><a target="_blank" href="https://twitter.com/drveni92"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a target="_blank" href="https://www.facebook.com/dejan.drvendzija"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a target="_blank" href="https://www.instagram.com/ero_s_onog_svijeta"><i class="fa fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+<!-- Contact Section -->
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center lclass">
+                <h2 class="section-heading">Contact Us</h2>
+                <h3 class="section-subheading text-muted" style="color: #ffffff; font-size: 18px;">Feel free to contact us by an email if you need more information.</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form name="sentMessage" id="contactForm" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12 text-center">
+                            <div id="success"></div>
+                            <button type="submit" class="btn btn-xl">Send Message</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                    <span class="copyright">Copyright &copy; Gigi's school 2017 &ensp;</span>
+                    <li><a target="_blank" href="https://www.facebook.com/GigisSchool/"><i class="fa fa-facebook"></i></a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+<!-- Portfolio Modals -->
+<!-- Use the modals below to showcase details about your portfolio projects! -->
+
+<!-- Portfolio Modal 1 -->
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body lclass">
+                            <!-- Project Details Go Here -->
+                            <h2>Team Alpha</h2>
+                            <p class="item-intro text-muted"> Vanja Sehic, Ilija Samarlic, Emir Sabanic</p>
+                            <img class="img-responsive img-centered" src="assets/img/portfolio/alpha-preview.png" alt="">
+                            <p>Team Alpha, consists of Vanja, Ilija and Emir, the most quiet, but also most consistent and curious (and hairy as well).</p>
+                            <p>
+                                <a type="button" target="_blank" href="https://github.com/SulePostar/alpha" style="color: #fff;background-color: #321dfb;"class="btn btn-default"><i class="fa fa-github"></i> GitHub</a>
+                                <span style="padding-left:28px;"></span>
+                            <a type="button" class="btn btn-info" target="_blank"  href="http://www.alpha.gigischool.com/"><i class="fa fa-cloud"></i> Demo</a>
+                            <span style="padding-left:28px;"></span>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 2 -->
+<div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body lclass">
+
+                            <h2>Team Bravo</h2>
+                            <p class="item-intro text-muted">Deni Pencl, Faris Odobasic, Amar Kruscica</p>
+                            <img class="img-responsive img-centered" src="assets/img/portfolio/bravo-preview.png" alt="">
+                            <p>Amar, Deni and Faris (team Bravo) first standup in the morning, first line of learning.</p>
+                            <p>
+                                <a type="button" target="_blank" href="https://github.com/SulePostar/bravo" style="color: #fff;background-color: #321dfb;"class="btn btn-default"><i class="fa fa-github"></i> GitHub</a>
+                                <span style="padding-left:28px;"></span>                            <a type="button" class="btn btn-info" target="_blank"  href="http://www.bravo.gigischool.com/"><i class="fa fa-cloud"></i> Demo</a>
+                            <span style="padding-left:28px;"></span>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 3 -->
+<div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body lclass">
+
+                            <h2>Team Charlie</h2>
+                            <p class="item-intro text-muted">Merseda Spahic, Edin Congo, Ajla Bozalija</p>
+                            <img class="img-responsive img-centered" src="assets/img/portfolio/charlie-preview.png" alt="">
+                            <p>The Charlie team (Ajla, Merseda and Edin), bring the new perspective to the project. They are really hard working and commited.</p>
+                            <p>
+                                <a type="button" target="_blank" href="https://github.com/SulePostar/charlie" style="color: #fff;background-color: #321dfb;"class="btn btn-default"><i class="fa fa-github"></i> GitHub</a>
+                                <span style="padding-left:28px;"></span>
+                                <a type="button" class="btn btn-info" target="_blank" href="http://www.charlie.gigischool.com/"><i class="fa fa-cloud"></i> Demo</a>
+                            <span style="padding-left:28px;"></span>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 4 -->
+<div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body lclass">
+
+                            <h2>Team Delta</h2>
+                            <p class="item-intro text-muted">Anur Becirovic, Denis Salcin, Josip Kvesic</p>
+                            <img class="img-responsive img-centered" src="assets/img/portfolio/delta-preview.png" alt="">
+                            <p>The Delta team, Anur, Denis and Josip, calm and motivated individuals.</p>
+                            <p>
+                                <a type="button" target="_blank" href="https://github.com/SulePostar/delta" style="color: #fff;background-color: #321dfb;"class="btn btn-default"><i class="fa fa-github"></i> GitHub</a>
+                                <span style="padding-left:28px;"></span>
+                                <a type="button" class="btn btn-info" target="_blank" href="http://www.delta.gigischool.com/"><i class="fa fa-cloud"></i> Demo</a>
+                            <span style="padding-left:28px;"></span>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 5 -->
+<div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body lclass">
+                            <h2>Team Echo</h2>
+                            <p class="item-intro text-muted">Amer Ratkovic, Dejan Drvendzija, Amar Basic</p>
+                            <img class="img-responsive img-centered" src="assets/img/portfolio/echo-preview.png" alt="">
+                            <p>Amer, Amar and Dejan (the Echo team) are most progressive here. They oversee rest of the school from the last row.</p>
+                            <p>
+                                <a type="button" target="_blank" href="https://github.com/SulePostar/echo" style="color: #fff;background-color: #321dfb;"class="btn btn-default"><i class="fa fa-github"></i> GitHub</a>
+                                <span style="padding-left:28px;"></span>
+                                <a type="button" class="btn btn-info" target="_blank"  href="http://www.echo.gigischool.com/"><i class="fa fa-cloud"></i> Demo</a>
+                            <span style="padding-left:28px;"></span>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 6 -->
+<div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body lclass">
+                            <h2>Team Foxtrot</h2>
+                            <p class="item-intro text-muted"> Amela Spahic, Milica Dubovina, Gorjan Kalauzovic, Adnesa Buhic</p>
+                            <img class="img-responsive img-centered" src="assets/img/portfolio/foxtrot-preview.png" alt="">
+                            <p>Team Foxtrot (IT girls: 3 ½ : Adnesa, Milica, Amela and Gorjan) the largest and loudest (and most experienced) team.</p>
+                            <p>
+                                <a type="button" target="_blank"  href="https://github.com/SulePostar/foxtrot" style="color: #fff;background-color: #321dfb;"class="btn btn-default"><i class="fa fa-github"></i> GitHub</a>
+                                <span style="padding-left:28px;"></span>
+                                <a type="button" class="btn btn-info" target="_blank"  href="http://www.foxtrot.gigischool.com/"><i class="fa fa-cloud"></i> Demo</a>
+                            <span style="padding-left:28px;"></span>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

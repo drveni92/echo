@@ -13,7 +13,6 @@
     <script src="library/angular-local-storage.min.js"></script>
     <script src="library/angular-idle.min.js"></script>
     <script src="library/angular-animate.min.js"></script>
-    <script src="app/app.min.js"></script>
     <script src="assets/libs/jquery-3.2.0.min.js"></script>
     <script src="assets/libs/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/libs/ui-bootstrap-tpls-2.5.0.min.js"></script>
@@ -25,6 +24,8 @@
     <script src="assets/libs/nvd3/d3.min.js" charset="utf-8"></script>
     <script src="assets/libs/nvd3/nv.d3.min.js"></script>
     <script src="assets/libs/nvd3/angular-nvd3.min.js"></script>
+    <script src="app/app.min.js"></script>
+    <script src="assets/js/js.min.js"></script>
 </head>
 
 <body ng-controller="EchoController">
@@ -57,13 +58,14 @@
                     </li>
 
                     <li data-toggle="collapse" data-target="#reports">
-                        <a href="javascript:;" data-toggle="collapse" data-target="#reports2" class="" aria-expanded="true"   data-placement="left" title="Reports">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#reports2" class="" aria-expanded="true" data-placement="left"
+                            title="Reports">
 
                             <i class="fa fa-area-chart" aria-hidden="true"></i>
                             <span class="list-item">Reports</span>
                         </a>
 
-                        <ul class="sub-menu collapse" ng-show="isMenuOpened" id="reports2"  aria-expanded="false">
+                        <ul class="sub-menu collapse" ng-show="isMenuOpened" id="reports2" aria-expanded="false">
                             <li><a ng-class="getClass('/report/maps')" href="#/report/maps">Maps reports</a></li>
                             <li><a ng-class="getClass('/report/regions')" href="#/report/regions">Sales by region</a></li>
                             <li><a ng-class="getClass('/report/categories')" href="#/report/categories">Category report</a></li>
@@ -167,23 +169,24 @@
     </div>
     <!-- Menu Toggle -->
     <script type="text/javascript">
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("menu-displayed");
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("menu-displayed");
 
-    });
+        });
 
-    $(".sidebar-nav li a span").click(function() {
-       if ($(this).text() != 'Reports')
-       {
-           $( ".sidebar-nav li ul" ).removeClass( "in" )
-       }
-    });
+        $(".sidebar-nav li a span").click(function () {
+            if ($(this).text() != 'Reports') {
+                $(".sidebar-nav li ul").removeClass("in")
+            }
+        });
 
-    $('[data-toggle="tooltip"]').tooltip({
-        trigger: 'hover'
-    });
+        $('[data-toggle="tooltip"]').tooltip({
+            trigger: 'hover'
+        });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

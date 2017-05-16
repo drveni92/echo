@@ -1316,7 +1316,7 @@ ul li label span{
 
 #loginform form input
 {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color:rgba(4, 37, 76, 0.8);
     border-top-width: 3px;
     border-right-width: 3px;
     border-bottom-width: 3px;
@@ -1324,7 +1324,7 @@ ul li label span{
 }
 #loginform form ul li label
 {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(4, 60, 76, 0.5);
 }
 
 /*--- Responsive Code ---*/

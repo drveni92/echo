@@ -1,0 +1,64 @@
+<div class="modal-header" style="background-color: ghostwhite;">
+    <h3 class="modal-title" id="modal-title">InvoiceNo: {{ InvoiceCustomer.invoiceNo }}</h3>
+<hr>
+    <div class="modal-body" id="modal-body">
+    <div class="row modal-row">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="itemModel in InvoiceCustomer.items">
+            <td>{{ itemModel.productName }}</td>
+            <td>{{ itemModel.quantity }}</td>
+            <td>{{ itemModel.unit }}</td>
+            <td>{{ itemModel.price | currency}} </td>
+            <td>{{ itemModel.subtotal | currency}} </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row modal-row" style="margin-top: -50px;">
+    <hr>
+    <div style="float:left; width: 30%;">
+        <dl class="dl-horizontal">
+            <div class="dl-item-sm">
+                <dt>Shipper:</dt>
+                <dd>{{ InvoiceCustomer.shipper  }} </dd>
+            </div>
+            <div class="dl-item-sm">
+                <dt>Shipped on:</dt>
+                <dd>{{ InvoiceCustomer.shippedOn  | date:'yyyy-MM-dd'  }} </dd>
+            </div>
+        </dl>
+
+    </div>
+    <div style="float:right; width: 30%;">
+        <div class="dl-item-sm">
+            <dt>Shipping:</dt>
+            <dd>{{ InvoiceCustomer.shipping }} </dd>
+        </div>
+
+        <div class="dl-item-sm">
+            <dt>Vat amount:</dt>
+            <dd>{{ InvoiceCustomer.vatAmount | currency }} </dd>
+        </div>
+        <div class="dl-item-sm">
+            <dt>Total:</dt>
+            <dd>{{ InvoiceCustomer.subtotal | currency }} </dd>
+        </div>
+    </div>
+
+</div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
+    </div>
+

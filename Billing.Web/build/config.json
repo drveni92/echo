@@ -1,0 +1,12 @@
+{
+	"source": "http://api-echo.gigischool.com/api/",
+	"signature": "rxNzHu3jm6ubUy5sSHiHoyYo3I3Jt9rsRXQFsmTCNIM=",
+	"apiKey": "RWNoby1CaWxsaW5n",
+	"ExpirationDate": 30,
+	"DefaultRoute": "/dashboard",
+	"regions": [ "Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica" ],
+	"states": [ "Canceled", "Order Created", "Order Confirmed", "Invoice Created", "Invoice Sent", "Invoice Paid", "On Hold", "Ready", "Shipped" ],
+	"maxPagination": 5,
+	"showPerPage": "10",
+	"months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+}

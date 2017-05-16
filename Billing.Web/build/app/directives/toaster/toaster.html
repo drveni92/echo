@@ -1,0 +1,9 @@
+<div id="toast-container" ng-class="config.position">
+    <div ng-animate="\'animateToaster\'" ng-repeat="toaster in toasters">
+        <div class="toast" ng-class="toaster.type" ng-click="remove(toaster.id)" ng-mouseover="stopTimer(toaster)" ng-mouseleave="continueTimer(toaster)">
+            <div ng-class="config.title">{{toaster.title}}</div>
+            <div ng-class="config.message">{{toaster.body}}
+            </div>
+        </div>
+    </div>
+</div>

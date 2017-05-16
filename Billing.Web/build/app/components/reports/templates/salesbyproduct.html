@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{ $modal.data.categoryName }}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <div class="dl-item">
+                    <dt>Start date:</dt>
+                    <dd>{{ $modal.data.startDate | date:'yyyy-MM-dd' }}</dd>
+                </div>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <div class="dl-item">
+                    <dt>End date:</dt>
+                    <dd>{{ $modal.data.endDate | date:'yyyy-MM-dd' }}</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <hr>
+    </div>
+    <div class="row" style="padding: 20px;">
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th> # </th>
+                    <th>Name</th>
+                    <th>Percent</th>
+                    <th>Total</th>
+                    <th>Total percent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in $modal.data.sales | orderBy:'-totalPercent'">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.percent }} %</td>
+                    <td>{{ item.total | currency:undefined:0 }}</td>
+                    <td>{{ item.totalPercent }} %</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dl class="dl-horizontal" style="float:right">
+                <div class="dl-item">
+                    <dt>Category Total:</dt>
+                    <dd>{{ $modal.data.categoryTotal | currency:undefined:0 }}</dd>
+                </div>
+                <div class="dl-item">
+                    <dt>Category percent:</dt>
+                    <dd>{{ $modal.data.categoryPercent }} %</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="$modal.cancel()">Cancel</button>
+</div>

@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-sm-6">
+        <h3>Invoices</h3>
+    </div>
+    <div class="col-md-6 invoices-btn-header">
+        <button type="button" class="btn btn-info" ng-click="checkUpdates()">Updated invoices <span class="badge">{{ invoicesCount }}</span></button>
+        <a href="#/invoices/new" class="btn btn-primary">New invoice</a>
+    </div>
+</div>
+<div class="row">
+    <hr>
+</div>
+<div class="row tablembottom" >
+    <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Search invoice no" ng-model="pageParams.invoiceno" ng-change="search()">
+    </div>
+    <div class="col-md-4" style="text-align:left;">
+        <button class="btn btn-link" ng-click="advancedSearch()">Advanced Search</button>
+    </div>
+    <div class="col-md-4">
+        <div class="form-inline pull-right">
+            <div class="form-group">
+                <label>Items per page:</label>
+                <select class="form-control" ng-model="pageParams.showPerPage" ng-change="showItems()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="showAdvancedSearch" class="row">
+    <hr>
+</div>
+<div ng-if="showAdvancedSearch" class="row">
+    <div class="form-inline" style="text-align: center;">
+        <div class="form-group col-md-3" style="padding: 0px;">
+            <label>Agent:</label>
+            <input type="text" class="form-control" placeholder="Enter agent name" ng-model="searchParams.agent">
+        </div>
+        <div class="form-group col-md-4">
+            <label>Customer:</label>
+            <input type="text" class="form-control" placeholder="Enter customer name" ng-model="searchParams.customer">
+        </div>
+        <div class="form-group col-md-4">
+            <label>Status:</label>
+            <input type="text" class="form-control" placeholder="Enter status" ng-model="searchParams.status">
+        </div>
+        <div class="form-group col-md-1">
+            <button class="btn btn-success" ng-click="advancedSearchSubmit()">Search</button>
+        </div>
+    </div>
+</div>
+<div ng-if="showAdvancedSearch" class="row">
+    <hr>
+</div>
+<div class="row">
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>#No</th>
+                <th>
+                    <a href="" style="color: white;" ng-click="sort('date');">
+                        Date
+                        <span ng-show="pageParams.sortType == 'date' && !pageParams.sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="pageParams.sortType == 'date' && pageParams.sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>Agent</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>
+                    <a href="" style="color: white;" ng-click="sort('total');">
+                        Total
+                        <span ng-show="pageParams.sortType == 'total' && !pageParams.sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="pageParams.sortType == 'total' && pageParams.sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in invoices">
+                <td>{{ item.invoiceNo }}</td>
+                <td>{{ item.date | date:'yyyy-MM-dd' }}</td>
+                <td>{{ item.agent.name }}</td>
+                <td class="col-md-3">{{ item.customer.name }}</td>
+                <td>
+                    <button style="width: 100%;" ng-class="{'btn btn-danger': item.status == -1, 'btn btn-warning': (item.status < 2 && item.status > -1), 'btn btn-primary': (item.status < 4 && item.status > 1), 'btn btn-success': (item.status < 8 && item.status > 3)}"
+                        ng-click="nextState(item)">
+                        {{ states[item.status + 1] }}
+                    </button>
+                </td>
+                <td>{{ item.total | currency }}</td>
+                <td>
+                    <button ng-click="show(item)" class="btn btn-default ">
+                        <i class="fa fa-eye " aria-hidden="true "></i>
+                    </button>
+                    <a admin-access owner="item.agent.id" href="#/invoices/{{item.id}}" class="btn btn-default ">
+                        <i class="fa fa-pencil-square-o " aria-hidden="true "></i>
+                    </a>
+                    <button ng-click="show_history(item)" class="btn btn-default ">
+                        <i class="fa fa-file-text-o " aria-hidden="true "></i>
+                    </button>
+                    <button admin-access ng-click="delete(item) " class="btn btn-default ">
+                        <i class="fa fa-trash-o " aria-hidden="true "></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row pagination-center">
+    <ul uib-pagination total-items="pageParams.totalItems" items-per-page="pageParams.showPerPage" max-size="maxPagination" ng-model="pageParams.page"
+        ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
+</div>

@@ -1,0 +1,108 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h3> Sales by region </h3>
+    </div>
+</div>
+<div>
+    <hr>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="col-md-4 ">
+            <br>
+            <p class="input-group">
+                <div class="col-md-12 ">
+                    <h4 class="col-md-3">Region:</h4>
+                    <div class="col-md-7  ">
+
+                        <select name="repeatSelect" class="form-control  " id="repeatSelect" ng-model="selectedOption" ng-change="update()" ng-options="option.name group by option.id for option in sales">
+                           <option value="" disabled selected>Select region</option>
+                           <option value="{{option.id}}">{{option.name}}</option>
+                       </select>
+                    </div>
+            </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <br>
+            <p class="input-group">
+                <h5 class="col-md-4">Start date:</h5>
+                <div class="col-md-6 input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.startDate" is-open="startDateOpened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+                </div>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <br>
+            <p class="input-group">
+                <h5 class="col-md-4">End date:</h5>
+                <div class="col-md-6 input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.endDate" is-open="endDateOpened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+                </div>
+            </p>
+            <br><br>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="row">
+    <hr>
+</div>
+<div class="row">
+    <h3> {{ townname}}</h3>
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Agent </th>
+                <th>Total Sales</th>
+                <th>Percent of Region</th>
+                <th>Percent of Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in sale.agents">
+                <td>{{ item.name }}</td>
+                <td class="col-md-4">{{ item.total | currency }} </td>
+                <td>{{ item.regionPercent }} % </td>
+                <td>{{ item.totalPercent }} % </td>
+                <td>
+                    <a ng-click="show(item)" class="btn btn-info">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr style="background-color: rgb(19, 86, 119);">
+                <td>
+                    <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;"> {{ sale.name }} </p>
+
+                </td>
+                <td class="col-md-4">
+                    <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;"> {{ sale.total | currency }} </p>
+
+                </td>
+                <td></td>
+                <td>
+                    <p style="color:white; text-align: center; font-size: 16px;     padding-top: 5px;"> {{ sale.percent }} %</p>
+
+                </td>
+
+                <td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,63 @@
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3> Sales report for customers </h3>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+    <div class="col-md-6">
+        <p class="input-group">
+            <div class="col-md-4" style="padding-top: 10px;"><strong>Start date:</strong></div>
+            <div class="col-md-8 input-group">
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.startDate" is-open="startDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" " />
+                <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+            </div>
+        </p>
+    </div>
+            <div class="col-md-6" style="margin-top: -10px;">
+                <h5 style="padding: 10px; margin-left: 60px;"> <strong> Total in certain period:  </strong> <span class="box-custom" >  {{ salesbycustomer.grandTotal | currency:undefined:0 }} </span></h5>
+            </div>
+    </div>
+    <div class="row">
+    <div class="col-md-6">
+        <p class="input-group">
+            <div class="col-md-4" style="padding-top: 10px;"><strong>End date:</strong></div>
+            <div class="col-md-8 input-group">
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.endDate" is-open="endDateOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" " />
+                <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+            </div>
+        </p>
+    </div>
+        <div class="col-md-6">
+            <h5 style="padding: 10px; margin-left: 60px;"> <strong> Number of customers:  </strong> <span class="box-custom">  {{ totalItems}} </span></h5>
+        </div>
+    </div>
+<hr>
+<div class="row">
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+        <tr>
+            <th> # </th>
+            <th>Name</th>
+            <th>Turnover</th>
+            <th>Percent</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in salesbycustomer.customers ">
+            <td>{{ $index + ((currentPage  - 1) * 10) + 1 }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.turnover | currency:undefined:0  }}</td>
+            <td>{{ item.percent }} % </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row pagination-center">
+    <ul uib-pagination total-items="totalItems" max-size="maxPagination" ng-model="currentPage" ng-change="pageChanged()" class="pagination" boundary-links="true" force-ellipses="true"></ul>
+</div>

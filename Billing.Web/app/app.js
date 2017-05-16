@@ -36,11 +36,11 @@
                 controller: "LogoutController"
             })
             .when("/agents", {
-                templateUrl: "app/components/agents/templates/agents.html",
+                templateUrl: "app/view/agents/agents.html",
                 controller: "AgentsController"
             })
             .when("/agents/:id", {
-                templateUrl: "app/components/agents/templates/show.html",
+                templateUrl: "app/view/agents/show.html",
                 controller: "AgentShowController"
             })
             .when("/products", {
@@ -48,7 +48,7 @@
                 controller: "ProductsController"
             })
             .when("/customers", {
-                templateUrl: "app/components/customers/templates/customer.html",
+                templateUrl: "app/view/customers/customer.html",
                 controller: "CustomersController"
             })
             .when("/report/customers", {
@@ -76,7 +76,7 @@
                 controller: "TownsController"
             })
             .when("/categories", {
-                templateUrl: "app/components/categories/templates/category.html",
+                templateUrl: "app/view/categories/category.html",
                 controller: "CategoriesController"
             })
             .when("/stocks", {
@@ -97,19 +97,19 @@
                 controller: "ProcurementsController"
             })
             .when("/invoices", {
-                templateUrl: "app/components/invoices/templates/invoices.html",
+                templateUrl: "app/view/invoices/invoices.html",
                 controller: "InvoicesController"
             })
             .when("/invoices/new", {
-                templateUrl: "app/components/invoices/templates/new.html",
+                templateUrl: "app/view/invoices/new.html",
                 controller: "InvoicesNewController"
             })
             .when("/invoices/:id", {
-                templateUrl: "app/components/invoices/templates/new.html",
+                templateUrl: "app/view/invoices/new.html",
                 controller: "InvoicesNewController"
             })
             .when("/invoice/:id", {
-                templateUrl: "app/components/invoices/templates/show_invoice.html",
+                templateUrl: "app/view/invoices/show_invoice.html",
                 controller: "InvoiceShowController"
             })
             .when("/report/regions", {

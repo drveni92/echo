@@ -16,7 +16,7 @@
                 if ($location.path() !== "/login") {
                     closeModals();
                     $scope.warning = $uibModal.open({
-                        templateUrl: 'app/components/keepalive/warning.html',
+                        templateUrl: 'app/view/keepalive/warning.html',
                         windowClass: 'modal-danger',
                         countdownBar: true,
                         animation: true

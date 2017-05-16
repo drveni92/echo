@@ -72,7 +72,7 @@
                 controller: "ReportsMapController"
             })
             .when("/towns", {
-                templateUrl: "app/components/towns/templates/town.html",
+                templateUrl: "app/view/towns/town.html",
                 controller: "TownsController"
             })
             .when("/categories", {
@@ -80,16 +80,16 @@
                 controller: "CategoriesController"
             })
             .when("/stocks", {
-                templateUrl: "app/components/stocks/templates/stock.html",
+                templateUrl: "app/view/stocks/stock.html",
                 controller: "StocksController"
 
             })
             .when("/suppliers", {
-                templateUrl: "app/components/suppliers/templates/supplier.html",
+                templateUrl: "app/view/suppliers/supplier.html",
                 controller: "SuppliersController"
             })
             .when("/shippers", {
-                templateUrl: "app/components/shippers/templates/shipper.html",
+                templateUrl: "app/view/shippers/shipper.html",
                 controller: "ShippersController"
             })
             .when("/procurements", {

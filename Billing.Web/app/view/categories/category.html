@@ -47,7 +47,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="item in categories">
-            <td class="col-md-1">{{ $index + 1 +((pageParams.page - 1 )* pageParams.showPerPage) }}</td>
+            <td class="col-md-1">{{ $index + 1 +(((pageParams.page < 1) ? 0 : pageParams.page - 1)* pageParams.showPerPage) }}</td>
             <td class="col-md-9">{{ item.name }}</td>
             <td class="col-md-2" admin-access>
                 <button ng-click="edit(item)" class="btn btn-success">

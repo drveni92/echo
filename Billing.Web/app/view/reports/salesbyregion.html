@@ -7,55 +7,43 @@
     <hr>
 </div>
 <div class="row">
+    <div class="col-md-4 ">
+        <p class="input-group">
+            <h4 class="col-md-3">Region:</h4>
+            <div class="col-md-7  ">
 
-    <div class="col-md-12">
-
-        <div class="col-md-4 ">
-            <br>
-            <p class="input-group">
-                <div class="col-md-12 ">
-                    <h4 class="col-md-3">Region:</h4>
-                    <div class="col-md-7  ">
-
-                        <select name="repeatSelect" class="form-control  " id="repeatSelect" ng-model="selectedOption" ng-change="update()" ng-options="option.name group by option.id for option in sales">
+                <select name="repeatSelect" class="form-control  " id="repeatSelect" ng-model="selectedOption" ng-change="update()" ng-options="option.name group by option.id for option in sales">
                            <option value="" disabled selected>Select region</option>
                            <option value="{{option.id}}">{{option.name}}</option>
                        </select>
-                    </div>
-            </p>
             </div>
-        </div>
-
-        <div class="col-md-4">
-            <br>
-            <p class="input-group">
-                <h5 class="col-md-4">Start date:</h5>
-                <div class="col-md-6 input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.startDate" is-open="startDateOpened" datepicker-options="dateOptions"
-                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                    <span class="input-group-btn">
-            			<button type="button" class="btn btn-default" ng-click="openStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-          			</span>
-                </div>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <br>
-            <p class="input-group">
-                <h5 class="col-md-4">End date:</h5>
-                <div class="col-md-6 input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.endDate" is-open="endDateOpened" datepicker-options="dateOptions"
-                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                    <span class="input-group-btn">
-            			<button type="button" class="btn btn-default" ng-click="openEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-          			</span>
-                </div>
-            </p>
-            <br><br>
-        </div>
+        </p>
     </div>
 
-
+    <div class="col-md-4">
+        <p class="input-group">
+            <h5 class="col-md-4">Start date:</h5>
+            <div class="col-md-6 input-group">
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.startDate" is-open="startDateOpened" datepicker-options="dateOptions"
+                    ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+            </div>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <p class="input-group">
+            <h5 class="col-md-4">End date:</h5>
+            <div class="col-md-6 input-group">
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="dates.endDate" is-open="endDateOpened" datepicker-options="dateOptions"
+                    ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                <span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="openEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+            </div>
+        </p>
+    </div>
 </div>
 
 <div class="row">

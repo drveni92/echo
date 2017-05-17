@@ -192,8 +192,7 @@ body a {
 .navbar {
     border-radius: 0px;
     border-bottom: 1px solid #e5e3e3;
-    box-shadow: 0px 6px 5px 0px #888888;
-}
+    box-shadow: 0px 3px 4px 0px #4f465a;}
 
 #menu-left {
     display: none;
@@ -1316,7 +1315,7 @@ ul li label span{
 
 #loginform form input
 {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color:rgba(4, 37, 76, 0.8);
     border-top-width: 3px;
     border-right-width: 3px;
     border-bottom-width: 3px;
@@ -1324,7 +1323,7 @@ ul li label span{
 }
 #loginform form ul li label
 {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(4, 60, 76, 0.5);
 }
 
 /*--- Responsive Code ---*/

@@ -33,7 +33,6 @@
                         ToasterService.pop('success', "Success", data);
                     });
                 }, function(error) {
-                    ToasterService.pop('error', "Error", error);
                 });
             };
 
